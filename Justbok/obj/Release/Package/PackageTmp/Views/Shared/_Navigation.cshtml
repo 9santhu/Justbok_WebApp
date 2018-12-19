@@ -1,0 +1,121 @@
+﻿
+
+
+<nav class="navbar navbar-static-top" role="navigation">
+    <!-- Sidebar toggle button-->
+    <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
+        <span class="sr-only">Toggle navigation</span>
+    </a>
+    <!-- Navbar Right Menu -->
+    <div class="navbar-custom-menu">
+        <ul class="nav navbar-nav">
+            <!-- Messages: style can be found in dropdown.less-->
+            <li>
+                <select id="ddlBranch" class="form-control input-sm"></select>
+                @*@Html.DropDownList("ddlBranch", new SelectList(ViewBag.Accounts, "AccountID", "AccountName"))*@
+            </li>
+            <li><a href="/Enquiry/NewEnquiryForm"><i class="fa fa-plus" aria-hidden="true"></i> New Enquiry</a></li>
+            <li><a href="/Membership/Membership"><i class="fa fa-user-plus" aria-hidden="true"></i> New Membership</a></li>
+
+            <!-- User Account Menu -->
+            <li class="dropdown user user-menu">
+                <!-- Menu Toggle Button -->
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                    <!-- The user image in the navbar-->
+                    @*<img src="dist/img/user2-160x160.jpg" class="user-image" alt="User Image">*@
+                    <!-- hidden-xs hides the username on small devices so only the image appears. -->
+                    @if (System.Web.HttpContext.Current.Session["GymName"] != null && System.Web.HttpContext.Current.Session["GymName"] != "")
+                    {
+                        <span class="hidden-xs"> @System.Web.HttpContext.Current.Session["GymName"].ToString()</span>
+                    }
+
+
+
+                </a>
+                <ul class="dropdown-menu">
+                    <!-- The user image in the menu -->
+                    <li class="user-header">
+                        <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+
+                        <p>
+                            @*@Html.Display(@Session["FirstName"].ToString())*@
+
+
+                            <small>Member since Nov. 2012</small>
+                        </p>
+                    </li>
+                    <!-- Menu Body -->
+                    <li class="user-body">
+                        <div class="row">
+                            <div class="col-xs-4 text-center">
+                                <a href="#">Followers</a>
+                            </div>
+                            <div class="col-xs-4 text-center">
+                                <a href="#">Sales</a>
+                            </div>
+                            <div class="col-xs-4 text-center">
+                                <a href="#">Friends</a>
+                            </div>
+                        </div>
+                        <!-- /.row -->
+                    </li>
+                    <!-- Menu Footer-->
+                    <li class="user-footer">
+                        <div class="pull-left">
+                            <a href="#" class="btn btn-default btn-flat">Profile</a>
+                        </div>
+                        <div class="pull-right">
+                            <a href="#" class="btn btn-default btn-flat" id="btnSignOut" onclick="LogOut();">Sign out</a>
+                        </div>
+                    </li>
+                </ul>
+            </li>
+
+        </ul>
+    </div>
+</nav>
+
+<script src="~/Theme/js/jquery.min.js"></script>
+
+
+
+<script>
+
+    $(document).ready(function () {
+        alert("hi");
+        BindBranches();
+
+    });
+
+
+  function BindBranches() {
+
+        //var issuccess = false;
+
+        $.ajax({
+            cache: false,
+            type: "GET",
+            url: "@Url.Action("GetBranchList", "Dashboard")",
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            data: "",
+            success: function (data) {
+
+            $.each(data, function (i, item) {
+
+            $("#ddlBranch").append($("<option></option>").val(item.BranchId).html(item.BranchName));
+            })
+            // Dashboard();
+            //issuccess = true;
+            //alert(issuccess);
+            },
+            error: function () {
+            //alert("Failed! Please try again.");
+            //issuccess = false;
+            }
+        });
+  }
+
+
+      </script>
+

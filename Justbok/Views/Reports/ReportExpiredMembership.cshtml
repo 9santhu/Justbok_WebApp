@@ -1,0 +1,157 @@
+﻿@{
+    ViewBag.Title = "ReportExpiredMembership";
+}
+
+<div class="" style="">
+    <section class="content-header ng-scope">
+        <h1>
+            Expired Membership Report 
+            <div class="pull-right">
+                <a onclick="return LoadPage('@Url.Action("Index", "Reports")','Justbok | Reports Membership');" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-arrow-left"></i> Reports</a><br><br>
+            </div>
+        </h1>
+    </section>
+    <section class="content ng-scope">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <i class="fa fa-search"></i>
+                        <h3 class="box-title"> Search Membership </h3>
+                        <div class="box-tools pull-right">
+                            <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                        </div><!-- /.box-tools -->
+                    </div><!-- /.box-header -->
+                    <div class="box-body">
+                        <div class="row">
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label>Search</label>
+                                    <input class="form-control input-sm" id="txtSearch" autocomplete="off" title="MemberName, MemberId" placeholder="MemberName, MemberId" type="text">
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label>Membership</label>
+                                    <select class="form-control input-sm" id="ddlMembership"><option value="" class="" selected="selected">---Select---</option></select>
+                                </div>
+                            </div>
+
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label>From Date</label>
+                                    <input class="form-control input-sm" id="txtFromDate" type="datetime">
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label>To Date</label>
+                                    <input class="form-control input-sm" id="txtToDate" type="datetime">
+                                </div>
+                            </div>
+
+                            <div class="col-md-2 ">
+                                <div class="form-group" style="margin-top:25px;">
+                                    <button type="button" id="btnSearch" class="btn btn-sm btn-primary btn-flat" title="Search">
+                                        <i class="glyphicon glyphicon-search"></i> Search
+                                    </button>
+                                    <button type="button" id="btnReset" class="btn btn-default btn-sm btn-flat" title="Reset">
+                                        <i class="glyphicon glyphicon-refresh"></i> Reset
+                                    </button>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Expired Membership List</h3>
+                    </div>
+                    <div class="box-body">
+                        <div id="example1_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
+                            <div class="dataTables_length">
+                                <label>
+                                    Show
+                                    <select id="tblMembershipExpired_length" name="tblMembershipExpired_length"
+                                            aria-controls="tblMembershipExpired_length" class="form-control input-sm"
+                                            onchange="return ShowChange();">
+                                        <option value="10">10</option>
+                                        <option value="25">25</option>
+                                        <option value="50">50</option>
+                                        <option value="100">100</option>
+                                    </select> entries
+                                </label>
+                                <div class="pull-right">
+                                    <img src="~/Theme/img/excel.jpg" width="30" height="30" id="dwnldExcel" />
+                                    <img src="~/Theme/img/pdf.png" width="30" height="30" id="dwnldPdf" />
+                                </div>
+                            </div>
+
+                            <div class="col-sm-12 table-responsive">
+                                <table id="tblMembershipExpired" class="table table-bordered table-striped dataTable" role="grid" aria-describedby="example1_info">
+
+                                    <thead>
+                                        <tr role="row">
+                                         
+                                            <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 282.583px;" aria-label="Browser: activate to sort column ascending">Customer Name</th>
+                                            <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 282.583px;" aria-label="Browser: activate to sort column ascending">Mobile No</th>
+                                            <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 143.717px;" aria-label="CSS grade: activate to sort column ascending">Membership Name</th>
+                                            <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 143.717px;" aria-label="CSS grade: activate to sort column ascending">Start Date</th>
+                                            <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 143.717px;" aria-label="CSS grade: activate to sort column ascending">End Date</th>
+                                            <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 143.717px;" aria-label="CSS grade: activate to sort column ascending">Month</th>
+
+
+                                    </thead>
+                                    <tbody></tbody>
+                                </table>
+                                <div class="dataTables_paginate paging_simple_numbers" id="tblMembershipExpired_paginate">
+                                    <ul id="pagination" class="pagination"></ul>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </section>
+
+</div>
+
+
+
+@section Scripts {
+<script src="~/Scripts/Navigation.js?v=1.2"></script>
+    <script>
+
+        var GetExpiredMemberListUrl = '@Url.Action("ExpiredMembersList", "Reports")';
+        var SearchExpiredMemberListUrl = '@Url.Action("SearchExpiredMemberList", "Reports")';
+        var BindMembershipUrl = '@Url.Action("BindMembership", "Reports")';
+        var ExcelUrl = '@Url.Action("GenarateExcelReportsExpiredMembershipList", "Reports")';
+        var PDFUrl = '@Url.Action("GenaratePdfReportsExpiredMembershipList", "Reports")';
+        var DownloadExcelUrl = '@Url.Action("Download", "Reports")';
+        var DownloadPdfUrl = '@Url.Action("DownloadPDF", "Reports")';
+
+    </script>
+
+   
+<script src="~/Content/Reports/Rpts_ExpiredMembership.js"></script>
+}
+
+<script src="~/Scripts/Navigation.js?v=1.2"></script>
+<script>
+
+    var GetExpiredMemberListUrl = '@Url.Action("ExpiredMembersList", "Reports")';
+    var SearchExpiredMemberListUrl = '@Url.Action("SearchExpiredMemberList", "Reports")';
+    var BindMembershipUrl = '@Url.Action("BindMembership", "Reports")';
+    var ExcelUrl = '@Url.Action("GenarateExcelReportsExpiredMembershipList", "Reports")';
+        var PDFUrl = '@Url.Action("GenaratePdfReportsExpiredMembershipList", "Reports")';
+        var DownloadExcelUrl = '@Url.Action("Download", "Reports")';
+        var DownloadPdfUrl = '@Url.Action("DownloadPDF", "Reports")';
+</script>
+
+<script src="~/Content/Reports/Rpts_ExpiredMembership.js"></script>

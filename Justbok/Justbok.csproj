@@ -1,0 +1,1364 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{80A4107D-401E-42B2-83F6-ADDB6C715486}</ProjectGuid>
+    <ProjectTypeGuids>{E3E379DF-F4C6-4180-9B81-6769533ABE47};{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Justbok</RootNamespace>
+    <AssemblyName>Justbok</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication>enabled</IISExpressAnonymousAuthentication>
+    <IISExpressWindowsAuthentication>disabled</IISExpressWindowsAuthentication>
+    <IISExpressUseClassicPipelineMode />
+    <WebGreaseLibPath>..\packages\WebGrease.1.5.2\lib</WebGreaseLibPath>
+    <Use64BitIISExpress>true</Use64BitIISExpress>
+    <UseGlobalApplicationHostFile />
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PublishDatabaseSettings>
+      <Objects>
+        <ObjectGroup Name="GymRosterEntities-Deployment" Order="1">
+          <Destination Path="Data Source=LENOVO-PC%3bInitial Catalog=GymRoster%3bPersist Security Info=True%3bUser ID=sa%3bPassword=abc" />
+          <Object Type="DbFullSql">
+            <PreSource Path="Data Source=LENOVO-PC%3bInitial Catalog=GymRoster%3bUser ID=sa%3bPassword=abc%3bApplication Name=EntityFramework" ScriptSchema="True" ScriptData="True" CopyAllFullTextCatalogs="False" DriDefaults="True" />
+            <Source Path="obj\Release\AutoScripts\GymRosterEntities-Deployment_SchemaAndData.sql" Transacted="True" />
+          </Object>
+        </ObjectGroup>
+      </Objects>
+    </PublishDatabaseSettings>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Antlr3.Runtime">
+      <HintPath>..\packages\Antlr.3.4.1.9004\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="ClosedXML, Version=0.70.0.0, Culture=neutral, PublicKeyToken=fd1eb21b62ae805b, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\ClosedXML.0.70.0\lib\net40-client\ClosedXML.dll</HintPath>
+    </Reference>
+    <Reference Include="DocumentFormat.OpenXml, Version=2.0.5022.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\DocumentFormat.OpenXml.1.0\lib\DocumentFormat.OpenXml.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="EPPlus">
+      <HintPath>..\packages\EPPlus.4.5.2.1\lib\net40\EPPlus.dll</HintPath>
+    </Reference>
+    <Reference Include="ErrorLog, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Dll\ErrorLog.dll</HintPath>
+    </Reference>
+    <Reference Include="itextsharp">
+      <HintPath>..\packages\iTextSharp.5.5.13\lib\itextsharp.dll</HintPath>
+    </Reference>
+    <Reference Include="itextsharp.xmlworker">
+      <HintPath>..\packages\itextsharp.xmlworker.5.5.13\lib\itextsharp.xmlworker.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net">
+      <HintPath>..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Office.Interop.Excel, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="NCrontab, Version=3.2.20120.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ncrontab.3.3.0\lib\net35\NCrontab.dll</HintPath>
+    </Reference>
+    <Reference Include="NCrontab.Advanced, Version=1.3.11.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\NCrontab.Advanced.1.3.11\lib\net45\NCrontab.Advanced.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.5.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="PagedList">
+      <HintPath>..\packages\PagedList.1.17.0.0\lib\net40\PagedList.dll</HintPath>
+    </Reference>
+    <Reference Include="PagedList.Mvc">
+      <HintPath>..\packages\PagedList.Mvc.4.5.0.0\lib\net40\PagedList.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data.Linq" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Optimization">
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.Mvc.FixedDisplayModes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.FixedDisplayModes.1.0.0\lib\net40\Microsoft.Web.Mvc.FixedDisplayModes.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http">
+    </Reference>
+    <Reference Include="System.Net.Http.Formatting, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.4.0.30506.0\lib\net40\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest">
+    </Reference>
+    <Reference Include="System.Web.Helpers, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.30506.0\lib\net40\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.4.0.30506.0\lib\net40\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.4.0.30506.0\lib\net40\System.Web.Http.WebHost.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.4.0.30506.0\lib\net40\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Razor.2.0.30506.0\lib\net40\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.30506.0\lib\net40\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.30506.0\lib\net40\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.30506.0\lib\net40\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="WebGrease">
+      <HintPath>..\packages\WebGrease.1.5.2\lib\WebGrease.dll</HintPath>
+    </Reference>
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ADModel\CheckSessionFilter.cs" />
+    <Compile Include="ADModel\ErrorHandler.cs" />
+    <Compile Include="ADModel\LayoutBaseModel.cs" />
+    <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="BL\JustbokReports.cs" />
+    <Compile Include="BL\MembershipExpriyReports.cs" />
+    <Compile Include="BL\MembershipPaymentReport.cs" />
+    <Compile Include="Controllers\AmenitiesController.cs" />
+    <Compile Include="Controllers\AppointmentConfigController.cs" />
+    <Compile Include="Controllers\CalenderController.cs" />
+    <Compile Include="Controllers\BookAppointmentController.cs" />
+    <Compile Include="Controllers\BranchController.cs" />
+    <Compile Include="Controllers\CalendarController.cs" />
+    <Compile Include="Controllers\CategoryController.cs" />
+    <Compile Include="Controllers\ClassesController.cs" />
+    <Compile Include="Controllers\ClassTimeController.cs" />
+    <Compile Include="Controllers\CommonController.cs" />
+    <Compile Include="Controllers\DashboardController.cs" />
+    <Compile Include="Controllers\DietController.cs" />
+    <Compile Include="Controllers\DummyController.cs" />
+    <Compile Include="Controllers\EnquiryController.cs" />
+    <Compile Include="Controllers\EquipmentController.cs" />
+    <Compile Include="Controllers\EventController.cs" />
+    <Compile Include="Controllers\ExpensesController.cs" />
+    <Compile Include="Controllers\ExpenseTypeController.cs" />
+    <Compile Include="Controllers\FollowupController.cs" />
+    <Compile Include="Controllers\GymBranchController.cs" />
+    <Compile Include="Controllers\GymController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ItemViewModel.cs" />
+    <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\MealTimeController.cs" />
+    <Compile Include="Controllers\MemberShipController.cs" />
+    <Compile Include="Controllers\PackagesController.cs" />
+    <Compile Include="Controllers\POSController.cs" />
+    <Compile Include="Controllers\ProductController.cs" />
+    <Compile Include="Controllers\ReportsController.cs" />
+    <Compile Include="Controllers\SchedulerController.cs" />
+    <Compile Include="Controllers\SMSController.cs" />
+    <Compile Include="Controllers\StaffController.cs" />
+    <Compile Include="Controllers\StockController.cs" />
+    <Compile Include="Controllers\SupplierController.cs" />
+    <Compile Include="Controllers\TaskController.cs" />
+    <Compile Include="Controllers\TimeSheetController.cs" />
+    <Compile Include="Controllers\UserDashBoardController.cs" />
+    <Compile Include="Controllers\WorkoutController.cs" />
+    <Compile Include="Controllers\WorkoutPlanController.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Amenity.cs">
+      <DependentUpon>Justbok.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Appointment.cs">
+      <DependentUpon>Justbok.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AppointmentBill.cs">
+      <DependentUpon>Justbok.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AppointmentBillModel.cs" />
+    <Compile Include="Models\AppointmentSlab.cs">
+      <DependentUpon>Justbok.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AppointmentSlot.cs">
+      <DependentUpon>Justbok.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AppointmentSlotConfig.cs">
+      <DependentUpon>Justbok.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AppointmentSlotPattern.cs">
+      <DependentUpon>Justbok.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AppointmentStaff.cs">
+      <DependentUpon>Justbok.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\BookAppointment.cs">
+      <DependentUpon>Justbok.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Branch.cs">
+      <DependentUpon>Justbok.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CalendarInstructor.cs">
+      <DependentUpon>Justbok.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CalendarMember.cs">
+      <DependentUpon>Justbok.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CalendarModel.cs" />
+    <Compile Include="Models\AppointmentSlotModel.cs" />
+    <Compile Include="Models\BindDropdowns.cs" />
+    <Compile Include="Models\Category.cs">
+      <DependentUpon>Justbok.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Class.cs">
+      <DependentUpon>Justbok.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ClassTiming.cs">
+      <DependentUpon>Justbok.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DailyTaskList.cs">
+      <DependentUpon>Justbok.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DeletAppointmentSlot.cs">
+      <DependentUpon>Justbok.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Diet.cs">
+      <DependentUpon>Justbok.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DietPlanName.cs">
+      <DependentUpon>Justbok.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Enquiry.cs">
+      <DependentUpon>Justbok.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Equipment.cs">
+      <DependentUpon>Justbok.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Event.cs">
+      <DependentUpon>Justbok.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\EventModel.cs" />
+    <Compile Include="Models\ClassModel.cs" />
+    <Compile Include="Models\CommonData.cs" />
+    <Compile Include="Models\DietViewModel.cs" />
+    <Compile Include="Models\DropDownModal.cs" />
+    <Compile Include="Models\EnquiryViewModel.cs" />
+    <Compile Include="Models\Expens.cs">
+      <DependentUpon>Justbok.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ExpenseMode.cs">
+      <DependentUpon>Justbok.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ExpensesType.cs">
+      <DependentUpon>Justbok.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Followup.cs">
+      <DependentUpon>Justbok.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Gender.cs" />
+    <Compile Include="Models\GymAdmin.cs">
+      <DependentUpon>Justbok.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GymAllPackage.cs">
+      <DependentUpon>Justbok.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GymAmenity.cs">
+      <DependentUpon>Justbok.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GymEquipment.cs">
+      <DependentUpon>Justbok.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GymImage.cs">
+      <DependentUpon>Justbok.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GymList.cs">
+      <DependentUpon>Justbok.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GymLogin.cs">
+      <DependentUpon>Justbok.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GymPackage.cs">
+      <DependentUpon>Justbok.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GymPayment.cs">
+      <DependentUpon>Justbok.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GymServiceList.cs">
+      <DependentUpon>Justbok.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GymViewModel.cs" />
+    <Compile Include="Models\Justbok.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Justbok.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Justbok.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Justbok.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Justbok.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Justbok.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\LeaveType.cs">
+      <DependentUpon>Justbok.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\MealTime.cs">
+      <DependentUpon>Justbok.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Measurement.cs">
+      <DependentUpon>Justbok.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\MemberDietPlan.cs">
+      <DependentUpon>Justbok.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\MemberFreeze.cs">
+      <DependentUpon>Justbok.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\MemberFreezeModel.cs" />
+    <Compile Include="Models\MemberImage.cs">
+      <DependentUpon>Justbok.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\MemberInfo.cs">
+      <DependentUpon>Justbok.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\MemberShip.cs">
+      <DependentUpon>Justbok.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\MembershipOffer.cs">
+      <DependentUpon>Justbok.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\MemberTimeSheet.cs">
+      <DependentUpon>Justbok.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\MemberViewModel.cs" />
+    <Compile Include="Models\MemberWorkoutPlan.cs">
+      <DependentUpon>Justbok.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\NewGymPackages.cs" />
+    <Compile Include="Models\NewMemberShip.cs" />
+    <Compile Include="Models\NewTimeSheet.cs" />
+    <Compile Include="Models\Order.cs">
+      <DependentUpon>Justbok.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Payment.cs">
+      <DependentUpon>Justbok.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Product.cs">
+      <DependentUpon>Justbok.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\PurchaseOrder.cs">
+      <DependentUpon>Justbok.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\PurchaseOrderDetail.cs">
+      <DependentUpon>Justbok.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\PurchaseOrderHeader.cs">
+      <DependentUpon>Justbok.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\PurchaseOrderViewModel.cs" />
+    <Compile Include="Models\Salary.cs">
+      <DependentUpon>Justbok.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ScheduleEvent.cs" />
+    <Compile Include="Models\Scheduler.cs">
+      <DependentUpon>Justbok.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SelectedPackage.cs">
+      <DependentUpon>Justbok.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SessionManger.cs" />
+    <Compile Include="Models\ShiftType.cs">
+      <DependentUpon>Justbok.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SlotModel.cs" />
+    <Compile Include="Models\AppointmentViewModel.cs" />
+    <Compile Include="Models\SMSHistory.cs">
+      <DependentUpon>Justbok.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Staff.cs">
+      <DependentUpon>Justbok.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\StaffAbsentDetail.cs">
+      <DependentUpon>Justbok.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\StaffBranch.cs">
+      <DependentUpon>Justbok.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\StaffLogin.cs">
+      <DependentUpon>Justbok.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\StaffPresentDetail.cs">
+      <DependentUpon>Justbok.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\StaffShift.cs">
+      <DependentUpon>Justbok.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\StaffViewModel.cs" />
+    <Compile Include="Models\Stock.cs">
+      <DependentUpon>Justbok.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\StockViewModel.cs" />
+    <Compile Include="Models\Supplier.cs">
+      <DependentUpon>Justbok.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Task.cs">
+      <DependentUpon>Justbok.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TaxType.cs">
+      <DependentUpon>Justbok.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TimeSheet.cs">
+      <DependentUpon>Justbok.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TrainerDetail.cs">
+      <DependentUpon>Justbok.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Tranfer.cs">
+      <DependentUpon>Justbok.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Workout.cs">
+      <DependentUpon>Justbok.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\WorkoutPlan.cs">
+      <DependentUpon>Justbok.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\WorkoutPlanName.cs">
+      <DependentUpon>Justbok.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\WorkoutPlanViewModel.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utility\Logger.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\WebApiConfig.cs" />
+    <Content Include="bin\Antlr3.Runtime.dll" />
+    <Content Include="bin\EntityFramework.dll" />
+    <Content Include="bin\EntityFramework.SqlServer.dll" />
+    <Content Include="bin\ErrorLog.dll" />
+    <Content Include="bin\Justbok.dll" />
+    <Content Include="bin\Justbok.pdb" />
+    <Content Include="bin\Microsoft.Web.Infrastructure.dll" />
+    <Content Include="bin\Microsoft.Web.Mvc.FixedDisplayModes.dll" />
+    <Content Include="bin\NCrontab.dll" />
+    <Content Include="bin\Newtonsoft.Json.dll" />
+    <Content Include="bin\PagedList.dll" />
+    <Content Include="bin\PagedList.Mvc.dll" />
+    <Content Include="bin\System.Net.Http.Formatting.dll" />
+    <Content Include="bin\System.Web.Helpers.dll" />
+    <Content Include="bin\System.Web.Http.dll" />
+    <Content Include="bin\System.Web.Http.WebHost.dll" />
+    <Content Include="bin\System.Web.Mvc.dll" />
+    <Content Include="bin\System.Web.Optimization.dll" />
+    <Content Include="bin\System.Web.Razor.dll" />
+    <Content Include="bin\System.Web.WebPages.Deployment.dll" />
+    <Content Include="bin\System.Web.WebPages.dll" />
+    <Content Include="bin\System.Web.WebPages.Razor.dll" />
+    <Content Include="bin\WebGrease.dll" />
+    <Content Include="Content\Book_Appointment\AppointmentConfig.js" />
+    <Content Include="Content\Book_Appointment\BookAppointment.js" />
+    <Content Include="Content\bootstrap-datetimepicker.css" />
+    <Content Include="Content\bootstrap-datetimepicker.min.css" />
+    <Content Include="Content\bootstrap-theme.css" />
+    <Content Include="Content\bootstrap-theme.min.css" />
+    <Content Include="Content\bootstrap-timepicker.css" />
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\Branch\AddBranch.js" />
+    <Content Include="Content\Branch\BranchList.js" />
+    <Content Include="Content\Calender\Calendar.js" />
+    <Content Include="Content\Calender\Classes.js" />
+    <Content Include="Content\Calender\Events.js" />
+    <Content Include="Content\Category\AddCategory.js" />
+    <Content Include="Content\Category\CategoryList.js" />
+    <Content Include="Content\Category\EditCategory.js" />
+    <Content Include="Content\Common\_layout.js" />
+    <Content Include="Content\Dashboard\Home.js" />
+    <Content Include="Content\Dashboard\Rpts_DuePaymentDay.js" />
+    <Content Include="Content\Dashboard\Rpts_DuePaymentMonth.js" />
+    <Content Include="Content\Dashboard\Rpts_DuePaymentWeek.js" />
+    <Content Include="Content\Dashboard\Rpts_EnquiryDay.js" />
+    <Content Include="Content\Dashboard\Rpts_EnquiryMonth.js" />
+    <Content Include="Content\Dashboard\Rpts_EnquiryWeek.js" />
+    <Content Include="Content\Dashboard\Rpts_EnrolledMembershipDay.js" />
+    <Content Include="Content\Dashboard\Rpts_EnrolledMembershipMonth.js" />
+    <Content Include="Content\Dashboard\Rpts_EnrolledMembershipWeek.js" />
+    <Content Include="Content\Dashboard\Rpts_EnrolledMembersPaymentsDay.js" />
+    <Content Include="Content\Dashboard\Rpts_EnrolledPaymentsMonth.js" />
+    <Content Include="Content\Dashboard\Rpts_EnrolledPaymentsWeek.js" />
+    <Content Include="Content\Dashboard\Rpts_POSRepresentativeSale.js" />
+    <Content Include="Content\Diet\AddDiet.js" />
+    <Content Include="Content\Diet\DietList.js" />
+    <Content Include="Content\Diet\EditDiet.js" />
+    <Content Include="Content\Enquiry\AddFollowup.js" />
+    <Content Include="Content\Enquiry\EditEnquiry.js" />
+    <Content Include="Content\Enquiry\EditEnquiryDetails.js" />
+    <Content Include="Content\Enquiry\EnquiryList.js" />
+    <Content Include="Content\Enquiry\NewEnquiry.js" />
+    <Content Include="Content\Expenses\_expenses.js" />
+    <Content Include="Content\GymBranch\AddGymBranch.js" />
+    <Content Include="Content\GymBranch\GymBranchList.js" />
+    <Content Include="Content\Login\Validate.js" />
+    <Content Include="Content\MealTime\AddMealTime.js" />
+    <Content Include="Content\MealTime\EditMealTime.js" />
+    <Content Include="Content\MealTime\MealTimeList.js" />
+    <Content Include="Content\Members_Membership\EditMember.js" />
+    <Content Include="Content\Members_Membership\Membership.js" />
+    <Content Include="Content\Members_Membership\MemberList.js" />
+    <Content Include="Content\Members_Membership\MembershipList.js" />
+    <Content Include="Content\Package\AddPackage.js" />
+    <Content Include="Content\Package\EditPackage.js" />
+    <Content Include="Content\Package\PackageList.js" />
+    <Content Include="Content\Products\AddProduct.js" />
+    <Content Include="Content\Products\EditProduct.js" />
+    <Content Include="Content\Products\ProductList.js" />
+    <Content Include="Content\PurchaseOrder\PurchaseOrder.js" />
+    <Content Include="Content\QuickPrint\Quick_Print.js" />
+    <Content Include="Content\Reports\Rpts_BranchwiseSaleGym.js" />
+    <Content Include="Content\Reports\Rpts_CategorySale.js" />
+    <Content Include="Content\Reports\Rpts_DayWiseSale.js" />
+    <Content Include="Content\Reports\Rpts_DueMembership.js" />
+    <Content Include="Content\Reports\Rpts_DuePayments.js" />
+    <Content Include="Content\Reports\Rpts_Enquiry.js" />
+    <Content Include="Content\Reports\Rpts_ExpiredMembership.js" />
+    <Content Include="Content\Reports\Rpts_FreezeMembership.js" />
+    <Content Include="Content\Reports\Rpts_Measurements.js" />
+    <Content Include="Content\Reports\Rpts_MemberAttendence.js" />
+    <Content Include="Content\Reports\Rpts_MemberPayments.js" />
+    <Content Include="Content\Reports\Rpts_MemberReference.js" />
+    <Content Include="Content\Reports\Rpts_MembershipList.js" />
+    <Content Include="Content\Reports\Rpts_MembershipWiseSale.js" />
+    <Content Include="Content\Reports\Rpts_Monthwise.js" />
+    <Content Include="Content\Reports\Rpts_PosSale.js" />
+    <Content Include="Content\Reports\Rpts_ProfitLoss.js" />
+    <Content Include="Content\Reports\Rpts_SourceWiseEnq.js" />
+    <Content Include="Content\Reports\Rpts_Stock.js" />
+    <Content Include="Content\Reports\Rpts_TotalAttendence.js" />
+    <Content Include="Content\Reports\Rpts_TrailDateCompletion.js" />
+    <Content Include="Content\Reports\Rpts_TransferedMembership.js" />
+    <Content Include="Content\Reports\Rpts_YearPerformance.js" />
+    <Content Include="Content\Reports\Rpt_TimeSheet.js" />
+    <Content Include="Content\select2.min.css" />
+    <Content Include="Content\Settings\_expensetype.js" />
+    <Content Include="Content\Shared\LoadSideBar.js" />
+    <Content Include="Content\SMS\MessageLog.js" />
+    <Content Include="Content\SMS\SendingSMS.js" />
+    <Content Include="Content\Staff\AddStaff.js" />
+    <Content Include="Content\Staff\EditStaff.js" />
+    <Content Include="Content\Staff\StaffList.js" />
+    <Content Include="Content\Stock\StockInList.js" />
+    <Content Include="Content\Stock\StockList.js" />
+    <Content Include="Content\Stock\StockoutList.js" />
+    <Content Include="Content\Supplier\AddSupplier.js" />
+    <Content Include="Content\Supplier\EditSupplier.js" />
+    <Content Include="Content\Supplier\SupplierList.js" />
+    <Content Include="Content\Task\AddTask.js" />
+    <Content Include="Content\Task\EditTask.js" />
+    <Content Include="Content\Task\TaskList.js" />
+    <Content Include="Content\themes\base\accordion.css" />
+    <Content Include="Content\themes\base\all.css" />
+    <Content Include="Content\themes\base\autocomplete.css" />
+    <Content Include="Content\themes\base\base.css" />
+    <Content Include="Content\themes\base\button.css" />
+    <Content Include="Content\themes\base\core.css" />
+    <Content Include="Content\themes\base\datepicker.css" />
+    <Content Include="Content\themes\base\dialog.css" />
+    <Content Include="Content\themes\base\draggable.css" />
+    <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
+    <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_75_dadada_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_75_e6e6e6_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_95_fef1ec_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
+    <Content Include="Content\themes\base\images\ui-icons_222222_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_2e83ff_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_444444_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_454545_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_555555_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_777620_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_777777_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_888888_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_cc0000_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_ffffff_256x240.png" />
+    <Content Include="Content\themes\base\jquery-ui.css" />
+    <Content Include="Content\themes\base\jquery-ui.min.css" />
+    <Content Include="Content\themes\base\menu.css" />
+    <Content Include="Content\themes\base\progressbar.css" />
+    <Content Include="Content\themes\base\resizable.css" />
+    <Content Include="Content\themes\base\selectable.css" />
+    <Content Include="Content\themes\base\selectmenu.css" />
+    <Content Include="Content\themes\base\slider.css" />
+    <Content Include="Content\themes\base\sortable.css" />
+    <Content Include="Content\themes\base\spinner.css" />
+    <Content Include="Content\themes\base\tabs.css" />
+    <Content Include="Content\themes\base\theme.css" />
+    <Content Include="Content\themes\base\tooltip.css" />
+    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\PagedList.css" />
+    <Content Include="Content\Site.css" />
+    <Content Include="Content\Timesheet\Member.js" />
+    <Content Include="Content\Timesheet\Staff.js" />
+    <Content Include="Content\toastr.min.css" />
+    <Content Include="Content\UserDashboard\Diet.js" />
+    <Content Include="Content\UserDashboard\UserDashBoard.js" />
+    <Content Include="Content\UserDashboard\Workouts.js" />
+    <Content Include="Content\WorkoutPlan\AddWorkoutPlan.js" />
+    <Content Include="Content\WorkoutPlan\EditWorkoutPlan.js" />
+    <Content Include="Content\WorkoutPlan\WorkoutPlanList.js" />
+    <Content Include="Content\Workout\AddWorkout.js" />
+    <Content Include="Content\Workout\EditWorkout.js" />
+    <Content Include="Content\Workout\WorkoutList.js" />
+    <Content Include="Dll\ClosedXML.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Dll\ClosedXML.xml" />
+    <Content Include="Dll\ErrorLog.dll" />
+    <Content Include="ErrorLog\ErrorLog.txt" />
+    <Content Include="Global.asax" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\bootstrap-theme.min.css.map" />
+    <Content Include="Content\bootstrap-theme.css.map" />
+    <Content Include="Content\bootstrap.min.css.map" />
+    <Content Include="Content\bootstrap.css.map" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\bootstrap\wells.less" />
+    <Content Include="Content\bootstrap\variables.less" />
+    <Content Include="Content\bootstrap\utilities.less" />
+    <Content Include="Content\bootstrap\type.less" />
+    <Content Include="Content\bootstrap\tooltip.less" />
+    <Content Include="Content\bootstrap\thumbnails.less" />
+    <Content Include="Content\bootstrap\theme.less" />
+    <Content Include="Content\bootstrap\tables.less" />
+    <Content Include="Content\bootstrap\scaffolding.less" />
+    <Content Include="Content\bootstrap\responsive-utilities.less" />
+    <Content Include="Content\bootstrap\responsive-embed.less" />
+    <Content Include="Content\bootstrap\progress-bars.less" />
+    <Content Include="Content\bootstrap\print.less" />
+    <Content Include="Content\bootstrap\popovers.less" />
+    <Content Include="Content\bootstrap\panels.less" />
+    <Content Include="Content\bootstrap\pagination.less" />
+    <Content Include="Content\bootstrap\pager.less" />
+    <Content Include="Content\bootstrap\normalize.less" />
+    <Content Include="Content\bootstrap\navs.less" />
+    <Content Include="Content\bootstrap\navbar.less" />
+    <Content Include="Content\bootstrap\modals.less" />
+    <Content Include="Content\bootstrap\mixins\vendor-prefixes.less" />
+    <Content Include="Content\bootstrap\mixins\text-overflow.less" />
+    <Content Include="Content\bootstrap\mixins\text-emphasis.less" />
+    <Content Include="Content\bootstrap\mixins\table-row.less" />
+    <Content Include="Content\bootstrap\mixins\tab-focus.less" />
+    <Content Include="Content\bootstrap\mixins\size.less" />
+    <Content Include="Content\bootstrap\mixins\responsive-visibility.less" />
+    <Content Include="Content\bootstrap\mixins\resize.less" />
+    <Content Include="Content\bootstrap\mixins\reset-text.less" />
+    <Content Include="Content\bootstrap\mixins\reset-filter.less" />
+    <Content Include="Content\bootstrap\mixins\progress-bar.less" />
+    <Content Include="Content\bootstrap\mixins\panels.less" />
+    <Content Include="Content\bootstrap\mixins\pagination.less" />
+    <Content Include="Content\bootstrap\mixins\opacity.less" />
+    <Content Include="Content\bootstrap\mixins\nav-vertical-align.less" />
+    <Content Include="Content\bootstrap\mixins\nav-divider.less" />
+    <Content Include="Content\bootstrap\mixins\list-group.less" />
+    <Content Include="Content\bootstrap\mixins\labels.less" />
+    <Content Include="Content\bootstrap\mixins\image.less" />
+    <Content Include="Content\bootstrap\mixins\hide-text.less" />
+    <Content Include="Content\bootstrap\mixins\grid-framework.less" />
+    <Content Include="Content\bootstrap\mixins\grid.less" />
+    <Content Include="Content\bootstrap\mixins\gradients.less" />
+    <Content Include="Content\bootstrap\mixins\forms.less" />
+    <Content Include="Content\bootstrap\mixins\clearfix.less" />
+    <Content Include="Content\bootstrap\mixins\center-block.less" />
+    <Content Include="Content\bootstrap\mixins\buttons.less" />
+    <Content Include="Content\bootstrap\mixins\border-radius.less" />
+    <Content Include="Content\bootstrap\mixins\background-variant.less" />
+    <Content Include="Content\bootstrap\mixins\alerts.less" />
+    <Content Include="Content\bootstrap\mixins.less" />
+    <Content Include="Content\bootstrap\media.less" />
+    <Content Include="Content\bootstrap\list-group.less" />
+    <Content Include="Content\bootstrap\labels.less" />
+    <Content Include="Content\bootstrap\jumbotron.less" />
+    <Content Include="Content\bootstrap\input-groups.less" />
+    <Content Include="Content\bootstrap\grid.less" />
+    <Content Include="Content\bootstrap\glyphicons.less" />
+    <Content Include="Content\bootstrap\forms.less" />
+    <Content Include="Content\bootstrap\dropdowns.less" />
+    <Content Include="Content\bootstrap\component-animations.less" />
+    <Content Include="Content\bootstrap\code.less" />
+    <Content Include="Content\bootstrap\close.less" />
+    <Content Include="Content\bootstrap\carousel.less" />
+    <Content Include="Content\bootstrap\buttons.less" />
+    <Content Include="Content\bootstrap\button-groups.less" />
+    <Content Include="Content\bootstrap\breadcrumbs.less" />
+    <Content Include="Content\bootstrap\bootstrap.less" />
+    <Content Include="Content\bootstrap\badges.less" />
+    <Content Include="Content\bootstrap\alerts.less" />
+    <Content Include="Content\bootstrap-datetimepicker-build.less" />
+    <Content Include="Content\_bootstrap-datetimepicker.less" />
+    <Content Include="bin\Justbok.dll.config" />
+    <EntityDeploy Include="Models\Justbok.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>Justbok.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\Justbok.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Justbok.edmx</DependentUpon>
+      <LastGenOutput>Justbok.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\Justbok.edmx.diagram">
+      <DependentUpon>Justbok.edmx</DependentUpon>
+    </Content>
+    <Content Include="Models\Justbok.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Justbok.edmx</DependentUpon>
+      <LastGenOutput>Justbok.cs</LastGenOutput>
+    </Content>
+    <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
+    <None Include="Properties\PublishProfiles\justbok.com - Web Deploy %282%29.pubxml" />
+    <None Include="Properties\PublishProfiles\justbok.com - Web Deploy.pubxml" />
+    <None Include="Properties\PublishProfiles\Justbok.pubxml" />
+    <Content Include="Plugins\iCheck\all.css" />
+    <Content Include="Plugins\iCheck\flat\aero%402x.png" />
+    <Content Include="Plugins\iCheck\flat\aero.css" />
+    <Content Include="Plugins\iCheck\flat\aero.png" />
+    <Content Include="Plugins\iCheck\flat\blue%402x.png" />
+    <Content Include="Plugins\iCheck\flat\blue.css" />
+    <Content Include="Plugins\iCheck\flat\blue.png" />
+    <Content Include="Plugins\iCheck\flat\flat%402x.png" />
+    <Content Include="Plugins\iCheck\flat\flat.css" />
+    <Content Include="Plugins\iCheck\flat\flat.png" />
+    <Content Include="Plugins\iCheck\flat\green%402x.png" />
+    <Content Include="Plugins\iCheck\flat\green.css" />
+    <Content Include="Plugins\iCheck\flat\green.png" />
+    <Content Include="Plugins\iCheck\flat\grey%402x.png" />
+    <Content Include="Plugins\iCheck\flat\grey.css" />
+    <Content Include="Plugins\iCheck\flat\grey.png" />
+    <Content Include="Plugins\iCheck\flat\orange%402x.png" />
+    <Content Include="Plugins\iCheck\flat\orange.css" />
+    <Content Include="Plugins\iCheck\flat\orange.png" />
+    <Content Include="Plugins\iCheck\flat\pink%402x.png" />
+    <Content Include="Plugins\iCheck\flat\pink.css" />
+    <Content Include="Plugins\iCheck\flat\pink.png" />
+    <Content Include="Plugins\iCheck\flat\purple%402x.png" />
+    <Content Include="Plugins\iCheck\flat\purple.css" />
+    <Content Include="Plugins\iCheck\flat\purple.png" />
+    <Content Include="Plugins\iCheck\flat\red%402x.png" />
+    <Content Include="Plugins\iCheck\flat\red.css" />
+    <Content Include="Plugins\iCheck\flat\red.png" />
+    <Content Include="Plugins\iCheck\flat\yellow%402x.png" />
+    <Content Include="Plugins\iCheck\flat\yellow.css" />
+    <Content Include="Plugins\iCheck\flat\yellow.png" />
+    <Content Include="Plugins\iCheck\flat\_all.css" />
+    <Content Include="Plugins\iCheck\futurico\futurico%402x.png" />
+    <Content Include="Plugins\iCheck\futurico\futurico.css" />
+    <Content Include="Plugins\iCheck\futurico\futurico.png" />
+    <Content Include="Plugins\iCheck\icheck.js" />
+    <Content Include="Plugins\iCheck\icheck.min.js" />
+    <Content Include="Plugins\iCheck\line\aero.css" />
+    <Content Include="Plugins\iCheck\line\blue.css" />
+    <Content Include="Plugins\iCheck\line\green.css" />
+    <Content Include="Plugins\iCheck\line\grey.css" />
+    <Content Include="Plugins\iCheck\line\line%402x.png" />
+    <Content Include="Plugins\iCheck\line\line.css" />
+    <Content Include="Plugins\iCheck\line\line.png" />
+    <Content Include="Plugins\iCheck\line\orange.css" />
+    <Content Include="Plugins\iCheck\line\pink.css" />
+    <Content Include="Plugins\iCheck\line\purple.css" />
+    <Content Include="Plugins\iCheck\line\red.css" />
+    <Content Include="Plugins\iCheck\line\yellow.css" />
+    <Content Include="Plugins\iCheck\line\_all.css" />
+    <Content Include="Plugins\iCheck\minimal\aero%402x.png" />
+    <Content Include="Plugins\iCheck\minimal\aero.css" />
+    <Content Include="Plugins\iCheck\minimal\aero.png" />
+    <Content Include="Plugins\iCheck\minimal\blue%402x.png" />
+    <Content Include="Plugins\iCheck\minimal\blue.css" />
+    <Content Include="Plugins\iCheck\minimal\blue.png" />
+    <Content Include="Plugins\iCheck\minimal\green%402x.png" />
+    <Content Include="Plugins\iCheck\minimal\green.css" />
+    <Content Include="Plugins\iCheck\minimal\green.png" />
+    <Content Include="Plugins\iCheck\minimal\grey%402x.png" />
+    <Content Include="Plugins\iCheck\minimal\grey.css" />
+    <Content Include="Plugins\iCheck\minimal\grey.png" />
+    <Content Include="Plugins\iCheck\minimal\minimal%402x.png" />
+    <Content Include="Plugins\iCheck\minimal\minimal.css" />
+    <Content Include="Plugins\iCheck\minimal\minimal.png" />
+    <Content Include="Plugins\iCheck\minimal\orange%402x.png" />
+    <Content Include="Plugins\iCheck\minimal\orange.css" />
+    <Content Include="Plugins\iCheck\minimal\orange.png" />
+    <Content Include="Plugins\iCheck\minimal\pink%402x.png" />
+    <Content Include="Plugins\iCheck\minimal\pink.css" />
+    <Content Include="Plugins\iCheck\minimal\pink.png" />
+    <Content Include="Plugins\iCheck\minimal\purple%402x.png" />
+    <Content Include="Plugins\iCheck\minimal\purple.css" />
+    <Content Include="Plugins\iCheck\minimal\purple.png" />
+    <Content Include="Plugins\iCheck\minimal\red%402x.png" />
+    <Content Include="Plugins\iCheck\minimal\red.css" />
+    <Content Include="Plugins\iCheck\minimal\red.png" />
+    <Content Include="Plugins\iCheck\minimal\yellow%402x.png" />
+    <Content Include="Plugins\iCheck\minimal\yellow.css" />
+    <Content Include="Plugins\iCheck\minimal\yellow.png" />
+    <Content Include="Plugins\iCheck\minimal\_all.css" />
+    <Content Include="Plugins\iCheck\polaris\polaris%402x.png" />
+    <Content Include="Plugins\iCheck\polaris\polaris.css" />
+    <Content Include="Plugins\iCheck\polaris\polaris.png" />
+    <Content Include="Plugins\iCheck\square\aero%402x.png" />
+    <Content Include="Plugins\iCheck\square\aero.css" />
+    <Content Include="Plugins\iCheck\square\aero.png" />
+    <Content Include="Plugins\iCheck\square\blue%402x.png" />
+    <Content Include="Plugins\iCheck\square\blue.css" />
+    <Content Include="Plugins\iCheck\square\blue.png" />
+    <Content Include="Plugins\iCheck\square\green%402x.png" />
+    <Content Include="Plugins\iCheck\square\green.css" />
+    <Content Include="Plugins\iCheck\square\green.png" />
+    <Content Include="Plugins\iCheck\square\grey%402x.png" />
+    <Content Include="Plugins\iCheck\square\grey.css" />
+    <Content Include="Plugins\iCheck\square\grey.png" />
+    <Content Include="Plugins\iCheck\square\orange%402x.png" />
+    <Content Include="Plugins\iCheck\square\orange.css" />
+    <Content Include="Plugins\iCheck\square\orange.png" />
+    <Content Include="Plugins\iCheck\square\pink%402x.png" />
+    <Content Include="Plugins\iCheck\square\pink.css" />
+    <Content Include="Plugins\iCheck\square\pink.png" />
+    <Content Include="Plugins\iCheck\square\purple%402x.png" />
+    <Content Include="Plugins\iCheck\square\purple.css" />
+    <Content Include="Plugins\iCheck\square\purple.png" />
+    <Content Include="Plugins\iCheck\square\red%402x.png" />
+    <Content Include="Plugins\iCheck\square\red.css" />
+    <Content Include="Plugins\iCheck\square\red.png" />
+    <Content Include="Plugins\iCheck\square\square%402x.png" />
+    <Content Include="Plugins\iCheck\square\square.css" />
+    <Content Include="Plugins\iCheck\square\square.png" />
+    <Content Include="Plugins\iCheck\square\yellow%402x.png" />
+    <Content Include="Plugins\iCheck\square\yellow.css" />
+    <Content Include="Plugins\iCheck\square\yellow.png" />
+    <Content Include="Plugins\iCheck\square\_all.css" />
+    <Content Include="Plugins\Upload\css\jquery-ui-demo-ie8.css" />
+    <Content Include="Plugins\Upload\css\jquery-ui-demo.css" />
+    <Content Include="Plugins\Upload\css\jquery.fileupload-noscript.css" />
+    <Content Include="Plugins\Upload\css\jquery.fileupload-ui-noscript.css" />
+    <Content Include="Plugins\Upload\css\jquery.fileupload-ui.css" />
+    <Content Include="Plugins\Upload\css\jquery.fileupload.css" />
+    <Content Include="Plugins\Upload\css\style.css" />
+    <Content Include="Plugins\Upload\js\app.js" />
+    <Content Include="Plugins\Upload\js\cors\jquery.postmessage-transport.js" />
+    <Content Include="Plugins\Upload\js\cors\jquery.xdr-transport.js" />
+    <Content Include="Plugins\Upload\js\jquery.fileupload-angular.js" />
+    <Content Include="Plugins\Upload\js\jquery.fileupload-audio.js" />
+    <Content Include="Plugins\Upload\js\jquery.fileupload-image.js" />
+    <Content Include="Plugins\Upload\js\jquery.fileupload-jquery-ui.js" />
+    <Content Include="Plugins\Upload\js\jquery.fileupload-process.js" />
+    <Content Include="Plugins\Upload\js\jquery.fileupload-ui.js" />
+    <Content Include="Plugins\Upload\js\jquery.fileupload-validate.js" />
+    <Content Include="Plugins\Upload\js\jquery.fileupload-video.js" />
+    <Content Include="Plugins\Upload\js\jquery.fileupload.js" />
+    <Content Include="Plugins\Upload\js\jquery.iframe-transport.js" />
+    <Content Include="Plugins\Upload\js\main.js" />
+    <Content Include="Plugins\Upload\js\vendor\jquery.ui.widget.js" />
+    <Content Include="Scripts\bootstrap-datepicker.js" />
+    <Content Include="Scripts\bootstrap-datetimepicker.js" />
+    <Content Include="Scripts\bootstrap-datetimepicker.min.js" />
+    <Content Include="Scripts\bootstrap-timepicker.js" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
+    <None Include="Scripts\jquery-1.12.4.intellisense.js" />
+    <Content Include="Content\fullcalendar.css" />
+    <Content Include="Scripts\Common.js" />
+    <Content Include="Scripts\fullcalendar.js" />
+    <Content Include="Scripts\jquery-1.12.4.js" />
+    <Content Include="Scripts\jquery-1.12.4.min.js" />
+    <Content Include="Scripts\jquery-ui-1.12.1.js" />
+    <Content Include="Scripts\jquery-ui-1.12.1.min.js" />
+    <Content Include="Scripts\jquery.twbsPagination.min.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\jscolor.min.js" />
+    <Content Include="Scripts\moment-with-locales.js" />
+    <Content Include="Scripts\moment-with-locales.min.js" />
+    <Content Include="Scripts\moment.js" />
+    <Content Include="Scripts\moment.min.js" />
+    <Content Include="Scripts\Navigation.js" />
+    <Content Include="Scripts\select2.full.min.js" />
+    <Content Include="Scripts\TimeSheet.js" />
+    <Content Include="Scripts\toast.js" />
+    <Content Include="Scripts\toastr.min.js" />
+    <Content Include="Theme\css\AdminLTE.min.css" />
+    <Content Include="Theme\css\bootstrap-datetimepicker.css" />
+    <Content Include="Theme\css\bootstrap-datetimepicker.min.css" />
+    <Content Include="Theme\css\bootstrap-multiselect.css" />
+    <Content Include="Theme\css\bootstrap-theme.css" />
+    <Content Include="Theme\css\bootstrap-theme.min.css" />
+    <Content Include="Theme\css\bootstrap.css" />
+    <Content Include="Theme\css\bootstrap.min.css" />
+    <Content Include="Theme\css\dataTables.bootstrap.min.css" />
+    <Content Include="Theme\css\font-awesome.min.css" />
+    <Content Include="Theme\css\fSelect.css" />
+    <Content Include="Theme\css\ionicons.min.css" />
+    <Content Include="Theme\css\jquery.alerts.css" />
+    <Content Include="Theme\css\PagedList.css" />
+    <Content Include="Theme\css\Site.css" />
+    <Content Include="Theme\css\skin-blue.min.css" />
+    <Content Include="Theme\css\skin-purple.min.css" />
+    <Content Include="Theme\css\skin-red.min.css" />
+    <Content Include="Theme\css\wickedpicker.min.css" />
+    <Content Include="Theme\css\datepicker.css" />
+    <Content Include="Theme\Home Page\css\full-slider.css" />
+    <Content Include="Theme\Home Page\img\018-credit-card.png" />
+    <Content Include="Theme\Home Page\img\access.png" />
+    <Content Include="Theme\Home Page\img\alerts.png" />
+    <Content Include="Theme\Home Page\img\att.png" />
+    <Content Include="Theme\Home Page\img\bill.png" />
+    <Content Include="Theme\Home Page\img\biometric.png" />
+    <Content Include="Theme\Home Page\img\classes.png" />
+    <Content Include="Theme\Home Page\img\club.png" />
+    <Content Include="Theme\Home Page\img\communication.png" />
+    <Content Include="Theme\Home Page\img\email.png" />
+    <Content Include="Theme\Home Page\img\enquiry.png" />
+    <Content Include="Theme\Home Page\img\featured-1.png" />
+    <Content Include="Theme\Home Page\img\featured-2.png" />
+    <Content Include="Theme\Home Page\img\featured-3.png" />
+    <Content Include="Theme\Home Page\img\featured-4.png" />
+    <Content Include="Theme\Home Page\img\gym.jpg" />
+    <Content Include="Theme\Home Page\img\ios.png" />
+    <Content Include="Theme\Home Page\img\login.jpg" />
+    <Content Include="Theme\Home Page\img\logo.png" />
+    <Content Include="Theme\Home Page\img\member.png" />
+    <Content Include="Theme\Home Page\img\membership.png" />
+    <Content Include="Theme\Home Page\img\online.png" />
+    <Content Include="Theme\Home Page\img\onlinebooking.png" />
+    <Content Include="Theme\Home Page\img\payment.png" />
+    <Content Include="Theme\Home Page\img\payments.png" />
+    <Content Include="Theme\Home Page\img\pos.png" />
+    <Content Include="Theme\Home Page\img\quick.png" />
+    <Content Include="Theme\Home Page\img\reports.png" />
+    <Content Include="Theme\Home Page\img\retail.png" />
+    <Content Include="Theme\Home Page\img\salon.jpg" />
+    <Content Include="Theme\Home Page\img\schedule.png" />
+    <Content Include="Theme\Home Page\img\services.jpg" />
+    <Content Include="Theme\Home Page\img\signup.png" />
+    <Content Include="Theme\Home Page\img\slider-1.jpg" />
+    <Content Include="Theme\Home Page\img\slider-2.jpg" />
+    <Content Include="Theme\Home Page\img\slider-3.jpg" />
+    <Content Include="Theme\Home Page\img\sliders.jpg" />
+    <Content Include="Theme\Home Page\img\spa.jpg" />
+    <Content Include="Theme\Home Page\img\teamviewer.png" />
+    <Content Include="Theme\Home Page\img\training.png" />
+    <Content Include="Theme\Home Page\img\website.png" />
+    <Content Include="Theme\Home Page\img\windowslogo.png" />
+    <Content Include="Theme\Home Page\img\yoga.jpg" />
+    <Content Include="Theme\Home Page\vendor\bootstrap\css\bootstrap-grid.css" />
+    <Content Include="Theme\Home Page\vendor\bootstrap\css\bootstrap-grid.min.css" />
+    <Content Include="Theme\Home Page\vendor\bootstrap\css\bootstrap-reboot.css" />
+    <Content Include="Theme\Home Page\vendor\bootstrap\css\bootstrap-reboot.min.css" />
+    <Content Include="Theme\Home Page\vendor\bootstrap\css\bootstrap.css" />
+    <Content Include="Theme\Home Page\vendor\bootstrap\css\bootstrap.min.css" />
+    <Content Include="Theme\Home Page\vendor\bootstrap\js\bootstrap.js" />
+    <Content Include="Theme\Home Page\vendor\bootstrap\js\bootstrap.min.js" />
+    <Content Include="Theme\Home Page\vendor\jquery\jquery.js" />
+    <Content Include="Theme\Home Page\vendor\jquery\jquery.min.js" />
+    <Content Include="Theme\Home Page\vendor\popper\popper.js" />
+    <Content Include="Theme\Home Page\vendor\popper\popper.min.js" />
+    <Content Include="Theme\img\excel.jpg" />
+    <Content Include="Theme\img\fa-user.png" />
+    <Content Include="Theme\img\gym.png" />
+    <Content Include="Theme\img\loader.gif" />
+    <Content Include="Theme\img\loader3.gif" />
+    <Content Include="Theme\img\loader5.gif" />
+    <Content Include="Theme\img\loader6.gif" />
+    <Content Include="Theme\img\loading.gif" />
+    <Content Include="Theme\img\login-bg.png" />
+    <Content Include="Theme\img\logo.png" />
+    <Content Include="Theme\img\MWM.jpg" />
+    <Content Include="Theme\img\pdf.png" />
+    <Content Include="Theme\js\adminlte.min.js" />
+    <Content Include="Theme\js\alert.js" />
+    <Content Include="Theme\js\bootstrap-datepicker.min.js" />
+    <Content Include="Theme\js\bootstrap-datetimepicker.fr.js" />
+    <Content Include="Theme\js\bootstrap-datetimepicker.js" />
+    <Content Include="Theme\js\bootstrap-datetimepicker.min.js" />
+    <Content Include="Theme\js\bootstrap-multiselect.js" />
+    <Content Include="Theme\js\bootstrap.js" />
+    <Content Include="Theme\js\bootstrap.min.js" />
+    <Content Include="Theme\css\bootstrap-theme.css.map" />
+    <Content Include="Theme\css\bootstrap-theme.min.css.map" />
+    <Content Include="Theme\css\bootstrap.css.map" />
+    <Content Include="Theme\css\bootstrap.min.css.map" />
+    <Content Include="Theme\css\_bootstrap-datetimepicker.less" />
+    <Content Include="Scripts\jquery-1.12.4.min.map" />
+    <Content Include="Theme\fonts\fontello.eot" />
+    <Content Include="Theme\fonts\fontello.svg" />
+    <Content Include="Theme\fonts\fontello.ttf" />
+    <Content Include="Theme\fonts\fontello.woff" />
+    <Content Include="Theme\Home Page\img\inner-banners.psd" />
+    <Content Include="Theme\Home Page\img\sliders.psd" />
+    <None Include="Theme\js\jquery-1.9.1.intellisense.js" />
+    <Content Include="Theme\js\fSelect.js" />
+    <Content Include="Theme\js\gulpfile.js" />
+    <Content Include="Theme\js\jquery-1.9.1.js" />
+    <Content Include="Theme\js\jquery-1.9.1.min.js" />
+    <Content Include="Theme\js\jquery.alerts.js" />
+    <Content Include="Theme\js\jquery.min.js" />
+    <Content Include="Theme\js\jQuery.print.js" />
+    <Content Include="Theme\js\jquery.unobtrusive-ajax.js" />
+    <Content Include="Theme\js\jquery.unobtrusive-ajax.min.js" />
+    <Content Include="Theme\js\jquery.webcam.js" />
+    <Content Include="Theme\js\jquery.webcam.min.js" />
+    <Content Include="Theme\js\jscam.swf" />
+    <Content Include="Theme\js\jscam_canvas_only.swf" />
+    <Content Include="Theme\js\Justbok.js" />
+    <Content Include="Theme\js\moment-with-locales.js" />
+    <Content Include="Theme\js\moment-with-locales.min.js" />
+    <Content Include="Theme\js\moment.js" />
+    <Content Include="Theme\js\moment.min.js" />
+    <Content Include="Theme\js\wickedpicker.min.js" />
+    <Content Include="Users\1.jpg" />
+    <Content Include="Users\1.png" />
+    <Content Include="Users\1001.jpg" />
+    <Content Include="Users\10032.jpg" />
+    <Content Include="Users\1005.jpg" />
+    <Content Include="Users\1006.jpg" />
+    <Content Include="Users\1053.jpg" />
+    <Content Include="Users\1170.jpg" />
+    <Content Include="Users\1171.jpg" />
+    <Content Include="Users\1172.jpg" />
+    <Content Include="Users\1174.jpg" />
+    <Content Include="Users\1181.jpg" />
+    <Content Include="Users\1203.jpg" />
+    <Content Include="Users\1204.jpg" />
+    <Content Include="Users\1205.jpg" />
+    <Content Include="Users\1206.jpg" />
+    <Content Include="Users\1210.jpg" />
+    <Content Include="Users\2.jpg" />
+    <Content Include="Users\3.jpg" />
+    <Content Include="Users\Men-Hair-Style-Logo.jpg" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Theme\css\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Theme\css\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Theme\css\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="Theme\css\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="Theme\css\fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="Theme\fonts\fontawesome-webfont.eot" />
+    <Content Include="Theme\fonts\fontawesome-webfont.svg" />
+    <Content Include="Theme\fonts\fontawesome-webfont.ttf" />
+    <Content Include="Theme\fonts\fontawesome-webfont.woff" />
+    <Content Include="Theme\fonts\fontawesome-webfont.woff2" />
+    <Content Include="Theme\fonts\FontAwesome.otf" />
+    <Content Include="Theme\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Theme\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Theme\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="Theme\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="Theme\fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="Theme\less\animated.less" />
+    <Content Include="Theme\less\bordered-pulled.less" />
+    <Content Include="Theme\less\core.less" />
+    <Content Include="Theme\less\fixed-width.less" />
+    <Content Include="Theme\less\font-awesome.less" />
+    <Content Include="Theme\less\icons.less" />
+    <Content Include="Theme\less\larger.less" />
+    <Content Include="Theme\less\list.less" />
+    <Content Include="Theme\less\mixins.less" />
+    <Content Include="Theme\less\path.less" />
+    <Content Include="Theme\less\rotated-flipped.less" />
+    <Content Include="Theme\less\screen-reader.less" />
+    <Content Include="Theme\less\stacked.less" />
+    <Content Include="Theme\less\variables.less" />
+    <Content Include="Theme\scss\font-awesome.scss" />
+    <Content Include="Theme\scss\_animated.scss" />
+    <Content Include="Theme\scss\_bordered-pulled.scss" />
+    <Content Include="Theme\scss\_core.scss" />
+    <Content Include="Theme\scss\_fixed-width.scss" />
+    <Content Include="Theme\scss\_icons.scss" />
+    <Content Include="Theme\scss\_larger.scss" />
+    <Content Include="Theme\scss\_list.scss" />
+    <Content Include="Theme\scss\_mixins.scss" />
+    <Content Include="Theme\scss\_path.scss" />
+    <Content Include="Theme\scss\_rotated-flipped.scss" />
+    <Content Include="Theme\scss\_screen-reader.scss" />
+    <Content Include="Theme\scss\_stacked.scss" />
+    <Content Include="Theme\scss\_variables.scss" />
+    <Content Include="Views\MemberShip\MemberShip.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Dashboard\Index.cshtml" />
+    <Content Include="Views\Login\Index.cshtml" />
+    <Content Include="Views\Enquiry\NewEnquiryForm.cshtml" />
+    <Content Include="Views\Followup\AddFollowup.cshtml" />
+    <Content Include="Views\Followup\EditFollowup.cshtml" />
+    <Content Include="Theme\css\bootstrap-datetimepicker-build.less" />
+    <Content Include="Theme\js\jquery-1.9.1.min.map" />
+    <Content Include="Views\MemberShip\GetMembersList.cshtml" />
+    <Content Include="Views\MemberShip\GetMembershipList.cshtml" />
+    <Content Include="Views\Staff\StaffList.cshtml" />
+    <Content Include="Views\Staff\AddStaff.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\MemberShip\EditMember.cshtml" />
+    <Content Include="Views\Dummy\Index.cshtml" />
+    <Content Include="Views\Dummy\edit.cshtml" />
+    <Content Include="Views\Dummy\Delete.cshtml" />
+    <Content Include="Views\Gym\AddGym.cshtml" />
+    <Content Include="Views\Product\AddProduct.cshtml" />
+    <Content Include="Views\Product\GetProducts.cshtml" />
+    <Content Include="Views\Product\EditProduct.cshtml" />
+    <Content Include="Views\Supplier\GetSuppliers.cshtml" />
+    <Content Include="Views\Supplier\AddSupplier.cshtml" />
+    <Content Include="Views\Supplier\EditSupplier.cshtml" />
+    <Content Include="Views\Packages\AddPackage.cshtml" />
+    <Content Include="Views\Packages\EditPackage.cshtml" />
+    <Content Include="Views\Task\TaskList.cshtml" />
+    <Content Include="Views\Task\AddTask.cshtml" />
+    <Content Include="Views\Task\EditTask.cshtml" />
+    <Content Include="Views\Category\GetCategory.cshtml" />
+    <Content Include="Views\Category\AddCategory.cshtml" />
+    <Content Include="Views\Category\Editcategory.cshtml" />
+    <Content Include="Views\Workout\WorkoutList.cshtml" />
+    <Content Include="Views\Workout\AddWorkout.cshtml" />
+    <Content Include="Views\Workout\EditWorkout.cshtml" />
+    <Content Include="Views\WorkoutPlan\GetWorkoutPlans.cshtml" />
+    <Content Include="Views\WorkoutPlan\AddWorkoutPlan.cshtml" />
+    <Content Include="Views\WorkoutPlan\EditWorkoutPlan.cshtml" />
+    <Content Include="Views\Stock\StockDetails.cshtml" />
+    <Content Include="Views\Stock\StockInList.cshtml" />
+    <Content Include="Views\Stock\StockOutList.cshtml" />
+    <Content Include="Views\Diet\DietPlanList.cshtml" />
+    <Content Include="Views\Diet\AddDietPlan.cshtml" />
+    <Content Include="Views\MealTime\MealList.cshtml" />
+    <Content Include="Views\MealTime\AddMealTime.cshtml" />
+    <Content Include="Views\Diet\EditDietPlan.cshtml" />
+    <Content Include="Views\Enquiry\EnquiryList.cshtml" />
+    <Content Include="Views\Enquiry\EditEnquiry.cshtml" />
+    <Content Include="Views\Enquiry\EditEnquiryDetails.cshtml" />
+    <Content Include="Views\Gym\GetGymList.cshtml" />
+    <Content Include="Views\Gym\EditGymList.cshtml" />
+    <Content Include="Views\Gym\GetAllPackages.cshtml" />
+    <Content Include="Views\Gym\AddGymOffers.cshtml" />
+    <Content Include="Views\Gym\EditGymOffers.cshtml" />
+    <Content Include="Views\Admin\Index.cshtml" />
+    <Content Include="Views\POS\PurchaseOrders.cshtml">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="Views\TimeSheet\StaffTimeSheet.cshtml" />
+    <Content Include="Views\TimeSheet\MemberTimeSheet.cshtml" />
+    <Content Include="Views\POS\NewPurchaseOrder.cshtml" />
+    <Content Include="Views\Expenses\Expenses.cshtml" />
+    <Content Include="Views\Scheduler\Scheduler.cshtml" />
+    <Content Include="Views\Equipment\EquipmentList.cshtml" />
+    <Content Include="Views\Amenities\AmenitiesList.cshtml" />
+    <Content Include="Views\BookAppointment\AddAppointmentSlot.cshtml" />
+    <Content Include="Views\BookAppointment\BookSlotAppointment.cshtml" />
+    <Content Include="Views\BookAppointment\ChooseSlotOption.cshtml" />
+    <Content Include="Views\BookAppointment\DeleteAppointmentSlot.cshtml" />
+    <Content Include="Views\BookAppointment\ViewAppointment.cshtml" />
+    <Content Include="Views\Branch\AddBranch.cshtml" />
+    <Content Include="Views\Branch\BranchList.cshtml" />
+    <Content Include="Views\Calendar\AppointmentConfig.cshtml" />
+    <Content Include="Views\Calendar\BookAppointment.cshtml" />
+    <Content Include="Views\Calendar\Classes.cshtml" />
+    <Content Include="Views\Classes\ClassView.cshtml" />
+    <Content Include="Views\Calender\AddClassTime.cshtml" />
+    <Content Include="Views\Calender\AddEventPeople.cshtml" />
+    <Content Include="Views\Calender\AddPeople.cshtml" />
+    <Content Include="Views\ClassTime\AddEditClassTime.cshtml" />
+    <Content Include="Views\ClassTime\ClassTimesView.cshtml" />
+    <Content Include="Views\Event\EventLogo.cshtml" />
+    <Content Include="Views\Event\EventView.cshtml" />
+    <Content Include="Views\ExpenseType\ExpenseType.cshtml" />
+    <Content Include="Views\GymBranch\BranchList.cshtml" />
+    <Content Include="Views\Packages\GetPackages.cshtml" />
+    <Content Include="Views\Shared\_LoginLayout.cshtml" />
+    <Content Include="Views\Shared\AdminLayout.cshtml" />
+    <Content Include="Views\Shared\UserLayout.cshtml" />
+    <Content Include="Views\Shared\_Navigation.cshtml" />
+    <Content Include="Views\Staff\EditStaff.cshtml" />
+    <Content Include="Views\UserDashBoard\Index.cshtml" />
+    <Content Include="Views\UserDashBoard\UserDiet.cshtml" />
+    <Content Include="Views\UserDashBoard\UserWorkout.cshtml" />
+    <Content Include="Views\Calendar\Calendar.cshtml" />
+    <Content Include="Views\Calendar\Events.cshtml" />
+    <Content Include="Views\Login\AdminDashboard.cshtml" />
+    <Content Include="Views\Home\Support.cshtml" />
+    <Content Include="Views\Home\Services.cshtml" />
+    <Content Include="Views\Home\Gym.cshtml" />
+    <Content Include="Views\Home\Spa.cshtml" />
+    <Content Include="Views\Home\Saloon.cshtml" />
+    <Content Include="Views\Home\Yoga.cshtml" />
+    <Content Include="Views\Reports\Index.cshtml" />
+    <Content Include="Views\Reports\ReportMembership.cshtml" />
+    <Content Include="Views\Reports\ReportDueMembership.cshtml" />
+    <Content Include="Views\Reports\ReportExpiredMembership.cshtml" />
+    <Content Include="Views\Reports\ReportMembershipPayments.cshtml" />
+    <Content Include="Views\Reports\CategoerySale.cshtml" />
+    <Content Include="Views\Reports\DuePayments.cshtml" />
+    <Content Include="Views\Reports\MonthWisePaymnetReport.cshtml" />
+    <Content Include="Views\Reports\MembershipWiseSale.cshtml" />
+    <Content Include="Views\Reports\DayWiseSaleReport.cshtml" />
+    <Content Include="Views\Reports\ProfitLoss.cshtml" />
+    <Content Include="Views\Reports\BranchWiseGymSales.cshtml" />
+    <Content Include="Views\Reports\PosSalesReport.cshtml" />
+    <Content Include="Views\Reports\StockReport.cshtml" />
+    <Content Include="Views\Reports\SourceWiseEnquiry.cshtml" />
+    <Content Include="Views\Reports\TrailDateCompletionReport.cshtml" />
+    <Content Include="Views\Reports\EnquiryReport.cshtml" />
+    <Content Include="Views\Reports\YearPerformance.cshtml" />
+    <Content Include="Views\Reports\TotalAttendance.cshtml" />
+    <Content Include="Views\Reports\MemberAttendence.cshtml" />
+    <Content Include="Views\Dashboard\EnrolledMembershipDay.cshtml" />
+    <Content Include="Views\Dashboard\EnrolledMembershipWeek.cshtml" />
+    <Content Include="Views\Dashboard\EnrolledMembershipMonth.cshtml" />
+    <Content Include="Views\Dashboard\MembershipPaymentsDay.cshtml" />
+    <Content Include="Views\Dashboard\MembershipPaymentsWeek.cshtml" />
+    <Content Include="Views\Dashboard\MembershipPaymentsMonth.cshtml" />
+    <Content Include="Views\Dashboard\EnquiryDetailsDay.cshtml" />
+    <Content Include="Views\Dashboard\EnquiryDetailsMonth.cshtml" />
+    <Content Include="Views\Dashboard\EnquiryDetailsWeek.cshtml" />
+    <Content Include="Views\Dashboard\DuePaymentsDay.cshtml" />
+    <Content Include="Views\Dashboard\DuePaymentsWeek.cshtml" />
+    <Content Include="Views\Dashboard\DuePaymentsMonth.cshtml" />
+    <Content Include="Views\MealTime\EditMealtTime.cshtml" />
+    <Content Include="Views\Reports\TransferredMembership.cshtml" />
+    <Content Include="Views\Reports\ReportsFreezeMembership.cshtml" />
+    <Content Include="Views\Reports\ReportsMeasurements.cshtml" />
+    <Content Include="Views\Reports\PosRepresentativeSale.cshtml" />
+    <Content Include="Views\SMS\Index.cshtml" />
+    <Content Include="Views\Reports\MemberReferenceReport.cshtml" />
+    <Content Include="Views\Reports\ReportTimeSheet.cshtml" />
+    <Content Include="Views\SMS\SMSLog.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="Uploads\Events\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="ClassDiagram1.cd" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>3198</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:3198/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>http://local.justbok.com/</CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+</Project>

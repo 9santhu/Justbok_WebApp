@@ -1,0 +1,44 @@
+﻿<div class="modal-content">
+    <div class="modal-header">
+        <button class="close" aria-hidden="true" type="button" onclick="return CloseSubModel();">×</button>
+        <h4 class="modal-title"><strong>Delete Appointment Slot</strong></h4>
+    </div>
+    <div class="modal-body">
+
+        <div class="row form-group">
+            <div class="col-xs-6">
+                <button class="form-control btn btn-danger" type="button" onclick="return delteSlot('1');">Only This Instance</button>
+            </div>
+            <div class="col-xs-6">
+                All other appointment slots in the series will remain.
+            </div>
+        </div>
+
+        <div class="row  form-group">
+            <div class="col-xs-6">
+                <button class="form-control btn btn-danger" type="button" onclick="return delteSlot('2');">All Following</button>
+            </div>
+            <div class="col-xs-6">
+                This and all the following slots will be deleted.
+            </div>
+        </div>
+
+        <div class="row  form-group">
+            <div class="col-xs-6">
+                <button class="form-control btn btn-danger" type="button" onclick="return delteSlot('3');">All of these Appointment Slots</button>
+            </div>
+            <div class="col-xs-6">
+                All appointment slots in the series will be deleted.
+            </div>
+        </div>
+    </div><!-- modal body-->
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default btn-sm btn-flat" onclick="return CloseSubModel();" title="Cancel">
+            <i class="glyphicon glyphicon-remove"></i> Cancel
+        </button>
+    </div>
+</div>
+<script src="~/Scripts/Navigation.js?v=1.2"></script>
+<script>
+    var DeleteSlotUrl = '@Url.Action("DeleteSlot", "BookAppointment")';
+</script>

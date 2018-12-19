@@ -1,0 +1,299 @@
+﻿@model PagedList.IPagedList<Justbok.Models.Branch>
+@using PagedList.Mvc;
+
+<section class="content-header">
+    <h1>
+        <a class="btn btn-primary pull-right" onclick="return LoadPage('@Url.Action("AddBranch", "Branch")','Justbok | Add Branch');"><i class="fa fa-plus" aria-hidden="true"></i> Add</a>
+    </h1>
+    
+</section>
+<section class="content container-fluid">
+    <div class="col-xs-12">
+        <div class="box">
+            <div class="box-header">
+                <h3 class="box-title">Branch List</h3>
+
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+                <div id="example1_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
+                    <div class="row"><div class="col-sm-6"><div class="dataTables_length"><label>Show <select id="ddlNumber" aria-controls="example1" class="form-control input-sm"><option value="10">10</option><option value="25">25</option><option value="50">50</option><option value="100">100</option></select> entries</label></div></div></div><div class="row">
+                        <div class="col-sm-12 table-responsive">
+                            <table id="tblBranches" class="table table-bordered table-striped dataTable" role="grid" aria-describedby="example1_info">
+                                <thead><th><select id="ddlGymList"><option>-----Select Gym-----</option></select></th></thead>
+                                <thead>
+                                    <tr role="row">
+                                        <th class="sorting_asc" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 231.217px;" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending">Branch Code</th>
+                                        <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 282.583px;" aria-label="Browser: activate to sort column ascending">Branch Name</th>
+                                        <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 282.583px;" aria-label="Browser: activate to sort column ascending">Phone Number</th>
+                                        <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 282.583px;" aria-label="Browser: activate to sort column ascending">City</th>
+                                        <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 282.583px;" aria-label="Browser: activate to sort column ascending">State</th>
+                                        <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 143.717px;" aria-label="CSS grade: activate to sort column ascending">Action</th>
+                                </thead>
+                                <tbody>
+                                   
+                                </tbody>
+                                <tfoot>
+
+                            </table>
+                        </div>
+                    </div>@*<div class="row"><div class="col-sm-5"><div class="dataTables_info" id="example1_info" role="status" aria-live="polite"></div></div><div class="col-sm-7"><div class="dataTables_paginate paging_simple_numbers" id="example1_paginate"><ul class="pagination"><li class="paginate_button previous disabled" id="example1_previous"><a href="#" aria-controls="example1" data-dt-idx="0" tabindex="0">Previous</a></li><li class="paginate_button active"><a href="#" aria-controls="example1" data-dt-idx="1" tabindex="0">1</a></li><li class="paginate_button "><a href="#" aria-controls="example1" data-dt-idx="2" tabindex="0">2</a></li><li class="paginate_button next" id="example1_next"><a href="#" aria-controls="example1" data-dt-idx="7" tabindex="0">Next</a></li></ul></div></div></div>*@
+                    <div class="dataTables_paginate paging_simple_numbers" style="margin-left: 400px">
+                        @*Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)
+                        of @Model.PageCount   @Html.PagedListPager(Model, page => Url.Action("TaskList", new { page }))*@
+                    </div>
+                </div>
+            </div>
+            <!-- /.box-body -->
+        </div>
+        <!-- /.box-body -->
+    </div>
+    </section>
+
+<div class="modal fade" id="modal-branch">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title">Branch</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group col-md-6">
+                    <label for="exampleInputEmail1">Branch Id</label>
+                    <input type="text" class="form-control" placeholder="Branch Id" id="txtBranchID" readonly />
+                </div>
+
+                <div class="form-group col-md-6" >
+                    <label for="exampleInputEmail1">Gym Id</label>
+                    <input type="text" class="form-control" placeholder="Gym Id" id="txtGymId" readonly />
+                </div>
+
+                <div class="form-group col-md-6">
+                    <label for="exampleInputEmail1">Branch Code</label>
+                    <input type="text" class="form-control" placeholder="Branch Code" id="txtBranchCode" />
+                </div>
+
+                <div class="form-group col-md-6">
+                    <label for="exampleInputEmail1">Branch Name</label>
+                    <input type="text" class="form-control" placeholder="Branch Name" id="txtBranchName" />
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="exampleInputEmail1"> Address</label>
+                    <input type="text" class="form-control" placeholder="Branch Address" id="txtBranchAddress" />
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="exampleInputEmail1">Phone Number</label>
+                    <input type="text" class="form-control" placeholder="Phone Number" id="txtBranchPhoneNumber" />
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="exampleInputEmail1">City</label>
+                    <input type="text" class="form-control" placeholder="City" id="txtCity" />
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="exampleInputEmail1">State</label>
+                    <input type="text" class="form-control" placeholder="State" id="txtState" />
+                </div>
+
+                <div class="box-footer">
+                    <button type="button" class="btn btn-default pull-right" id="closepage" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-info pull-right" style="margin-right: 10px;" id="btSaveBranch">Save</button>
+                </div>
+                
+
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<div class="bootbox modal fade in" role="dialog" id="modal_Conformation">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="bootbox-close-button close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title">Confirmation !</h4>
+            </div>
+            <div class="modal-body">
+                <div class="bootbox-body">Are you sure want to delete?</div>
+                <input id="txtBranchId" class="" type="hidden">
+            </div>
+            <div class="modal-footer">
+                <button data-bb-handler="success" type="button" class="btn btn-success btn-flat" id="btnYes">Yes</button>
+                <button data-bb-handler="danger" type="button" class="btn btn-danger btn-flat" data-dismiss="modal">No</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+<script src="~/Scripts/Navigation.js?v=1.2"></script>
+    <script>
+        var GetGymListUrl = '@Url.Action("GetGymList", "Branch")';
+        var BranchesListUrl = '@Url.Action("BranchesList", "Branch")';
+        var EditBranchUrl = '@Url.Action("EditBranch", "Branch")';
+        var AddGymBranch = '@Url.Action("AddGymBranch", "Branch")';
+        var DeleteBranchUrl = '@Url.Action("DeleteBranch", "Branch")';
+
+
+    </script>
+
+    <script src="~/Content/Branch/BranchList.js"></script>
+
+
+}
+<script src="~/Scripts/Navigation.js?v=1.2"></script>
+<script>
+        var GetGymListUrl = '@Url.Action("GetGymList", "Branch")';
+        var BranchesListUrl = '@Url.Action("BranchesList", "Branch")';
+        var EditBranchUrl = '@Url.Action("EditBranch", "Branch")';
+        var AddGymBranch = '@Url.Action("AddGymBranch", "Branch")';
+        var DeleteBranchUrl = '@Url.Action("DeleteBranch", "Branch")';
+
+
+</script>
+
+<script src="~/Content/Branch/BranchList.js"></script>
+
+@*@section Scripts {
+
+    <script>
+        $(document).ready(function () {
+            $.ajax({
+                url: "@Url.Action("GetGymList")",
+                data: "",
+            type: "GET",
+            dataType: "json",
+            success: function (data) {
+                $.each(data, function (i, item) {
+                    $("#ddlGymList").append($("<option></option>").val(item.Gymid).html(item.GymName));
+                })
+            },
+            failure: function (errMsg) {
+                alert(errMsg.responseText);
+            }
+            });
+
+            BindBranchList();
+
+        });
+
+        function BindBranchList()
+        {
+            $.ajax({
+                url: "@Url.Action("BranchesList")",
+                data: "",
+            type: "GET",
+            dataType: "json",
+            success: function (data) {
+                paymentData = data;
+                $('#tblBranches tbody').empty();
+                $.each(data, function (i, item) {
+                    var rows = "<tr>"
+                          + "<td style='display:none'>" + '<input type="hidden" name="branchId" value=' + item.BranchId + '>' + "</td>"
+                            + "<td style='display:none'>" + '<input type="hidden" name="gymId" value=' + item.GymId + '>' + "</td>"
+    + "<td>" + item.Branchcode + "</td>"
+    + "<td>" + item.BranchName + "</td>"
+    + "<td>" + item.PhoneNo + "</td>"
+     + "<td>" + item.City + "</td>"
+      + "<td>" + item.BranchState + "</td>"
+    + "<td> <i class='fa fa-fw fa-edit btnEditBranch'  data-toggle='modal' data-target='#modal-branch'></i><i class='fa fa-fw fa-close btnDeleteBranch'></i></td>"
+    + "</tr>";
+                    $('#tblBranches tbody').append(rows);
+                });
+            },
+            error: function () {
+                alert("Failed! Please try again.");
+            }
+        });
+
+        }
+
+        $(document).on('click', '.btnEditBranch', function () {
+            var rowIndex = $(this).closest('td').parent()[0].sectionRowIndex;
+            var branchid = $('#tblBranches tr').eq(rowIndex + 2).find('td').eq(0).find('input[type="hidden"]').val();
+                $.ajax({
+                    cache: false,
+                    type: "GET",
+                    url: "@Url.Action("EditBranch")",
+                    dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                data: { BranchId: branchid },
+                success: function (data) {
+                    $.each(data, function (i, obj) {
+                        $('#txtBranchID').val(obj.BranchId);
+                        $('#txtGymId').val(obj.GymId);
+                        $('#txtBranchCode').val(obj.Branchcode);
+                        $('#txtBranchName ').val(obj.BranchName);
+                        $('#txtBranchAddress').val(obj.BranchAdress);
+                        $('#txtBranchPhoneNumber').val(obj.PhoneNo);
+                        $('#txtCity').val(obj.City);
+                        $('#txtState').val(obj.BranchState);
+                    });
+                },
+                error: function () {
+                    alert("Failed! Please try again.");
+                }
+            });
+        });
+
+        
+        $('#btSaveBranch').click(function ()
+        {
+            var jsonObject = {
+                Branchcode: $('#txtBranchCode').val(), BranchName: $('#txtBranchName').val(), BranchAdress: $('#txtBranchAddress').val(),
+                PhoneNo: $('#txtBranchPhoneNumber').val(),
+                City: $('#txtCity').val(), BranchState: $('#txtState').val(), GymId: $('#txtGymId').val(), BranchId: $('#txtBranchID').val()
+            }
+            $.ajax({
+                cache: false,
+                type: "POST",
+                url: "@Url.Action("AddGymBranch")",
+                dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify(jsonObject),
+            success: function (data) {
+                $('#modal-branch').modal('hide');
+                BindBranchList();
+            },
+            failure: function (errMsg) {
+                alert(errMsg.responseText);
+            }
+        });
+        });
+
+        $(document).ready(function () {
+        }).on('click', '.btnDeleteBranch', function () {
+            var rowIndex = $(this).closest('td').parent()[0].sectionRowIndex;
+            var branchid = $('#tblBranches tr').eq(rowIndex + 2).find('td').eq(0).find('input[type="hidden"]').val();
+            $('#txtBranchId').val(branchid);
+            $('#modal_Conformation').modal('show');
+        });
+
+        $(document).ready(function () {
+        }).on('click', '#btnYes', function () {
+            $('#modal_Conformation').modal('hide');
+         var branchid = $('#txtBranchId').val();
+            $('#txtBranchId').val("");
+            $.ajax({
+                cache: false,
+                type: "GET",
+                url: "@Url.Action("DeleteBranch")",
+                dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            data: { BranchId: branchid },
+            success: function (data) {
+                BindBranchList();
+            },
+            error: function () {
+                alert("Failed! Please try again.");
+            }
+        });
+        });
+
+       
+
+    </script>
+
+}*@

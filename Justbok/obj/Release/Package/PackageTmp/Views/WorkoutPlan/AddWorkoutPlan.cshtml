@@ -1,0 +1,71 @@
+﻿@model Justbok.Models.WorkoutPlan
+
+<section class="content container-fluid" id="container">
+   
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true)
+
+    <div class="pull-right">
+        <a onclick="return LoadPage('@Url.Action("GetWorkoutPlans", "WorkoutPlan")','Justbok | Workout Plans');" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-arrow-left"></i> Workout List</a><br><br>
+    </div>
+        <div class="col-xs-12">
+            <div class="box">
+                <div class="box-header">
+                    <h3 class="box-title">Add Workout Plan</h3>
+
+                    <div class="col-md-12">
+
+                        @*<div class="alert alert-success" role="alert" id="isSucess" style="display:none; float:right;height:50px; width:200px;text-align:center">Data saved successfully!!</div>*@
+
+                        <div id="messages" class="hide" role="alert" style="height:50px;width:250px;border-radius:5px;float:right;text-align:inherit;">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <div id="messages_content"></div>
+                        </div>
+
+                        <hr>
+                        <div class="form-group col-md-12" >
+                            <div class="form-group col-md-6">
+                                <label for="exampleInputEmail1">Name</label>
+                                @Html.TextBoxFor(model => model.WorkoutPlanName, new { @class = "form-control", id = "txtWorkoutPlanName" })
+                                @Html.ValidationMessageFor(model => model.WorkoutPlanName)
+                            </div>
+                            </div>
+
+                        <div class="form-group col-md-12" >
+                            <div class="form-group col-md-2" >
+                                <button type="button" class="btn btn-primary pull-right fa fa-plus" aria-hidden="true" id="addWorkout"> Add Workout</button>
+</div>
+
+                        </div>
+                            <div class="form-group col-md-12" id="AddworkoutContainer">
+</div>
+                        </div>
+                    <div class="box-footer">
+                        <button type="submit" class="btn btn-default pull-right">Reset</button>
+                        <button type="submit" class="btn btn-info pull-right" style="margin-right: 10px;" id="btnSaveWorkout">Save</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    @*}*@
+
+</section>
+
+
+@section Scripts {
+<script src="~/Scripts/Navigation.js?v=1.2"></script>
+
+    <script>
+        var AddWorkoutPlanUrl = '@Url.Action("AddWorkoutPlan", "WorkoutPlan")';
+        var AutoCompleteUrl = '@Url.Action("GetWorkoutAutoComplete", "WorkoutPlan")';
+    </script>
+    <script src="~/Content/WorkoutPlan/AddWorkoutPlan.js"></script>
+}
+
+<script src="~/Scripts/Navigation.js?v=1.2"></script>
+<script>
+    var AddWorkoutPlanUrl = '@Url.Action("AddWorkoutPlan", "WorkoutPlan")';
+    var AutoCompleteUrl = '@Url.Action("GetWorkoutAutoComplete", "WorkoutPlan")';
+</script>
+<script src="~/Content/WorkoutPlan/AddWorkoutPlan.js"></script>
+   

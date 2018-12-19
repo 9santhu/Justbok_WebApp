@@ -1,0 +1,1011 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="JustbokModelStoreContainer" CdmEntityContainer="JustbokEntities">
+    <EntitySetMapping Name="Amenities">
+      <EntityTypeMapping TypeName="JustbokModel.Amenity">
+        <MappingFragment StoreEntitySet="Amenities">
+          <ScalarProperty Name="AmenitiesId" ColumnName="AmenitiesId" />
+          <ScalarProperty Name="AmenitiesName" ColumnName="AmenitiesName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Appointments">
+      <EntityTypeMapping TypeName="JustbokModel.Appointment">
+        <MappingFragment StoreEntitySet="Appointment">
+          <ScalarProperty Name="AppointmentId" ColumnName="AppointmentId" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="IsAllStaff" ColumnName="IsAllStaff" />
+          <ScalarProperty Name="TaxType" ColumnName="TaxType" />
+          <ScalarProperty Name="GymId" ColumnName="GymId" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="TaxPercentage" ColumnName="TaxPercentage" />
+          <ScalarProperty Name="BranchId" ColumnName="BranchId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AppointmentBills">
+      <EntityTypeMapping TypeName="JustbokModel.AppointmentBill">
+        <MappingFragment StoreEntitySet="AppointmentBills">
+          <ScalarProperty Name="BillId" ColumnName="BillId" />
+          <ScalarProperty Name="BookingId" ColumnName="BookingId" />
+          <ScalarProperty Name="BillDate" ColumnName="BillDate" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Amount" ColumnName="Amount" />
+          <ScalarProperty Name="PaidAmount" ColumnName="PaidAmount" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AppointmentSlabs">
+      <EntityTypeMapping TypeName="JustbokModel.AppointmentSlab">
+        <MappingFragment StoreEntitySet="AppointmentSlab">
+          <ScalarProperty Name="SlabId" ColumnName="SlabId" />
+          <ScalarProperty Name="AppointmentId" ColumnName="AppointmentId" />
+          <ScalarProperty Name="Minutes" ColumnName="Minutes" />
+          <ScalarProperty Name="Price" ColumnName="Price" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AppointmentSlots">
+      <EntityTypeMapping TypeName="JustbokModel.AppointmentSlot">
+        <MappingFragment StoreEntitySet="AppointmentSlot">
+          <ScalarProperty Name="SlotId" ColumnName="SlotId" />
+          <ScalarProperty Name="StaffId" ColumnName="StaffId" />
+          <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+          <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+          <ScalarProperty Name="IsRepeat" ColumnName="IsRepeat" />
+          <ScalarProperty Name="MinDuration" ColumnName="MinDuration" />
+          <ScalarProperty Name="SlotType" ColumnName="SlotType" />
+          <ScalarProperty Name="GymId" ColumnName="GymId" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="TotalDuaration" ColumnName="TotalDuaration" />
+          <ScalarProperty Name="UsedDuration" ColumnName="UsedDuration" />
+          <ScalarProperty Name="BranchId" ColumnName="BranchId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AppointmentSlotConfigs">
+      <EntityTypeMapping TypeName="JustbokModel.AppointmentSlotConfig">
+        <MappingFragment StoreEntitySet="AppointmentSlotConfig">
+          <ScalarProperty Name="SlotConfigId" ColumnName="SlotConfigId" />
+          <ScalarProperty Name="SlotId" ColumnName="SlotId" />
+          <ScalarProperty Name="AppointmentId" ColumnName="AppointmentId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AppointmentSlotPatterns">
+      <EntityTypeMapping TypeName="JustbokModel.AppointmentSlotPattern">
+        <MappingFragment StoreEntitySet="AppointmentSlotPattern">
+          <ScalarProperty Name="PatternId" ColumnName="PatternId" />
+          <ScalarProperty Name="SlotId" ColumnName="SlotId" />
+          <ScalarProperty Name="Pattern" ColumnName="Pattern" />
+          <ScalarProperty Name="SlotDuration" ColumnName="SlotDuration" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AppointmentStaffs">
+      <EntityTypeMapping TypeName="JustbokModel.AppointmentStaff">
+        <MappingFragment StoreEntitySet="AppointmentStaff">
+          <ScalarProperty Name="AppointmentStaffId" ColumnName="AppointmentStaffId" />
+          <ScalarProperty Name="AppointmentId" ColumnName="AppointmentId" />
+          <ScalarProperty Name="StaffId" ColumnName="StaffId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="BookAppointments">
+      <EntityTypeMapping TypeName="JustbokModel.BookAppointment">
+        <MappingFragment StoreEntitySet="BookAppointment">
+          <ScalarProperty Name="BookingId" ColumnName="BookingId" />
+          <ScalarProperty Name="MemberId" ColumnName="MemberId" />
+          <ScalarProperty Name="StaffId" ColumnName="StaffId" />
+          <ScalarProperty Name="ConfigId" ColumnName="ConfigId" />
+          <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+          <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+          <ScalarProperty Name="IsRepatable" ColumnName="IsRepatable" />
+          <ScalarProperty Name="Pattern" ColumnName="Pattern" />
+          <ScalarProperty Name="MeetingDuration" ColumnName="MeetingDuration" />
+          <ScalarProperty Name="GymId" ColumnName="GymId" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="AppSlotId" ColumnName="AppSlotId" />
+          <ScalarProperty Name="IsBillsDeleted" ColumnName="IsBillsDeleted" />
+          <ScalarProperty Name="BranchId" ColumnName="BranchId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Branches">
+      <EntityTypeMapping TypeName="JustbokModel.Branch">
+        <MappingFragment StoreEntitySet="Branch">
+          <ScalarProperty Name="BranchId" ColumnName="BranchId" />
+          <ScalarProperty Name="Branchcode" ColumnName="Branchcode" />
+          <ScalarProperty Name="BranchName" ColumnName="BranchName" />
+          <ScalarProperty Name="BranchAdress" ColumnName="BranchAdress" />
+          <ScalarProperty Name="PhoneNo" ColumnName="PhoneNo" />
+          <ScalarProperty Name="City" ColumnName="City" />
+          <ScalarProperty Name="BranchState" ColumnName="BranchState" />
+          <ScalarProperty Name="GymId" ColumnName="GymId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CalendarInstructors">
+      <EntityTypeMapping TypeName="JustbokModel.CalendarInstructor">
+        <MappingFragment StoreEntitySet="CalendarInstructor">
+          <ScalarProperty Name="CalendarId" ColumnName="CalendarId" />
+          <ScalarProperty Name="TimeId" ColumnName="TimeId" />
+          <ScalarProperty Name="StaffId" ColumnName="StaffId" />
+          <ScalarProperty Name="CalendarDate" ColumnName="CalendarDate" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="IsClass" ColumnName="IsClass" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CalendarMembers">
+      <EntityTypeMapping TypeName="JustbokModel.CalendarMember">
+        <MappingFragment StoreEntitySet="CalendarMember">
+          <ScalarProperty Name="CMemberId" ColumnName="CMemberId" />
+          <ScalarProperty Name="CalendarId" ColumnName="CalendarId" />
+          <ScalarProperty Name="MemberId" ColumnName="MemberId" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
+          <ScalarProperty Name="isAttended" ColumnName="isAttended" />
+          <ScalarProperty Name="isReserved" ColumnName="isReserved" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Categories">
+      <EntityTypeMapping TypeName="JustbokModel.Category">
+        <MappingFragment StoreEntitySet="Category">
+          <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+          <ScalarProperty Name="CategoryName" ColumnName="CategoryName" />
+          <ScalarProperty Name="CategoryDescription" ColumnName="CategoryDescription" />
+          <ScalarProperty Name="Active" ColumnName="Active" />
+          <ScalarProperty Name="GymId" ColumnName="GymId" />
+          <ScalarProperty Name="BranchId" ColumnName="BranchId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Classes">
+      <EntityTypeMapping TypeName="JustbokModel.Class">
+        <MappingFragment StoreEntitySet="Classes">
+          <ScalarProperty Name="ClassId" ColumnName="ClassId" />
+          <ScalarProperty Name="ClassName" ColumnName="ClassName" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="AttendenceLimit" ColumnName="AttendenceLimit" />
+          <ScalarProperty Name="ReservationLimit" ColumnName="ReservationLimit" />
+          <ScalarProperty Name="DropInType" ColumnName="DropInType" />
+          <ScalarProperty Name="DropInRate" ColumnName="DropInRate" />
+          <ScalarProperty Name="CalendarColor" ColumnName="CalendarColor" />
+          <ScalarProperty Name="GymId" ColumnName="GymId" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="BranchId" ColumnName="BranchId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ClassTimings">
+      <EntityTypeMapping TypeName="JustbokModel.ClassTiming">
+        <MappingFragment StoreEntitySet="ClassTiming">
+          <ScalarProperty Name="TimingId" ColumnName="TimingId" />
+          <ScalarProperty Name="StaffId" ColumnName="StaffId" />
+          <ScalarProperty Name="ClassId" ColumnName="ClassId" />
+          <ScalarProperty Name="IsRepeats" ColumnName="IsRepeats" />
+          <ScalarProperty Name="Every" ColumnName="Every" />
+          <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+          <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+          <ScalarProperty Name="StartTime" ColumnName="StartTime" />
+          <ScalarProperty Name="EndTime" ColumnName="EndTime" />
+          <ScalarProperty Name="Pattern" ColumnName="Pattern" />
+          <ScalarProperty Name="Duration" ColumnName="Duration" />
+          <ScalarProperty Name="DayNames" ColumnName="DayNames" />
+          <ScalarProperty Name="DayVals" ColumnName="DayVals" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="GymId" ColumnName="GymId" />
+          <ScalarProperty Name="BranchId" ColumnName="BranchId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DeletAppointmentSlots">
+      <EntityTypeMapping TypeName="JustbokModel.DeletAppointmentSlot">
+        <MappingFragment StoreEntitySet="DeletAppointmentSlot">
+          <ScalarProperty Name="DeletedId" ColumnName="DeletedId" />
+          <ScalarProperty Name="AppSlotId" ColumnName="AppSlotId" />
+          <ScalarProperty Name="SlotDate" ColumnName="SlotDate" />
+          <ScalarProperty Name="GymId" ColumnName="GymId" />
+          <ScalarProperty Name="BranchId" ColumnName="BranchId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Diets">
+      <EntityTypeMapping TypeName="JustbokModel.Diet">
+        <MappingFragment StoreEntitySet="Diet">
+          <ScalarProperty Name="DietId" ColumnName="DietId" />
+          <ScalarProperty Name="DietTime" ColumnName="DietTime" />
+          <ScalarProperty Name="MondayDiet" ColumnName="MondayDiet" />
+          <ScalarProperty Name="TuesdayDiet" ColumnName="TuesdayDiet" />
+          <ScalarProperty Name="WednesdayDiet" ColumnName="WednesdayDiet" />
+          <ScalarProperty Name="ThursdayDiet" ColumnName="ThursdayDiet" />
+          <ScalarProperty Name="FridayDiet" ColumnName="FridayDiet" />
+          <ScalarProperty Name="SaturdayDiet" ColumnName="SaturdayDiet" />
+          <ScalarProperty Name="SundayDiet" ColumnName="SundayDiet" />
+          <ScalarProperty Name="DietPlanId" ColumnName="DietPlanId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DietPlanNames">
+      <EntityTypeMapping TypeName="JustbokModel.DietPlanName">
+        <MappingFragment StoreEntitySet="DietPlanName">
+          <ScalarProperty Name="DietPlanId" ColumnName="DietPlanId" />
+          <ScalarProperty Name="DietPlanName1" ColumnName="DietPlanName" />
+          <ScalarProperty Name="GymId" ColumnName="GymId" />
+          <ScalarProperty Name="BranchId" ColumnName="BranchId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Enquiries">
+      <EntityTypeMapping TypeName="JustbokModel.Enquiry">
+        <MappingFragment StoreEntitySet="Enquiry">
+          <ScalarProperty Name="EnquiryId" ColumnName="EnquiryId" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="MobileNumber" ColumnName="MobileNumber" />
+          <ScalarProperty Name="DOB" ColumnName="DOB" />
+          <ScalarProperty Name="EnquiryDate" ColumnName="EnquiryDate" />
+          <ScalarProperty Name="EmailId" ColumnName="EmailId" />
+          <ScalarProperty Name="PhoneNumberResidence" ColumnName="PhoneNumberResidence" />
+          <ScalarProperty Name="PhoneNumberOffice" ColumnName="PhoneNumberOffice" />
+          <ScalarProperty Name="Gender" ColumnName="Gender" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="Age" ColumnName="Age" />
+          <ScalarProperty Name="Intention" ColumnName="Intention" />
+          <ScalarProperty Name="ProgramSuggested" ColumnName="ProgramSuggested" />
+          <ScalarProperty Name="Category" ColumnName="Category" />
+          <ScalarProperty Name="AmountOffered" ColumnName="AmountOffered" />
+          <ScalarProperty Name="TrailOffered" ColumnName="TrailOffered" />
+          <ScalarProperty Name="TrailDate" ColumnName="TrailDate" />
+          <ScalarProperty Name="HowDidYouKnow" ColumnName="HowDidYouKnow" />
+          <ScalarProperty Name="RecievedBy" ColumnName="RecievedBy" />
+          <ScalarProperty Name="Notes" ColumnName="Notes" />
+          <ScalarProperty Name="SMS" ColumnName="SMS" />
+          <ScalarProperty Name="call" ColumnName="call" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="GymId" ColumnName="GymId" />
+          <ScalarProperty Name="BranchId" ColumnName="BranchId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Equipments">
+      <EntityTypeMapping TypeName="JustbokModel.Equipment">
+        <MappingFragment StoreEntitySet="Equipment">
+          <ScalarProperty Name="EquipmentId" ColumnName="EquipmentId" />
+          <ScalarProperty Name="EquipmentName" ColumnName="EquipmentName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Events">
+      <EntityTypeMapping TypeName="JustbokModel.Event">
+        <MappingFragment StoreEntitySet="Events">
+          <ScalarProperty Name="EventId" ColumnName="EventId" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+          <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+          <ScalarProperty Name="IsAllDay" ColumnName="IsAllDay" />
+          <ScalarProperty Name="IncludedTax" ColumnName="IncludedTax" />
+          <ScalarProperty Name="Price" ColumnName="Price" />
+          <ScalarProperty Name="RegistrationLimit" ColumnName="RegistrationLimit" />
+          <ScalarProperty Name="PhotoUrl" ColumnName="PhotoUrl" />
+          <ScalarProperty Name="GymId" ColumnName="GymId" />
+          <ScalarProperty Name="BranchId" ColumnName="BranchId" />
+          <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+          <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ExpenseModes">
+      <EntityTypeMapping TypeName="JustbokModel.ExpenseMode">
+        <MappingFragment StoreEntitySet="ExpenseMode">
+          <ScalarProperty Name="ModeId" ColumnName="ModeId" />
+          <ScalarProperty Name="Mode" ColumnName="Mode" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Expenses">
+      <EntityTypeMapping TypeName="JustbokModel.Expens">
+        <MappingFragment StoreEntitySet="Expenses">
+          <ScalarProperty Name="ExpensesId" ColumnName="ExpensesId" />
+          <ScalarProperty Name="ExpenseTypeId" ColumnName="ExpenseTypeId" />
+          <ScalarProperty Name="ExpenseAmount" ColumnName="ExpenseAmount" />
+          <ScalarProperty Name="ExpenseDate" ColumnName="ExpenseDate" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="GymId" ColumnName="GymId" />
+          <ScalarProperty Name="ReferenceNumber" ColumnName="ReferenceNumber" />
+          <ScalarProperty Name="ExpenseMode" ColumnName="ExpenseMode" />
+          <ScalarProperty Name="BranchId" ColumnName="BranchId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ExpensesTypes">
+      <EntityTypeMapping TypeName="JustbokModel.ExpensesType">
+        <MappingFragment StoreEntitySet="ExpensesType">
+          <ScalarProperty Name="ExpenseTypeId" ColumnName="ExpenseTypeId" />
+          <ScalarProperty Name="ExpenseTypeName" ColumnName="ExpenseTypeName" />
+          <ScalarProperty Name="ExpenseTypeDescription" ColumnName="ExpenseTypeDescription" />
+          <ScalarProperty Name="GymId" ColumnName="GymId" />
+          <ScalarProperty Name="BranchId" ColumnName="BranchId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Followups">
+      <EntityTypeMapping TypeName="JustbokModel.Followup">
+        <MappingFragment StoreEntitySet="Followup">
+          <ScalarProperty Name="FollowupId" ColumnName="FollowupId" />
+          <ScalarProperty Name="LastFollowUpDate" ColumnName="LastFollowUpDate" />
+          <ScalarProperty Name="NextFollowUpDate" ColumnName="NextFollowUpDate" />
+          <ScalarProperty Name="EnqStatus" ColumnName="EnqStatus" />
+          <ScalarProperty Name="StartTime" ColumnName="StartTime" />
+          <ScalarProperty Name="EndTime" ColumnName="EndTime" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="EnquiryId" ColumnName="EnquiryId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="GymAdmins">
+      <EntityTypeMapping TypeName="JustbokModel.GymAdmin">
+        <MappingFragment StoreEntitySet="GymAdmin">
+          <ScalarProperty Name="GymAdminId" ColumnName="GymAdminId" />
+          <ScalarProperty Name="AdminName" ColumnName="AdminName" />
+          <ScalarProperty Name="AdminPwd" ColumnName="AdminPwd" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="GymAllPackages">
+      <EntityTypeMapping TypeName="JustbokModel.GymAllPackage">
+        <MappingFragment StoreEntitySet="GymAllPackages">
+          <ScalarProperty Name="Package" ColumnName="Package" />
+          <ScalarProperty Name="Amount" ColumnName="Amount" />
+          <ScalarProperty Name="Months" ColumnName="Months" />
+          <ScalarProperty Name="OfferName" ColumnName="OfferName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="GymAmenities">
+      <EntityTypeMapping TypeName="JustbokModel.GymAmenity">
+        <MappingFragment StoreEntitySet="GymAmenities">
+          <ScalarProperty Name="GymAmenitiesId" ColumnName="GymAmenitiesId" />
+          <ScalarProperty Name="GymAmenitiesName" ColumnName="GymAmenitiesName" />
+          <ScalarProperty Name="AminityEnable" ColumnName="AminityEnable" />
+          <ScalarProperty Name="GymId" ColumnName="GymId" />
+          <ScalarProperty Name="BranchId" ColumnName="BranchId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="GymEquipments">
+      <EntityTypeMapping TypeName="JustbokModel.GymEquipment">
+        <MappingFragment StoreEntitySet="GymEquipment">
+          <ScalarProperty Name="GymEquipmentId" ColumnName="GymEquipmentId" />
+          <ScalarProperty Name="GymEquipmentName" ColumnName="GymEquipmentName" />
+          <ScalarProperty Name="EquipmentEnable" ColumnName="EquipmentEnable" />
+          <ScalarProperty Name="GymId" ColumnName="GymId" />
+          <ScalarProperty Name="BranchId" ColumnName="BranchId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="GymImages">
+      <EntityTypeMapping TypeName="JustbokModel.GymImage">
+        <MappingFragment StoreEntitySet="GymImage">
+          <ScalarProperty Name="GymImageId" ColumnName="GymImageId" />
+          <ScalarProperty Name="ImageData" ColumnName="ImageData" />
+          <ScalarProperty Name="GymId" ColumnName="GymId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="GymLists">
+      <EntityTypeMapping TypeName="JustbokModel.GymList">
+        <MappingFragment StoreEntitySet="GymList">
+          <ScalarProperty Name="Gymid" ColumnName="Gymid" />
+          <ScalarProperty Name="GymName" ColumnName="GymName" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="Openat" ColumnName="Openat" />
+          <ScalarProperty Name="Closeat" ColumnName="Closeat" />
+          <ScalarProperty Name="GymAddress" ColumnName="GymAddress" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="EnrolDate" ColumnName="EnrolDate" />
+          <ScalarProperty Name="MobileNumber" ColumnName="MobileNumber" />
+          <ScalarProperty Name="PhoneNumberGym" ColumnName="PhoneNumberGym" />
+          <ScalarProperty Name="Representative" ColumnName="Representative" />
+          <ScalarProperty Name="EstablishedYear" ColumnName="EstablishedYear" />
+          <ScalarProperty Name="InstructionMessage" ColumnName="InstructionMessage" />
+          <ScalarProperty Name="About" ColumnName="About" />
+          <ScalarProperty Name="FeedBack" ColumnName="FeedBack" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="GymLogins">
+      <EntityTypeMapping TypeName="JustbokModel.GymLogin">
+        <MappingFragment StoreEntitySet="GymLogin">
+          <ScalarProperty Name="Loginid" ColumnName="Loginid" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="GymId" ColumnName="GymId" />
+          <ScalarProperty Name="IsLoginActive" ColumnName="IsLoginActive" />
+          <ScalarProperty Name="Role" ColumnName="Role" />
+          <ScalarProperty Name="StaffId" ColumnName="StaffId" />
+          <ScalarProperty Name="MemberId" ColumnName="MemberId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="GymPackages">
+      <EntityTypeMapping TypeName="JustbokModel.GymPackage">
+        <MappingFragment StoreEntitySet="GymPackage">
+          <ScalarProperty Name="PackageId" ColumnName="PackageId" />
+          <ScalarProperty Name="PackageType" ColumnName="PackageType" />
+          <ScalarProperty Name="PackageAmount" ColumnName="PackageAmount" />
+          <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+          <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+          <ScalarProperty Name="Note" ColumnName="Note" />
+          <ScalarProperty Name="GymStatus" ColumnName="GymStatus" />
+          <ScalarProperty Name="GymId" ColumnName="GymId" />
+          <ScalarProperty Name="Months" ColumnName="Months" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="BranchId" ColumnName="BranchId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="GymPayments">
+      <EntityTypeMapping TypeName="JustbokModel.GymPayment">
+        <MappingFragment StoreEntitySet="GymPayment">
+          <ScalarProperty Name="RecieptNumber" ColumnName="RecieptNumber" />
+          <ScalarProperty Name="PaymentType" ColumnName="PaymentType" />
+          <ScalarProperty Name="PaymentAmount" ColumnName="PaymentAmount" />
+          <ScalarProperty Name="PaymentDate" ColumnName="PaymentDate" />
+          <ScalarProperty Name="PaymentDueDate" ColumnName="PaymentDueDate" />
+          <ScalarProperty Name="ReferenceNumber" ColumnName="ReferenceNumber" />
+          <ScalarProperty Name="PackageId" ColumnName="PackageId" />
+          <ScalarProperty Name="GymId" ColumnName="GymId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="GymServiceLists">
+      <EntityTypeMapping TypeName="JustbokModel.GymServiceList">
+        <MappingFragment StoreEntitySet="GymServiceList">
+          <ScalarProperty Name="ServiceId" ColumnName="ServiceId" />
+          <ScalarProperty Name="ServiceName" ColumnName="ServiceName" />
+          <ScalarProperty Name="GymId" ColumnName="GymId" />
+          <ScalarProperty Name="BranchId" ColumnName="BranchId" />
+          <ScalarProperty Name="Enable" ColumnName="Enable" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MealTimes">
+      <EntityTypeMapping TypeName="JustbokModel.MealTime">
+        <MappingFragment StoreEntitySet="MealTime">
+          <ScalarProperty Name="MealTimeId" ColumnName="MealTimeId" />
+          <ScalarProperty Name="MealTime1" ColumnName="MealTime" />
+          <ScalarProperty Name="MealDescription" ColumnName="MealDescription" />
+          <ScalarProperty Name="GymId" ColumnName="GymId" />
+          <ScalarProperty Name="BranchId" ColumnName="BranchId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Measurements">
+      <EntityTypeMapping TypeName="JustbokModel.Measurement">
+        <MappingFragment StoreEntitySet="Measurement">
+          <ScalarProperty Name="MeasurementId" ColumnName="MeasurementId" />
+          <ScalarProperty Name="MeasurementDate" ColumnName="MeasurementDate" />
+          <ScalarProperty Name="NextMeasurementDate" ColumnName="NextMeasurementDate" />
+          <ScalarProperty Name="Height" ColumnName="Height" />
+          <ScalarProperty Name="weight" ColumnName="weight" />
+          <ScalarProperty Name="UpperArm" ColumnName="UpperArm" />
+          <ScalarProperty Name="ForeArm" ColumnName="ForeArm" />
+          <ScalarProperty Name="Calves" ColumnName="Calves" />
+          <ScalarProperty Name="BMI" ColumnName="BMI" />
+          <ScalarProperty Name="VFat" ColumnName="VFat" />
+          <ScalarProperty Name="Shoulder" ColumnName="Shoulder" />
+          <ScalarProperty Name="Chest" ColumnName="Chest" />
+          <ScalarProperty Name="Arms" ColumnName="Arms" />
+          <ScalarProperty Name="UpperABS" ColumnName="UpperABS" />
+          <ScalarProperty Name="WaistABS" ColumnName="WaistABS" />
+          <ScalarProperty Name="LowerABS" ColumnName="LowerABS" />
+          <ScalarProperty Name="Glutes" ColumnName="Glutes" />
+          <ScalarProperty Name="Thighs" ColumnName="Thighs" />
+          <ScalarProperty Name="MemberID" ColumnName="MemberID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MemberDietPlans">
+      <EntityTypeMapping TypeName="JustbokModel.MemberDietPlan">
+        <MappingFragment StoreEntitySet="MemberDietPlan">
+          <ScalarProperty Name="MemberDietPlanid" ColumnName="MemberDietPlanid" />
+          <ScalarProperty Name="DietTime" ColumnName="DietTime" />
+          <ScalarProperty Name="MondayDiet" ColumnName="MondayDiet" />
+          <ScalarProperty Name="TuesdayDiet" ColumnName="TuesdayDiet" />
+          <ScalarProperty Name="WednesdayDiet" ColumnName="WednesdayDiet" />
+          <ScalarProperty Name="ThursdayDiet" ColumnName="ThursdayDiet" />
+          <ScalarProperty Name="FridayDiet" ColumnName="FridayDiet" />
+          <ScalarProperty Name="SaturdayDiet" ColumnName="SaturdayDiet" />
+          <ScalarProperty Name="SundayDiet" ColumnName="SundayDiet" />
+          <ScalarProperty Name="DietPlanId" ColumnName="DietPlanId" />
+          <ScalarProperty Name="MemberID" ColumnName="MemberID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MemberFreezes">
+      <EntityTypeMapping TypeName="JustbokModel.MemberFreeze">
+        <MappingFragment StoreEntitySet="MemberFreeze">
+          <ScalarProperty Name="FreezeId" ColumnName="FreezeId" />
+          <ScalarProperty Name="MemberShipId" ColumnName="MemberShipId" />
+          <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+          <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="Member_Id" ColumnName="Member_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MemberImages">
+      <EntityTypeMapping TypeName="JustbokModel.MemberImage">
+        <MappingFragment StoreEntitySet="MemberImage">
+          <ScalarProperty Name="ImageId" ColumnName="ImageId" />
+          <ScalarProperty Name="ImageData" ColumnName="ImageData" />
+          <ScalarProperty Name="MemberId" ColumnName="MemberId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MemberInfoes">
+      <EntityTypeMapping TypeName="JustbokModel.MemberInfo">
+        <MappingFragment StoreEntitySet="MemberInfo">
+          <ScalarProperty Name="MemberReference" ColumnName="MemberReference" />
+          <ScalarProperty Name="MemberID" ColumnName="MemberID" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="Dob" ColumnName="Dob" />
+          <ScalarProperty Name="Gender" ColumnName="Gender" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="MobileNumber" ColumnName="MobileNumber" />
+          <ScalarProperty Name="MemberAddress" ColumnName="MemberAddress" />
+          <ScalarProperty Name="EnrollDate" ColumnName="EnrollDate" />
+          <ScalarProperty Name="Married" ColumnName="Married" />
+          <ScalarProperty Name="SpouseName" ColumnName="SpouseName" />
+          <ScalarProperty Name="SpouseBirthDate" ColumnName="SpouseBirthDate" />
+          <ScalarProperty Name="AnniversaryDate" ColumnName="AnniversaryDate" />
+          <ScalarProperty Name="Occupation" ColumnName="Occupation" />
+          <ScalarProperty Name="Designation" ColumnName="Designation" />
+          <ScalarProperty Name="MemberSource" ColumnName="MemberSource" />
+          <ScalarProperty Name="PhoneResidence" ColumnName="PhoneResidence" />
+          <ScalarProperty Name="PhoneOffice" ColumnName="PhoneOffice" />
+          <ScalarProperty Name="ReferredBy" ColumnName="ReferredBy" />
+          <ScalarProperty Name="Programme" ColumnName="Programme" />
+          <ScalarProperty Name="Representative" ColumnName="Representative" />
+          <ScalarProperty Name="GymId" ColumnName="GymId" />
+          <ScalarProperty Name="BranchId" ColumnName="BranchId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MemberShips">
+      <EntityTypeMapping TypeName="JustbokModel.MemberShip">
+        <MappingFragment StoreEntitySet="MemberShip">
+          <ScalarProperty Name="MembershipId" ColumnName="MembershipId" />
+          <ScalarProperty Name="MembershipType" ColumnName="MembershipType" />
+          <ScalarProperty Name="Months" ColumnName="Months" />
+          <ScalarProperty Name="Amount" ColumnName="Amount" />
+          <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+          <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+          <ScalarProperty Name="Note" ColumnName="Note" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="MemberID" ColumnName="MemberID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MembershipOffers">
+      <EntityTypeMapping TypeName="JustbokModel.MembershipOffer">
+        <MappingFragment StoreEntitySet="MembershipOffers">
+          <ScalarProperty Name="MembershipOfferId" ColumnName="MembershipOfferId" />
+          <ScalarProperty Name="Amount" ColumnName="Amount" />
+          <ScalarProperty Name="Months" ColumnName="Months" />
+          <ScalarProperty Name="OfferName" ColumnName="OfferName" />
+          <ScalarProperty Name="MinimumAmount" ColumnName="MinimumAmount" />
+          <ScalarProperty Name="Category" ColumnName="Category" />
+          <ScalarProperty Name="Active" ColumnName="Active" />
+          <ScalarProperty Name="GymId" ColumnName="GymId" />
+          <ScalarProperty Name="AppLen" ColumnName="AppLen" />
+          <ScalarProperty Name="BranchId" ColumnName="BranchId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MemberTimeSheets">
+      <EntityTypeMapping TypeName="JustbokModel.MemberTimeSheet">
+        <MappingFragment StoreEntitySet="MemberTimeSheet">
+          <ScalarProperty Name="MemberTimeSheetId" ColumnName="MemberTimeSheetId" />
+          <ScalarProperty Name="IsPresent" ColumnName="IsPresent" />
+          <ScalarProperty Name="MemberID" ColumnName="MemberID" />
+          <ScalarProperty Name="GymId" ColumnName="GymId" />
+          <ScalarProperty Name="AttendenceDate" ColumnName="AttendenceDate" />
+          <ScalarProperty Name="BranchId" ColumnName="BranchId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MemberWorkoutPlans">
+      <EntityTypeMapping TypeName="JustbokModel.MemberWorkoutPlan">
+        <MappingFragment StoreEntitySet="MemberWorkoutPlan">
+          <ScalarProperty Name="MemberWorkoutPlanid" ColumnName="MemberWorkoutPlanid" />
+          <ScalarProperty Name="Workout" ColumnName="Workout" />
+          <ScalarProperty Name="NumberOfSets" ColumnName="NumberOfSets" />
+          <ScalarProperty Name="NumberOfMinutes" ColumnName="NumberOfMinutes" />
+          <ScalarProperty Name="NumberofDays" ColumnName="NumberofDays" />
+          <ScalarProperty Name="ExcerciseOrder" ColumnName="ExcerciseOrder" />
+          <ScalarProperty Name="PlaneNameId" ColumnName="PlaneNameId" />
+          <ScalarProperty Name="MemberID" ColumnName="MemberID" />
+          <ScalarProperty Name="Repeats" ColumnName="Repeats" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Orders">
+      <EntityTypeMapping TypeName="JustbokModel.Order">
+        <MappingFragment StoreEntitySet="Orders">
+          <ScalarProperty Name="OrderId" ColumnName="OrderId" />
+          <ScalarProperty Name="Product" ColumnName="Product" />
+          <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+          <ScalarProperty Name="Price" ColumnName="Price" />
+          <ScalarProperty Name="Total" ColumnName="Total" />
+          <ScalarProperty Name="PurchaseOrderId" ColumnName="PurchaseOrderId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Payments">
+      <EntityTypeMapping TypeName="JustbokModel.Payment">
+        <MappingFragment StoreEntitySet="Payment">
+          <ScalarProperty Name="RecieptNumber" ColumnName="RecieptNumber" />
+          <ScalarProperty Name="PaymentType" ColumnName="PaymentType" />
+          <ScalarProperty Name="PaymentAmount" ColumnName="PaymentAmount" />
+          <ScalarProperty Name="PaymentDate" ColumnName="PaymentDate" />
+          <ScalarProperty Name="PaymentDueDate" ColumnName="PaymentDueDate" />
+          <ScalarProperty Name="ReferenceNumber" ColumnName="ReferenceNumber" />
+          <ScalarProperty Name="MemberID" ColumnName="MemberID" />
+          <ScalarProperty Name="MembershipId" ColumnName="MembershipId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Products">
+      <EntityTypeMapping TypeName="JustbokModel.Product">
+        <MappingFragment StoreEntitySet="Product">
+          <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+          <ScalarProperty Name="BrandName" ColumnName="BrandName" />
+          <ScalarProperty Name="ProductName" ColumnName="ProductName" />
+          <ScalarProperty Name="Price" ColumnName="Price" />
+          <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="ForSale" ColumnName="ForSale" />
+          <ScalarProperty Name="LowStockQuantity" ColumnName="LowStockQuantity" />
+          <ScalarProperty Name="GymId" ColumnName="GymId" />
+          <ScalarProperty Name="BranchId" ColumnName="BranchId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PurchaseOrders">
+      <EntityTypeMapping TypeName="JustbokModel.PurchaseOrder">
+        <MappingFragment StoreEntitySet="PurchaseOrder">
+          <ScalarProperty Name="PurchaseOrderId" ColumnName="PurchaseOrderId" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="OrderDate" ColumnName="OrderDate" />
+          <ScalarProperty Name="PaymentVia" ColumnName="PaymentVia" />
+          <ScalarProperty Name="Representative" ColumnName="Representative" />
+          <ScalarProperty Name="GymId" ColumnName="GymId" />
+          <ScalarProperty Name="BranchId" ColumnName="BranchId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PurchaseOrderDetails">
+      <EntityTypeMapping TypeName="JustbokModel.PurchaseOrderDetail">
+        <MappingFragment StoreEntitySet="PurchaseOrderDetail">
+          <ScalarProperty Name="DetailId" ColumnName="DetailId" />
+          <ScalarProperty Name="PurchaseId" ColumnName="PurchaseId" />
+          <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+          <ScalarProperty Name="Qty" ColumnName="Qty" />
+          <ScalarProperty Name="Rate" ColumnName="Rate" />
+          <ScalarProperty Name="DiscountType" ColumnName="DiscountType" />
+          <ScalarProperty Name="Discount" ColumnName="Discount" />
+          <ScalarProperty Name="GST" ColumnName="GST" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PurchaseOrderHeaders">
+      <EntityTypeMapping TypeName="JustbokModel.PurchaseOrderHeader">
+        <MappingFragment StoreEntitySet="PurchaseOrderHeader">
+          <ScalarProperty Name="PurchaseId" ColumnName="PurchaseId" />
+          <ScalarProperty Name="MemberId" ColumnName="MemberId" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="MobileNo" ColumnName="MobileNo" />
+          <ScalarProperty Name="OrderDate" ColumnName="OrderDate" />
+          <ScalarProperty Name="PaymentVia" ColumnName="PaymentVia" />
+          <ScalarProperty Name="Representative" ColumnName="Representative" />
+          <ScalarProperty Name="GymId" ColumnName="GymId" />
+          <ScalarProperty Name="SubTotal" ColumnName="SubTotal" />
+          <ScalarProperty Name="GSTAmount" ColumnName="GSTAmount" />
+          <ScalarProperty Name="TotalAmount" ColumnName="TotalAmount" />
+          <ScalarProperty Name="BranchId" ColumnName="BranchId" />
+          <ScalarProperty Name="StaffId" ColumnName="StaffId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Schedulers">
+      <EntityTypeMapping TypeName="JustbokModel.Scheduler">
+        <MappingFragment StoreEntitySet="Scheduler">
+          <ScalarProperty Name="SchedulerId" ColumnName="SchedulerId" />
+          <ScalarProperty Name="MemberId" ColumnName="MemberId" />
+          <ScalarProperty Name="StaffId" ColumnName="StaffId" />
+          <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+          <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+          <ScalarProperty Name="Repeatable" ColumnName="Repeatable" />
+          <ScalarProperty Name="Duration" ColumnName="Duration" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="GymId" ColumnName="GymId" />
+          <ScalarProperty Name="SelectType" ColumnName="SelectType" />
+          <ScalarProperty Name="SelectedDay" ColumnName="SelectedDay" />
+          <ScalarProperty Name="BranchId" ColumnName="BranchId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SelectedPackages">
+      <EntityTypeMapping TypeName="JustbokModel.SelectedPackage">
+        <MappingFragment StoreEntitySet="SelectedPackage">
+          <ScalarProperty Name="PackageSelectid" ColumnName="PackageSelectid" />
+          <ScalarProperty Name="Package" ColumnName="Package" />
+          <ScalarProperty Name="GymId" ColumnName="GymId" />
+          <ScalarProperty Name="BranchId" ColumnName="BranchId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ShiftTypes">
+      <EntityTypeMapping TypeName="JustbokModel.ShiftType">
+        <MappingFragment StoreEntitySet="ShiftType">
+          <ScalarProperty Name="ShiftId" ColumnName="ShiftId" />
+          <ScalarProperty Name="ShiftName" ColumnName="ShiftName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Staffs">
+      <EntityTypeMapping TypeName="JustbokModel.Staff">
+        <MappingFragment StoreEntitySet="Staff">
+          <ScalarProperty Name="StaffId" ColumnName="StaffId" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="DOB" ColumnName="DOB" />
+          <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+          <ScalarProperty Name="StaffAddress" ColumnName="StaffAddress" />
+          <ScalarProperty Name="StaffRole" ColumnName="StaffRole" />
+          <ScalarProperty Name="DailySalary" ColumnName="DailySalary" />
+          <ScalarProperty Name="Isactive" ColumnName="Isactive" />
+          <ScalarProperty Name="GymId" ColumnName="GymId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="StaffBranches">
+      <EntityTypeMapping TypeName="JustbokModel.StaffBranch">
+        <MappingFragment StoreEntitySet="StaffBranch">
+          <ScalarProperty Name="StaffBranchId" ColumnName="StaffBranchId" />
+          <ScalarProperty Name="StaffId" ColumnName="StaffId" />
+          <ScalarProperty Name="BranchId" ColumnName="BranchId" />
+          <ScalarProperty Name="Enable" ColumnName="Enable" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="StaffLogins">
+      <EntityTypeMapping TypeName="JustbokModel.StaffLogin">
+        <MappingFragment StoreEntitySet="StaffLogin">
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="Uname" ColumnName="Uname" />
+          <ScalarProperty Name="pwd" ColumnName="pwd" />
+          <ScalarProperty Name="IsLoginactive" ColumnName="IsLoginactive" />
+          <ScalarProperty Name="StaffId" ColumnName="StaffId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="StaffShifts">
+      <EntityTypeMapping TypeName="JustbokModel.StaffShift">
+        <MappingFragment StoreEntitySet="StaffShift">
+          <ScalarProperty Name="StaffShiftId" ColumnName="StaffShiftId" />
+          <ScalarProperty Name="StaffId" ColumnName="StaffId" />
+          <ScalarProperty Name="ShiftId" ColumnName="ShiftId" />
+          <ScalarProperty Name="Enable" ColumnName="Enable" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Stocks">
+      <EntityTypeMapping TypeName="JustbokModel.Stock">
+        <MappingFragment StoreEntitySet="Stock">
+          <ScalarProperty Name="StockId" ColumnName="StockId" />
+          <ScalarProperty Name="StockIn" ColumnName="StockIn" />
+          <ScalarProperty Name="StockOut" ColumnName="StockOut" />
+          <ScalarProperty Name="StockinDate" ColumnName="StockinDate" />
+          <ScalarProperty Name="StockoutDate" ColumnName="StockoutDate" />
+          <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+          <ScalarProperty Name="GymId" ColumnName="GymId" />
+          <ScalarProperty Name="BranchId" ColumnName="BranchId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Suppliers">
+      <EntityTypeMapping TypeName="JustbokModel.Supplier">
+        <MappingFragment StoreEntitySet="Supplier">
+          <ScalarProperty Name="SupplierId" ColumnName="SupplierId" />
+          <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
+          <ScalarProperty Name="RegistrationNumber" ColumnName="RegistrationNumber" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="ForSale" ColumnName="ForSale" />
+          <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+          <ScalarProperty Name="SupplierAddress" ColumnName="SupplierAddress" />
+          <ScalarProperty Name="FaxNumber" ColumnName="FaxNumber" />
+          <ScalarProperty Name="GymId" ColumnName="GymId" />
+          <ScalarProperty Name="BranchId" ColumnName="BranchId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Tasks">
+      <EntityTypeMapping TypeName="JustbokModel.Task">
+        <MappingFragment StoreEntitySet="Task">
+          <ScalarProperty Name="TaskId" ColumnName="TaskId" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="TaskDescription" ColumnName="TaskDescription" />
+          <ScalarProperty Name="Interval" ColumnName="Interval" />
+          <ScalarProperty Name="IntervalType" ColumnName="IntervalType" />
+          <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+          <ScalarProperty Name="GymId" ColumnName="GymId" />
+          <ScalarProperty Name="BranchId" ColumnName="BranchId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TaxTypes">
+      <EntityTypeMapping TypeName="JustbokModel.TaxType">
+        <MappingFragment StoreEntitySet="TaxType">
+          <ScalarProperty Name="TaxTypeId" ColumnName="TaxTypeId" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TrainerDetails">
+      <EntityTypeMapping TypeName="JustbokModel.TrainerDetail">
+        <MappingFragment StoreEntitySet="TrainerDetails">
+          <ScalarProperty Name="Trainerid" ColumnName="Trainerid" />
+          <ScalarProperty Name="ImageData" ColumnName="ImageData" />
+          <ScalarProperty Name="Experience" ColumnName="Experience" />
+          <ScalarProperty Name="Qulifiaction" ColumnName="Qulifiaction" />
+          <ScalarProperty Name="TrainerDescription" ColumnName="TrainerDescription" />
+          <ScalarProperty Name="StaffId" ColumnName="StaffId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Tranfers">
+      <EntityTypeMapping TypeName="JustbokModel.Tranfer">
+        <MappingFragment StoreEntitySet="Tranfer">
+          <ScalarProperty Name="TransferId" ColumnName="TransferId" />
+          <ScalarProperty Name="TransferFrom" ColumnName="TransferFrom" />
+          <ScalarProperty Name="TransferDate" ColumnName="TransferDate" />
+          <ScalarProperty Name="MembershipType" ColumnName="MembershipType" />
+          <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+          <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+          <ScalarProperty Name="TransferTo" ColumnName="TransferTo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Workouts">
+      <EntityTypeMapping TypeName="JustbokModel.Workout">
+        <MappingFragment StoreEntitySet="Workout">
+          <ScalarProperty Name="WorkoutId" ColumnName="WorkoutId" />
+          <ScalarProperty Name="WorkoutName" ColumnName="WorkoutName" />
+          <ScalarProperty Name="Unit" ColumnName="Unit" />
+          <ScalarProperty Name="GymId" ColumnName="GymId" />
+          <ScalarProperty Name="BranchId" ColumnName="BranchId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="WorkoutPlans">
+      <EntityTypeMapping TypeName="JustbokModel.WorkoutPlan">
+        <MappingFragment StoreEntitySet="WorkoutPlan">
+          <ScalarProperty Name="Planid" ColumnName="Planid" />
+          <ScalarProperty Name="Workout" ColumnName="Workout" />
+          <ScalarProperty Name="NumberOfSets" ColumnName="NumberOfSets" />
+          <ScalarProperty Name="NumberOfMinutes" ColumnName="NumberOfMinutes" />
+          <ScalarProperty Name="NumberofDays" ColumnName="NumberofDays" />
+          <ScalarProperty Name="ExcerciseOrder" ColumnName="ExcerciseOrder" />
+          <ScalarProperty Name="PlaneNameId" ColumnName="PlaneNameId" />
+          <ScalarProperty Name="Repeats" ColumnName="Repeats" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="WorkoutPlanNames">
+      <EntityTypeMapping TypeName="JustbokModel.WorkoutPlanName">
+        <MappingFragment StoreEntitySet="WorkoutPlanName">
+          <ScalarProperty Name="PlaneNameId" ColumnName="PlaneNameId" />
+          <ScalarProperty Name="PlanName" ColumnName="PlanName" />
+          <ScalarProperty Name="GymId" ColumnName="GymId" />
+          <ScalarProperty Name="BranchId" ColumnName="BranchId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DailyTaskLists">
+      <EntityTypeMapping TypeName="JustbokModel.DailyTaskList">
+        <MappingFragment StoreEntitySet="DailyTaskList">
+          <ScalarProperty Name="TaskId" ColumnName="TaskId" />
+          <ScalarProperty Name="TaskStatus" ColumnName="TaskStatus" />
+          <ScalarProperty Name="TitleDescription" ColumnName="TitleDescription" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="TaskDate" ColumnName="TaskDate" />
+          <ScalarProperty Name="DailyTaskId" ColumnName="DailyTaskId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="LeaveTypes">
+      <EntityTypeMapping TypeName="JustbokModel.LeaveType">
+        <MappingFragment StoreEntitySet="LeaveType">
+          <ScalarProperty Name="LeaveDay" ColumnName="LeaveDay" />
+          <ScalarProperty Name="LeaveName" ColumnName="LeaveName" />
+          <ScalarProperty Name="LeaveTypeId" ColumnName="LeaveTypeId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="StaffAbsentDetails">
+      <EntityTypeMapping TypeName="JustbokModel.StaffAbsentDetail">
+        <MappingFragment StoreEntitySet="StaffAbsentDetails">
+          <ScalarProperty Name="StaffId" ColumnName="StaffId" />
+          <ScalarProperty Name="Reason" ColumnName="Reason" />
+          <ScalarProperty Name="LeaveId" ColumnName="LeaveId" />
+          <ScalarProperty Name="LeaveType" ColumnName="LeaveType" />
+          <ScalarProperty Name="AbsentId" ColumnName="AbsentId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TimeSheets">
+      <EntityTypeMapping TypeName="JustbokModel.TimeSheet">
+        <MappingFragment StoreEntitySet="TimeSheet">
+          <ScalarProperty Name="BranchId" ColumnName="BranchId" />
+          <ScalarProperty Name="StaffId" ColumnName="StaffId" />
+          <ScalarProperty Name="GymId" ColumnName="GymId" />
+          <ScalarProperty Name="Absent" ColumnName="Absent" />
+          <ScalarProperty Name="Present" ColumnName="Present" />
+          <ScalarProperty Name="AttendenceDate" ColumnName="AttendenceDate" />
+          <ScalarProperty Name="TimeSheetId" ColumnName="TimeSheetId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="StaffPresentDetails">
+      <EntityTypeMapping TypeName="JustbokModel.StaffPresentDetail">
+        <MappingFragment StoreEntitySet="StaffPresentDetail">
+          <ScalarProperty Name="StaffId" ColumnName="StaffId" />
+          <ScalarProperty Name="ShiftId" ColumnName="ShiftId" />
+          <ScalarProperty Name="StaffOutTime" ColumnName="StaffOutTime" />
+          <ScalarProperty Name="StaffInTime" ColumnName="StaffInTime" />
+          <ScalarProperty Name="PresentId" ColumnName="PresentId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Salaries">
+      <EntityTypeMapping TypeName="JustbokModel.Salary">
+        <MappingFragment StoreEntitySet="Salary">
+          <ScalarProperty Name="StaffId" ColumnName="StaffId" />
+          <ScalarProperty Name="Comments" ColumnName="Comments" />
+          <ScalarProperty Name="ReferenceNumber" ColumnName="ReferenceNumber" />
+          <ScalarProperty Name="SalaryMode" ColumnName="SalaryMode" />
+          <ScalarProperty Name="SalaryDate" ColumnName="SalaryDate" />
+          <ScalarProperty Name="SalaryAmount" ColumnName="SalaryAmount" />
+          <ScalarProperty Name="SalaryId" ColumnName="SalaryId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SMSHistories">
+      <EntityTypeMapping TypeName="JustbokModel.SMSHistory">
+        <MappingFragment StoreEntitySet="SMSHistory">
+          <ScalarProperty Name="MemberId" ColumnName="MemberId" />
+          <ScalarProperty Name="BranchId" ColumnName="BranchId" />
+          <ScalarProperty Name="GymId" ColumnName="GymId" />
+          <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+          <ScalarProperty Name="SMSMessage" ColumnName="SMSMessage" />
+          <ScalarProperty Name="SMSDate" ColumnName="SMSDate" />
+          <ScalarProperty Name="SMSId" ColumnName="SMSId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

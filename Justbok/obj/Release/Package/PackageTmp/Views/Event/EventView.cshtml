@@ -1,0 +1,132 @@
+﻿<input id="e_id" class="form-control" type="hidden" value="">
+<input id="e_photo" class="form-control" type="hidden" value="">
+<div class="modal-content">
+    <div class="modal-header">
+        <button class="close" aria-hidden="true" type="button" onclick="return HideModel();">×</button>
+        <h4 class="modal-title"><strong> Add an Event</strong></h4>
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label class="control-label" for="e_name">Name:</label>
+                    <input id="e_name" class="form-control" type="text" placeholder="Weightlifting Seminar" value="">
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label class="control-label" for="e_description">Description:</label>
+                    <textarea id="e_description" class="form-control" type="text"></textarea>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="control-label" for="e_start_date">Start Date:</label>
+                    <input id="e_start_date" class="form-control datepicker" type="text">
+                </div>
+            </div>
+            <div id="start_time_row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="control-label" for="e_start_time">Start Time:</label>
+                        <input id="e_start_time" class="form-control timepicker" type="text">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="control-label" for="e_end_date">End Date:</label>
+                    <input id="e_end_date" class="form-control datepicker" type="text">
+                </div>
+            </div>
+            <div id="end_time_row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="control-label" for="e_end_time">End Time:</label>
+                        <input id="e_end_time" class="form-control timepicker" type="text">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6 col-xs-12">
+                <div class="form-group">
+                    <div>
+                        <label class="cb-wrapper">
+                            <input name="repeats" id="e_all_day" type="checkbox" class="flat-red" onchange="return allday()" />
+                        </label>
+                        <label class="control-label" for="e_all_day">&nbsp;&nbsp;&nbsp; All day?</label>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-xs-12">
+                <div class="form-group">
+                    <div>
+                        <label class="cb-wrapper">
+                            <input name="repeats" id="e_includes_tax" type="checkbox" class="flat-red" />
+                        </label>
+                        <label class="control-label" for="e_includes_tax">&nbsp;&nbsp;&nbsp; Inclueds tax?</label>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="control-label" for="e_cost">Price:</label>
+                    <div class="input-group">
+                        <div class="input-group-addon">Rs</div>
+                        <input id="e_cost" class="form-control" type="text">
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="control-label" for="e_limit">Registration Limit:</label>
+                    <input id="e_limit" class="form-control" type="text">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label class="control-label" for="">Event Photo:</label>
+                </div>
+            </div>
+        </div>
+        <span id="photoplace">
+            <img class="img-responsive" src="">
+        </span>
+        <button class="btn btn-sm btn-primary btn-flat" type="button" onclick="return ShowEventLogo();">Upload Photo</button>
+        <button class="btn btn-sm btn-primary btn-flat" type="button" onclick="return RemovePhoto();">Remove Photo</button>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-default btn-sm btn-flat" type="button" onclick="return HideModel();">
+            <i class="glyphicon glyphicon-remove"></i> Cancel
+        </button>
+        <button class="btn btn-primary btn-sm btn-flat" onclick="SaveEvent();" type="button">
+            <i class="glyphicon glyphicon-ok"></i> Save
+        </button>
+    </div>
+</div>
+
+
+<script src="~/Scripts/Navigation.js?v=1.2"></script>
+<script>
+    var SaveEventUrl = '@Url.Action("SaveEvent", "Event")';
+    var EventLogoUrl = '@Url.Action("EventLogo", "Event")';
+    var EventDetailsByIdUrl = '@Url.Action("EventDetailsById", "Event")';
+
+    $(document).ready(function () {
+        EventViewLoading();
+    });
+</script>

@@ -1,0 +1,247 @@
+﻿@model Justbok.Models.StaffViewModel
+
+@{
+    ViewBag.Title = "Edit Staff";
+}
+
+
+
+
+@*<link rel="stylesheet" href="css/bootstrap-multiselect/bootstrap-multiselect.css" type="text/css">
+<script type="text/javascript" src="js/bootstrap-multiselect/bootstrap-multiselect.js"></script>*@
+
+<section class="content container-fluid" id="container">
+
+
+    <div class="pull-right">
+        <a onclick="return LoadPage('@Url.Action("StaffList", "Staff")','Justbok | Staff List');" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-arrow-left"></i> Staff List</a><br><br>
+    </div>
+
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <div class="col-xs-12">
+        <div class="box">
+            <div class="box-header">
+                <h3 class="box-title">Edit staff</h3>
+
+            </div>
+            <div id="loading" style="display:none;">
+
+                <img src="~/Theme/img/loading.gif" height="50" width="100" />
+            </div>
+
+
+            <div class="col-md-12">
+
+                @*<div class="alert alert-success" role="alert" id="isSucess" style="display:none; float:right;height:50px; width:200px;text-align:center">Data saved successfully!!</div>*@
+
+                <div id="messages" class="hide" role="alert" style="height:50px;width:250px;border-radius:5px;float:right;text-align:inherit;">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <div id="messages_content"></div>
+                </div>
+                <hr>
+                <div class="form-group col-md-4">
+                    <label for="exampleInputEmail1">Staff Id</label>
+                    @Html.TextBoxFor(model => model.StaffId, new { @class = "form-control", placeholder = "Staff Id",id="txtStaffId" })
+                </div>
+
+
+                <div class="form-group col-md-4">
+                    <label for="exampleInputEmail1">First Name</label>
+                    @Html.TextBoxFor(model => model.FirstName, new { @class = "form-control", id = "txtFirstName", placeholder = "First Name" })
+                    @Html.ValidationMessageFor(model => model.FirstName)
+                </div>
+
+                <div class="form-group col-md-4">
+                    <label for="exampleInputEmail1">Last Name</label>
+                    @Html.TextBoxFor(model => model.LastName, new { @class = "form-control", id = "txtLastName", placeholder = "Last Name" })
+                    @Html.ValidationMessageFor(model => model.LastName)
+                </div>
+
+                <div class="form-group col-md-4">
+                    <label>Date of Birth:</label>
+
+                    <div class="input-group date">
+                        <div class="input-group-addon">
+                            <i class="fa fa-calendar"></i>
+                        </div>
+                        @Html.TextBoxFor(model => model.DOB, new { @class = "form-control pull-right", @type = "datetime", id = "txtDOB" })
+                    </div>
+                    <!-- /.input group -->
+                </div>
+
+                <div class="form-group col-md-4">
+                    <label for="exampleInputEmail1">Phone No.</label>
+                    @Html.TextBoxFor(model => model.PhoneNumber, new { @class = "form-control", placeholder = "Phone Number", id = "txtPhoneNo" })
+                </div>
+
+                <div class="form-group col-md-4">
+                    <label for="exampleInputEmail1">Email</label>
+                    @Html.TextBoxFor(model => model.Email, new { @class = "form-control", placeholder = "Email", id = "txtEmail" })
+                </div>
+
+                <div class="form-group col-md-4">
+                    <label for="exampleInputEmail1">Address</label>
+                    @Html.TextAreaFor(model => model.StaffAddress, new { @class = "form-control", rows = "3", placeholder = "Enter", id = "txtAddress" })
+                </div>
+
+                <div class="form-group col-md-4">
+                    <label for="Branch">Role</label>
+                    @Html.DropDownListFor(model => model.StaffRole, new SelectList(new List<string>() { "Admin", "Staff Member", "Trainer", "Manager" }), "- Please select -", new { @class = "form-control", id = "ddlRole" })
+                    <!-- /.input group -->
+                </div>
+
+                <div class="form-group col-md-4">
+                    <label for="Branch">Branch</label>
+                    <select id="ddlStaffBranch" multiple="multiple">
+                        @{
+                            
+                            if (ViewBag.StaffBranch != null)
+                            {
+                                foreach (var Branch in (List<Justbok.Controllers.AddBranchStaff>)ViewBag.StaffBranch)
+                                {
+                                <option value="@Branch.BranchId">@Branch.BranchName</option>
+                                }
+                                
+                            }
+                        }
+
+                    </select>
+                    @*<label>Select State : @Html.ListBox("ddlStaffBranch", new SelectList(new string[] { }), "---Select---") </label>*@
+                    @*@Html.DropDownListFor(model => model.BranchId, Enumerable.Empty<SelectListItem>(), "- Please select -", new { @class = "form-control", id = "ddlBranch" })*@
+
+                    <!-- /.input group -->
+                </div>
+
+                <div class="form-group col-md-4">
+                    <label for="Branch">Shift</label>
+                    <select id="ddlShiftType" multiple="multiple">
+                        @{
+
+                            if (ViewBag.ShiftStaff != null)
+                            {
+                                foreach (var shift in (List<Justbok.Controllers.ShiftStaff>)ViewBag.ShiftStaff)
+                                {
+                                    <option value="@shift.ShiftId">@shift.ShiftName</option>
+                                }
+
+                            }
+                        }
+
+                    </select>
+
+                    @*@Html.DropDownListFor(model => model.ShiftId, Enumerable.Empty<SelectListItem>(), new { @class = "form-control", id = "ddlShiftType", multiple = "multiple" })*@
+
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="Branch">Daily Salary</label>
+                    @Html.TextBoxFor(model => model.DailySalary, new { @class = "form-control", placeholder = "Daily Salary", id = "txtDailySalary" })
+                    <!-- /.input group -->
+                </div>
+                <div class="form-group col-md-2">
+                    <label>Is Active @Html.CheckBoxFor(model => model.Isactive, new { id = "chkIsActive", @checked = "true" })</label>
+                </div>
+
+                <div class="form-group col-md-2">
+                    <button type="button" class="btn btn-info pull-right" style="margin-right: 10px; display: none;" id="btnCreateMember">Create Login</button>
+                </div>
+                <div class="col-md-12" style="display: none;" id="userform">
+                    <div class="form-group col-md-4">
+                        <input class="form-control input-sm" id="txtLoginId" autocomplete="off" tabindex="15" type="text" style="display:none;">
+                        <label for="Branch">User Name</label>
+                        @Html.TextBoxFor(model => model.UserName, new { @class = "form-control", placeholder = "User Name", id = "txtUname" })
+                        <!-- /.input group -->
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="Branch">Password</label>
+                        @Html.PasswordFor(model => model.Password, new { @class = "form-control", placeholder = "Password", id = "txtpwd" })
+                        <!-- /.input group -->
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label>Is Login Active @Html.CheckBoxFor(model => model.IsLoginactive, new { id = "chkIsLoginActive", @checked = "true" })</label>
+                    </div>
+                </div>
+
+                <div class="col-md-12" style="display: none;" id="TrainerForm">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <input class="form-control input-sm" id="txtTrainerId" autocomplete="off" tabindex="15" type="text" style="display:none;">
+                                <label>Profile Photo</label>
+                                <img id="uploadedimage" class="form-control" alt="your image" style="height: 150px;" src="http://gym.appointmentbees.com/Img/fa-user.png">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>Upload Photo</label>
+                                <input id="Imagefile" name="filedd" accept="image/*" type="file">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>Experience</label>
+                                <input class="form-control input-sm ng-pristine ng-untouched ng-valid" id="txtExperience" ng-model="User.Experience" autocomplete="off" tabindex="15" type="text">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>Qualification</label>
+                                <input class="form-control input-sm" id="txtQualification" autocomplete="off" tabindex="15" type="text">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>Description</label>
+                                <textarea class="form-control input-sm" id="txtDescription" rows="3" tabindex="15"></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="box-footer">
+                <button type="submit" class="btn btn-default pull-right">Reset</button>
+                <button type="submit" class="btn btn-info pull-right" style="margin-right: 10px;" id="btnSaveStaff">Save Staff</button>
+            </div>
+        </div>
+        <!-- /.box-body -->
+    </div>
+</section>
+
+@section Scripts {
+<script src="~/Scripts/Navigation.js?v=1.2"></script>
+    <script>
+        var EditStaffUrl = '@Url.Action("GetStaffDetails", "Staff")';
+        @*var GetBranchListUrl = '@Url.Action("GetBranchList", "Staff")';*@
+        var AddStaffUrl = '@Url.Action("SaveEditStaff", "Staff")';
+        @*var GetShiftListUrl = '@Url.Action("GetShiftList", "Staff")';*@
+        var GetStaffBranchUrl = '@Url.Action("GetSelectedBranchList", "Staff")';
+        var GetStaffShiftUrl = '@Url.Action("GetSelectedShiftList", "Staff")';
+        var TrainerUrl = '@Url.Action("GetTrainerDetails", "Staff")';
+        var UpdateUploadImage = '@Url.Action("UpdateUploadImage", "Staff")';
+        var LoginUrl = '@Url.Action("GetLoginDetails", "Staff")';
+    </script>
+
+   <script src="~/Content/Staff/EditStaff.js"></script>
+}
+<script src="~/Scripts/Navigation.js?v=1.2"></script>
+<script>
+    var EditStaffUrl = '@Url.Action("GetStaffDetails", "Staff")';
+    @*var GetBranchListUrl = '@Url.Action("GetBranchList", "Staff")';*@
+    var AddStaffUrl = '@Url.Action("SaveEditStaff", "Staff")';
+    @*var GetShiftListUrl = '@Url.Action("GetShiftList", "Staff")';*@
+    var GetStaffBranchUrl = '@Url.Action("GetSelectedBranchList", "Staff")';
+    var GetStaffShiftUrl = '@Url.Action("GetSelectedShiftList", "Staff")';
+    var TrainerUrl = '@Url.Action("GetTrainerDetails", "Staff")';
+    var UpdateUploadImage = '@Url.Action("UpdateUploadImage", "Staff")';
+
+</script>
+
+
+<script src="~/Content/Staff/EditStaff.js"></script>

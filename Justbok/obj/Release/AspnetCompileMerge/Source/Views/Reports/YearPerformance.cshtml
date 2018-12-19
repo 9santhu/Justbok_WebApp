@@ -1,0 +1,126 @@
+﻿@{
+    ViewBag.Title = "YearPerformance";
+}
+<style>
+    .ui-datepicker-calendar, .ui-datepicker-month {
+        display: none;
+    }
+</style>
+<div class="" style="">
+    <section class="content-header ng-scope">
+        <h1>
+            Year Performance 
+            <div class="pull-right">
+                <a onclick="return LoadPage('@Url.Action("Index", "Reports")','Justbok | Reports Membership');" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-arrow-left"></i> Reports</a><br><br>
+            </div>
+        </h1>
+    </section>
+    <section class="content ng-scope">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <i class="fa fa-search"></i>
+                        <h3 class="box-title"> Search Year Performance </h3>
+                        <div class="box-tools pull-right">
+                            <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                        </div><!-- /.box-tools -->
+                    </div><!-- /.box-header -->
+                    <div class="box-body">
+                        <div class="row">
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label>From Date</label>
+                                    <input class="form-control input-sm" id="txtFromDate" type="datetime">
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label>To Date</label>
+                                    <input class="form-control input-sm" id="txtToDate" type="datetime">
+                                </div>
+                            </div>
+                            <div class="col-md-2 ">
+                                <div class="form-group" style="margin-top:25px;">
+                                    <button type="button" id="btnSearch" class="btn btn-sm btn-primary btn-flat" title="Search">
+                                        <i class="glyphicon glyphicon-search"></i> Search
+                                    </button>
+                                    <button type="button" id="btnReset" class="btn btn-default btn-sm btn-flat" title="Reset">
+                                        <i class="glyphicon glyphicon-refresh"></i> Reset
+                                    </button>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Year Performance List</h3>
+                    </div>
+                    <div class="box-body">
+                        <div id="example1_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
+                            <div class="dataTables_length">
+                                <label>
+                                    Show
+                                    <select id="tblYearPerformance_length" name="tblYearPerformance_length"
+                                            aria-controls="tblYearPerformance_length" class="form-control input-sm"
+                                            onchange="return ShowChange();">
+                                        <option value="10">10</option>
+                                        <option value="25">25</option>
+                                        <option value="50">50</option>
+                                        <option value="100">100</option>
+                                    </select> entries
+                                </label>
+                            </div>
+
+                            <div class="col-sm-12 table-responsive">
+                                <table id="tblYearPerformance" class="table table-bordered table-striped dataTable table-responsive col-sm-12" role="grid" aria-describedby="example1_info">
+
+                                    <thead>
+                                        <tr role="row">
+                                            <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 282.583px;" aria-label="Browser: activate to sort column ascending">Year</th>
+                                            <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 282.583px;" aria-label="Browser: activate to sort column ascending">Membership Sale</th>
+                                            <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 282.583px;" aria-label="Browser: activate to sort column ascending">Expense</th>
+                                            <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 282.583px;" aria-label="Browser: activate to sort column ascending">Net Profit</th>
+                                            <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 282.583px;" aria-label="Browser: activate to sort column ascending">POS Sale</th>
+                                            <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 282.583px;" aria-label="Browser: activate to sort column ascending">Enquiry</th>
+                                            <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 282.583px;" aria-label="Browser: activate to sort column ascending">Sold Membership</th>
+                                    </thead>
+                                    <tbody></tbody>
+                                </table>
+                                <div class="dataTables_paginate paging_simple_numbers" id="tblYearPerformance_paginate">
+                                    <ul id="pagination" class="pagination"></ul>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </section>
+
+</div>
+
+@section Scripts {
+<script src="~/Scripts/Navigation.js?v=1.2"></script>
+    <script>
+
+        var YearPerformanceReportUrl = '@Url.Action("YearPerformanceReport", "Reports")';
+    </script>
+
+    
+<script src="~/Content/Reports/Rpts_YearPerformance.js"></script>
+
+}
+<script src="~/Scripts/Navigation.js?v=1.2"></script>
+<script>
+
+    var YearPerformanceReportUrl = '@Url.Action("YearPerformanceReport", "Reports")';
+
+</script>
+<script src="~/Content/Reports/Rpts_YearPerformance.js"></script>

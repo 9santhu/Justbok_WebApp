@@ -1,0 +1,150 @@
+﻿@{
+    ViewBag.Title = "ProfitLoss";
+}
+<style>
+    .ui-datepicker-calendar {
+        display: none;
+    }
+</style>
+<div ui-view="" class="" style="">
+    <section class="content-header ng-scope">
+        <h1>
+            Profit / Loss
+            <div class="pull-right">
+                <a onclick="return LoadPage('@Url.Action("Index", "Reports")','Justbok | Reports Membership');" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-arrow-left"></i> Reports</a><br><br>
+            </div>
+        </h1>
+    </section>
+    <section class="content ng-scope">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <i class="fa fa-search"></i>
+                        <h3 class="box-title">Search</h3>
+                        <div class="box-tools pull-right">
+                            <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                        </div>
+                    </div>
+                    <div class="box-body">
+                        <form role="form" class="ng-pristine ng-valid">
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label>From Month</label>
+                                    <input name="startDate" id="startDate" class="date-picker" />
+                                </div>
+                            </div>
+
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label>To Month</label>
+                                    <input name="startDate" id="EndDate" class="date-picker" />
+                                </div>
+                            </div>
+                            @**@
+                            @*<div class="col-md-2">
+                                <div class="form-group">
+                                    <label>From Month</label>
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label>From Date</label>
+                                            <input id="txtFromDate" class="form-control input-sm" type="datetime">
+                                        </div>
+                                    </div>
+
+                                    @*<div class="input-group date"  title="From Date">
+                                        <input class="form-control input-sm date-picker" id="txtFrom" placeholder="From" type="text">
+                                        <div class="input-group-addon ">
+                                            <span class="glyphicon glyphicon-th "></span>
+                                        </div>
+                                    </div>*@
+                                @*</div>
+                                
+                            </div>*@
+                          
+                            @*<div class="col-md-2">
+                                <div class="form-group">
+                                    <label>To Month</label>
+                                    <div class="input-group date" id="txtTo" title="To Date">
+                                        <input class="form-control input-sm" disabled="" placeholder="To" type="text">
+                                        <div class="input-group-addon">
+                                            <span class="glyphicon glyphicon-th"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>*@
+                            <div class="col-md-2">
+                                <div class="form-group" style="margin-top:25px;">
+                                    <label></label>
+                                    <button type="button" id="btnFilter" class="btn btn-primary btn-sm btn-flat" ng-click="btnSearch()"><i class="glyphicon glyphicon-search"></i> Search</button>
+                                    <button type="button" id="btnClearFilter" class="btn btn-default btn-sm btn-flat" ng-click="btnReset()"><i class="glyphicon glyphicon-refresh"></i> Reset</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">  Profit / Loss  Report</h3>
+                    </div><!-- /.box-header -->
+                    <div class="box-body">
+                        <div class="col-lg-12">
+                            <div class="table-responsive">
+                                <div id="ProfitLossList_wrapper" class="dataTables_wrapper form-inline dt-bootstrap no-footer">
+                                    <div class="DTTT_container"></div><div class="clear"></div><div class="dataTables_length" id="ProfitLossList_length"><label>Show <select name="ProfitLossList_length" aria-controls="ProfitLossList" class="form-control input-sm"><option value="10">10</option><option value="25">25</option><option value="50">50</option><option value="100">100</option><option value="200">200</option></select> entries</label>
+                                  <div class="pull-right">
+                                    <img src="~/Theme/img/excel.jpg" width="30" height="30" id="dwnldExcel" />
+                                     <img src="~/Theme/img/pdf.png" width="30" height="30" id="dwnldPdf" />
+                                      </div>
+                                    </div>
+                                    <table class="table table-bordered dataTable no-footer" id="ProfitLossList" role="grid">
+                                        <thead>
+                                            <tr role="row"><th class="sorting_disabled" rowspan="1" colspan="1">Month - Year</th><th class="sorting_disabled text-right" rowspan="1" colspan="1">Sales</th><th class="sorting_disabled text-right" rowspan="1" colspan="1">Expense</th><th class="sorting_disabled text-right" rowspan="1" colspan="1">Total</th></tr>
+                                        </thead>
+                                        <tbody></tbody>
+                                    </table><div class="dataTables_paginate paging_simple_numbers" id="ProfitLossList_paginate"><ul class="pagination"><li class="paginate_button previous disabled" id="ProfitLossList_previous"><a href="#" aria-controls="ProfitLossList" data-dt-idx="0" tabindex="0">Previous</a></li><li class="paginate_button active"><a href="#" aria-controls="ProfitLossList" data-dt-idx="1" tabindex="0">1</a></li><li class="paginate_button next disabled" id="ProfitLossList_next"><a href="#" aria-controls="ProfitLossList" data-dt-idx="2" tabindex="0">Next</a></li></ul></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+
+
+@section Scripts {
+<script src="~/Scripts/Navigation.js?v=1.2"></script>
+    <script>
+        var SearchprofitlosslistUrl = '@Url.Action("SearchProfitLostList", "Reports")';
+        var profitlosslistUrl = '@Url.Action("ProfitLostList", "Reports")';
+        var ExcelUrl = '@Url.Action("GenarateExcelReportsProfitLoss", "Reports")';
+        var PDFUrl = '@Url.Action("GenaratePdfReportsProfitLoss", "Reports")';
+        var DownloadExcelUrl = '@Url.Action("Download", "Reports")';
+        var DownloadPdfUrl = '@Url.Action("DownloadPDF", "Reports")';
+    </script>
+
+<script src="~/Content/Reports/Rpts_ProfitLoss.js"></script>
+    
+
+}
+
+<script src="~/Scripts/Navigation.js?v=1.2"></script>
+<script>
+
+    var profitlosslistUrl = '@Url.Action("ProfitLostList", "Reports")'; 
+    var SearchprofitlosslistUrl = '@Url.Action("SearchProfitLostList", "Reports")';
+    var ExcelUrl = '@Url.Action("GenarateExcelReportsProfitLoss", "Reports")';
+    var PDFUrl = '@Url.Action("GenaratePdfReportsProfitLoss", "Reports")';
+    var DownloadExcelUrl = '@Url.Action("Download", "Reports")';
+    var DownloadPdfUrl = '@Url.Action("DownloadPDF", "Reports")';
+
+</script>
+
+<script src="~/Content/Reports/Rpts_ProfitLoss.js"></script>

@@ -1,0 +1,92 @@
+﻿@model Justbok.Models.Workout
+
+@{
+    ViewBag.Title = "EditWorkout";
+}
+
+<section class="content container-fluid" id="container">
+
+    <div class="pull-right">
+        <a onclick="return LoadPage('@Url.Action("WorkoutList", "Workout")','Justbok | Workout');" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-arrow-left"></i> Workout List</a><br><br>
+    </div>
+    @*@using (Ajax.BeginForm("EditWorkout", "Workout",
+                   new AjaxOptions
+                   {
+                       OnSuccess = "OnSuccess",
+                       OnFailure = "OnFailure",
+                       LoadingElementId = "progress",
+                       OnBegin = "onBegin",
+                       OnComplete = "onComplete"
+                   }))
+    {*@
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true)
+        <div class="col-xs-12">
+            <div class="box">
+                <div class="box-header">
+                    <h3 class="box-title">Add Workout</h3>
+
+                    <div class="col-md-12">
+
+                        <div id="messages" class="hide" role="alert" style="height:50px;width:250px;border-radius:5px;float:right;text-align:inherit;">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <div id="messages_content"></div>
+                        </div>
+
+                        <hr>
+
+                        <div class="form-group col-md-4" style="display:none;">
+                            <label for="exampleInputEmail1">Workout Id</label>
+
+                            @Html.TextBoxFor(model => model.WorkoutId, new { @class = "form-control", id = "txtWorkoutid", placeholder = "Workout Id" })
+                            @Html.ValidationMessageFor(model => model.WorkoutId)>
+                        </div>
+                        <div class="form-group col-md-4" style="display:none;">
+                            <label for="exampleInputEmail1">Gym Id</label>
+                            @Html.TextBoxFor(model => model.GymId, new { @class = "form-control", id = "txtGymid", placeholder = "Gym Id" })
+                            @Html.ValidationMessageFor(model => model.GymId)
+                        </div>
+
+
+                        <div class="form-group col-md-4">
+                            <label for="exampleInputEmail1"> Name</label>
+                            @Html.TextBoxFor(model => model.WorkoutName, new { @class = "form-control", id = "txtWorkoutName", placeholder = " Name" })
+                            @Html.ValidationMessageFor(model => model.WorkoutName)
+                        </div>
+
+                        <div class="form-group col-md-6">
+                            <label for="Branch">Unit</label>
+                            @Html.DropDownListFor(model => model.Unit, new SelectList(new List<string>
+                  () { "--Select--", "Sets", "Minutes" }), new { @class = "form-control", id = "txtUnit" })
+
+                        </div>
+
+
+                    </div>
+
+                    <div class="box-footer">
+                        <button type="submit" class="btn btn-default pull-right">Reset</button>
+                        <button type="submit" class="btn btn-info pull-right" style="margin-right: 10px;" id="btnSaveWorkout">Save</button>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    @*}*@
+
+</section>
+@section Scripts {
+<script src="~/Scripts/Navigation.js?v=1.2"></script>
+    <script>
+        var AddWorkoutUrl = '@Url.Action("EditWorkout", "Workout")';
+    </script>
+
+    <script src="~/Content/Workout/EditWorkout.js"></script>
+}
+<script src="~/Scripts/Navigation.js?v=1.2"></script>
+<script>
+        var AddWorkoutUrl = '@Url.Action("EditWorkout", "Workout")';
+</script>
+
+<script src="~/Content/Workout/EditWorkout.js"></script>

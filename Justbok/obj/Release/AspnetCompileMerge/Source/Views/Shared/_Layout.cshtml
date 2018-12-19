@@ -1,0 +1,863 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Justbok | @ViewBag.Title</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <link rel="stylesheet" href="css/bootstrap-multiselect/bootstrap-multiselect.css" type="text/css">
+    <script type="text/javascript" src="js/bootstrap-multiselect/bootstrap-multiselect.js"></script>
+    <link rel="stylesheet" href="~/Theme/css/bootstrap.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="~/Theme/css/font-awesome.min.css">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="~/Theme/css/ionicons.min.css">
+    <!-- Theme style -->
+    <!-- AdminLTE Skins. We have chosen the skin-red for this starter
+          page. However, you can choose any other skin. Make sure you
+          apply the skin class to the body tag so the changes take effect. -->
+    <link rel="stylesheet" href="~/Theme/css/dataTables.bootstrap.min.css">
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <!-- Google Font -->
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <style>
+        .popsloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 100%;
+            background-color: #fff;
+            opacity: .7;
+            filter: alpha(opacity=.5);
+            display: none;
+            z-index: 10;
+            text-align: center;
+        }
+
+        .Nodata {
+            color: red;
+            font-size: 25px;
+            text-align: center;
+        }
+
+        #ui-datepicker-div {
+            z-index: 10000 !important;
+        }
+
+        legend {
+            color: #1b809e !important;
+            border-bottom: 5px solid #e5e5e5 !important;
+            font-size: 16px !important;
+        }
+
+        th, td {
+            white-space: nowrap;
+            font-family: Arial;
+        }
+
+        input[type=text], textarea {
+            -webkit-transition: all 0.30s ease-in-out;
+            -moz-transition: all 0.30s ease-in-out;
+            -ms-transition: all 0.30s ease-in-out;
+            -o-transition: all 0.30s ease-in-out;
+            outline: none;
+            padding: 3px 0px 3px 3px;
+            margin: 5px 1px 3px 0px;
+            border: 1px solid #DDDDDD;
+        }
+
+            input[type=text]:focus, textarea:focus {
+                box-shadow: 0 0 5px rgba(81, 203, 238, 1);
+                padding: 3px 0px 3px 3px;
+                margin: 5px 1px 3px 0px;
+                border: 1px solid rgba(81, 203, 238, 1);
+            }
+
+   </style>
+
+    @Styles.Render("~/css")
+    @Styles.Render("~/Plugins/iCheck/all.css")
+</head>
+
+<body class="hold-transition skin-purple sidebar-mini">
+
+    <div class="wrapper" style="overflow-y:hidden;">
+
+        <!-- Main Header -->
+        <header class="main-header">
+
+            <!-- Logo -->
+            <a href="/Home/Index" class="logo">
+                <!-- mini logo for sidebar mini 50x50 pixels -->
+                <span class="logo-mini"><b>A</b>LT</span>
+                <!-- logo for regular state and mobile devices -->
+                <span class="logo-lg">@*<img src="../Theme/img/logo.png" width="120">*@<img src="/Theme/img/logo.png" width="120"></span>
+            </a>
+
+            @*@Html.Partial("_Navigation");*@
+            <!-- Header Navbar -->
+            <nav class="navbar navbar-static-top" role="navigation">
+                <!-- Sidebar toggle button-->
+                <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
+                    <span class="sr-only">Toggle navigation</span>
+                </a>
+                <!-- Navbar Right Menu -->
+                <div class="navbar-custom-menu">
+                    <ul class="nav navbar-nav">
+                        <!-- Messages: style can be found in dropdown.less-->
+                        <li style="display:inline-block;">
+                            @*<div class="input-group">
+                                <input type="search" class="form-control input-sm" style="margin-top: 9px; width: 200px; float: left; margin-right: 300px;" />
+                                <button type="button" class="btn btn-secondary" style="margin-top: 9px; width:100px; float: left; margin-right: 100px;">Middle</button>
+                            </div>*@
+
+                            <div class="col-lg-8" style="margin-right: 200px; margin-top:3px;" >
+                                <div class="input-group">
+                                    <input type="text" class="form-control" id="txtNavSearch" placeholder="Search Member" /> <span class="input-group-btn">
+                                        <button class="btn btn-default" type="submit" style="margin-top:5px;">GO!</button>
+                                    </span>
+
+                                </div>
+                                <!-- /input-group -->
+                            </div>
+
+</li>
+
+
+                        <li style="display:inline-block;">
+                            <select id="ddlBranch" class="form-control input-sm" style="margin-top: 9px;width:200px;" onchange="return branchChange();">
+                                @{
+                                    if (ViewBag.Branches != null)
+                                    {
+                                        foreach (var Branch in (List<Justbok.Controllers.AddBranch>)ViewBag.Branches)
+                                        {
+                                            <option value="@Branch.BranchId">@Branch.BranchName</option>
+                                        }
+                                    }
+                                }
+
+                            </select>
+                        </li>
+                        <li><a onclick="return LoadPage('@Url.Action("NewEnquiryForm", "Enquiry")','Justbok | New Enquiry');"><i class="fa fa-plus" aria-hidden="true"></i> Add Enquiry</a></li>
+
+                        <li><a onclick="return LoadPage('@Url.Action("Membership", "MemberShip")','Justbok | Membership');"><i class="fa fa-user-plus" aria-hidden="true"></i> Add Member</a></li>
+                        @*<a href="/Membership/Membership"><i class="fa fa-user-plus" aria-hidden="true"></i> New Membership</a>*@
+
+                        <!--Notification bell-->
+                        <li class="dropdown notifications-menu task-list">
+                            <a class="dropdown-toggle" data-toggle="dropdown">
+                                <i class="fa fa-bell"></i>
+                                <span class="label label-success ng-binding">5</span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li class="header ng-binding">You have 5 Tasks</li>
+                                <li>
+                                    <div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto; height: 200px;">
+                                        <ul class="menu" style="overflow: hidden; width: 100%; height: 200px;">
+                                            <!-- ngRepeat: T in TaskList -->
+                                            <li ng-repeat="T in TaskList" class="ng-scope" style="">
+                                                <a class="ng-binding">
+                                                    <i class="fa fa-bell-o text-aqua"></i> meeting
+                                                    <span class="pull-right">
+                                                        <button class="btn btn-success btn-xs btn-flat" ng-click="CompleteTask(T.DailyTaskId)">
+                                                            <i class="fa fa-check"></i>
+                                                        </button>
+                                                        <button class="btn btn-danger btn-xs btn-flat" ng-click="DeleteTask(T.DailyTaskId)">
+                                                            <i class="fa fa-remove"></i>
+                                                        </button>
+                                                    </span>
+                                                    <br>
+                                                    <p class="ng-binding">
+
+                                                        <br>
+                                                        Date - 11/10/2016
+                                                    </p>
+                                                </a>
+                                            </li><!-- end ngRepeat: T in TaskList -->
+                                            <li ng-repeat="T in TaskList" class="ng-scope">
+                                                <a class="ng-binding">
+                                                    <i class="fa fa-bell-o text-aqua"></i> meeting
+                                                    <span class="pull-right">
+                                                        <button class="btn btn-success btn-xs btn-flat" ng-click="CompleteTask(T.DailyTaskId)">
+                                                            <i class="fa fa-check"></i>
+                                                        </button>
+                                                        <button class="btn btn-danger btn-xs btn-flat" ng-click="DeleteTask(T.DailyTaskId)">
+                                                            <i class="fa fa-remove"></i>
+                                                        </button>
+                                                    </span>
+                                                    <br>
+                                                    <p class="ng-binding">
+
+                                                        <br>
+                                                        Date - 12/10/2016
+                                                    </p>
+                                                </a>
+                                            </li><!-- end ngRepeat: T in TaskList -->
+                                            <li ng-repeat="T in TaskList" class="ng-scope">
+                                                <a class="ng-binding">
+                                                    <i class="fa fa-bell-o text-aqua"></i> meeting
+                                                    <span class="pull-right">
+                                                        <button class="btn btn-success btn-xs btn-flat" ng-click="CompleteTask(T.DailyTaskId)">
+                                                            <i class="fa fa-check"></i>
+                                                        </button>
+                                                        <button class="btn btn-danger btn-xs btn-flat" ng-click="DeleteTask(T.DailyTaskId)">
+                                                            <i class="fa fa-remove"></i>
+                                                        </button>
+                                                    </span>
+                                                    <br>
+                                                    <p class="ng-binding">
+
+                                                        <br>
+                                                        Date - 13/10/2016
+                                                    </p>
+                                                </a>
+                                            </li><!-- end ngRepeat: T in TaskList -->
+                                            <li ng-repeat="T in TaskList" class="ng-scope">
+                                                <a class="ng-binding">
+                                                    <i class="fa fa-bell-o text-aqua"></i> meeting
+                                                    <span class="pull-right">
+                                                        <button class="btn btn-success btn-xs btn-flat" ng-click="CompleteTask(T.DailyTaskId)">
+                                                            <i class="fa fa-check"></i>
+                                                        </button>
+                                                        <button class="btn btn-danger btn-xs btn-flat" ng-click="DeleteTask(T.DailyTaskId)">
+                                                            <i class="fa fa-remove"></i>
+                                                        </button>
+                                                    </span>
+                                                    <br>
+                                                    <p class="ng-binding">
+
+                                                        <br>
+                                                        Date - 14/10/2016
+                                                    </p>
+                                                </a>
+                                            </li><!-- end ngRepeat: T in TaskList -->
+                                            <li ng-repeat="T in TaskList" class="ng-scope">
+                                                <a class="ng-binding">
+                                                    <i class="fa fa-bell-o text-aqua"></i> meeting
+                                                    <span class="pull-right">
+                                                        <button class="btn btn-success btn-xs btn-flat" ng-click="CompleteTask(T.DailyTaskId)">
+                                                            <i class="fa fa-check"></i>
+                                                        </button>
+                                                        <button class="btn btn-danger btn-xs btn-flat" ng-click="DeleteTask(T.DailyTaskId)">
+                                                            <i class="fa fa-remove"></i>
+                                                        </button>
+                                                    </span>
+                                                    <br>
+                                                    <p class="ng-binding">
+
+                                                        <br>
+                                                        Date - 15/10/2016
+                                                    </p>
+                                                </a>
+                                            </li><!-- end ngRepeat: T in TaskList -->
+                                        </ul><div class="slimScrollBar" style="background: rgb(0, 0, 0) none repeat scroll 0% 0%; width: 3px; position: absolute; top: 0px; opacity: 0.4; display: block; border-radius: 7px; z-index: 99; right: 1px;"></div><div class="slimScrollRail" style="width: 3px; height: 100%; position: absolute; top: 0px; display: none; border-radius: 7px; background: rgb(51, 51, 51) none repeat scroll 0% 0%; opacity: 0.2; z-index: 90; right: 1px;"></div>
+                                    </div>
+                                </li>
+                                <li class="footer" ui-sref="DailyTask">
+                                    <a href="#/DailyTask">View all Tasks</a>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <!-- User Account Menu -->
+                        <li class="dropdown user user-menu">
+                            <!-- Menu Toggle Button -->
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <!-- The user image in the navbar-->
+                                @*<img src="dist/img/user2-160x160.jpg" class="user-image" alt="User Image">*@
+                                <!-- hidden-xs hides the username on small devices so only the image appears. -->
+                                @if (System.Web.HttpContext.Current.Session["GymName"] != null && System.Web.HttpContext.Current.Session["GymName"] != "")
+                                {
+                                    <span class="hidden-xs"> @System.Web.HttpContext.Current.Session["GymName"].ToString()</span>
+                                }
+
+
+
+                            </a>
+                            <ul class="dropdown-menu">
+                                <!-- The user image in the menu -->
+                                @*<li class="user-header">
+                                    <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+
+                                    <p>
+                                        <small>Member since Nov. 2012</small>
+                                    </p>
+                                </li>*@
+                                <!-- Menu Body -->
+                                @*<li class="user-body">
+                                    <div class="row">
+                                        <div class="col-xs-4 text-center">
+                                            <a href="#">Followers</a>
+                                        </div>
+                                        <div class="col-xs-4 text-center">
+                                            <a href="#">Sales</a>
+                                        </div>
+                                        <div class="col-xs-4 text-center">
+                                            <a href="#">Friends</a>
+                                        </div>
+                                    </div>
+                                     /.row 
+                                </li>*@
+                                <!-- Menu Footer-->
+                                <li class="user-footer">
+                                    @*<div class="pull-left">
+                                        <a href="#" class="btn btn-default btn-flat">Profile</a>
+                                    </div>*@
+                                    @*<div>*@
+                                        <a href="#" class="btn btn-default btn-flat" id="btnSignOut" onclick="LogOut();">Sign out</a>
+                                    @*</div>*@
+                                </li>
+                            </ul>
+                        </li>
+
+                    </ul>
+                </div>
+            </nav>
+
+        </header>
+        <!-- Left side column. contains the logo and sidebar -->
+        <aside class="main-sidebar">
+
+            <!-- sidebar: style can be found in sidebar.less -->
+            <section class="sidebar">
+
+
+
+
+                <!-- Sidebar Menu -->
+                <ul class="sidebar-menu" data-widget="tree">
+                    <li class="header">Main Navigation</li>
+                    <!-- Optionally, you can add icons to the links -->
+                    <li class="active" id="dashboard"><a onclick="return LoadPage('@Url.Action("Index","Dashboard")','Justbok | DashBorad');"><i class="fa fa-tachometer"></i> <span>Dashboard</span></a></li>
+                    <li class="active" id="quickprint"><a onclick="ShowPrintModal();"><i class="fa fa-print"></i> <span>QuickPrint</span></a></li>
+                    <li id="memberlist"><a onclick="return LoadPage('@Url.Action("GetMembersList","MemberShip")','Justbok | Membership');"><i class="fa fa-user-plus"></i> <span>Find Member</span></a></li>
+                    <li class="treeview" id="membership">
+                        <a>
+                            <i class="fa fa-users"></i> <span>Membership</span>
+                            <span class="pull-right-container">
+                                <i class="fa fa-angle-left pull-right"></i>
+                            </span>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li><a onclick="return LoadPage('@Url.Action("GetMembershipList", "MemberShip")','Justbok | Membership');">Membership List</a></li>
+                        </ul>
+                    </li>
+                    @*enquiry*@
+                    <li id="enquiry"><a onclick="return LoadPage('@Url.Action("EnquiryList", "Enquiry")','Justbok | Enquiry List');"><i class="fa fa-clock-o"></i> <span>Enquiry List</span></a></li>
+                    <li class="treeview" id="attendance">
+                        <a href="#">
+                            <i class="fa fa-envelope"></i> <span>Attendence</span>
+                            <span class="pull-right-container">
+                                <i class="fa fa-angle-left pull-right"></i>
+                            </span>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li><a onclick="return LoadPage('@Url.Action("StaffTimeSheet", "TimeSheet")','Justbok | Staff Timesheet');">Staff</a></li>
+                            <li><a onclick="return LoadPage('@Url.Action("MemberTimeSheet", "TimeSheet")','Justbok | Member Timesheet');">Member</a></li>
+
+
+                        </ul>
+                    </li>
+                    <li class="treeview" id="scheduler">
+                        <a href="#">
+                            <i class="fa fa-calendar"></i> <span>Calendar</span>
+                            <span class="pull-right-container">
+                                <i class="fa fa-angle-left pull-right"></i>
+                            </span>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li><a onclick="return LoadPage('@Url.Action("AppointmentConfig", "Calendar")','Justbok | Appointment Configuration');">Appointment Configuration</a></li>
+                            <li><a onclick="return LoadPage('@Url.Action("BookAppointment", "Calendar")','Justbok | Book Appointment');">Book Appointment</a></li>
+                            <li><a onclick="return LoadPage('@Url.Action("Calendar", "Calendar")','Justbok | Calendar');">Calendar</a></li>
+                            <li><a onclick="return LoadPage('@Url.Action("Classes", "Calendar")','Justbok | Classes');">Classes</a></li>
+                            <li><a onclick="return LoadPage('@Url.Action("Events", "Calendar")','Justbok | Events');">Events</a></li>
+                        </ul>
+                    </li>
+
+                    @*workout*@
+
+                    <li class="treeview" id="workout">
+                        <a href="#">
+                            <i class="fa fa-gavel"></i> <span>Workout Config</span>
+                            <span class="pull-right-container">
+                                <i class="fa fa-angle-left pull-right"></i>
+                            </span>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li><a onclick="return LoadPage('@Url.Action("WorkoutList", "Workout")','Justbok | Workout List');">Workout </a></li>
+
+                            <li><a onclick="return LoadPage('@Url.Action("GetWorkoutPlans", "WorkoutPlan")','Justbok | Workout Plan List');">Workout Plan</a></li>
+                            @*<li><a href="#">Allocation</a></li>*@
+                        </ul>
+                    </li>
+                    <li class="treeview" id="diet">
+                        <a href="#">
+                            <i class="fa fa-gavel"></i> <span>Diet Config</span>
+                            <span class="pull-right-container">
+                                <i class="fa fa-angle-left pull-right"></i>
+                            </span>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li><a onclick="return LoadPage('@Url.Action("MealList", "MealTime")','Justbok | Meal List');">Meal Time</a></li>
+                            <li><a onclick="return LoadPage('@Url.Action("DietPlanList", "Diet")','Justbok | Diet Plan List');">Diet Plan</a></li>
+                        </ul>
+                    </li>
+
+                     <li class="active" id="pos"><a onclick="return LoadPage('@Url.Action("PurchaseOrders", "POS")','Justbok | Purchase Orders');"><i class="fa fa-tachometer"></i> <span>Point of Sale</span></a></li>
+                    <li class="treeview" id="inventory">
+                        <a href="#">
+                            <i class="fa fa-folder"></i> <span>Stock Config</span>
+                            <span class="pull-right-container">
+                                <i class="fa fa-angle-left pull-right"></i>
+                            </span>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li><a onclick="return LoadPage('@Url.Action("StockDetails", "Stock")','Justbok | Add/Remove Stock');"><i class="fa fa-plus"></i> <span>Add/Remove Stock</span></a></li>
+                            <li><a onclick="return LoadPage('@Url.Action("StockInList", "Stock")','Justbok | Stock History');"><i class="fa fa-plus"></i> <span>Stock History</span></a></li>
+                            @*<li><a href="/Stock/StockDetails">Add/Remove Stock</a></li>*@
+                            @*<li><a href="/Stock/StockInList">Stock History</a></li>*@
+                        </ul>
+                    </li>
+                    <li id="expense" class="active">
+                        <a onclick="return LoadPage('@Url.Action("Expenses", "Expenses")','Justbok | Expenses');">
+                            <i class="fa fa-inr"></i> <span>Expense</span>
+                        </a>
+                    </li>
+
+                    <li class="treeview" id="setting">
+                        <a href="#">
+                            <i class="fa fa-cogs"></i> <span>Setting</span>
+                            <span class="pull-right-container">
+                                <i class="fa fa-angle-left pull-right"></i>
+                            </span>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li><a onclick="return LoadPage('@Url.Action("StaffList", "Staff")','Justbok | Staff List');">Staff</a></li>
+
+                            <li><a onclick="return LoadPage('@Url.Action("BranchList", "GymBranch")','Justbok | Branch List');">Branch</a></li>
+
+                            <li><a onclick="return LoadPage('@Url.Action("GetProducts", "Product")','Justbok | Product List');">Product</a></li>
+                            <li><a onclick="return LoadPage('@Url.Action("GetSuppliers", "Supplier")','Justbok | Supplier List');">Supplier</a></li>
+                            <li><a onclick="return LoadPage('@Url.Action("GetPackages", "Packages")','Justbok | Packages List');">Packages</a></li>
+                            <li><a onclick="return LoadPage('@Url.Action("TaskList", "Task")','Justbok | Task List');">Task</a></li>
+                            <li><a onclick="return LoadPage('@Url.Action("ExpenseType", "ExpenseType")','Justbok | Expense Types');">Expense Type</a></li>
+                            <li><a onclick="return LoadPage('@Url.Action("GetCategory", "Category")','Justbok | Category List');">Category</a></li>
+
+                        </ul>
+                    </li>
+
+                    <li class="treeview" id="sms">
+                        <a href="#">
+                            <i class="fa fa-envelope"></i> <span>SMS</span>
+                            <span class="pull-right-container">
+                                <i class="fa fa-angle-left pull-right"></i>
+                            </span>
+                        </a>
+                        <ul class="treeview-menu">
+                            
+                            <li><a onclick="return LoadPage('@Url.Action("Index", "SMS")','Justbok | Appointment Configuration');">Send Message</a></li>
+</li>
+                            <li><a onclick="return LoadPage('@Url.Action("SMSLog", "SMS")','Justbok | SMS Log');">Message Log</a></li>
+                        </ul>
+                    </li>
+
+                    <li id="reports" class="active"><a onclick="return LoadPage('@Url.Action("Index", "Reports")','Justbok | Report List');"><i class="fa fa-calendar"></i> <span>Reports</span></a></li>
+
+                  
+                    @*<li class="treeview" id="gym" style="display:none;">
+                        <a href="#">
+                            <i class="fa fa-users"></i> <span>JB WorkBook</span>
+                            <span class="pull-right-container">
+                                <i class="fa fa-angle-left pull-right"></i>
+                            </span>
+                        </a>
+                        <ul class="treeview-menu">
+
+                            <li><a href="/Gym/GetGymList">JB List</a></li>
+                            <li><a href="/Gym/GetAllPackages">JB Package</a></li>
+
+                        </ul>
+                    </li>*@
+                    <li class="treeview" id="gymSetting" style="display:none;">
+                        <a href="#">
+                            <i class="fa fa-users"></i> <span>JB Setting</span>
+                            <span class="pull-right-container">
+                                <i class="fa fa-angle-left pull-right"></i>
+                            </span>
+                        </a>
+                        <ul class="treeview-menu">
+
+                            <li><a href="/Amenities/AmenitiesList">Amenities</a></li>
+                            <li><a href="/Equipment/EquipmentList">Equipment</a></li>
+                            <li><a onclick="return LoadPage('@Url.Action("BranchList", "Branch")','Justbok | Branch');">Branch List</a></li>
+
+                        </ul>
+                    </li>
+
+                   
+                    
+
+                  
+
+                  
+                 
+                   
+                    @*<li class="treeview" id="timesheet" style="display:none;">
+                        <a href="#">
+                            <i class="fa fa-folder"></i> <span>Timesheet</span>
+                            <span class="pull-right-container">
+                                <i class="fa fa-angle-left pull-right"></i>
+                            </span>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li><a href="#">Staff</a></li>
+                            <li><a href="#">Member</a></li>
+                        </ul>
+                    </li>*@
+                  
+
+                  
+
+                  
+
+
+                    @*<li class="treeview" id="workout">
+                        <a href="#">
+                            <i class="fa fa-gavel"></i> <span>Workout</span>
+                            <span class="pull-right-container">
+                                <i class="fa fa-angle-left pull-right"></i>
+                            </span>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li><a onclick="return LoadPage('@Url.Action("WorkoutList", "Workout")','Justbok | Workout List');">Workout</a></li>
+
+                            <li><a onclick="return LoadPage('@Url.Action("GetWorkoutPlans", "WorkoutPlan")','Justbok | Workout Plan List');">Workout Plan</a></li>
+                            <li><a href="#">Allocation</a></li>
+                        </ul>
+                    </li>
+                    <li class="treeview" id="diet">
+                        <a href="#">
+                            <i class="fa fa-gavel"></i> <span>Diet</span>
+                            <span class="pull-right-container">
+                                <i class="fa fa-angle-left pull-right"></i>
+                            </span>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li><a onclick="return LoadPage('@Url.Action("MealList", "MealTime")','Justbok | Meal List');">Meal Time</a></li>
+                            <li><a onclick="return LoadPage('@Url.Action("DietPlanList", "Diet")','Justbok | Diet Plan List');">Diet Plan</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="treeview" id="POS">
+                        <a href="#">
+                            <i class="fa fa-gavel"></i> <span>POS</span>
+                            <span class="pull-right-container">
+                                <i class="fa fa-angle-left pull-right"></i>
+                            </span>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li><a onclick="return LoadPage('@Url.Action("PurchaseOrders", "POS")','Justbok | Purchase Orders');">Purchase Order</a></li>
+                        </ul>
+                    </li>*@
+                </ul>
+                <!-- /.sidebar-menu -->
+            </section>
+            <!-- /.sidebar -->
+        </aside>
+
+        <div class="content-wrapper">
+            <!-- Main content -->
+            <section>
+                <div id="RenderBody">
+                    @RenderBody()
+                </div>
+            </section>
+        </div>
+
+
+    </div>
+    <div class="bootbox modal fade in" role="dialog" id="modal_Print">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true" ng-click="ResetSelectCustomer()" title="Close">×</span></button>
+                    <h4 class="modal-title" id="CustomerLable">Select Customer</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">Search </label>
+                                    <div class="col-md-9">
+                                        <input class="form-control input-sm ng-valid ng-dirty ng-valid-parse ng-touched" id="txtQuickprint" placeholder="MemberName, Mobile No." title="MemberName, Mobile No." style="" type="text">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <button type="button" id="btnSelectCustSearch" class="btn btn-sm btn-primary btn-flat"  title="Search">
+                                    <i class="glyphicon glyphicon-search"></i> Search
+                                </button>
+                                <button type="button" id="btnSelectCustClear" class="btn btn-default btn-sm btn-flat" title="Reset">
+                                    <i class="glyphicon glyphicon-refresh"></i> Reset
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="table-responsive" id="tblMemberDetails" >
+                                <div id="tblQuickPrint_wrapper" class="dataTables_wrapper form-inline dt-bootstrap no-footer"><div class="row"><div class="col-sm-6"></div><div class="col-sm-6"></div></div><div class="row"><div class="col-sm-12"><table class="table table-bordered no-footer dataTable" id="tblQuickPrint" role="grid" style="width: 870px;"><thead><tr role="row"><th class="sorting_disabled" rowspan="1" colspan="1" style="width: 84px;">Member Id</th><th class="sorting_disabled" rowspan="1" colspan="1" style="width: 113px;">Member Name</th><th class="sorting_disabled" rowspan="1" colspan="1" style="width: 146px;">MemberShip Name</th><th class="sorting_disabled" rowspan="1" colspan="1" style="width: 129px;">Payment Amount</th><th class="sorting_disabled" rowspan="1" colspan="1" style="width: 106px;">Payment Date</th><th class="sorting_disabled" rowspan="1" colspan="1" style="width: 51px;">Action</th></tr></thead><tbody><tr class="odd"><td colspan="6" class="dataTables_empty" valign="top">No data available in table</td></tr></tbody></table>
+                                    </div></div>
+                                    <div class="dataTables_paginate paging_simple_numbers" id="tblMemberDetails_paginate">
+                                        <ul id="pagination" class="pagination"></ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modal-printMemo">
+        <div class="modal-dialog" style="width:700px;">
+            <div class=" modal-content">
+                <div id="divQuickPrintMembershipMemo">
+                    <div class="modal-body" id="modal-printbody">
+
+                        <div class="col-lg-12">
+                            <div class="row">
+                                <div class="col-lg-4 pull-right">
+                                    <div class="row">
+                                        <div class="col-md-12 text-right">
+                                            <div class="form-group">
+                                                <h4><b>Tax Invoice</b></h4>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-7">
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <img src="/Theme/img/MWM.jpg" style="max-width:250px; max-height:100px; padding:5px;">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                            <br>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div style="width:250px;float:left;padding-left:10px">
+                                        <div class="form-group">Name :<span>Mr World Mohtesham Fitness Club</span></div>
+                                        <div class="form-group">
+                                            Address :
+                                            <p>
+                                                Shop No 1& 2, Concrete Sitar Apartment,
+                                                <br /> Nallagandla Road, Lingampally,
+                                                <br /> Near Rythu Bazaar,
+                                                <br /> Hyderabad - 500019,
+                                                <br /> Telangana.
+                                            </p>
+                                        </div>
+                                      
+                                    </div>
+
+                                    <div style="width:250px;float:right">
+                                        <div class="form-group">Details of Receiver (Billed to)</div>
+                                        <div class="form-group">Name : <span id="customerNameQuickPrint"></span></div>
+                                        <div class="form-group">GST / Unique ID No :</div>
+                                        <div class="form-group">
+                                            Address : <span id="addressQuickPrint"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                            <div style="padding:5px">
+                                <div class="row">
+                                    <table width="100%" border="1" id="tblInvoice">
+                                        <thead>
+                                            <tr>
+                                                <td rowspan="2" class="text-center" align="center">Sr. No.</td>
+                                                <td rowspan="2" class="text-center" align="center">Package</td>
+                                                <td rowspan="2" class="text-center" align="center">Rate</td>
+                                                <td rowspan="2" class="text-center" align="center">Total</td>
+                                                <td rowspan="2" class="text-center" align="center">Taxable Value</td>
+                                                <td colspan="2" class="text-center" align="center">CGST</td>
+                                                <td colspan="2" class="text-center" align="center">SGST</td>
+                                            </tr>
+                                            <tr>
+                                                <td style="border-top:1px solid black;border-bottom:1px solid black" class="text-center" align="center">
+                                                    Rate
+                                                </td>
+                                                <td style="border-top:1px solid black;border-bottom:1px solid black" class="text-center" align="center">
+                                                    Amt
+                                                </td>
+                                                <td style="border-top:1px solid black;border-bottom:1px solid black" class="text-center" align="center">
+                                                    Rate
+                                                </td>
+                                                <td style="border-top:1px solid black;border-bottom:1px solid black" class="text-center" align="center">
+                                                    Amt
+                                                </td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td style="border-top:1px solid black;" class="text-center">1.</td>
+                                                <td style="border-top:1px solid black;" id="packageQuickPrint"></td>
+                                                <td style="border-top:1px solid black;" class="text-right" id="rateQuickPrint"></td>
+                                                <td style="border-top:1px solid black;" class="text-right" id="TotalQuickPrint"></td>
+                                                <td style="border-top:1px solid black;" class="text-right" id="taxableValueQuickPrint"></td>
+                                                <td style="border-top:1px solid black;" class="text-right" id="cgstrateQuickPrint"></td>
+                                                <td style="border-top:1px solid black;" class="text-right" id="cgstamountQuickPrint"></td>
+                                                <td style="border-top:1px solid black;" class="text-right" id="sgstrateQuickPrint"></td>
+                                                <td style="border-top:1px solid black;" class="text-right" id="sgstamountQuickPrint"></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <br>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <b>Start Date :</b> &nbsp;&nbsp;
+                                        <span id="startdateQuickPrint"> </span> &nbsp;&nbsp;
+                                        <b>End Date :</b>  &nbsp;&nbsp;
+                                        <span id="enddateQuickPrint"> </span>
+                                        <br>
+                                        <label> By :</label>
+                                        <span class="ng-binding">Cash</span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <h4 class="pull-right">Total Invoice Value : <span id="totalAmountQuickPrint"></span> /-</h4>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                        <hr>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <small>
+                                    <ol>
+                                        <li>Right of admission/ renewal/ termination are reserved.</li>
+                                        <li>Member's will use equipment/ facilities with due care and caution and keep the same in proper place after use.</li>
+                                        <li>Member's enrolling with any previous medical history have to keep informed to the trainer.</li>
+                                        <li>No cardio machine will be allowed to be use more than 20 minutes.</li>
+                                        <li>Gym dress code is mandatory as instructed by the trainer.</li>
+                                        <li>No bare foot is allowed on floor.</li>
+                                        <li>Any activity or exercise resulting in pain, faintness, dizziness, or shortness of breath should be stopped immediately.</li>
+                                        <li>Violation of Rules:If any member violates any of the policies, Gym Owners have the right to revoke memberships.</li>
+                                    </ol>
+                                </small>
+                            </div>
+                        </div>
+
+                        <br>
+                        <div class="row">
+                            <div style="padding-left: 10px; width: 250px; float: left">
+                                <div class="form-group" style="margin-bottom:0">
+                                    <label>Received By :</label>
+                                    <span>_________________</span>
+                                </div>
+                                <br>
+                                <div class="form-group" style="margin-bottom:0">
+                                    <label>Sign :</label>
+                                    <span>________________________</span>
+                                </div>
+                            </div>
+                            <div style="width:300px;float:right">
+                                <div class="form-group" style="margin-bottom:0">
+                                    <label class="">Customer Name :</label>
+                                    <span>_________________</span>
+                                </div>
+                                <br>
+                                <div class="form-group" style="margin-bottom:0">
+                                    <label>Sign :</label>
+                                    <span>________________________</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default pull-right" id="closepage" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-success pull-right" id="printpageMemo">Print</button>
+
+                </div>
+
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    
+
+    <div id="divLoader" style="display: none; z-index: 999999;" class="clearboth marginauto popsloader">
+        <i class="fa fa-spinner fa-spin" style="font-size: 60px; position: absolute; top: 50%; left: 50%"></i>
+        @*<img src="/Theme/img/loader.gif" alt="" align="middle" style="position: absolute; top: 50%; left: 50%;width:80px;height:80px;" />*@
+    </div>
+    <!-- ./wrapper -->
+    @Scripts.Render("~/js")
+    @Scripts.Render("~/Plugins/iCheck/icheck.min.js")
+    @Scripts.Render("~/Scripts/Common.js")
+
+    
+    @RenderSection("scripts", required: false)
+
+    
+    <script>
+        function ShowLoader() {
+            $('#divLoader').show();
+        }
+        function HideLoader() {
+            $('#divLoader').hide();
+        }
+    </script>
+
+   @section Scripts {
+    <script>
+    var QuickPrintSearchMemberUrl = '@Url.Action("QuickPrintSearchMemberList", "Dashboard")';
+    var GetInvoice = '@Url.Action("GetInvoice", "Dashboard")';
+    var EditMemberUrl = '@Url.Action("EditMember", "MemberShip")';
+    var LoadSidebarUrl = '@Url.Action("GetServiceList", "Dashboard")';
+        var RedirectToHomeUrl = '@Url.Action("RedirectToHome","Home")';
+        var BranchIdUrl = '@Url.Action("Branch", "Dashboard")';
+        var LogoutUrl = '@Url.Action("RedirectToHome","Home")';
+        var NavSearchAutoCompleteUrl = '@Url.Action("SearchBoxAutoComplete", "Home")';
+    </script>
+    <script src="~/Content/QuickPrint/Quick_Print.js"></script>
+    <script src="~/Content/Shared/LoadSideBar.js"></script>
+}
+<script>
+    var QuickPrintSearchMemberUrl = '@Url.Action("QuickPrintSearchMemberList", "Dashboard")';
+    var GetInvoice = '@Url.Action("GetInvoice", "Dashboard")';
+    var EditMemberUrl = '@Url.Action("EditMember", "MemberShip")';
+    var LoadSidebarUrl = '@Url.Action("GetServiceList", "Dashboard")';
+    var RedirectToHomeUrl = '@Url.Action("RedirectToHome","Home")';
+    var BranchIdUrl = '@Url.Action("Branch", "Dashboard")';
+    var LogoutUrl = '@Url.Action("RedirectToHome","Home")';
+    var NavSearchAutoCompleteUrl = '@Url.Action("SearchBoxAutoComplete", "Home")';
+</script>
+<script src="~/Content/QuickPrint/Quick_Print.js"></script>
+    <script src="~/Content/Shared/LoadSideBar.js"></script>
+
+</body>
+</html>

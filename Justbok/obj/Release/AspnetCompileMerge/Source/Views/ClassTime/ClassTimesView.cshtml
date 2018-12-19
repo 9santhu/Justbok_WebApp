@@ -1,0 +1,53 @@
+﻿<div class="modal-body">
+    <input id="class_id" type="hidden" />
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="pull-right">
+                <button type="button" style="float:right;margin-top: 10px;" class="btn btn-primary btn-sm btn-flat"
+                        title="Add Class Time" onclick="return ShowAddEditClassTimeView('0')">
+                    <i class="glyphicon glyphicon-plus"></i> Add
+                </button><br><br>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="table-responsive">
+                <div id="tblClassTimes_wrapper" class="dataTables_wrapper form-inline dt-bootstrap no-footer">
+                    <table class="table table-bordered dataTable no-footer" id="tblClassTimes" role="grid">
+                        <thead>
+                            <tr role="row">
+                                <th style="width: 120px;">Days</th>
+                                <th style="width: 200px;">Instructor</th>
+                                <th style="width: 150px;">Start Date</th>
+                                <th style="width: 150px;">End Date</th>
+                                <th style="width: 150px;">Start Time</th>
+                                <th style="width: 150px;">End Time</th>
+                                <th style="width: 130px;">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                    <div class="dataTables_paginate paging_simple_numbers" id="tblClassTimes_paginate">
+                        <ul id="timingpagination" class="pagination"></ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal-footer">
+    <button type="button" class="btn btn-default btn-sm btn-flat" onclick="return HideModel();" tabindex="9" title="Cancel">
+        <i class="glyphicon glyphicon-remove"></i> Cancel
+    </button>
+</div>
+
+<script src="~/Scripts/Navigation.js?v=1.2"></script>
+<script>
+    var AddEditClassTimeUrl = '@Url.Action("AddEditClassTime", "ClassTime")';
+    var ClassTimingsUrl = '@Url.Action("ClassTimings", "ClassTime")';
+    var DeleteClassTimingUrl = '@Url.Action("DeleteClassTiming", "ClassTime")';
+
+    $(document).ready(function () { LoadingClassTimes(); });
+</script>

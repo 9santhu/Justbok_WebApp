@@ -1,0 +1,174 @@
+﻿@model Justbok.Models.Product
+
+@{
+    ViewBag.Title = "EditProduct";
+}
+<style>
+    .required {
+        color: #e02222;
+        font-size: 16px;
+        padding-left: 2px;
+    }
+</style>
+
+
+
+<section class="content container-fluid" id="container">
+
+    <div class="pull-right">
+        <a onclick="return LoadPage('@Url.Action("GetProducts", "Product")','Justbok | Products List');" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-arrow-left"></i> Product List</a><br><br>
+    </div>
+    @*@using (Ajax.BeginForm("EditProduct", "Product",
+                           new AjaxOptions
+                           {
+                               OnSuccess = "OnSuccess",
+                               OnFailure = "OnFailure",
+                               LoadingElementId = "progress",
+                               OnBegin = "onBegin",
+                               OnComplete = "onComplete"
+                           }))
+        {*@
+             @Html.AntiForgeryToken()
+             @Html.ValidationSummary(true)
+    <div class="col-xs-12">
+        <div class="box">
+            <div class="box-header">
+                <h3 class="box-title">Add Product</h3>
+
+                <div class="col-md-12">
+
+                    @*<div class="alert alert-success" role="alert" id="isSucess" style="display:none; float:right;height:50px; width:200px;text-align:center">Data saved successfully!!</div>*@
+
+                    <div id="messages" class="hide" role="alert" style="height:50px;width:250px;border-radius:5px;float:right;text-align:inherit;">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <div id="messages_content"></div>
+                    </div>
+
+                    <hr>
+
+                    <div class="form-group col-md-4" style="display:none;">
+                        <label for="exampleInputEmail1">Product Id</label>
+                       
+                        @Html.TextBoxFor(model => model.ProductId, new { @class = "form-control", id = "txtProductid", placeholder = "Product Id" })
+                            @Html.ValidationMessageFor(model => model.ProductId)>
+                    </div>
+                    <div class="form-group col-md-4" style="display:none;">
+                        <label for="exampleInputEmail1">Gym Id</label>
+                        @Html.TextBoxFor(model => model.GymId, new { @class = "form-control", id = "txtGymid", placeholder = "Gym Id" })
+                        @Html.ValidationMessageFor(model => model.GymId)
+                    </div>
+
+                    <div class="form-group col-md-4">
+                        <label for="exampleInputEmail1">Brand Name</label>
+                        @Html.TextBoxFor(model => model.BrandName, new { @class = "form-control", id = "txtBrandName", placeholder = "Brand Name" })
+                        @Html.ValidationMessageFor(model => model.BrandName)
+                    </div>
+
+                    <div class="form-group col-md-4">
+                        <label for="exampleInputEmail1">Product Name</label><span class="required" aria-required="true"> * </span>
+                        @Html.TextBoxFor(model => model.ProductName, new { @class = "form-control", id = "txtProductname", placeholder = "Product Name" })
+                        @Html.ValidationMessageFor(model => model.ProductName)
+                    </div>
+
+
+                    <div class="form-group col-md-4">
+                        <label for="exampleInputEmail1">Price</label><span class="required" aria-required="true"> * </span>
+                        @Html.TextBoxFor(model => model.Price, new { @class = "form-control", placeholder = "Price", id = "txtPrice" })
+                    </div>
+
+                    <div class="form-group col-md-4">
+                        <label for="exampleInputEmail1">Quantity</label><span class="required" aria-required="true"> * </span>
+                        @Html.TextBoxFor(model => model.Quantity, new { @class = "form-control", placeholder = "Quantity", id = "txtQuantity" })
+                    </div>
+
+                    <div class="form-group col-md-4">
+                        <label for="exampleInputEmail1">Description</label>
+                        @Html.TextAreaFor(model => model.Description, new { @class = "form-control", rows = "3", placeholder = "Description", id = "txtDescription" })
+                    </div>
+
+
+
+
+                    <div class="form-group col-md-4">
+                        <label for="Branch">Low Stock Quantity </label><span class="required" aria-required="true"> * </span>
+
+                        @Html.TextBoxFor(model => model.LowStockQuantity, new { @class = "form-control", placeholder = "Low Stock Quantity", id = "txtLowStockQuantity" })
+                        <!-- /.input group -->
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label>ForSale @Html.CheckBoxFor(model => model.ForSale, new { id = "chkForsale" })</label>
+                    </div>
+
+
+
+                </div>
+
+                <div class="box-footer">
+                    <button type="submit" class="btn btn-default pull-right">Reset</button>
+                    <button type="submit" class="btn btn-info pull-right" style="margin-right: 10px;" id="btnUpdateProduct">Save</button>
+                </div>
+
+
+
+            </div>
+        </div>
+    </div>
+
+    @*}*@
+
+</section>
+
+<div class="bootbox modal fade in" role="dialog" id="modal_Conformation">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="bootbox-close-button close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title">Confirmation !</h4>
+            </div>
+            <div class="modal-body">
+                <div class="bootbox-body">Are you sure want to delete?</div>
+                <input id="txtPaymentRecieptNo" class="" type="hidden">
+            </div>
+            <div class="modal-footer">
+                <button data-bb-handler="success" type="button" class="btn btn-success btn-flat" id="btnYes">Yes</button>
+                <button data-bb-handler="danger" type="button" class="btn btn-danger btn-flat" data-dismiss="modal">No</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="bootbox modal fade in" role="dialog" id="modal_ConformationPayment">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="bootbox-close-button close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title">Confirmation !</h4>
+            </div>
+            <div class="modal-body">
+                <div class="bootbox-body">Are you sure want to delete?</div>
+                <input id="txtPaymentRecieptNo" class="" type="hidden">
+            </div>
+            <div class="modal-footer">
+                <button data-bb-handler="success" type="button" class="btn btn-success btn-flat" id="btnYesPayment">Yes</button>
+                <button data-bb-handler="danger" type="button" class="btn btn-danger btn-flat" data-dismiss="modal">No</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+@section Scripts {
+<script src="~/Scripts/Navigation.js?v=1.2"></script>
+    <script>
+        var EditProductUrl = '@Url.Action("EditProduct", "Product")';
+    </script>
+
+    <script src="~/Content/Products/EditProduct.js"></script>
+}
+<script src="~/Scripts/Navigation.js?v=1.2"></script>
+<script>
+    var EditProductUrl = '@Url.Action("EditProduct", "Product")';
+</script>
+
+<script src="~/Content/Products/EditProduct.js"></script>

@@ -1,0 +1,222 @@
+﻿@{
+    ViewBag.Title = "Expenses";
+}
+
+<section class="content-header ng-scope">
+    <h1>
+        Expense
+        <div class="pull-right">
+            <button type="button" style="float:right;margin-top: 10px;" class="btn btn-primary btn-sm btn-flat" onclick="return ShowModel('0')" title="Add Expense">
+                <i class="glyphicon glyphicon-plus"></i> Add
+            </button><br><br>
+        </div>
+    </h1>
+</section>
+
+<section class="content ng-scope">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <i class="fa fa-search"></i>
+                    <h3 class="box-title">Expense Search</h3>
+                    <div class="box-tools pull-right">
+                        <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                    </div><!-- /.box-tools -->
+                </div><!-- /.box-header -->
+                <div class="box-body">
+                    <form role="form" class="ng-pristine ng-valid">
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label>Expense Type </label>
+                                <select class="form-control input-sm input-sm ng-pristine ng-valid ng-touched" id="ddlSearchExpenseType">
+                                    <option value="0" class="" selected="selected">---Select---</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label>Search </label>
+                                <input class="form-control input-sm input-sm" id="txtSearch" placeholder="Description" title="Description" type="text" value="">
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label> From Date </label>
+                                <input class="form-control input-sm input-sm" id="txtDateFirst" type="datetime">
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label> To Date</label>
+                                <input class="form-control input-sm input-sm" id="txtDateTo" type="datetime">
+                            </div>
+                        </div>
+                        <div class="col-md-3" style="margin-top:25px;">
+                            <div class="form-group">
+                                <button type="button" id="btnSearchExp" class="btn btn-sm btn-primary btn-flat" title="Search"><i class="glyphicon glyphicon-search"></i>Search</button>
+                                <button type="button" id="btnSearchClear" class="btn btn-default btn-sm btn-flat" title="Reset"><i class="glyphicon glyphicon-refresh"></i>Reset</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Expense List</h3>
+                </div><!-- /.box-header -->
+                <div class="box-body">
+                    <div class="col-lg-12">
+                        <div class="table-responsive">
+                            <div id="TBLExpenceList_wrapper" class="dataTables_wrapper form-inline dt-bootstrap no-footer">
+                                <div class="DTTT_container"></div>
+                                <div class="clear"></div>
+                                <div class="dataTables_length">
+                                    <label>
+                                        Show
+                                        <select id="TBLExpenceList_length" name="TBLExpenceList_length"
+                                                aria-controls="TBLExpenceList" class="form-control input-sm"
+                                                onchange="return ShowChange();">
+                                            <option value="10">10</option>
+                                            <option value="25">25</option>
+                                            <option value="50">50</option>
+                                            <option value="100">100</option>
+                                        </select> entries
+                                    </label>
+                                </div>
+                                <table class="table table-bordered dataTable no-footer" id="TBLExpenceList" role="grid">
+                                    <thead>
+                                        <tr role="row">
+                                            <th class="sorting" style="width: 120px;" onclick="SortData(this)" key="EXPENSESTYPE" headerid="EXPENSESTYPE" id="EXPENSESTYPE">Expense Type</th>
+                                            <th class="sorting" style="width: 130px;" onclick="SortData(this)" key="EXPENSESAMOUNT" headerid="EXPENSESAMOUNT" id="EXPENSESAMOUNT">Expense Amount</th>
+                                            <th class="sorting" style="width: 100px;" onclick="SortData(this)" key="EXPENSESDATE" headerid="EXPENSESDATE" id="EXPENSESDATE">Expense Date</th>
+                                            <th class="sorting" style="width: 221px;" onclick="SortData(this)" key="DESCRIPTION" headerid="DESCRIPTION" id="DESCRIPTION">Description</th>
+                                            <th style="width: 130px;">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody></tbody>
+                                </table>
+                                <div class="dataTables_paginate paging_simple_numbers" id="TBLExpenceList_paginate">
+                                    <ul id="pagination" class="pagination"></ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- /.box-body -->
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="modal fade ng-scope in" id="addExpense" role="dialog">
+    <div class="modal-dialog" style="width:600px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" aria-label="Close" onclick="return HideModel('#addExpense'); "><span aria-hidden="true">×</span></button>
+                <h4 class="modal-title" id="gridSystemModalLabel">Expense</h4>
+            </div>
+            <input id="HFExpenseId" class="ng-pristine ng-untouched ng-valid" type="hidden">
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Expense Type <span class="required" aria-required="true"> * </span></label>
+                            <select class="form-control input-sm ng-pristine ng-valid ng-touched" id="ddlExpenseType" tabindex="1"
+                                    style="">
+                                <option value="0" class="" selected="selected">---Select---</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Expense Amount <span class="required" aria-required="true"> * </span></label>
+                            <input class="form-control input-sm ng-pristine ng-untouched ng-valid" id="txtExpenseAmount"
+                                   tabindex="3" type="text">
+                        </div>
+                        <div class="form-group">
+                            <label>Reference Number</label>
+                            <input class="form-control input-sm ng-pristine ng-untouched ng-valid" id="txtReferenceNumber"
+                                   tabindex="5" type="text">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Date <span class="required" aria-required="true"> * </span></label>
+                            <input class="form-control input-sm ng-untouched ng-valid ng-dirty ng-valid-parse" id="txtExpenseDate"
+                                   tabindex="2" style="" type="datetime" onkeypress="return false;" onpaste="return false;">
+                        </div>
+                        <div class="form-group">
+                            <label>Expense Mode <span class="required" aria-required="true"> * </span></label>
+                            <select id="ddlExpenseMode" class="form-control input-sm ng-pristine ng-untouched ng-valid"
+                                    tabindex="4">
+                                <option value="0" class="" selected="selected">---Select---</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Expense Description</label>
+                            <textarea class="form-control input-sm ng-pristine ng-untouched ng-valid" id="txtDescription"
+                                      tabindex="6"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary btn-sm btn-flat" tabindex="8" title="Save" id="btnSave">
+                    <i class="glyphicon glyphicon-ok"></i> Save
+                </button>
+                <button type="button" class="btn btn-default btn-sm btn-flat" onclick="ClearAllRecord()" tabindex="9"
+                        title="Close">
+                    <i class="glyphicon glyphicon-remove"></i> Close
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="bootbox modal fade in" role="dialog" id="modal_Conformation">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="bootbox-close-button close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title">Confirmation !</h4>
+            </div>
+            <div class="modal-body">
+                <div class="bootbox-body">Are you sure want to delete?</div>
+            </div>
+            <div class="modal-footer">
+                <button data-bb-handler="success" type="button" class="btn btn-success btn-flat" id="btnYes">Yes</button>
+                <button data-bb-handler="danger" type="button" class="btn btn-danger btn-flat" data-dismiss="modal">No</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+<script src="~/Scripts/Navigation.js?v=1.2"></script>
+    <script>
+        var ExpenseModesUrl = '@Url.Action("ExpenseModes", "Expenses")';
+        var ExpenseTypeListUrl = '@Url.Action("ExpenseTypeList", "ExpenseType")';
+        var ExpensesListUrl = '@Url.Action("ExpensesList", "Expenses")';
+        var ExpenseDetailsByIdUrl = '@Url.Action("ExpenseDetailsById", "Expenses")';
+        var SaveExpenseUrl = '@Url.Action("SaveExpense","Expenses")';
+        var RemovingExpenseUrl = '@Url.Action("RemovingExpense", "Expenses")';
+    </script>
+
+    <script src="~/Content/Expenses/_expenses.js?v=1.1"></script>
+}
+<script src="~/Scripts/Navigation.js?v=1.2"></script>
+<script>
+    var ExpenseModesUrl = '@Url.Action("ExpenseModes", "Expenses")';
+    var ExpenseTypeListUrl = '@Url.Action("ExpenseTypeList", "ExpenseType")';
+    var ExpensesListUrl = '@Url.Action("ExpensesList", "Expenses")';
+    var ExpenseDetailsByIdUrl = '@Url.Action("ExpenseDetailsById", "Expenses")';
+    var SaveExpenseUrl = '@Url.Action("SaveExpense","Expenses")';
+    var RemovingExpenseUrl = '@Url.Action("RemovingExpense")';
+</script>
+<script src="~/Content/Expenses/_expenses.js?v=1.1"></script>
+
+
+
+

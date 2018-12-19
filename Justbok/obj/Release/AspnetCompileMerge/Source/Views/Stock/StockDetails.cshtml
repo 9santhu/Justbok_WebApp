@@ -1,0 +1,226 @@
+﻿@*@model  PagedList.IPagedList<Justbok.Models.Product>
+@using PagedList.Mvc;*@
+
+
+<section class="content-header">
+    <h1>Product</h1>
+    <h5>
+       
+        <button type="button" class="btn btn-primary pull-right fa fa-plus" aria-hidden="true" id="StockList" style="display:none"> Stock List</button>
+        <button type="button" class="btn btn-primary pull-right fa fa-plus" aria-hidden="true" id="removeStock"> Remove Stock</button>
+         <button type="button" class="btn btn-primary pull-right fa fa-plus" aria-hidden="true" id="addStock"> Add Stock</button>
+   
+      
+    </h5>
+
+
+</section>
+<section class="content container-fluid">
+
+    <div class="col-xs-12">
+        <div class="box">
+            <div class="box-header">
+                <h3 class="box-title">Product List</h3>
+
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body" >
+                <div id="example1_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
+                    <div class="dataTables_length">
+                        <label>
+                            Show
+                            <select id="tblStockList_length" name="tblStockList_length"
+                                    aria-controls="tblStockList" class="form-control input-sm"
+                                    onchange="return ShowChange();">
+                                <option value="10">10</option>
+                                <option value="25">25</option>
+                                <option value="50">50</option>
+                                <option value="100">100</option>
+                            </select> entries
+                        </label>
+                    </div>
+
+                    @*<div class="row"><div class="col-sm-6"><div class="dataTables_length"><label>Show <select id="ddlNumber" aria-controls="example1" class="form-control input-sm"><option value="10">10</option><option value="25">25</option><option value="50">50</option><option value="100">100</option></select> entries</label></div></div></div><div class="row">*@
+                    <div class="col-sm-12 table-responsive">
+                        <table id="tblStockList" class="table table-bordered table-striped dataTable" role="grid" aria-describedby="example1_info">
+
+                            <thead>
+                                <tr role="row">
+
+                                    <th class="sorting_asc" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 231.217px;" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending">Brand Name</th>
+                                    <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 282.583px;" aria-label="Browser: activate to sort column ascending">Product Name</th>
+                                    <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 143.717px;" aria-label="CSS grade: activate to sort column ascending">Quantity</th>
+
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                            <tfoot>
+
+                        </table>
+                        <div class="dataTables_paginate paging_simple_numbers" id="tblStockList_paginate">
+                            <ul id="pagination" class="pagination"></ul>
+                        </div>
+                    </div>
+                </div>@*<div class="row"><div class="col-sm-5"><div class="dataTables_info" id="example1_info" role="status" aria-live="polite"></div></div><div class="col-sm-7"><div class="dataTables_paginate paging_simple_numbers" id="example1_paginate"><ul class="pagination"><li class="paginate_button previous disabled" id="example1_previous"><a href="#" aria-controls="example1" data-dt-idx="0" tabindex="0">Previous</a></li><li class="paginate_button active"><a href="#" aria-controls="example1" data-dt-idx="1" tabindex="0">1</a></li><li class="paginate_button "><a href="#" aria-controls="example1" data-dt-idx="2" tabindex="0">2</a></li><li class="paginate_button next" id="example1_next"><a href="#" aria-controls="example1" data-dt-idx="7" tabindex="0">Next</a></li></ul></div></div></div>*@
+                @*<div class="dataTables_paginate paging_simple_numbers" style="margin-left: 400px">
+                Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)
+                of @Model.PageCount   @Html.PagedListPager(Model, page => Url.Action("GetProducts", new { page }))
+            </div>*@
+            </div>
+            <!-- /.box-body -->
+        </div>
+        <!-- /.box-body -->
+    </div>
+
+</section>
+
+
+
+
+@section Scripts {
+    <script src="~/Scripts/Navigation.js?v=1.2"></script>
+    <script>
+        var StockListUrl = '@Url.Action("StockDetailsList", "Stock")';
+        var UpdateStockUrl = '@Url.Action("UpdateStock", "Stock")';
+        var DeleteStockUrl = '@Url.Action("RemoveStock", "Stock")';
+    </script>
+   <script src="~/Content/Stock/StockList.js"></script>
+}
+<script src="~/Scripts/Navigation.js?v=1.2"></script>
+<script>
+ var StockListUrl = '@Url.Action("StockDetailsList", "Stock")';
+        var UpdateStockUrl = '@Url.Action("UpdateStock", "Stock")';
+        var DeleteStockUrl = '@Url.Action("RemoveStock", "Stock")';
+</script>
+<script src="~/Content/Stock/StockList.js"></script>
+
+@*<script>
+    $(document).ready(function () {
+
+        $('#addStock').click(function ()
+        {
+            $('.sorting_4').show();
+            $('#removeStock').hide();
+            $('#addStock').hide();
+            $('#StockList').show();
+          
+            $('#tblProductList tr:last').after('<tr><td></td><td></td><td></td><td> <button type="button" class="btn btn-primary pull-right fa fa-plus" aria-hidden="true" id="UpdateStock" > Add Stock</button></td></tr>');
+
+        });
+
+        $('#removeStock').click(function () {
+            $('.sorting_4').show();
+            $('#removeStock').hide();
+            $('#addStock').hide();
+            $('#StockList').show();
+           
+            //$('#tblProductList tr:last').after('<tr><td></td><td></td><td></td><td> <button type="button" class="btn btn-primary pull-right fa fa-plus" aria-hidden="true" id="UpdateRemoveStock"> Remove Stock</button></td></tr>');
+          
+            var text = $('#tblProductList tr:last-child td:last-child').html();
+
+            if (text.includes('button') == true) {
+                $('#tblProductList tr:last').empty;
+            }
+           
+            if (text.includes('UpdateRemoveStock') == false)
+            {
+                $('#tblProductList tr:last').after('<tr><td></td><td></td><td></td><td> <button type="button" class="btn btn-primary pull-right fa fa-plus" aria-hidden="true" id="UpdateRemoveStock"> Remove Stock</button></td></tr>');
+            }
+
+
+            
+        });
+
+        $('#StockList').click(function () {
+            $('#StockList').hide();
+            $('.sorting_4').hide();
+            $('#removeStock').show();
+            $('#addStock').show();
+            var text = $('#tblProductList tr:last-child td:last-child').html();
+            if (text.includes('button') == true) {
+              
+                $('#tblProductList tr:last').remove();
+            }
+        });
+
+      //Update stock code
+        $(document).on("click", '#tblProductList #UpdateStock', function () {
+          
+            var table = $("table tbody");
+            var rows = [];
+            var jsonObject;
+            //rows.push(StockType="StockIn")
+            table.find('tr').each(function (i) {
+                var $tds = $(this).find('td'),
+                    productId = $tds.eq(0).text(),
+                    manufacturename = $tds.eq(1).text(),
+                    productname = $tds.eq(2).text(),
+                currentstock = $tds.eq(3).text(),
+               stockcount = $tds.eq(4).find('input[type="text"]').val();
+                rows.push({ "ProductId": productId, "Manufacture": manufacturename, "ProductName": productname, "Quantity": currentstock, "StockIn": stockcount })
+            });
+
+            $.ajax({
+                cache: false,
+                type: "POST",
+                url: "@Url.Action("UpdateStock")",
+                dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify(rows),
+            success: function (data) {
+              
+                location.reload();
+
+            },
+            failure: function (errMsg) {
+                alert(errMsg.responseText);
+            }
+        });
+
+
+        });
+
+        //remove stock code
+        $(document).on("click", '#tblProductList #UpdateRemoveStock', function () {
+          
+            var table = $("table tbody");
+            var rows = [];
+            var jsonObject;
+            //rows.push(StockType="StockIn")
+            table.find('tr').each(function (i) {
+                var $tds = $(this).find('td'),
+                    productId = $tds.eq(0).text(),
+                    manufacturename = $tds.eq(1).text(),
+                    productname = $tds.eq(2).text(),
+                currentstock = $tds.eq(3).text(),
+               stockcount = $tds.eq(4).find('input[type="text"]').val();
+                rows.push({ "ProductId": productId, "Manufacture": manufacturename, "ProductName": productname, "Quantity": currentstock, "StockOut": stockcount })
+            });
+
+            $.ajax({
+                cache: false,
+                type: "POST",
+                url: "@Url.Action("RemoveStock")",
+                dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify(rows),
+            success: function (data) {
+              
+                location.reload();
+
+            },
+            failure: function (errMsg) {
+                alert(errMsg.responseText);
+            }
+        });
+
+
+    });
+
+
+
+    });
+    
+
+    
+</script>*@

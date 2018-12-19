@@ -1,0 +1,55 @@
+﻿@model Justbok.Models.StaffLogin
+
+@{
+    ViewBag.Title = "Justbok Login";
+    Layout = "~/Views/Shared/_LoginLayout.cshtml";
+    
+
+}
+<div class="alert alert-danger alert-dismissable" id="divError" style="display:none;" ><button class="close" data-dismiss="alert" aria-hidden="true" type="button">×</button><p>Invalid username or password</p><p></p></div>
+                <div class="form-group has-feedback">
+                    @Html.TextBoxFor(model => model.Uname, new { @class = "form-control", placeholder = "Username",id="txtUserName" })
+                    <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+                </div>
+                <div class="form-group has-feedback">
+                    @Html.PasswordFor(model => model.pwd, new { @class = "form-control", placeholder = "Password",id="txtPassword" })
+                    <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+                </div>
+                <div class="row">
+                    <div class="col-xs-8">
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox"> Remember Me
+                            </label>
+                        </div>
+                    </div>
+                    <!-- /.col -->
+                    <div class="col-xs-4">
+                        <button type="submit" class="btn btn-primary btn-block btn-flat" id="btnSignIn">Sign In</button>
+                    </div>
+                    <!-- /.col -->
+                </div>
+
+
+@section Scripts {
+    <script>
+        var LoginUrl = '@Url.Action("Index", "Login")';
+    </script>
+   <script src="~/Content/Login/Validate.js"></script>
+}
+<script>
+       var LoginUrl = '@Url.Action("Index", "Login")';
+</script>
+<script src="~/Content/Login/Validate.js"></script>
+
+   
+
+
+
+
+
+
+
+
+
+

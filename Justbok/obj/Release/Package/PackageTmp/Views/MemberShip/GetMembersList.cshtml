@@ -1,0 +1,308 @@
+﻿@{
+    ViewBag.Title = "GetMembersList";
+}
+
+<section class="content-header">
+    <div class="col-xs-12">
+        <div class="box">
+            <div class="box-header">
+                <h3 class="box-title">Search Member</h3>
+                <div class="fonm">
+                    
+                    <div class="col-md-2">
+                        <div class="form-group">
+                           
+                            <label>Member Id </label><label><input class="form-control input-sm" placeholder="MemberId" aria-controls="example1" type="search" id="txtMemberId"></label>
+                        </div>
+                    </div>
+
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label>Member Name & Mobile</label><input class="form-control input-sm" placeholder="Member Name,Phone" aria-controls="example1" type="search" id="txtMember" />
+                        </div>
+                    </div>
+
+                      <div class="col-md-2">
+                        <div class="form-group">
+                            <label>From Date</label>
+                            <input id="txtFromDate" class="form-control input-sm" type="datetime">
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label>To Date</label>
+                            <input id="txtToDate" class="form-control input-sm" type="datetime">
+
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group" style="margin-top:25px;">
+                            <label></label>
+                            <button type="button" id="btnSearchMember" class="btn btn-primary btn-sm btn-flat" title="Search"><i class="glyphicon glyphicon-search"></i> Search</button>
+                            <button type="button" id="btnReset" class="btn btn-default btn-sm btn-flat" title="Reset"><i class="glyphicon glyphicon-refresh"></i> Reset</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="content container-fluid">
+
+    <div class="col-xs-12">
+        <div class="box">
+            <div class="box-header">
+                <h3 class="box-title">Members List</h3>
+
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+                <div id="example1_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
+
+                    <div class="dataTables_length">
+                        <label>
+                            Show
+                            <select id="tblMemberList_length" name="tblMemberList_length"
+                                    aria-controls="tblMemberList" class="form-control input-sm"
+                                    onchange="return ShowChange();">
+                                <option value="10">10</option>
+                                <option value="25">25</option>
+                                <option value="50">50</option>
+                                <option value="100">100</option>
+                            </select> entries
+                        </label>
+                    </div>
+                    @*<div class="row"><div class="col-sm-6"><div class="dataTables_length"><label>Show <select id="ddlNumber" aria-controls="example1" class="form-control input-sm"><option value="10">10</option><option value="25">25</option><option value="50">50</option><option value="100">100</option></select> entries</label></div></div></div><div class="row">*@
+                    <div class="col-sm-12 table-responsive">
+                        <table id="tblMemberList" class="table table-bordered table-striped dataTable" role="grid" aria-describedby="example1_info">
+
+                            <thead>
+                                <tr role="row">
+                                    @*<th class="sorting Sortable" onclick="SortData(this)" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 231.217px;" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending">Member ID</th>*@
+                                    <th class="sorting text-right Sortable" onclick="SortData(this)" key="MemberId" headerid="MemberId" id="MemberId">Member ID</th>
+                                    <th class="sorting Sortable" onclick="SortData(this)" key="MemberName" headerid="MemberName" id="MemberName">Member Name</th>
+                                    <th class="sorting Sortable" onclick="SortData(this)" key="Email" headerid="Email" id="Email">Email</th>
+                                    <th class="sorting Sortable"  key="Address" headerid="Address" id="Address">Member Address</th>
+                                    <th class="sorting Sortable" onclick="SortData(this)" key="Mobile" headerid="Mobile" id="Mobile">Mobile No.</th>
+                                    <th class="sorting Sortable" >Action</th>
+                            </thead>
+                            <tbody></tbody>
+                            <tfoot>
+
+                        </table>
+                        <div class="dataTables_paginate paging_simple_numbers" id="tblMemberList_paginate">
+                            <ul id="pagination" class="pagination"></ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /.box-body -->
+    </div>
+    <!-- /.box-body -->
+</section>
+
+
+@section Scripts {
+<script src="~/Scripts/Navigation.js?v=1.2"></script>
+    <script>
+        var GetMembersUrl = '@Url.Action("TotalMembersList", "Membership")';
+        var SearchMemberList = '@Url.Action("SearchMemberList", "Membership")';
+        var ResetMemberListSearch = '@Url.Action("ResetMemberListSearch", "Membership")';
+        var EditMemberUrl = '@Url.Action("EditMember", "MemberShip")';
+
+    </script>
+
+    <script src="~/Content/Members_Membership/MemberList.js"></script>
+}
+
+<script src="~/Scripts/Navigation.js?v=1.2"></script>
+<script>
+    var GetMembersUrl = '@Url.Action("TotalMembersList", "Membership")';
+    var SearchMemberList = '@Url.Action("SearchMemberList", "Membership")';
+    var ResetMemberListSearch = '@Url.Action("ResetMemberListSearch", "Membership")';
+    var EditMemberUrl = '@Url.Action("EditMember", "MemberShip")';
+
+</script>
+<script src="~/Content/Members_Membership/MemberList.js"></script>
+
+
+@*<script>
+
+        var pageNo = 1, pagerLoaded = false;
+        $(document).ready(function () {
+
+
+
+            if ($("#tblMemberList_length").val() != null && $("#tblMemberList_length").val() != "") {
+                GettingMembers(pageNo, $("#tblMemberList_length").val())
+            }
+            else {
+                GettingMembers(pageNo, 10)
+            }
+        });
+
+        function GettingMembers(pageno, pagesize) {
+            $.ajax({
+                cache: false,
+                type: "GET",
+                url: '@Url.Action("GetMembers")',
+                dataType: "json",
+                data: { page: pageno, pagesize: pagesize },
+                success: function (data) {
+                    $('#tblMemberList tbody').find("tr").remove();
+                    if (data != null && data.Pages > 0) {
+                        $.each(data.Result, function (i, item) {
+
+
+                            var rows = '<tr role="row" class="odd">'
+                                + '<td>' + item.MemberID + '</td>'
+                                + '<td>' + item.FirstName + " " + item.LastName + '</td>'
+                                + '<td>' + item.Email + '</td>'
+                                + '<td>' + item.MemberAddress + '</td>'
+                                 + '<td>' + item.MobileNumber + '</td>'
+                                + '<td>'
+                                + '<button class="btn btn-success btn-xs btn-flat btnEdit" id="278" style="margin-right:10px;" title="Edit" onclick="return ShowModel(' + item.ExpensesId + ')">'
+                                + '<span class="glyphicon glyphicon-edit"></span> Edit'
+                                + '</button>'
+                                //+ '<button class="btn btn-danger btn-xs btn-flat btnDelete" id="278" title="Delete" onclick="return Remove(' + item.ExpensesId + ')">'
+                                //+ '<span class="glyphicon glyphicon-remove"></span> Delete'
+                                //+ '</button>'
+                                + '</td>'
+                                + '</tr >';
+                            $('#tblMemberList tbody').append(rows);
+                        });
+
+                        if (data.Pages < pageNo) {
+                            pageNo = data.Pages;
+                        }
+                        if (!pagerLoaded) {
+                            pagerLoaded = true;
+                            $('#pagination').twbsPagination({
+                                totalPages: data.Pages,
+                                visiblePages: 7,
+                                startPage: pageNo,
+                                onPageClick: function (event, page) {
+                                    ShowLoader();
+                                    if (pageNo != page) {
+                                        pageNo = page;
+                                        if ($("#tblMemberList_length").val() != null && $("#tblMemberList_length").val() != "") {
+                                            GettingMembers(pageNo, $("#tblMemberList_length").val())
+                                        }
+                                        else {
+                                            GettingMembers(pageNo, 10)
+                                        }
+                                    }
+                                }
+                            });
+                        }
+                    }
+                    else {
+                        var norecords = "<tr>" +
+                            '<td colspan="4">No data available</td>'
+                            + "</tr>";
+                        $('#tblMemberList tbody').append(norecords);
+                    }
+
+                    HideLoader();
+                    setClass();
+                },
+                error: function (errMsg) {
+                    HideLoader();
+                },
+                failure: function (errMsg) {
+                    HideLoader();
+                }
+            });
+
+
+        }
+
+        function setClass() {
+            $("th").removeClass();
+            $("th").addClass("sorting");
+
+            if (HeaderId != "") {
+                $('#' + HeaderId).removeClass();
+                var classname = (sortDirection == "ASC") ? "sorting_asc" : "sorting_desc";
+                $('#' + HeaderId).addClass(classname);
+            }
+        }
+
+        $('#btnSearchMember').click(function () {
+
+
+            $.ajax({
+                cache: false,
+                type: "GET",
+                url: "@Url.Action("SearchMemberList")",
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                data: { Member: $('#txtMember').val() },
+                success: function (data) {
+                    $('#tblMemberList tbody').empty();
+                    $.each(data, function (i, item) {
+
+                        var rows = "<tr>"
+
+
+        + "<td>" + item.MemberID + "</td>"
+        + "<td>" + item.FirstName + " " + item.LastName + "</td>"
+        + "<td>" + item.Email + "</td>"
+        + "<td>" + item.MemberAddress + "</td>"
+        + "<td>" + item.MobileNumber + "</td>"
+         + "<td><a class='btn btn-info' href='/MemberShip/EditMember/" + item.MemberID + "' >Edit</a>&nbsp;<a class='btn btn-info' href=''>Delete</a></td>"
+        + "</tr>";
+                        $('#tblMemberList tbody').append(rows);
+
+                    });
+
+                },
+                failure: function (errMsg) {
+                    alert(errMsg.responseText);
+                }
+            });
+
+
+        });
+
+        $('#btnSearchReset').click(function () {
+
+
+            $.ajax({
+                cache: false,
+                type: "GET",
+                url: "@Url.Action("ResetMemberListSearch")",
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                data: { Member: $('#txtMember').val() },
+                success: function (data) {
+                    $('#tblMemberList tbody').empty();
+                    $.each(data, function (i, item) {
+
+                        var rows = "<tr>"
+
+
+        + "<td>" + item.MemberID + "</td>"
+        + "<td>" + item.FirstName + " " + item.LastName + "</td>"
+        + "<td>" + item.Email + "</td>"
+        + "<td>" + item.MemberAddress + "</td>"
+        + "<td>" + item.MobileNumber + "</td>"
+         + "<td><a class='btn btn-info' href='/MemberShip/EditMember/" + item.MemberID + "' >Edit</a>&nbsp;<a class='btn btn-info' href=''>Delete</a></td>"
+        + "</tr>";
+                        $('#tblMemberList tbody').append(rows);
+
+                    });
+
+                },
+                failure: function (errMsg) {
+                    alert(errMsg.responseText);
+                }
+            });
+
+
+        });
+
+    </script>*@

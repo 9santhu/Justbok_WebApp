@@ -1,0 +1,979 @@
+﻿@{
+    ViewBag.Title = "Dashboard";
+}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css" type="text/css">
+ 
+
+<style>
+
+    .card {
+        border: 0;
+        margin-bottom: 30px;
+        margin-top: 30px;
+        border-radius: 6px;
+        color: #333333;
+        background: #fff;
+        width: 100%;
+        -webkit-box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
+        box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
+    }
+    .card-header {
+        padding: 0.75rem 1.25rem;
+        margin-bottom: 0;
+        background-color: #fff;
+        border-bottom: 1px solid #eeeeee;
+    }
+
+    .card {
+        position: relative;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+        flex-direction: column;
+        min-width: 0;
+        word-wrap: break-word;
+        background-color: #fff;
+        background-clip: border-box;
+        border: 1px solid #eeeeee;
+        border-radius: 0.25rem;
+    }
+
+        .card [class*="card-header-"] .card-icon, .card [class*="card-header-"] .card-text {
+            border-radius: 3px;
+            background-color: #999999;
+            padding: 15px;
+            margin-top: -20px;
+            margin-right: 15px;
+            float: left;
+        }
+
+        .card.card-stats .card-header .card-category:not([class*="text-"]) {
+            color: #999999;
+            font-size: 14px;
+        }
+
+        .card.card-stats .card-header .card-title, .card.card-stats .card-header .card-category {
+            margin: 0;
+        }
+
+        .card .card-header.card-header-icon .card-title, .card .card-header.card-header-text .card-title {
+            margin-top: 15px;
+            color: #3C4858;
+        }
+
+        .card .card-body + .card-footer, .card .card-footer {
+            padding: 0;
+            padding-top: 10px;
+            margin: 0 15px 10px;
+            border-radius: 0;
+            -webkit-box-pack: justify;
+            -ms-flex-pack: justify;
+            justify-content: space-between;
+            -webkit-box-align: center;
+            -ms-flex-align: center;
+            align-items: center;
+        }
+
+        /*.card .card-header-warning .card-icon, .card .card-header-warning .card-text, .card .card-header-warning:not(.card-header-icon):not(.card-header-text), .card.bg-warning, .card.card-rotate.bg-warning .front, .card.card-rotate.bg-warning .back {
+            background: linear-gradient(60deg, #ffa726, #fb8c00);
+        }*/
+
+        .card [class*="card-header-"] .card-icon, .card [class*="card-header-"] .card-text {
+            border-radius: 3px;
+            background-color: #999999;
+            padding: 15px;
+            margin-top: -20px;
+            margin-right: 15px;
+            float: left;
+        }
+
+    .card {
+        position: relative;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+        flex-direction: column;
+        min-width: 0;
+        word-wrap: break-word;
+        background-color: #fff;
+        background-clip: border-box;
+        border: 1px solid #eeeeee;
+        border-radius: 0.25rem;
+    }
+
+        .card.card-stats .card-header.card-header-icon, .card.card-stats .card-header.card-header-text {
+            text-align: right;
+        }
+
+        .card [class*="card-header-"] {
+            margin: 0px 15px 0;
+            padding: 0;
+            position: relative;
+        }
+
+        .card .card-header {
+            z-index: 3 !important;
+        }
+
+        .card [class*="card-header-"], .card[class*="bg-"] {
+            color: #fff;
+        }
+
+    .material-icons {
+        font-family: 'Material Icons';
+        font-weight: normal;
+        font-style: normal;
+        font-size: 24px;
+        line-height: 1;
+        letter-spacing: normal;
+        text-transform: none;
+        display: inline-block;
+        white-space: nowrap;
+        word-wrap: normal;
+        direction: ltr;
+        -moz-font-feature-settings: 'liga';
+        -moz-osx-font-smoothing: grayscale;
+    }
+
+    .card.card-stats .card-header i {
+        font-size: 36px;
+        line-height: 56px;
+        width: 56px;
+        height: 56px;
+        text-align: center;
+    }
+
+    .card .card-header.card-header-icon i, .card .card-header.card-header-text i {
+        width: 33px;
+        height: 33px;
+        text-align: center;
+        line-height: 33px;
+    }
+
+
+</style>
+
+<div>
+    <section class="content-header">
+
+        <h1 class="box-title">
+            Dashboard
+            <div class="pull-right">
+                <button id="btnShowStats" class="btn btn-primary btn-sm btn-flat" title="Show Stats" value="Show">
+                    <i class="fa fa-search"> Show Stats</i>
+                </button>
+            </div>
+        </h1>
+       
+    </section>
+
+    <section class="content">
+        <div class="row">
+            @*Membership sold*@
+            @*<div class="col-md-6">
+                <div class="box box-default">
+                    <div class="box-header with-border">
+                        <i class="fa fa-user"></i>
+                        <h3 class="box-title">Memberships Sold</h3>
+                    </div>
+
+                    <div class="box-body">
+                        <div class="row">
+                            <div class="col-sm-4 col-xs-12">
+                                <div class="small-box bg-aqua">
+                                    <div class="inner">
+                                        <h3 id="daymembershipsold">0</h3>
+                                        <p>Day</p>
+                                    </div>
+                                    <div class="icon">
+                                        <i class="fa fa-users"></i>
+                                    </div>
+                                    <a href="#/EnrolledMembership/day" class="small-box-footer">
+                                        More info <i class="fa fa-arrow-circle-right"></i>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="col-sm-4 col-xs-12">
+                                <div class="small-box bg-green">
+                                    <div class="inner">
+                                        <h3 id="weekMembershipSold">0</h3>
+                                        <p>Week</p>
+                                    </div>
+                                    <div class="icon">
+                                        <i class="fa fa-users"></i>
+                                    </div>
+                                    <a href="#/EnrolledMembership/week" class="small-box-footer">
+                                        More info <i class="fa fa-arrow-circle-right"></i>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="col-sm-4 col-xs-12">
+                                <div class="small-box bg-yellow">
+                                    <div class="inner">
+                                        <h3 id="monthMembershipSold">0</h3>
+                                        <p>Month</p>
+                                    </div>
+                                    <div class="icon">
+                                        <i class="fa fa-users"></i>
+                                    </div>
+                                    <a href="#/EnrolledMembership/month" class="small-box-footer">
+                                        More info <i class="fa fa-arrow-circle-right"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+
+            </div>*@
+            @*Sales*@
+            @*<div class="col-md-6">
+                <div class="box box-default">
+                    <div class="box-header with-border">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <i class="fa fa-inr"></i>
+                                <h3 class="box-title">Sales</h3>
+                            </div>
+                            <!-- ngIf: Settings.SalesTargetEnabled --><div class="col-sm-8">
+                                <div class="pull-right">
+                                    <div>
+                                        Target : <i class="fa fa-inr"></i> <span id="TargetSalesValue">0</span>
+                                        &nbsp; <!-- ngIf: LoginRole == 'Admin' --><span><a> <span class="glyphicon glyphicon-edit"></span></a></span><!-- end ngIf: LoginRole == 'Admin' -->
+                                    </div>
+                                    <!-- ngIf: LoginRole == 'Admin' --><div>
+                                        <div>
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <label class="col-xs-4 control-label" style="margin-right:0px;padding-right:2px"><span class="pull-right">Target : </span> </label>
+                                                    <div class="col-sm-6 col-xs-5" style="margin-right:0px;padding-right:2px">
+                                                        <input style="height:20px" class="form-control" id="TargetSalesValue" type="number">
+                                                    </div>
+                                                    <div class="col-sm-2 col-xs-2"><button style="margin-top:-3px" class="btn btn-xs btn-success"><i class="fa fa-save"></i> Save</button> </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div><!-- end ngIf: LoginRole == 'Admin' -->
+                                    <!-- ngIf: LoginRole != 'Admin' -->
+                                </div>
+                            </div><!-- end ngIf: Settings.SalesTargetEnabled -->
+                        </div>
+                    </div>
+                    <div class="box-body">
+                        <div class="row">
+                            <div class="col-sm-4 col-xs-12">
+                                <div class="small-box bg-aqua">
+                                    <div class="inner">
+                                        <h3 id="amountDay">0.00</h3>
+                                        <p>Day</p>
+                                    </div>
+                                    <div class="icon">
+                                        <i class="fa fa-inr"></i>
+                                    </div>
+                                    <a href="#/MembershipPayment/day" class="small-box-footer">
+                                        More info <i class="fa fa-arrow-circle-right"></i>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="col-sm-4 col-xs-12">
+                                <div class="small-box bg-green">
+                                    <div class="inner">
+                                        <h3 id="amountWeek">0.00 </h3>
+                                        <p>Week</p>
+                                    </div>
+                                    <div class="icon">
+                                        <i class="fa fa-inr"></i>
+                                    </div>
+                                    <a href="#/MembershipPayment/week" class="small-box-footer">
+                                        More info <i class="fa fa-arrow-circle-right"></i>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="col-sm-4 col-xs-12">
+                                <div class="small-box bg-yellow">
+                                    <div class="inner">
+                                        <h3 id="amountMonth">0.00</h3>
+                                        <p>Month</p>
+                                    </div>
+                                    <div class="icon">
+                                        <i class="fa fa-inr"></i>
+                                    </div>
+                                    <a href="#/MembershipPayment/month" class="small-box-footer">
+                                        More info <i class="fa fa-arrow-circle-right"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>*@
+
+        </div>
+
+       @*Changes making here *@
+        <div id="showStats" style="display:none;">
+            <div class="row">
+                @*Enquiries*@
+                <div class="col-md-6">
+                    <div class="box box-default">
+                        <div class="box-header with-border">
+                            <i class="fa fa-bookmark"></i>
+                            <h3 class="box-title"><b>Membership Sold</b></h3>
+                        </div>
+                        <div class="box-body">
+                            <div class="row">
+                                <div class="col-sm-4 col-xs-12">
+                                    <div class="card card-stats">
+                                        <div class="card-header card-header-warning card-header-icon">
+                                            <div class="card-icon" style="background: linear-gradient(60deg, #ffa726, #fb8c00);">
+                                                <i class="fa fa-users"></i>
+                                            </div>
+                                            <p class="card-category"><b>Day</b></p>
+                                            <h3 class="card-title" id="daymembershipsold">0</h3>
+                                        </div>
+                                        <div class="card-footer">
+                                            <div class="stats">
+                                                <i class="material-icons text-danger"></i>
+                                                <a onclick="return LoadPage('@Url.Action("EnrolledMembershipDay", "Dashboard")','Justbok | Enrolled Membership Day');">
+                                                    More Info
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-4 col-xs-12">
+                                    <div class="card card-stats">
+                                        <div class="card-header card-header-warning card-header-icon">
+                                            <div class="card-icon" style="background: linear-gradient(60deg, #ec407a, #d81b60)">
+                                                <i class="fa fa-users"></i>
+                                            </div>
+                                            <p class="card-category"><b>Week</b></p>
+                                            <h3 class="card-title" id="weekMembershipSold">0</h3>
+                                        </div>
+                                        <div class="card-footer">
+                                            <div class="stats">
+                                                @*<i class="material-icons text-danger">warning</i>*@
+                                                <a onclick="return LoadPage('@Url.Action("EnrolledMembershipWeek", "Dashboard")','Justbok | Enrolled Membership Day');">
+                                                    More Info
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-4 col-xs-12">
+                                    <div class="card card-stats">
+                                        <div class="card-header card-header-warning card-header-icon">
+                                            <div class="card-icon" style="background: linear-gradient(60deg, #66bb6a, #43a047)">
+                                                <i class="fa fa-users"></i>
+                                            </div>
+                                            <p class="card-category"><b>Month</b></p>
+                                            <h3 class="card-title" id="monthMembershipSold">0</h3>
+                                        </div>
+                                        <div class="card-footer">
+                                            <div class="stats">
+                                                <a onclick="return LoadPage('@Url.Action("EnrolledMembershipMonth", "Dashboard")','Justbok | Enrolled Membership Day');">
+                                                    More Info
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="box box-default">
+                        <div class="box-header with-border">
+                            <i class="fa fa-bookmark"></i>
+                            <h3 class="box-title"><b>Sales</b></h3>
+                        </div>
+                        <div class="box-body">
+                            <div class="row">
+                                <div class="col-sm-4 col-xs-12">
+                                    <div class="card card-stats">
+                                        <div class="card-header card-header-warning card-header-icon">
+                                            <div class="card-icon" style="background: linear-gradient(60deg, #ffa726, #fb8c00);">
+                                                <i class="fa fa-inr"></i>
+                                            </div>
+                                            <p class="card-category"><b>Day</b></p>
+                                            <h3 class="card-title" id="amountDay">0.00</h3>
+                                        </div>
+                                        <div class="card-footer">
+                                            <div class="stats">
+                                                <i class="material-icons text-danger"></i>
+                                                <a onclick="return LoadPage('@Url.Action("MembershipPaymentsDay", "Dashboard")','Justbok | Enrolled Membership Day');">
+                                                    More Info
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-4 col-xs-12">
+                                    <div class="card card-stats">
+                                        <div class="card-header card-header-warning card-header-icon">
+                                            <div class="card-icon" style="background: linear-gradient(60deg, #ec407a, #d81b60)">
+                                                <i class="fa fa-inr"></i>
+                                            </div>
+                                            <p class="card-category"><b>Week</b></p>
+                                            <h3 class="card-title" id="amountWeek">0.00</h3>
+                                        </div>
+                                        <div class="card-footer">
+                                            <div class="stats">
+                                                @*<i class="material-icons text-danger">warning</i>*@
+                                                <a onclick="return LoadPage('@Url.Action("MembershipPaymentsWeek", "Dashboard")','Justbok | Enrolled Membership Day');">
+                                                    More Info
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-4 col-xs-12">
+                                    <div class="card card-stats">
+                                        <div class="card-header card-header-warning card-header-icon">
+                                            <div class="card-icon" style="background: linear-gradient(60deg, #66bb6a, #43a047)">
+                                                <i class="fa fa-inr"></i>
+                                            </div>
+                                            <p class="card-category"><b>Month</b></p>
+                                            <h3 class="card-title" id="amountMonth">0.00</h3>
+                                        </div>
+                                        <div class="card-footer">
+                                            <div class="stats">
+                                                @*<i class="material-icons text-danger">warning</i>*@
+                                                <a onclick="return LoadPage('@Url.Action("MembershipPaymentsMonth", "Dashboard")','Justbok | Enrolled Membership Day');">
+                                                    More Info
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                @*Enquiries*@
+                <div class="col-md-6">
+                    <div class="box box-default">
+                        <div class=" box-header with-border">
+                            <i class="fa fa-bookmark"></i>
+                            <h3 class="box-title"><b>Enquiries</b></h3>
+                        </div>
+                        <div class="box-body">
+                            <div class="row">
+                                <div class="col-sm-4 col-xs-12">
+                                    <div class="card card-stats">
+                                        <div class="card-header card-header-warning card-header-icon">
+                                            <div class="card-icon" style="background: linear-gradient(60deg, #ffa726, #fb8c00);">
+                                                <i class="fa fa-bookmark"></i>
+                                            </div>
+                                            <p class="card-category"><b>Day</b></p>
+                                            <h3 class="card-title" id="enquiryDay">0</h3>
+                                        </div>
+                                        <div class="card-footer">
+                                            <div class="stats">
+                                                <i class="material-icons text-danger"></i>
+                                                <a onclick="return LoadPage('@Url.Action("EnquiryDetailsDay", "Dashboard")','Justbok | Enrolled Membership Day');">
+                                                    More Info
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-4 col-xs-12">
+                                    <div class="card card-stats">
+                                        <div class="card-header card-header-warning card-header-icon">
+                                            <div class="card-icon" style="background: linear-gradient(60deg, #ec407a, #d81b60)">
+                                                <i class="fa fa-bookmark"></i>
+                                            </div>
+                                            <p class="card-category"><b>Week</b></p>
+                                            <h3 class="card-title" id="enquiryWeek">0</h3>
+                                        </div>
+                                        <div class="card-footer">
+                                            <div class="stats">
+                                                @*<i class="material-icons text-danger">warning</i>*@
+                                                <a onclick="return LoadPage('@Url.Action("EnquiryDetailsWeek", "Dashboard")','Justbok | Enrolled Membership Day');">
+                                                    More Info
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-4 col-xs-12">
+                                    <div class="card card-stats">
+                                        <div class="card-header card-header-warning card-header-icon">
+                                            <div class="card-icon" style="background: linear-gradient(60deg, #66bb6a, #43a047)">
+                                                <i class="fa fa-bookmark"></i>
+                                            </div>
+                                            <p class="card-category"><b>Month</b></p>
+                                            <h3 class="card-title" id="enquiryMonth">0</h3>
+                                        </div>
+                                        <div class="card-footer">
+                                            <div class="stats">
+                                                @*<i class="material-icons text-danger">warning</i>*@
+                                                <a onclick="return LoadPage('@Url.Action("EnquiryDetailsMonth", "Dashboard")','Justbok | Enrolled Membership Day');">
+                                                    More Info
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="box box-default">
+                        <div class="box-header with-border">
+                            <i class="fa fa-bookmark"></i>
+                            <h3 class="box-title"><b>Total Due Payments</b></h3>
+                        </div>
+                        <div class="box-body">
+                            <div class="row">
+                                <div class="col-sm-4 col-xs-12">
+                                    <div class="card card-stats">
+                                        <div class="card-header card-header-warning card-header-icon">
+                                            <div class="card-icon" style="background: linear-gradient(60deg, #ffa726, #fb8c00);">
+                                                <i class="fa fa-credit-card"></i>
+                                            </div>
+                                            <p class="card-category"><b>Day</b></p>
+                                            <h3 class="card-title" id="tdaydueamount">0.00</h3>
+                                        </div>
+                                        <div class="card-footer">
+                                            <div class="stats">
+                                                <i class="material-icons text-danger"></i>
+                                                <a onclick="return LoadPage('@Url.Action("DuePaymentsDay", "Dashboard")','Justbok | Enrolled Membership Day');">
+                                                    More Info
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-4 col-xs-12">
+                                    <div class="card card-stats">
+                                        <div class="card-header card-header-warning card-header-icon">
+                                            <div class="card-icon" style="background: linear-gradient(60deg, #ec407a, #d81b60)">
+                                                <i class="fa fa-credit-card"></i>
+                                            </div>
+                                            <p class="card-category"><b>Week</b></p>
+                                            <h3 class="card-title" id="weekdueamount">0.00</h3>
+                                        </div>
+                                        <div class="card-footer">
+                                            <div class="stats">
+                                                @*<i class="material-icons text-danger">warning</i>*@
+                                                <a onclick="return LoadPage('@Url.Action("DuePaymentsWeek", "Dashboard")','Justbok | Enrolled Membership Day');">
+                                                    More Info
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-4 col-xs-12">
+                                    <div class="card card-stats">
+                                        <div class="card-header card-header-warning card-header-icon">
+                                            <div class="card-icon" style="background: linear-gradient(60deg, #66bb6a, #43a047)">
+                                                <i class="fa fa-credit-card"></i>
+                                            </div>
+                                            <p class="card-category"><b>Month</b></p>
+                                            <h3 class="card-title" id="monthdueamount">0.00</h3>
+                                        </div>
+                                        <div class="card-footer">
+                                            <div class="stats">
+                                                @*<i class="material-icons text-danger">warning</i>*@
+                                                <a onclick="return LoadPage('@Url.Action("DuePaymentsMonth", "Dashboard")','Justbok | Enrolled Membership Day');">
+                                                    More Info
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @*<div class="row">*@
+            @*Enquiries*@
+            @*<div class="col-md-6">
+                <div class="box box-default">
+                    <div class="box-header with-border">
+                        <i class="fa fa-bookmark"></i>
+                        <h3 class="box-title">Enquiries</h3>
+                    </div>
+                    <div class="box-body">
+                        <div class="row">
+                            <div class="col-sm-4 col-xs-12">
+                                <div class="small-box bg-aqua">
+                                    <div class="inner">
+                                        <h3 id="enquiryDay">0</h3>
+                                        <p>Day</p>
+                                    </div>
+                                    <div class="icon">
+                                        <i class="fa fa-bookmark"></i>
+                                    </div>
+                                    <a href="#/Enquiry/day" class="small-box-footer">
+                                        More info <i class="fa fa-arrow-circle-right"></i>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="col-sm-4 col-xs-12">
+                                <div class="small-box bg-green">
+                                    <div class="inner">
+                                        <h3 id="enquiryWeek">0</h3>
+                                        <p>Week</p>
+                                    </div>
+                                    <div class="icon">
+                                        <i class="fa fa-bookmark"></i>
+                                    </div>
+                                    <a href="#/Enquiry/week" class="small-box-footer">
+                                        More info <i class="fa fa-arrow-circle-right"></i>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="col-sm-4 col-xs-12">
+                                <div class="small-box bg-yellow">
+                                    <div class="inner">
+                                        <h3 id="enquiryMonth">0</h3>
+                                        <p>Month</p>
+                                    </div>
+                                    <div class="icon">
+                                        <i class="fa fa-bookmark"></i>
+                                    </div>
+                                    <a href="#/Enquiry/month" class="small-box-footer">
+                                        More info <i class="fa fa-arrow-circle-right"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>*@
+            @*Total Due Payment *@
+            @*<div class="col-md-6">
+                <div class="box box-default">
+                    <div class="box-header with-border">
+                        <i class="fa fa-credit-card"></i>
+                        <h3 class="box-title">Total Due Payment </h3>
+                        <div class="col-md-5 pull-right">
+                            <strong id="ttlDueAmount">0.00 </strong>
+                            <a href="#/RptPaymentPending/" class="btn btn-primary btn-xs btn-flat pull-right" title="View Details"> View Details</a>
+                        </div>
+                    </div>
+                    <div class="box-body">
+                        <div class="row">
+                            <div class="col-sm-4 col-xs-12">
+                                <div class="small-box bg-aqua">
+                                    <div class="inner">
+                                        <h3 id="tdaydueamount">0.00</h3>
+                                        <p>Day</p>
+                                    </div>
+                                    <div class="icon">
+                                        <i class="fa fa-credit-card"></i>
+                                    </div>
+                                    <a href="#/RptPaymentPending/day" class="small-box-footer">
+                                        More info <i class="fa fa-arrow-circle-right"></i>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="col-sm-4 col-xs-12">
+                                <div class="small-box bg-green">
+                                    <div class="inner">
+                                        <h3 id="weekdueamount">0.00</h3>
+                                        <p>Week</p>
+                                    </div>
+                                    <div class="icon">
+                                        <i class="fa fa-credit-card"></i>
+                                    </div>
+                                    <a href="#/RptPaymentPending/week" class="small-box-footer">
+                                        More info <i class="fa fa-arrow-circle-right"></i>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="col-sm-4 col-xs-12">
+                                <div class="small-box bg-yellow">
+                                    <div class="inner">
+                                        <h3 id="monthdueamount">0.00</h3>
+                                        <p>Month</p>
+                                    </div>
+                                    <div class="icon">
+                                        <i class="fa fa-credit-card"></i>
+                                    </div>
+                                    <a href="#/RptPaymentPending/month" class="small-box-footer">
+                                        More info <i class="fa fa-arrow-circle-right"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>*@
+
+
+
+
+
+        <div class="row">
+            @*Memberships & Anniversary*@
+            <div class="col-md-6">
+                <div class="box box-default">
+                    <div class="box-header with-border">
+                        <i class="fa fa-users"></i>
+                        <h3 class="box-title">Memberships</h3>
+                    </div>
+                    <div class="box-body">
+                        <ul class="nav nav-tabs">
+                            <li class="active"><a data-target="#tab1primary" data-toggle="tab" aria-expanded="false">Membership Due</a></li>
+                            <li class=""><a data-target="#tab2primary" data-toggle="tab" aria-expanded="false">Membership Expired</a></li>
+                            <li class=""><a data-target="#tab3primary" data-toggle="tab" aria-expanded="true">Membership Measurement</a></li>
+                        </ul>
+                        <div class="tab-content">
+                            <div class="tab-pane" id="tab1primary">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered" id="tblMembershipDue">
+                                        <thead>
+                                            <tr>
+                                                <th>Member Name</th>
+                                                <th>Membership</th>
+                                                <th>Membership Date</th>
+                                                <th>Expires On</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @*<!-- ngIf: last10duemembership.length<1 -->
+                                                <tr>
+                                                    <td colspan="4" align="center"> No due memberships found.</td>
+                                                </tr><!-- end ngIf: last10duemembership.length<1 -->
+                                                <!-- ngRepeat: m in last10duemembership -->*@
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="tab-pane" id="tab2primary">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered" id="tblMembershipExpired">
+                                        <thead>
+                                            <tr>
+                                                <th>Member</th>
+                                                <th>Membership</th>
+                                                <th>Membership Date</th>
+                                                <th>Expired On</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody></tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="tab-pane active" id="tab3primary">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered" id="tblMembershipMeasurement">
+                                        <thead>
+                                            <tr>
+                                                <th>Member</th>
+                                                <th>PhoneNo</th>
+                                                <th>Measurement Date</th>
+                                                <th>Next Measurement Date</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody></tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>  <!--memberships-->
+                <div class="box box-default">
+                    <div class="box-header with-border">
+                        <i class="fa fa-birthday-cake"></i>
+                        <h3 class="box-title">Anniversaries</h3>
+                    </div>
+                    <div class="box-body">
+                        <ul class="nav nav-tabs">
+                            <li class=""><a data-target="#tab1Birthday" data-toggle="tab" aria-expanded="false">Birthdays </a></li>
+                            <li class="active"><a data-target="#tab2Anniversaries" data-toggle="tab" aria-expanded="true"> Anniversaries</a></li>
+                        </ul>
+                        <div class="tab-content mypanel">
+                            <div id="tab1Birthday" class="tab-pane fade">
+                                <div class="table-responsive mypanel">
+                                    <table class="table table-bordered" id="tblBirthday">
+                                        <thead>
+                                            <tr>
+                                                <th>Member </th>
+                                                <th>Birth Date </th>
+                                                <th>Mobile No. </th>
+                                                <th>Gender</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody></tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div id="tab2Anniversaries" class="tab-pane fade active in">
+                                <div class="table-responsive mypanel">
+                                    <table class="table table-bordered" id="tblAnniversies">
+                                        <thead>
+                                            <tr>
+                                                <th>Member </th>
+                                                <th>Anniversary Date </th>
+                                                <th>Mobile No. </th>
+                                                <th>Gender</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody></tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>    <!--Annyvesry-->
+            </div>
+            @* FollowUps Till Today  &  Latest Members*@
+            <div class="col-md-6">
+                <div class="box box-default">
+                    <div class="box-header with-border">
+                        <i class="fa fa-bullhorn"></i>
+                        <h3 class="box-title">FollowUps Till Today - <strong class="ng-binding">24 </strong></h3>
+                    </div>
+                    <div class="box-body">
+                        <ul class="nav nav-tabs">
+                            <li class="active"><a data-target="#divFolloupsToday" data-toggle="tab" class="ng-binding">FollowUps Till Today - 24  </a></li>
+                            <li><a data-target="#123" data-toggle="tab"> Due Payment</a></li>
+                        </ul>
+                        <div class="tab-content mypanel">
+                            <div id="divFolloupsToday" class="tab-pane fade active in">
+                                <div class="row">
+                                    <div class="col-md-4 pull-right">
+                                        <a onclick="return LoadPage('@Url.Action("EnquiryList", "Enquiry")','Justbok | Enquiry List');" class="btn btn-primary btn-xs btn-flat pull-right" title="View Details"> View Details</a>
+                                       
+                                    </div>
+                                </div>
+                                <div class="table-responsive">
+                                    <table class="table table-bordered" id="tblFollowups">
+                                        <thead>
+                                            <tr>
+                                                <th>Member</th>
+                                                <th>Mobile No.</th>
+                                                <th>Gender</th>
+                                                <th>Next FollowUp</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody></tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div id="123" class="tab-pane fade in">
+                                <div class="row">
+                                    <div class="col-md-4 pull-right">
+                                        <a href="/Reports/DuePayments" class="btn btn-primary btn-xs btn-flat pull-right" title="View Details"> View Details</a>
+                                    </div>
+                                </div>
+                                <div class="table-responsive">
+                                    <table class="table table-bordered" id="tblPaymentsDue">
+                                        <thead>
+                                            <tr>
+                                                <th>Member</th>
+                                                <th>Membership.</th>
+                                                <th>Payment Due Date</th>
+                                                <th>Due Amount</th>
+                                                <th>Paid Amount</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody></tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>     <!--Folloups-->
+                <div class="box box-default">
+                    <div class="box-header with-border">
+                        <i class="fa fa-user"></i>
+                        <h3 class="box-title">Latest  Members</h3>
+                    </div>
+                    <div class="box-body">
+                        <div class="table-responsive mypanel">
+                            <table class="table table-bordered" id="tblLatestMember">
+                                <thead>
+                                    <tr>
+                                        <th>Member</th>
+                                        <th>Email</th>
+                                        <th>Mobile No.</th>
+                                        <th>Gender</th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>     <!--Latest  Members-->
+            </div>
+        </div>
+    </section>
+
+
+
+</div>
+
+<div class="bootbox modal fade in" role="dialog" id="modal_ShowStatistics">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                <h4 class="modal-title">Enter Password</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-10">
+                        <div class="form-group">
+                            <label for="recipient-name" class="control-label">Password</label>
+                            <input class="form-control" id="txtPassword" style="" type="password">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary btn-sm btn-flat" id="btnValidatePwd"><i class="fa fa-search"></i>Show</button>
+                <button type="button" class="btn btn-default btn-sm btn-flat" data-dismiss="modal"><i class="fa fa-times"></i>Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+    @section Scripts {
+        <script src="~/Scripts/Navigation.js?v=1.2"></script>
+        <script>
+            var ValidatePwdUrl = '@Url.Action("ValidatePassword", "Dashboard")';
+            var ListOfMeasurementUrl = '@Url.Action("NewDashBoard", "Dashboard")';
+        </script>
+        <script src="~/Content/Dashboard/Home.js?v=1.1"></script>
+    }
+    <script src="~/Scripts/Navigation.js?v=1.2"></script>
+    <script>
+        var ValidatePwdUrl = '@Url.Action("ValidatePassword", "Dashboard")';
+        var ListOfMeasurementUrl = '@Url.Action("NewDashBoard", "Dashboard")';
+    </script>
+    <script src="~/Content/Dashboard/Home.js?v=1.1"></script>
+
+

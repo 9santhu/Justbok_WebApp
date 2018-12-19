@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="e1d7634f6ae141659942a25b30148351" Name="Diagram1">
+        <EntityTypeShape EntityType="JustbokModel.Amenity" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="JustbokModel.Appointment" Width="1.5" PointX="5.25" PointY="90.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="JustbokModel.AppointmentBill" Width="1.5" PointX="20.75" PointY="108.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="JustbokModel.AppointmentSlab" Width="1.5" PointX="7.5" PointY="75.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="JustbokModel.AppointmentSlot" Width="1.5" PointX="8.25" PointY="100.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="JustbokModel.AppointmentSlotConfig" Width="1.5" PointX="19.5" PointY="86.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="JustbokModel.AppointmentSlotPattern" Width="1.5" PointX="10.5" PointY="114.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="JustbokModel.AppointmentStaff" Width="1.5" PointX="13.5" PointY="115" IsExpanded="true" />
+        <EntityTypeShape EntityType="JustbokModel.BookAppointment" Width="1.5" PointX="18.5" PointY="107.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="JustbokModel.Branch" Width="1.5" PointX="3" PointY="84" IsExpanded="true" />
+        <EntityTypeShape EntityType="JustbokModel.CalendarInstructor" Width="1.5" PointX="5.25" PointY="118.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="JustbokModel.CalendarMember" Width="1.5" PointX="5.25" PointY="99.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="JustbokModel.Category" Width="1.5" PointX="8.25" PointY="91.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="JustbokModel.Class" Width="1.5" PointX="8.25" PointY="86.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="JustbokModel.ClassTiming" Width="1.5" PointX="15.5" PointY="103.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="JustbokModel.DeletAppointmentSlot" Width="1.5" PointX="5.25" PointY="87.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="JustbokModel.Diet" Width="1.5" PointX="7.5" PointY="115" IsExpanded="true" />
+        <EntityTypeShape EntityType="JustbokModel.DietPlanName" Width="1.5" PointX="5.25" PointY="95.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="JustbokModel.Enquiry" Width="1.5" PointX="11.25" PointY="89.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="JustbokModel.Equipment" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="JustbokModel.Event" Width="1.5" PointX="8.25" PointY="95.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="JustbokModel.ExpenseMode" Width="1.5" PointX="0.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="JustbokModel.Expens" Width="1.5" PointX="11.25" PointY="84.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="JustbokModel.ExpensesType" Width="1.5" PointX="11.25" PointY="97.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="JustbokModel.Followup" Width="1.5" PointX="13.5" PointY="75.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="JustbokModel.GymAdmin" Width="1.5" PointX="2.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="JustbokModel.GymAllPackage" Width="1.5" PointX="3" PointY="79.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="JustbokModel.GymAmenity" Width="1.5" PointX="5.25" PointY="83.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="JustbokModel.GymEquipment" Width="1.5" PointX="8.25" PointY="83.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="JustbokModel.GymImage" Width="1.5" PointX="3" PointY="93.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="JustbokModel.GymList" Width="1.5" PointX="0.75" PointY="90.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="JustbokModel.GymLogin" Width="1.5" PointX="3" PointY="96" IsExpanded="true" />
+        <EntityTypeShape EntityType="JustbokModel.GymPackage" Width="1.5" PointX="14.25" PointY="90.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="JustbokModel.GymPayment" Width="1.5" PointX="19.5" PointY="94.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="JustbokModel.GymServiceList" Width="1.5" PointX="14.25" PointY="87.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="JustbokModel.MealTime" Width="1.5" PointX="14.25" PointY="95.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="JustbokModel.Measurement" Width="1.5" PointX="5.25" PointY="102.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="JustbokModel.MemberDietPlan" Width="1.5" PointX="15.5" PointY="109.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="JustbokModel.MemberFreeze" Width="1.5" PointX="7.5" PointY="111.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="JustbokModel.MemberImage" Width="1.5" PointX="5.25" PointY="108.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="JustbokModel.MemberInfo" Width="1.5" PointX="3" PointY="104.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="JustbokModel.MemberShip" Width="1.5" PointX="5.25" PointY="110.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="JustbokModel.MembershipOffer" Width="1.5" PointX="14.25" PointY="82.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="JustbokModel.MemberTimeSheet" Width="1.5" PointX="11.25" PointY="100.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="JustbokModel.MemberWorkoutPlan" Width="1.5" PointX="19.5" PointY="103.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="JustbokModel.Order" Width="1.5" PointX="13.5" PointY="79.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="JustbokModel.Payment" Width="1.5" PointX="7.5" PointY="106.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="JustbokModel.Product" Width="1.5" PointX="14.25" PointY="98.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="JustbokModel.PurchaseOrder" Width="1.5" PointX="11.25" PointY="80" IsExpanded="true" />
+        <EntityTypeShape EntityType="JustbokModel.PurchaseOrderDetail" Width="1.5" PointX="16.5" PointY="99.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="JustbokModel.PurchaseOrderHeader" Width="1.5" PointX="10.25" PointY="106.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="JustbokModel.Scheduler" Width="1.5" PointX="13.25" PointY="104.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="JustbokModel.SelectedPackage" Width="1.5" PointX="5.25" PointY="79.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="JustbokModel.ShiftType" Width="1.5" PointX="6" PointY="124.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="JustbokModel.Staff" Width="1.5" PointX="3" PointY="119.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="JustbokModel.StaffBranch" Width="1.5" PointX="10.25" PointY="111.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="JustbokModel.StaffLogin" Width="1.5" PointX="5.25" PointY="121.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="JustbokModel.StaffShift" Width="1.5" PointX="8.25" PointY="121.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="JustbokModel.Stock" Width="1.5" PointX="19.5" PointY="89.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="JustbokModel.Supplier" Width="1.5" PointX="8.25" PointY="78.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="JustbokModel.Task" Width="1.5" PointX="17.25" PointY="91.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="JustbokModel.TaxType" Width="1.5" PointX="3" PointY="99.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="JustbokModel.TrainerDetail" Width="1.5" PointX="5.25" PointY="127.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="JustbokModel.Tranfer" Width="1.5" PointX="5.25" PointY="114.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="JustbokModel.Workout" Width="1.5" PointX="17.25" PointY="87.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="JustbokModel.WorkoutPlan" Width="1.5" PointX="19.5" PointY="99.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="JustbokModel.WorkoutPlanName" Width="1.5" PointX="17.25" PointY="95.25" IsExpanded="true" />
+        <AssociationConnector Association="JustbokModel.FK__Appointme__Appoi__12C8C788" ManuallyRouted="false" />
+        <AssociationConnector Association="JustbokModel.FK__Appointme__Appoi__6319B466" ManuallyRouted="false" />
+        <AssociationConnector Association="JustbokModel.FK__Appointme__Appoi__66EA454A" ManuallyRouted="false" />
+        <AssociationConnector Association="JustbokModel.FK__Appointme__Branc__090A5324" ManuallyRouted="false" />
+        <AssociationConnector Association="JustbokModel.FK__Appointme__GymId__603D47BB" ManuallyRouted="false" />
+        <AssociationConnector Association="JustbokModel.FK__Appointme__TaxTy__5F492382" ManuallyRouted="false" />
+        <AssociationConnector Association="JustbokModel.FK__BookAppoi__Confi__1A69E950" ManuallyRouted="false" />
+        <AssociationConnector Association="JustbokModel.FK__Appointme__Booki__1E3A7A34" ManuallyRouted="false" />
+        <AssociationConnector Association="JustbokModel.FK__Appointme__Branc__062DE679" ManuallyRouted="false" />
+        <AssociationConnector Association="JustbokModel.FK__Appointme__GymId__0EF836A4" ManuallyRouted="false" />
+        <AssociationConnector Association="JustbokModel.FK__Appointme__SlotI__11D4A34F" ManuallyRouted="false" />
+        <AssociationConnector Association="JustbokModel.FK__Appointme__SlotI__15A53433" ManuallyRouted="false" />
+        <AssociationConnector Association="JustbokModel.FK__Appointme__Staff__0E04126B" ManuallyRouted="false" />
+        <AssociationConnector Association="JustbokModel.FK__Appointme__Staff__640DD89F" ManuallyRouted="false" />
+        <AssociationConnector Association="JustbokModel.FK__BookAppoi__Branc__0539C240" ManuallyRouted="false" />
+        <AssociationConnector Association="JustbokModel.FK__BookAppoi__GymId__1B5E0D89" ManuallyRouted="false" />
+        <AssociationConnector Association="JustbokModel.FK__BookAppoi__Membe__1881A0DE" ManuallyRouted="false" />
+        <AssociationConnector Association="JustbokModel.FK__BookAppoi__Staff__1975C517" ManuallyRouted="false" />
+        <AssociationConnector Association="JustbokModel.FK__Branch__GymId__76619304" ManuallyRouted="false" />
+        <AssociationConnector Association="JustbokModel.FK__Category__Branch__15702A09" ManuallyRouted="false" />
+        <AssociationConnector Association="JustbokModel.FK__Classes__BranchI__035179CE" ManuallyRouted="false" />
+        <AssociationConnector Association="JustbokModel.FK__ClassTimi__Branc__00750D23" ManuallyRouted="false" />
+        <AssociationConnector Association="JustbokModel.FK__DeletAppo__Branc__04459E07" ManuallyRouted="false" />
+        <AssociationConnector Association="JustbokModel.FK__DietPlanN__Branc__1387E197" ManuallyRouted="false" />
+        <AssociationConnector Association="JustbokModel.FK__Enquiry__BranchI__0BE6BFCF" ManuallyRouted="false" />
+        <AssociationConnector Association="JustbokModel.FK__Events__BranchId__2B5F6B28" ManuallyRouted="false" />
+        <AssociationConnector Association="JustbokModel.FK__Expenses__Branch__0CDAE408" ManuallyRouted="false" />
+        <AssociationConnector Association="JustbokModel.FK__ExpensesT__Branc__0DCF0841" ManuallyRouted="false" />
+        <AssociationConnector Association="JustbokModel.FK__GymAmenit__Branc__08162EEB" ManuallyRouted="false" />
+        <AssociationConnector Association="JustbokModel.FK__GymEquipm__Branc__07220AB2" ManuallyRouted="false" />
+        <AssociationConnector Association="JustbokModel.FK__GymPackag__Branc__0AF29B96" ManuallyRouted="false" />
+        <AssociationConnector Association="JustbokModel.FK__GymServic__Branc__1A34DF26" ManuallyRouted="false" />
+        <AssociationConnector Association="JustbokModel.FK__MealTime__Branch__1293BD5E" ManuallyRouted="false" />
+        <AssociationConnector Association="JustbokModel.FK__Membershi__Branc__16644E42" ManuallyRouted="false" />
+        <AssociationConnector Association="JustbokModel.FK__MemberTim__Branc__0EC32C7A" ManuallyRouted="false" />
+        <AssociationConnector Association="JustbokModel.FK__Product__BranchI__1758727B" ManuallyRouted="false" />
+        <AssociationConnector Association="JustbokModel.FK__PurchaseO__Branc__0FB750B3" ManuallyRouted="false" />
+        <AssociationConnector Association="JustbokModel.FK__PurchaseO__Branc__119F9925" ManuallyRouted="false" />
+        <AssociationConnector Association="JustbokModel.FK__Scheduler__Branc__09FE775D" ManuallyRouted="false" />
+        <AssociationConnector Association="JustbokModel.FK__SelectedP__Branc__1B29035F" ManuallyRouted="false" />
+        <AssociationConnector Association="JustbokModel.FK__StaffBran__Branc__5BE2A6F2" ManuallyRouted="false" />
+        <AssociationConnector Association="JustbokModel.FK__Stock__BranchId__1D114BD1" ManuallyRouted="false" />
+        <AssociationConnector Association="JustbokModel.FK__Supplier__Branch__1940BAED" ManuallyRouted="false" />
+        <AssociationConnector Association="JustbokModel.FK__Task__BranchId__184C96B4" ManuallyRouted="false" />
+        <AssociationConnector Association="JustbokModel.FK__Workout__BranchI__1C1D2798" ManuallyRouted="false" />
+        <AssociationConnector Association="JustbokModel.FK__WorkoutPl__Branc__147C05D0" ManuallyRouted="false" />
+        <AssociationConnector Association="JustbokModel.FK__CalendarI__Staff__35DCF99B" ManuallyRouted="false" />
+        <AssociationConnector Association="JustbokModel.FK__CalendarM__Membe__38B96646" ManuallyRouted="false" />
+        <AssociationConnector Association="JustbokModel.FK__Category__GymId__42E1EEFE" ManuallyRouted="false" />
+        <AssociationConnector Association="JustbokModel.FK__Classes__GymId__6A85CC04" ManuallyRouted="false" />
+        <AssociationConnector Association="JustbokModel.FK__ClassTimi__Class__025D5595" ManuallyRouted="false" />
+        <AssociationConnector Association="JustbokModel.FK__ClassTimi__GymId__7F80E8EA" ManuallyRouted="false" />
+        <AssociationConnector Association="JustbokModel.FK__ClassTimi__Staff__0169315C" ManuallyRouted="false" />
+        <AssociationConnector Association="JustbokModel.FK__DeletAppo__GymId__65C116E7" ManuallyRouted="false" />
+        <AssociationConnector Association="JustbokModel.FK__Diet__DietPlanId__625A9A57" ManuallyRouted="false" />
+        <AssociationConnector Association="JustbokModel.FK__DietPlanN__GymId__5F7E2DAC" ManuallyRouted="false" />
+        <AssociationConnector Association="JustbokModel.FK__MemberDie__DietP__0880433F" ManuallyRouted="false" />
+        <AssociationConnector Association="JustbokModel.FK__Enquiry__GymId__756D6ECB" ManuallyRouted="false" />
+        <AssociationConnector Association="JustbokModel.FK__Followup__Enquir__22AA2996" ManuallyRouted="false" />
+        <AssociationConnector Association="JustbokModel.FK__Events__GymId__2A6B46EF" ManuallyRouted="false" />
+        <AssociationConnector Association="JustbokModel.FK__Expenses__Expens__2AD55B43" ManuallyRouted="false" />
+        <AssociationConnector Association="JustbokModel.FK__Expenses__GymId__2BC97F7C" ManuallyRouted="false" />
+        <AssociationConnector Association="JustbokModel.FK__ExpensesT__GymId__27F8EE98" ManuallyRouted="false" />
+        <AssociationConnector Association="JustbokModel.FK__SelectedP__Packa__2DE6D218" ManuallyRouted="false" />
+        <AssociationConnector Association="JustbokModel.FK__GymAmenit__GymId__6F7F8B4B" ManuallyRouted="false" />
+        <AssociationConnector Association="JustbokModel.FK__GymEquipm__GymId__725BF7F6" ManuallyRouted="false" />
+        <AssociationConnector Association="JustbokModel.FK__GymImage__GymId__2116E6DF" ManuallyRouted="false" />
+        <AssociationConnector Association="JustbokModel.FK__GymLogin__GymId__208CD6FA" ManuallyRouted="false" />
+        <AssociationConnector Association="JustbokModel.FK__GymPackag__GymId__32AB8735" ManuallyRouted="false" />
+        <AssociationConnector Association="JustbokModel.FK__GymPaymen__GymId__1DB06A4F" ManuallyRouted="false" />
+        <AssociationConnector Association="JustbokModel.FK__GymServic__GymId__31B762FC" ManuallyRouted="false" />
+        <AssociationConnector Association="JustbokModel.FK__MealTime__GymId__65370702" ManuallyRouted="false" />
+        <AssociationConnector Association="JustbokModel.FK__MemberInf__GymId__339FAB6E" ManuallyRouted="false" />
+        <AssociationConnector Association="JustbokModel.FK__Membershi__GymId__3A4CA8FD" ManuallyRouted="false" />
+        <AssociationConnector Association="JustbokModel.FK__MemberTim__GymId__24285DB4" ManuallyRouted="false" />
+        <AssociationConnector Association="JustbokModel.FK__Product__GymId__367C1819" ManuallyRouted="false" />
+        <AssociationConnector Association="JustbokModel.FK__PurchaseO__GymId__793DFFAF" ManuallyRouted="false" />
+        <AssociationConnector Association="JustbokModel.FK__Scheduler__GymId__5A846E65" ManuallyRouted="false" />
+        <AssociationConnector Association="JustbokModel.FK__SelectedP__GymId__2EDAF651" ManuallyRouted="false" />
+        <AssociationConnector Association="JustbokModel.FK__Staff__GymId__1209AD79" ManuallyRouted="false" />
+        <AssociationConnector Association="JustbokModel.FK__Stock__GymId__5CA1C101" ManuallyRouted="false" />
+        <AssociationConnector Association="JustbokModel.FK__Supplier__GymId__395884C4" ManuallyRouted="false" />
+        <AssociationConnector Association="JustbokModel.FK__Task__GymId__40058253" ManuallyRouted="false" />
+        <AssociationConnector Association="JustbokModel.FK__Workout__GymId__503BEA1C" ManuallyRouted="false" />
+        <AssociationConnector Association="JustbokModel.FK__WorkoutPl__GymId__540C7B00" ManuallyRouted="false" />
+        <AssociationConnector Association="JustbokModel.FK__GymPaymen__Packa__1CBC4616" ManuallyRouted="false" />
+        <AssociationConnector Association="JustbokModel.FK__Measureme__Membe__4F47C5E3" ManuallyRouted="false" />
+        <AssociationConnector Association="JustbokModel.FK__MemberDie__Membe__09746778" ManuallyRouted="false" />
+        <AssociationConnector Association="JustbokModel.FK__MemberFre__Membe__414EAC47" ManuallyRouted="false" />
+        <AssociationConnector Association="JustbokModel.FK__MemberIma__Membe__38996AB5" ManuallyRouted="false" />
+        <AssociationConnector Association="JustbokModel.FK__MemberShi__Membe__1DE57479" ManuallyRouted="false" />
+        <AssociationConnector Association="JustbokModel.FK__MemberTim__Membe__2334397B" ManuallyRouted="false" />
+        <AssociationConnector Association="JustbokModel.FK__MemberWor__Membe__5AB9788F" ManuallyRouted="false" />
+        <AssociationConnector Association="JustbokModel.FK__Payment__MemberI__1920BF5C" ManuallyRouted="false" />
+        <AssociationConnector Association="JustbokModel.FK__Scheduler__Membe__589C25F3" ManuallyRouted="false" />
+        <AssociationConnector Association="JustbokModel.FK__Tranfer__Transfe__2D27B809" ManuallyRouted="false" />
+        <AssociationConnector Association="JustbokModel.FK__Tranfer__Transfe__2E1BDC42" ManuallyRouted="false" />
+        <AssociationConnector Association="JustbokModel.FK__Payment__Members__3F466844" ManuallyRouted="false" />
+        <AssociationConnector Association="JustbokModel.FK__MemberWor__Plane__59C55456" ManuallyRouted="false" />
+        <AssociationConnector Association="JustbokModel.FK__Orders__Purchase__7C1A6C5A" ManuallyRouted="false" />
+        <AssociationConnector Association="JustbokModel.FK__PurchaseO__Produ__251C81ED" ManuallyRouted="false" />
+        <AssociationConnector Association="JustbokModel.FK__Stock__ProductId__5BAD9CC8" ManuallyRouted="false" />
+        <AssociationConnector Association="JustbokModel.FK__PurchaseO__Purch__2057CCD0" ManuallyRouted="false" />
+        <AssociationConnector Association="JustbokModel.FK__PurchaseO__Staff__3C89F72A" ManuallyRouted="false" />
+        <AssociationConnector Association="JustbokModel.FK__Scheduler__Staff__59904A2C" ManuallyRouted="false" />
+        <AssociationConnector Association="JustbokModel.FK__StaffShif__Shift__5812160E" ManuallyRouted="false" />
+        <AssociationConnector Association="JustbokModel.FK__StaffBran__Staff__5AEE82B9" ManuallyRouted="false" />
+        <AssociationConnector Association="JustbokModel.FK__StaffLogi__Staff__4CA06362" ManuallyRouted="false" />
+        <AssociationConnector Association="JustbokModel.FK__StaffShif__Staff__571DF1D5" ManuallyRouted="false" />
+        <AssociationConnector Association="JustbokModel.FK__TrainerDe__Staff__3B95D2F1" ManuallyRouted="false" />
+        <AssociationConnector Association="JustbokModel.FK__WorkoutPl__Plane__56E8E7AB" ManuallyRouted="false" />
+        <AssociationConnector Association="JustbokModel.FK__MemberFre__Membe__3E723F9C" />
+        <EntityTypeShape EntityType="JustbokModel.DailyTaskList" Width="1.5" PointX="19.5" PointY="83.5" />
+        <AssociationConnector Association="JustbokModel.FK__DailyTask__TaskI__5090EFD7" />
+        <EntityTypeShape EntityType="JustbokModel.LeaveType" Width="1.5" PointX="5.375" PointY="0.75" />
+        <EntityTypeShape EntityType="JustbokModel.StaffAbsentDetail" Width="1.5" PointX="5.75" PointY="3.75" />
+        <EntityTypeShape EntityType="JustbokModel.TimeSheet" Width="1.5" PointX="3.375" PointY="6.75" />
+        <EntityTypeShape EntityType="JustbokModel.StaffPresentDetail" Width="1.5" PointX="0.75" PointY="6.75" />
+        <EntityTypeShape EntityType="JustbokModel.Salary" Width="1.5" PointX="5.375" PointY="6.75" />
+        <EntityTypeShape EntityType="JustbokModel.SMSHistory" Width="1.5" PointX="7.375" PointY="0.75" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

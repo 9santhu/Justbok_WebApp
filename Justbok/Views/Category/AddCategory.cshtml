@@ -1,0 +1,95 @@
+﻿@model Justbok.Models.Category
+
+@{
+    ViewBag.Title = "Add Category";
+}
+<style>
+    .required {
+        color: #e02222;
+        font-size: 16px;
+        padding-left: 2px;
+    }
+</style>
+
+<section class="content container-fluid" id="container">
+
+    <div class="pull-right">
+        <a onclick="return LoadPage('@Url.Action("GetCategory", "Category")','Justbok | Category List');" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-arrow-left"></i> Category List</a><br><br>
+    </div>
+    @*@using (Ajax.BeginForm("AddCategory", "Category",
+                   new AjaxOptions
+                   {
+                       OnSuccess = "OnSuccess",
+                       OnFailure = "OnFailure",
+                       LoadingElementId = "progress",
+                       OnBegin = "onBegin",
+                       OnComplete = "onComplete"
+                   }))
+    {*@
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true)
+        <div class="col-xs-12">
+            <div class="box">
+                <div class="box-header">
+                    <h3 class="box-title">Add Category</h3>
+
+                    <div class="col-md-12">
+
+                        @*<div class="alert alert-success" role="alert" id="isSucess" style="display:none; float:right;height:50px; width:200px;text-align:center">Data saved successfully!!</div>*@
+
+                        <div id="messages" class="hide" role="alert" style="height:50px;width:250px;border-radius:5px;float:right;text-align:inherit;">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <div id="messages_content"></div>
+                        </div>
+
+                        <hr>
+
+                        <div class="form-group col-md-12">
+                            <label for="exampleInputEmail1">Category</label><span class="required" aria-required="true"> * </span>
+                            @Html.TextBoxFor(model => model.CategoryName, new { @class = "form-control", id = "txtcategoryName", placeholder = "Category" })
+                            @Html.ValidationMessageFor(model => model.CategoryName)
+                        </div>
+
+                        <div class="form-group col-md-12">
+                            <label for="exampleInputEmail1">Description</label>
+                            @Html.TextAreaFor(model => model.CategoryDescription, new { @class = "form-control", rows = "3", placeholder = "Description", id = "txtDescription" })
+                        </div>
+
+
+                        <div class="form-group col-md-12">
+                          
+                            <label>Active @Html.CheckBoxFor(model => model.Active, new { id = "chkActive" })</label>
+                           
+                        </div>
+
+
+                    </div>
+
+                    <div class="box-footer">
+                        <button type="submit" class="btn btn-default pull-right">Reset</button>
+                        <button type="submit" class="btn btn-info pull-right" style="margin-right: 10px;" id="btnSaveCategory">Save</button>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    @*}*@
+
+</section>
+
+
+@section Scripts {
+<script src="~/Scripts/Navigation.js?v=1.2"></script>
+    <script>
+        var AddCategoryUrl = '@Url.Action("AddCategory", "Category")';
+    </script>
+
+    <script src="~/Content/Category/AddCategory.js"></script>
+}
+
+<script src="~/Scripts/Navigation.js?v=1.2"></script>
+<script>
+        var AddCategoryUrl = '@Url.Action("AddCategory", "Category")';
+</script>
+<script src="~/Content/Category/AddCategory.js"></script>

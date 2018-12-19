@@ -1,0 +1,121 @@
+﻿@model  PagedList.IPagedList<Justbok.Models.StockViewModel>
+@using PagedList.Mvc;
+
+
+<section class="content-header">
+    <h1>Stock</h1>
+    <h5>
+        @*@using(Html.BeginForm())
+        {*@
+        <button type="submit" class="btn btn-primary pull-right fa fa-plus" aria-hidden="true" id="StockIn" onclick="return LoadPage('@Url.Action("StockOutList", "Stock")','Justbok | Stock Out');"> Stock Out List</button>
+            @*}*@
+    </h5>
+</section>
+<section class="content container-fluid">
+
+    <div class="col-xs-12">
+        <div class="box">
+            <div class="box-header">
+                <h3 class="box-title">Product List</h3>
+
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body" >
+                <div id="example1_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
+                    <div class="dataTables_length">
+                        <label>
+                            Show
+                            <select id="tblStockList_length" name="tblStockList_length"
+                                    aria-controls="tblStockList" class="form-control input-sm"
+                                    onchange="return ShowChange();">
+                                <option value="10">10</option>
+                                <option value="25">25</option>
+                                <option value="50">50</option>
+                                <option value="100">100</option>
+                            </select> entries
+                        </label>
+                    </div>
+                    <div class="col-sm-12 table-responsive">
+                        <table id="tblStockList" class="table table-bordered table-striped dataTable" role="grid" aria-describedby="example1_info">
+
+                            <thead>
+                                <tr role="row">
+
+                                    <th class="sorting_asc" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 231.217px;" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending">Manufacture Name</th>
+                                    <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 282.583px;" aria-label="Browser: activate to sort column ascending">Product Name</th>
+                                    <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 143.717px;" aria-label="CSS grade: activate to sort column ascending">Current Stock</th>
+                                    <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 143.717px;" aria-label="CSS grade: activate to sort column ascending">Stock In</th>
+                                    <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 143.717px;" aria-label="CSS grade: activate to sort column ascending">Date</th>
+
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                            <tfoot>
+
+                        </table>
+                        <div class="dataTables_paginate paging_simple_numbers" id="tblStockList_paginate">
+                            <ul id="pagination" class="pagination"></ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /.box-body -->
+        </div>
+        <!-- /.box-body -->
+    </div>
+
+</section>
+
+@section Scripts {
+    <script src="~/Scripts/Navigation.js?v=1.2"></script>
+    <script>
+    var StockInListUrl = '@Url.Action("StockInListDetails", "Stock")';
+    </script>
+   <script src="~/Content/Stock/StockInList.js"></script>
+}
+<script src="~/Scripts/Navigation.js?v=1.2"></script>
+<script>
+    var StockInListUrl = '@Url.Action("StockInListDetails", "Stock")';
+</script>
+<script src="~/Content/Stock/StockInList.js"></script>
+@*<script>
+    @*$(document).ready(function () {
+
+        $('#StockIn').click(function () {
+            alert("Hello");
+            $("#StockIn").attr('value', 'Stock Out List');
+            $("#StockIn").attr('id', 'StockOut');
+
+            $.ajax({
+            url: "@Url.Action("StockOutList")",
+            data: "",
+            type: "GET",
+            dataType: "json",
+            success: function (data) {
+
+                location.reload();
+
+   //             $('#tblStockList tbody').empty();
+   //             $.each(data, function (i, item) {
+   //                 alert(item.Manufacture);
+   //                 var rows = "<tr>"
+   //+ "<td>" + item.Manufacture + "</td>"
+
+   //+ "<td>" + item.ProductName + "</td>"
+
+   //+ "<td>" + item.Quantity + "</td>"
+
+   //+ "<td>" + item.StockIn + "</td>"
+   //+ "</tr>";
+
+   //                 $('#tblStockList tbody').append(rows);
+   //             })
+            },
+            failure: function (errMsg) {
+                alert(errMsg.responseText);
+            }
+            });
+        });
+    });*@
+
+@*</script>*@

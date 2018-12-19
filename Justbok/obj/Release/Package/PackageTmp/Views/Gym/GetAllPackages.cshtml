@@ -1,0 +1,68 @@
+﻿@model  PagedList.IPagedList<Justbok.Models.GymAllPackage>
+@using PagedList.Mvc;
+
+@{
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+
+}
+<section class="content-header">
+    <h1>
+        Gym Package List  <a class="btn btn-primary pull-right" href="/Gym/AddGymOffers"><i class="fa fa-plus" aria-hidden="true"></i> Add</a>
+    </h1>
+</section>
+
+<section class="content container-fluid">
+
+    <div class="col-xs-12">
+        <div class="box">
+            <div class="box-header">
+                <h3 class="box-title">Gym Packages</h3>
+
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+                <div id="example1_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
+                    <div class="row"><div class="col-sm-6"><div class="dataTables_length"><label>Show <select id="ddlNumber" aria-controls="example1" class="form-control input-sm"><option value="10">10</option><option value="25">25</option><option value="50">50</option><option value="100">100</option></select> entries</label></div></div></div><div class="row">
+                        <div class="col-sm-12 table-responsive">
+                            <table id="example1" class="table table-bordered table-striped dataTable" role="grid" aria-describedby="example1_info">
+
+                                <thead>
+                                    <tr role="row">
+                                        <th class="sorting_asc" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 231.217px;" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending">Package Name</th>
+                                        <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 282.583px;" aria-label="Browser: activate to sort column ascending">Amount</th>
+                                        <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 282.583px;" aria-label="Browser: activate to sort column ascending">Months</th>
+                                        <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 282.583px;" aria-label="Browser: activate to sort column ascending">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model)
+                                    {
+                                        <tr role="row" class="odd">
+                                            <td class="sorting_1">@Html.DisplayFor(modelItem => item.OfferName)</td>
+                                            <td class="sorting_1">@Html.DisplayFor(modelItem => item.Amount)</td>
+                                            <td class="sorting_1">@Html.DisplayFor(modelItem => item.Months)</td>
+
+                                            <td>
+                                                @Html.ActionLink("Edit", "EditGymOffers", new { id = item.Package }, new { @class = "btn btn-info" })
+                                                @*@Html.ActionLink("Delete", "DeleteWorkout", new { id = item.WorkoutId }, new { @class = "btn btn-info", onclick = "return confirm('Are you sure you wish to delete this record?');" })*@
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                                <tfoot>
+
+                            </table>
+                        </div>
+                    </div>@*<div class="row"><div class="col-sm-5"><div class="dataTables_info" id="example1_info" role="status" aria-live="polite"></div></div><div class="col-sm-7"><div class="dataTables_paginate paging_simple_numbers" id="example1_paginate"><ul class="pagination"><li class="paginate_button previous disabled" id="example1_previous"><a href="#" aria-controls="example1" data-dt-idx="0" tabindex="0">Previous</a></li><li class="paginate_button active"><a href="#" aria-controls="example1" data-dt-idx="1" tabindex="0">1</a></li><li class="paginate_button "><a href="#" aria-controls="example1" data-dt-idx="2" tabindex="0">2</a></li><li class="paginate_button next" id="example1_next"><a href="#" aria-controls="example1" data-dt-idx="7" tabindex="0">Next</a></li></ul></div></div></div>*@
+                    <div class="dataTables_paginate paging_simple_numbers" style="margin-left: 400px">
+                        Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)
+                        of @Model.PageCount   @Html.PagedListPager(Model, page => Url.Action("GetAllPackages", new { page }))
+                    </div>
+                </div>
+            </div>
+            <!-- /.box-body -->
+        </div>
+        <!-- /.box-body -->
+    </div>
+
+</section>

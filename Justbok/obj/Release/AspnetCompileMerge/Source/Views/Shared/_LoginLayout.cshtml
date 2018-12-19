@@ -1,0 +1,122 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Justbok Login</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <link rel="stylesheet" href="~/Theme/css/bootstrap.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="~/Theme/css/font-awesome.min.css">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="~/Theme/css/ionicons.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="~/Theme/css/AdminLTE.min.css">
+    <!-- AdminLTE Skins. We have chosen the skin-red for this starter
+          page. However, you can choose any other skin. Make sure you
+          apply the skin class to the body tag so the changes take effect. -->
+    <link rel="stylesheet" href="~/Theme/css/skin-red.min.css">
+    <link rel="stylesheet" href="~/Theme/css/dataTables.bootstrap.min.css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <!-- Google Font -->
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+    <style>
+        .popsloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 100%;
+            background-color: #000;
+            opacity: .5;
+            filter: alpha(opacity=20);
+            display: none;
+            z-index: 10;
+            text-align: center;
+        }
+
+        .Nodata {
+            color: red;
+            font-size: 25px;
+            text-align: center;
+        }
+
+        #ui-datepicker-div {
+            z-index: 10000 !important;
+        }
+    </style>
+
+    @Styles.Render("~/css")
+    @Styles.Render("~/Plugins/iCheck/all.css")
+</head>
+<body class="hold-transition login-page">
+    <div class="login-box">
+        <div class="login-logo">
+            <a href=""><b>Justbok</b> Login</a>
+        </div>
+        <!-- /.login-logo -->
+        <div class="login-box-body">
+            <p class="login-box-msg">Sign in to start your session</p>
+
+
+            <div>
+                @RenderBody()
+            </div>
+
+        </div>
+        <!-- /.login-box-body -->
+    </div>
+    <div id="divLoader" style="display: none; z-index: 999999;" class="clearboth marginauto popsloader">
+        <img src="/Theme/img/loader.gif" alt="" align="middle" style="position: absolute; top: 40%; left: 45%;width:80px;height:80px;" />
+    </div>
+
+
+    @Scripts.Render("~/js")
+    @Scripts.Render("~/Plugins/iCheck/icheck.min.js")
+    @Scripts.Render("~/Scripts/Common.js")
+
+    @RenderSection("scripts", required: false)
+
+    
+
+</body>
+</html>
+<script>
+    function ShowLoader() {
+        $('#divLoader').show();
+    }
+
+    function HideLoader() {
+        $('#divLoader').hide();
+    }
+
+</script>
+
+
+
+@*@section Scripts {
+    <script src="~/Scripts/Navigation.js?v=1.2"></script>
+    <script>
+        var LogoutUrl = '@Url.Action("RedirectToHome","Home")';
+
+    </script>
+<script src="~/Content/Shared/LoadSideBar.js"></script>
+   
+}
+
+<script src="~/Scripts/Navigation.js?v=1.2"></script>
+<script>
+    var LogoutUrl = '@Url.Action("RedirectToHome", "Home")';
+
+</script>
+<script src="~/Content/Shared/LoadSideBar.js"></script>*@

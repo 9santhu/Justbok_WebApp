@@ -1,0 +1,56 @@
+﻿@{
+    ViewBag.Title = "UserWorkout";
+    Layout = "~/Views/Shared/UserLayout.cshtml";
+}
+
+<section class="content container-fluid" id="container">
+    <input type="hidden" value="@Session["UserName"]" id="myHiddenVar" />  
+    <div class="col-xs-12">
+        <div class="box">
+            <div class="box-header">
+                <h3 class="box-title">Workout</h3>
+                <div class="col-md-12">
+                    <hr>
+                    <div class="form-group col-md-12">
+                        <div class="form-group col-md-6">
+                            <label for="exampleInputEmail1">Name</label>
+                            <select class="form-control" id="txtWorkoutPlanName" >
+                                <option>---Select Diet---</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    @*<div class="form-group col-md-12">
+                        <div class="form-group col-md-2">
+                            <button type="button" class="btn btn-primary pull-right fa fa-plus" aria-hidden="true" id="addWorkout"> Add Workout</button>
+                        </div>
+
+                    </div>*@
+                    <div class="form-group col-md-12" id="AddworkoutContainer">
+                    </div>
+                </div>
+
+
+
+
+            </div>
+        </div>
+    </div>
+
+</section>
+
+@section Scripts {
+<script src="~/Scripts/Navigation.js?v=1.2"></script>
+    <script>
+        var EditMemberWorkoutPlanUrl = '@Url.Action("EditMemberWorkoutPlan", "UserDashBoard")';
+        var GetPlanList = '@Url.Action("GetPlanList", "MemberShip")';
+    </script>
+<script src="~/Content/UserDashboard/Workouts.js"></script>
+}
+
+<script src="~/Scripts/Navigation.js?v=1.2"></script>
+<script>
+    var EditMemberWorkoutPlanUrl = '@Url.Action("EditMemberWorkoutPlan", "UserDashBoard")';
+    var GetPlanList = '@Url.Action("GetPlanList", "MemberShip")';
+</script>
+<script src="~/Content/UserDashboard/Workouts.js"></script>

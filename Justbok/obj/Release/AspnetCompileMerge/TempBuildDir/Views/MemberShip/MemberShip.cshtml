@@ -1,0 +1,2247 @@
+﻿@model Justbok.Models.MemberViewModel
+
+
+
+
+<!-- Main content -->
+<section class="content container-fluid">
+
+    <div class="col-xs-12">
+        <div class="box">
+            <div class="box-header">
+                <h3 class="box-title">Membership</h3>
+
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+                <div class="nav-tabs-custom">
+                
+                    <div class="box-header with-border">
+                        <ul class="nav nav-tabs">
+                            <li class="active"><a href="#member" data-toggle="tab">Member</a></li>
+                            @*<li><a href="#Questionnaire" data-toggle="tab">Questionnaire</a></li>*@
+                            <li><a href="#Membership" data-toggle="tab">Membership</a></li>
+                            <li><a href="#Measurement" data-toggle="tab">Measurement</a></li>
+                            <li><a href="#Workout" data-toggle="tab">Workout</a></li>
+                            <li><a href="#Diet" data-toggle="tab">Diet Plan</a></li>
+                            <li><a href="#Pictures" data-toggle="tab">Pictures</a></li>
+                            @*<li><a href="#Transfer" data-toggle="tab">Transfer</a></li>
+                    <li><a href="#Freeze" data-toggle="tab">Freeze</a></li>
+                    <li><a href="#SMS" data-toggle="tab">SMS History</a></li>*@
+                        </ul>
+                    </div>
+                    <div class="box-body">
+                        <div class="tab-content">
+                            <!-- Font Awesome Icons -->
+
+
+                            <div class="tab-pane active row" id="member">
+                                @*@using (Ajax.BeginForm("AddMember", "MemberShip",
+                        new AjaxOptions
+                        {
+                            HttpMethod = "Post",
+                            OnSuccess = "OnSuccess",
+                            OnFailure = "OnFailure",
+                            LoadingElementId = "progress",
+                            //OnBegin = "ValidateForm"
+                        }, new { id = "formMembership" }))
+                                {*@
+
+                                @Html.AntiForgeryToken()
+                                @Html.ValidationSummary(true)
+                                <div class="col-md-6">
+                                    <h5>Member basic info</h5><hr>
+
+                                    <div class="form-group col-md-6">
+                                        <label for="exampleInputEmail1">Member Id</label>
+                                        @{ Html.EnableClientValidation(false); }
+                                        @Html.TextBoxFor(model => model.MemberID, new { @class = "form-control", placeholder = "Member Id" })
+
+                                    </div>
+
+                                    <div class="form-group col-md-6">
+                                        <div class="form-group">
+                                            <label for="exampleInputEmail1">Reffered by(Member Id)</label>
+                                            <div class="input-group">
+                                                @*<input id="txtReferenceBy" class="form-control"  tabindex="2" disabled="" type="text">*@
+                                                @Html.TextBoxFor(model => model.MemberReference, new { @class = "form-control", id = "txtReferenceBy", disabled = "" })
+                                                <div class="input-group-addon" data-toggle="modal" id="showSelectMemberModal">
+                                                    <i class="fa fa-search"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-6">
+
+                                        <label for="exampleInputEmail1">First Name</label><span class="text-danger" style="font-size:14px"> *</span>
+                                        @{ Html.EnableClientValidation(true); }
+                                        @Html.TextBoxFor(model => model.FirstName, new { @class = "form-control", id = "txtFirstName", placeholder = "First Name" })
+                                        @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
+                                    </div>
+
+                                    <div class="form-group col-md-6">
+                                        <label for="exampleInputEmail1">Last Name</label><span class="text-danger" style="font-size:14px"> *</span>
+                                        @{ Html.EnableClientValidation(true); }
+                                        @Html.TextBoxFor(model => model.LastName, new { @class = "form-control", id = "txtLastName", placeholder = "Last Name" })
+                                        @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label>Date of Birth:</label><span class="text-danger" style="font-size:14px"> *</span>
+
+                                        <div class="input-group date">
+                                            <div class="input-group-addon">
+                                                <i class="fa fa-calendar"></i>
+                                            </div>
+                                            @{ Html.EnableClientValidation(false); }
+                                            @Html.TextBoxFor(model => model.Dob, new { @class = "form-control pull-right", @type = "datetime", id = "txtDOB" })
+                                        </div>
+                                        <!-- /.input group -->
+                                    </div>
+
+                                    <div class="form-group col-md-6">
+                                        <label for="exampleInputEmail1">Email</label>
+                                        @{ Html.EnableClientValidation(true); }
+                                        @Html.TextBoxFor(model => model.Email, new { @class = "form-control", placeholder = "Email", id = "txtEmail" })
+                                        @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                                    </div>
+
+                                    <div class="form-group col-md-6">
+                                        <label for="exampleInputEmail1">Address</label>
+                                        @Html.TextAreaFor(model => model.MemberAddress, new { @class = "form-control", rows = "3", placeholder = "Enter", id = "txtAddress" })
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="exampleInputEmail1">Mobile No.</label><span class="text-danger" style="font-size:14px"> *</span>
+                                        @{ Html.EnableClientValidation(true); }
+                                        @Html.TextBoxFor(model => model.MobileNumber, new { @class = "form-control", placeholder = "Mobile Number", id = "txtMobileno" })
+                                        @Html.ValidationMessageFor(model => model.MobileNumber, "", new { @class = "text-danger" })
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="exampleInputEmail1">Gender</label>
+                                        <div class="radio">
+                                            <label>@Html.RadioButtonFor(model => model.Gender, "Female", "Gender") Female</label>
+                                            <label>@Html.RadioButtonFor(model => model.Gender, "Male", "Gender") Male</label>
+                                        </div>
+
+                                    </div>
+
+
+                                    <div class="form-group col-md-6">
+                                        <label>Enroll Date:</label>
+
+                                        <div class="input-group date">
+                                            <div class="input-group-addon">
+                                                <i class="fa fa-calendar"></i>
+                                            </div>
+                                            @{ Html.EnableClientValidation(false); }
+                                            @Html.TextBoxFor(model => model.EnrollDate, new { @class = "form-control pull-right", @type = "datetime", id = "txtEnrollDate" })
+                                        </div>
+                                        <!-- /.input group -->
+                                    </div>
+
+                                    <div class="form-group col-md-6">
+                                        <label for="Branch">Representative</label>
+                                        @{ Html.EnableClientValidation(true); }
+                                        @Html.DropDownListFor(model => model.Representative, new SelectList(ViewBag.Stafflist), "- Please select -", new { @class = "form-control", id = "ddlRepresentative" })
+                                        @Html.ValidationMessageFor(model => model.Representative, "", new { @class = "text-danger" })
+
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <h5>Additional info</h5><hr>
+
+                                    <div class="form-group col-md-6">
+                                        <label>Married @Html.CheckBoxFor(model => model.Married, new { id = "chkMarried" })</label>
+                                    </div>
+
+                                    <div class="form-group col-md-6">
+                                        <label for="exampleInputEmail1">Spouse Name</label>
+                                        @{ Html.EnableClientValidation(true); }
+                                        @Html.TextBoxFor(model => model.SpouseName, new { @class = "form-control", placeholder = "Spouse Name", id = "txtSpouseName" })
+                                        @Html.ValidationMessageFor(model => model.SpouseName, "", new { @class = "text-danger" })
+                                    </div>
+
+                                    <div class="form-group col-md-6">
+                                        <label>Spouse Birth Date:</label>
+
+                                        <div class="input-group date">
+                                            <div class="input-group-addon">
+                                                <i class="fa fa-calendar"></i>
+                                            </div>
+                                            @Html.TextBoxFor(model => model.SpouseBirthDate, new { @class = "form-control pull-right", @type = "datetime", id = "txtSpouseBday" })
+                                        </div>
+                                        <!-- /.input group -->
+                                    </div>
+
+                                    <div class="form-group col-md-6">
+                                        <label>Anniversary Date:</label>
+
+                                        <div class="input-group date">
+                                            <div class="input-group-addon">
+                                                <i class="fa fa-calendar"></i>
+                                            </div>
+                                            @{ Html.EnableClientValidation(false); }
+                                            @Html.TextBoxFor(model => model.AnniversaryDate, new { @class = "form-control pull-right", @type = "datetime", id = "txtAnniversaryDate" })
+                                        </div>
+                                        <!-- /.input group -->
+                                    </div>
+
+                                    <div class="form-group col-md-6">
+                                        <label for="exampleInputEmail1">Occupation</label>
+                                        @{ Html.EnableClientValidation(true); }
+                                        @Html.TextBoxFor(model => model.Occupation, new { @class = "form-control", placeholder = "Occupation", id = "txtOccupation" })
+                                        @Html.ValidationMessageFor(model => model.Occupation, "", new { @class = "text-danger" })
+                                    </div>
+
+                                    <div class="form-group col-md-6">
+                                        <label for="exampleInputEmail1">Designation</label>
+                                        @{ Html.EnableClientValidation(true); }
+                                        @Html.TextBoxFor(model => model.Designation, new { @class = "form-control", placeholder = "Designation", id = "txtDesignation" })
+                                        @Html.ValidationMessageFor(model => model.Designation, "", new { @class = "text-danger" })
+                                    </div>
+
+                                    <div class="form-group col-md-6">
+                                        <label for="Branch">Source</label>
+                                        @Html.DropDownListFor(model => model.MemberSource, new SelectList(new List<string>
+         () { "--Select--", "Google", "Reference", "Other" }), new { @class = "form-control", id = "txtSource" })
+                                        @Html.TextBoxFor(model => model.Other, new { @class = "form-control", placeholder = "Source", id = "txtSource1", })
+                                        <!-- /.input group -->
+                                    </div>
+
+
+
+
+                                    <div class="form-group col-md-6">
+                                        <label for="exampleInputEmail1">Phone (Residence)</label>
+                                        @{ Html.EnableClientValidation(true); }
+                                        @Html.TextBoxFor(model => model.PhoneResidence, new { @class = "form-control", placeholder = "Phone(Residence)", id = "txtPhoneResi" })
+                                        @Html.ValidationMessageFor(model => model.PhoneResidence, "", new { @class = "text-danger" })
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="exampleInputEmail1">Phone (Office)</label>
+                                        @{ Html.EnableClientValidation(true); }
+                                        @Html.TextBoxFor(model => model.PhoneOffice, new { @class = "form-control", placeholder = "Phone(Office)", id = "txtPhoneofc" })
+                                        @Html.ValidationMessageFor(model => model.PhoneOffice, "", new { @class = "text-danger" })
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="exampleInputEmail1">Reffered By</label>
+                                        @{ Html.EnableClientValidation(true); }
+                                        @Html.TextBoxFor(model => model.ReferredBy, new { @class = "form-control", placeholder = "Referred BY", id = "txtRefferedBy" })
+                                        @Html.ValidationMessageFor(model => model.ReferredBy, "", new { @class = "text-danger" })
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="exampleInputEmail1">Programme</label>
+                                        @{ Html.EnableClientValidation(true); }
+                                        @Html.TextBoxFor(model => model.Programme, new { @class = "form-control", placeholder = "Programme", id = "txtProgramme" })
+                                        @Html.ValidationMessageFor(model => model.Programme, "", new { @class = "text-danger" })
+                                    </div>
+
+                                </div>
+                                <div class="box-footer">
+                                    <button type="submit" class="btn btn-default pull-right">Reset</button>
+                                    <button type="submit" class="btn btn-info pull-right" style="margin-right: 10px;" id="btnSaveMember">Save Member</button>
+                                </div>
+                                @*}*@
+                            </div>
+
+
+                            <div class="tab-pane row" id="Membership">
+                                @*@using (Ajax.BeginForm("AddMemberShip", "MemberShip",
+                                            new AjaxOptions
+                                            {
+                                                OnSuccess = "Success",
+                                                OnFailure = "Failure",
+                                                LoadingElementId = "progress",
+                                                UpdateTargetId = "tblNewMembership"
+                                            }))
+                        {*@
+
+                                <h5>Membership</h5><hr>
+                                <div style="display:none;">
+                                    <label for="Branch">MembershipId</label>
+                                    <input type="text" id="txtMembershipid" />
+                                    <!-- /.input group -->
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group col-md-12">
+                                        <label for="Branch">Membership</label><span class="text-danger" style="font-size:14px"> *</span>
+                                        @Html.DropDownListFor(model => model.MembershipType, new SelectList(ViewBag.OfferList), "- Please select -", new { @class = "form-control", id = "txtMembershipType" })
+                                        @Html.ValidationMessageFor(model => model.MembershipType, "", new { @class = "text-danger" })
+                                    </div>
+
+                                    <div class="form-group col-md-6">
+                                        <label for="exampleInputEmail1">Months</label><span class="text-danger" style="font-size:14px"> *</span>
+                                        @Html.TextBoxFor(model => model.Months, new { @class = "form-control", placeholder = "Months", id = "txtMonths" })
+                                        @Html.ValidationMessageFor(model => model.Months, "", new { @class = "text-danger" })
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="exampleInputEmail1">Amount</label><span class="text-danger" style="font-size:14px"> *</span>
+                                        @Html.TextBoxFor(model => model.Amount, new { @class = "form-control", placeholder = "Amount", id = "txtAmount" })
+                                        @Html.ValidationMessageFor(model => model.Amount, "", new { @class = "text-danger" })
+                                    </div>
+
+                                    <div class="form-group col-md-6">
+                                        <label>Start Date:</label><span class="text-danger" style="font-size:14px"> *</span>
+
+                                        <div class="input-group date">
+                                            <div class="input-group-addon">
+                                                <i class="fa fa-calendar"></i>
+                                            </div>
+                                            @Html.TextBoxFor(model => model.StartDate, new { @class = "form-control pull-right", @type = "datetime", id = "txtStartDate" })
+                                        </div>
+                                        @Html.ValidationMessageFor(model => model.StartDate, "", new { @class = "text-danger" })
+                                    </div>
+
+                                    <div class="form-group col-md-6">
+                                        <label>End Date:</label><span class="text-danger" style="font-size:14px"> *</span>
+
+                                        <div class="input-group date">
+                                            <div class="input-group-addon">
+                                                <i class="fa fa-calendar"></i>
+                                            </div>
+                                            @Html.TextBoxFor(model => model.EndDate, new { @class = "form-control pull-right", @type = "datetime", id = "txtEndate" })
+                                        </div>
+                                        @Html.ValidationMessageFor(model => model.EndDate, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group col-md-12">
+                                        <label for="exampleInputEmail1">Note</label>
+                                        @Html.TextAreaFor(model => model.Note, new { @class = "form-control", rows = "3", placeholder = "Enter", id = "txtNote" })
+                                    </div>
+                                    <div class="box-footer">
+                                        <button type="submit" id="btnEnroll" class="btn btn-success pull-right"><i class="fa fa-plus" aria-hidden="true"></i> Enroll Membership</button>
+                                    </div>
+                                </div>
+                                <h5>Membership Details</h5><hr>
+                                <div class="col-sm-12">
+                                    <table id="tblNewMembership" class="table table-bordered table-striped dataTable" role="grid" aria-describedby="example1_info">
+                                        <thead>
+                                            <tr role="row">
+                                                <th class="" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 231.217px;display:none"></th>
+                                                <th class="" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 231.217px;">#</th>
+                                                <th class="" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 282.583px;">Membership</th>
+                                                <th class="" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 250.767px;">Start Date</th>
+                                                <th class="" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 198.717px;">End Date</th>
+                                                <th class="" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 198.717px;">Month</th>
+                                                <th class="" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 250.767px;">Amount</th>
+                                                <th class="" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 198.717px;">Due Amount</th>
+                                                <th class="" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 143.717px;">Paid Amount</th>
+                                                <th class="" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 143.717px;">Status</th>
+                                                <th class="" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 143.717px;">Notes</th>
+                                                <th class="" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 143.717px;">Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody></tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+
+                            <div class="tab-pane row" id="Measurement">
+
+                                <h5>Measurements</h5><hr>
+
+                                @*@using (Ajax.BeginForm("AddMeasurement", "MemberShip",
+                        new AjaxOptions
+                        {
+
+                            OnSuccess = "success",
+                            OnFailure = "failure",
+                            LoadingElementId = "progress",
+
+                        }))
+                        {*@
+
+                                <div class="form-group col-md-6">
+                                    <label>Measurement Date:</label>
+
+                                    <div class="input-group date">
+                                        <div class="input-group-addon">
+                                            <i class="fa fa-calendar"></i>
+                                        </div>
+                                        @Html.TextBoxFor(model => model.MeasurementDate, new { @class = "form-control pull-right", @type = "datetime", id = "txtMeasurementDate" })
+                                    </div>
+                                    <!-- /.input group -->
+                                </div>
+
+                                <div class="form-group col-md-6">
+                                    <label>Next Measurement Date:</label>
+
+                                    <div class="input-group date">
+                                        <div class="input-group-addon">
+                                            <i class="fa fa-calendar"></i>
+                                        </div>
+                                        @Html.TextBoxFor(model => model.NextMeasurementDate, new { @class = "form-control pull-right", @type = "datetime", id = "txtNextMeasurementDate" })
+                                    </div>
+                                    <!-- /.input group -->
+                                </div>
+
+                                <hr />
+
+                                <div class="form-group col-md-5">
+                                    <label>Height</label>
+                                    <div class="input-group date">
+                                        @Html.TextBoxFor(model => model.Height, new { @class = "form-control", placeholder = "Height", id = "txtHeight" })
+                                        <span class="input-group-addon">INCH</span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group col-md-5">
+                                    <label>Weight</label>
+                                    <div class="input-group date">
+                                        @Html.TextBoxFor(model => model.weight, new { @class = "form-control", placeholder = "Weight", id = "txtWeight" })
+                                        <span class="input-group-addon">KG</span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group col-md-5">
+                                    <label>Upper Arm</label>
+                                    <div class="input-group date">
+                                        @Html.TextBoxFor(model => model.UpperArm, new { @class = "form-control", placeholder = "Upper Arm", id = "txtUpperArm" })
+                                        <span class="input-group-addon">INCH</span>
+                                    </div>
+                                </div>
+
+
+
+                                <div class="form-group col-md-5">
+                                    <label>Fore Arm</label>
+                                    <div class="input-group date">
+                                        @Html.TextBoxFor(model => model.ForeArm, new { @class = "form-control", placeholder = "Fore Armn", id = "txtForearm" })
+                                        <span class="input-group-addon">INCH</span>
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-5">
+                                    <label>Calves</label>
+                                    <div class="input-group date">
+                                        @Html.TextBoxFor(model => model.Calves, new { @class = "form-control", placeholder = "Calves", id = "txtCalves" })
+                                        <span class="input-group-addon">INCH</span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group col-md-5">
+                                    <label>BMI</label>
+                                    <div class="input-group date">
+                                        @Html.TextBoxFor(model => model.BMI, new { @class = "form-control", placeholder = "BMI", id = "txtBMI" })
+                                        <span class="input-group-addon"></span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group col-md-5">
+                                    <label>V.Fat</label>
+                                    <div class="input-group date">
+                                        @Html.TextBoxFor(model => model.VFat, new { @class = "form-control", placeholder = "V.Fat", id = "txtVfat" })
+                                        <span class="input-group-addon"></span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group col-md-5">
+                                    <label>Shoulder</label>
+                                    <div class="input-group date">
+                                        @Html.TextBoxFor(model => model.Shoulder, new { @class = "form-control", placeholder = "Shoulder", id = "txtShoulder" })
+                                        <span class="input-group-addon">INCH</span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group col-md-5">
+                                    <label>Chest</label>
+                                    <div class="input-group date">
+                                        @Html.TextBoxFor(model => model.Chest, new { @class = "form-control", placeholder = "Chest", id = "txtChest" })
+                                        <span class="input-group-addon">INCH</span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group col-md-5">
+                                    <label>Arms</label>
+                                    <div class="input-group date">
+                                        @Html.TextBoxFor(model => model.Arms, new { @class = "form-control", placeholder = "Arms", id = "txtArms" })
+                                        <span class="input-group-addon">INCH</span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group col-md-5">
+                                    <label>Upper ABS</label>
+                                    <div class="input-group date">
+                                        @Html.TextBoxFor(model => model.UpperABS, new { @class = "form-control", placeholder = "Upper ABS", id = "txtUpperABS" })
+                                        <span class="input-group-addon">INCH</span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group col-md-5">
+                                    <label>Waist ABS</label>
+                                    <div class="input-group date">
+                                        @Html.TextBoxFor(model => model.WaistABS, new { @class = "form-control", placeholder = "Waist ABS", id = "txtWaistABS" })
+                                        <span class="input-group-addon">INCH</span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group col-md-5">
+                                    <label>Lower ABS</label>
+                                    <div class="input-group date">
+                                        @Html.TextBoxFor(model => model.LowerABS, new { @class = "form-control", placeholder = "Lower ABS", id = "txtLowerABS" })
+                                        <span class="input-group-addon">INCH</span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group col-md-5">
+                                    <label>Glutes </label>
+                                    <div class="input-group date">
+                                        @Html.TextBoxFor(model => model.Glutes, new { @class = "form-control", placeholder = "Glutes", id = "txtGlutes" })
+                                        <span class="input-group-addon">INCH</span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group col-md-5">
+                                    <label>Thighes </label>
+                                    <div class="input-group date">
+                                        @Html.TextBoxFor(model => model.Thighs, new { @class = "form-control", placeholder = "Thighes", id = "txtThighes" })
+                                        <span class="input-group-addon">INCH</span>
+                                    </div>
+                                </div>
+
+                                <div class="box-footer">
+                                    <button type="submit" class="btn btn-default pull-right">Reset</button>
+                                    <button type="submit" class="btn btn-info pull-right" style="margin-right: 10px;" id="btnSaveMeasurement">Save </button>
+                                </div>
+                                @*}*@
+                            </div>
+
+                            <div class="tab-pane row" id="Workout">
+                                @*Workout code tab*@
+
+                                <div class="form-group col-md-12">
+                                    <div class="form-group col-md-6">
+                                        <label for="exampleInputEmail1">Name</label>
+                                        @*@Html.DropDownList("- Please select -", new { @class = "form-control", id = "txtWorkoutPlanName" })*@
+                                        <select class="form-control" id="txtWorkoutPlanName">
+                                            <option>---Select Workout---</option>
+                                        </select>
+
+
+                                    </div>
+
+                                </div>
+
+                                <div class="form-group col-md-12">
+                                    <button type="button" class="btn btn-primary btn-flat pull-right" id="btnWorkoutPrint" title="Print WorkoutCard"><i class="glyphicon glyphicon-print"></i> Print WorkoutCard</button>
+                                    <div class="form-group col-md-2">
+                                        <button type="button" class="btn btn-primary pull-right fa fa-plus" aria-hidden="true" id="addWorkout"> Add Workout</button>
+
+                                    </div>
+
+                                </div>
+                                <div class="form-group col-md-12" id="AddworkoutContainer">
+                                </div>
+
+
+
+                                <div class="box-footer">
+                                    <button type="submit" class="btn btn-default pull-right">Reset</button>
+                                    <button type="submit" class="btn btn-info pull-right" style="margin-right: 10px;" id="btnSaveWorkout">Save</button>
+                                </div>
+
+
+                            </div>
+
+                            <div class="tab-pane row" id="Diet">
+                                <div class="form-group col-md-12">
+                                    <div class="form-group col-md-6">
+                                        <label for="exampleInputEmail1">Name</label>
+                                        @*@Html.DropDownList("- Please select -", new { @class = "form-control", id = "txtWorkoutPlanName" })*@
+                                        <select class="form-control" id="txtDietPlanName">
+                                            <option>---Select Diet---</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-12">
+                                    <div class="form-group col-md-2">
+                                        <button type="button" class="btn btn-primary pull-right fa fa-plus" aria-hidden="true" id="addNewDiet"> Add Diet</button>
+                                    </div>
+
+                                </div>
+                                <div class="form-group col-md-12" id="AddDietContainer">
+
+                                    <table id="tblDietPlan" class="table table-bordered table-striped dataTable" role="grid" aria-describedby="example1_info">
+                                        <thead>
+                                            <tr role="row">
+                                                <th class="sorting_asc" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 231.217px;display:none" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending">DietPlanId</th>
+                                                <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 282.583px; display: none;" aria-label="Browser: activate to sort column ascending">Diet</th>
+                                                <th class="sorting_asc" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 231.217px;" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending">Meal</th>
+                                                <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 282.583px;" aria-label="Browser: activate to sort column ascending">Monday</th>
+                                                <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 143.717px;" aria-label="CSS grade: activate to sort column ascending">Tuesday</th>
+                                                <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 143.717px;" aria-label="CSS grade: activate to sort column ascending">Wednesday</th>
+                                                <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 143.717px;" aria-label="CSS grade: activate to sort column ascending">Thursday</th>
+                                                <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 143.717px;" aria-label="CSS grade: activate to sort column ascending">Friday</th>
+                                                <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 143.717px;" aria-label="CSS grade: activate to sort column ascending">Saturday</th>
+                                                <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 143.717px;" aria-label="CSS grade: activate to sort column ascending">Sunday</th>
+
+                                        </thead>
+                                        <tbody></tbody>
+                                        <tfoot>
+                                    </table>
+                                </div>
+                                <div class="box-footer">
+                                    <button type="submit" class="btn btn-default pull-right">Reset</button>
+                                    <button type="submit" class="btn btn-info pull-right" style="margin-right: 10px;" id="btnSaveDiet">Save</button>
+                                </div>
+
+                            </div>
+                            <div class="tab-pane row" id="Pictures" style="margin-left:0px;margin-right:0px;">
+                                <fieldset>
+                                    <legend>Pictures</legend>
+                                    <div class="col-md-6">
+                                        <div class="form-group col-md-12">
+
+                                            <img id="userpic" class="form-control photo" alt="your image" style="height: 150px;" src="~/Theme/img/fa-user.png">
+                                            <label for="imgInp" class="custom-file-upload">
+                                                <i class="fa fa-cloud-upload"></i>Browse Image
+                                            </label>
+                                            <input type='file' id="imgInp" name="image" />
+
+
+
+                                            <style type="text/css">
+                                                input[type="file"] {
+                                                    display: none;
+                                                }
+
+                                                .custom-file-upload {
+                                                    border: 1px solid rgb(197, 197, 197);
+                                                    border-radius: 4px 4px 4px 4px;
+                                                    display: inline-block;
+                                                    padding: 6px 12px;
+                                                    cursor: pointer;
+                                                    float: left;
+                                                    width: 5.25em;
+                                                    margin-right: 250px;
+                                                }
+
+                                                .photo {
+                                                    width: 7em;
+                                                    height: 9em;
+                                                    border: 1px solid rgb(197, 197, 197);
+                                                    border-radius: 4px 4px 4px 4px;
+                                                    float: left;
+                                                }
+                                            </style>
+
+
+                                        </div>
+
+                                        <div class="form-group col-md-12">
+                                            <input type="button" value="Upload Image" id="btnUpload" class="btn btn-primary btn-flat" />
+                                        </div>
+
+                                    </div>
+
+
+
+                                    <div class="col-md-6">
+
+
+                                        <div class="form-group">
+                                            <label>Capture Photo</label>
+                                            <div id="Camera">
+                                            </div>
+
+                                            <input type="button" value="Capture" id="btnWebCapture" class="btn btn-sm btn-primary btn-flat" onclick="webcam.capture(); " />
+                                            <br>
+                                            <span id="camStatus"></span>
+                                        </div>
+
+
+                                        @*<div style="float: left; margin-left: 20px; border: 4px solid #ccc; padding: 5px">
+                                    <img id="show" style="width: 320px; height: 240px;" src="~/Theme/img/fa-user.png" />
+                                    <br>
+                                    <br>
+                                    <input id="Submit1" type="submit" value="submit" />
+                                </div>*@
+
+                                    </div>
+
+                                </fieldset>
+                            </div>
+
+                            @*<div id="Transfer" class="tab-pane fade in">
+                        <fieldset>
+                            <legend>Transfer</legend>
+                            <form class="form-horizontal ng-pristine ng-valid" role="form">
+                                <div class="row">
+                                    <div class="col-md-7">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-5">Membership<span class="required" aria-required="true"> * </span></label>
+                                                    <div class="col-md-7">
+                                                        <select id="TransferMembership" class="form-control input-sm ng-pristine ng-untouched ng-valid" onchange="return GetSelectedCustMembershipData(this, 'Transfer');"></select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-5">Transfer To <span class="required" aria-required="true"> * </span></label>
+                                                    <div class="col-md-7">
+                                                        <div class="input-group">
+                                                            <input type="hidden" id="TransferMemberId" class="form-control ng-pristine ng-untouched ng-valid" disabled="" />
+                                                            <input type="text" id="TransferMemberName" class="form-control ng-pristine ng-untouched ng-valid" disabled="" />
+                                                            <div class="input-group-addon" data-target="#modal-membersearch" data-toggle="modal">
+                                                                <i class="fa fa-search"></i>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-5"> Start&nbsp;Date<span class="required" aria-required="true">&nbsp;* </span> </label>
+                                                    <div class="col-md-7">
+                                                        <input type="text" id="txttransferStartDate" class="form-control input-sm">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-5"> End&nbsp;Date<span class="required" aria-required="true">&nbsp;* </span> </label>
+                                                    <div class="col-md-7">
+                                                        <input type="text" id="txttransferEndDate" class="form-control input-sm">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-5">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="control-label col-md-12 ng-binding ng-scope" id="transferremianingDays"></label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-3  pull-right">
+                                        <button type="button" class="btn btn-primary btn-flat" value="Transfer Membership" onclick="return SaveTransfer();" title="Transfer Membership"><span class="fa fa-rocket"></span> Transfer Membership</button>
+                                        <button type="button" class="btn btn-default btn-flat" onclick="ClearTransfer()" title="Reset"><span class="glyphicon glyphicon-refresh"></span> Reset</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </fieldset>
+                    </div>
+
+                    <div class="tab-pane fade in" id="Freeze">
+                        <fieldset>
+                            <legend>Freeze</legend>
+                            <form class="form-horizontal ng-pristine ng-valid" role="form">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="row">
+                                            <div class="col-md-10">
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-3">Membership<span class="required" aria-required="true"> * </span></label>
+                                                    <div class="col-md-7">
+                                                        <input type="hidden" value="0" id="HFreezeMembership" />
+                                                        <select class="form-control input-sm ng-pristine ng-untouched ng-valid" id="FreezeMembership" onchange="return GetSelectedCustMembershipData(this, 'Freeze');"></select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-5"> Start&nbsp;Date<span class="required" aria-required="true">&nbsp;* </span> </label>
+                                                    <div class="col-md-7">
+                                                        <input class="form-control input-sm" id="txtFreezeStartDate" type="text">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-5"> End&nbsp;Date<span class="required" aria-required="true">&nbsp;* </span> </label>
+                                                    <div class="col-md-7">
+                                                        <input class="form-control input-sm" id="txtFreezeEndDate" type="text">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-5">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="control-label col-md-12 ng-binding ng-scope" id="freezeremianingDays"></label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-3 pull-right">
+                                        <button title="Freeze Membership" class="btn btn-primary btn-flat" type="button" value="Freeze Membership" onclick="return SaveFreeze()"><span class="fa fa-square"></span> Freeze Membership</button>
+                                        <button title="Reset" class="btn btn-default btn-flat" onclick="return ClearFreeze()"><span class="glyphicon glyphicon-refresh"></span> Reset</button>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <fieldset>
+                                            <legend>Freeze Membership Details</legend>
+                                            <div class="table-responsive">
+                                                <table class="table table-bordered" id="FreezeMembershipList">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>#</th>
+                                                            <th class="text-center">Membership</th>
+                                                            <th class="text-center">Start Date</th>
+                                                            <th class="text-center">End Date</th>
+                                                            <th class="text-center">Month</th>
+                                                            <th class="text-center">Amount</th>
+                                                            <th class="text-center">Status</th>
+                                                            <th class="text-center">Action</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody></tbody>
+                                                </table>
+                                            </div>
+                                        </fieldset>
+                                    </div>
+                                </div>
+                            </form>
+                        </fieldset>
+                    </div>
+                    <div id="SMS" class="tab-pane fade in">
+                        <fieldset>
+                            <legend>SMS History</legend>
+                            <table class="table table-bordered table-responsive" id="tblsms">
+                                <thead>
+                                    <tr>
+                                        <th width="15%">Date</th>
+                                        <th width="15%">Phone No.</th>
+                                        <th>Message</th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                        </fieldset>
+                    </div>*@
+
+
+                            <!-- /.box-body -->
+                        </div>
+                        <!-- /.box-body -->
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        </div>
+
+</section>
+<!-- /.content -->
+<!-- /.content-wrapper -->
+<!-- ./wrapper -->
+<!-- .modal -->
+<div class="modal fade" id="modal-payment">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title">Payment</h4>
+            </div>
+            <div class="modal-body">
+
+                <div class="nav-tabs-custom">
+                    <ul class="nav nav-tabs">
+                        <li class="active"><a href="#add-payment" data-toggle="tab">Add Payment</a></li>
+                        <li><a href="#payment-history" data-toggle="tab">Payment History</a></li>
+                    </ul>
+                    <div class="tab-content">
+                        <!-- Font Awesome Icons -->
+
+                        <div class="tab-pane active row" id="add-payment">
+                            @*@using (Html.BeginForm())
+                                {
+                                    @Html.AntiForgeryToken()*@
+
+                            <div class="col-md-6">
+                                <div class="form-group col-md-12">
+                                    <label for="Branch">Payment Type</label>
+                                    @Html.DropDownListFor(model => model.PaymentType, new SelectList(new List<string>
+                                         () { "--Select--", "Cash", "Cheque", "Card", "Bank Transfer" }), new { @class = "form-control", id = "ddlPaymentType" })
+
+                                    <!-- /.input group -->
+                                </div>
+
+                                <div class="form-group col-md-12">
+                                    <label>Payment Date:</label>
+
+                                    <div class="input-group date">
+                                        <div class="input-group-addon">
+                                            <i class="fa fa-calendar"></i>
+                                        </div>
+                                        @Html.TextBoxFor(model => model.PaymentDate, new { @class = "form-control pull-right", @type = "datetime", id = "txtPaymentDate" })
+                                    </div>
+                                    <!-- /.input group -->
+                                </div>
+
+                                <div class="form-group col-md-12">
+                                    <label for="exampleInputEmail1">Receipt Number</label>
+                                    @Html.TextBoxFor(model => model.RecieptNumber, new { @class = "form-control", placeholder = "Reciept Number", id = "txtRecieptNumber" })
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group col-md-12">
+                                    <label for="exampleInputEmail1">Paid Amount</label>
+
+                                    @Html.TextBoxFor(model => model.PaymentAmount, new { @class = "form-control", placeholder = "Paid Amount", id = "txtPaymentAmount" })
+                                </div>
+
+                                <div class="form-group col-md-12">
+                                    <label>Payment Due Date:</label>
+
+                                    <div class="input-group date">
+                                        <div class="input-group-addon">
+                                            <i class="fa fa-calendar"></i>
+                                        </div>
+                                        @Html.TextBoxFor(model => model.PaymentDueDate, new { @class = "form-control pull-right", @type = "datetime", id = "txtDuedate" })
+
+                                    </div>
+                                    <!-- /.input group -->
+                                </div>
+
+                                <div class="form-group col-md-12">
+                                    <label for="exampleInputEmail1">Reference Number</label>
+                                    @Html.TextBoxFor(model => model.ReferenceNumber, new { @class = "form-control", placeholder = "Reference Number", id = "txtReferenceNo" })
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="submit" id="paymentSave" class="btn btn-default">Save</button>
+                                <button type="submit" class="btn btn-primary">Close</button>
+                            </div>
+                            @*}*@
+                        </div>
+
+                        <div class="tab-pane row" id="payment-history">
+                            <table id="tblPaymentHistory" class="table table-bordered table-striped dataTable" role="grid" aria-describedby="example1_info">
+                                <thead>
+                                    <tr role="row">
+                                        <th class="" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 231.217px;">Payment Date</th>
+                                        <th class="" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 231.217px;">Paid Amount</th>
+                                        <th class="" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 231.217px;">Payment type</th>
+                                        <th class="" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 231.217px;">Receipt No.</th>
+                                        <th class="" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 231.217px;">Edit</th>
+                                        <th class="" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 231.217px;">Delete</th>
+                                        <th class="" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 231.217px;">Print</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @*@if (ViewBag.PaymentList != null)
+                                        {
+
+                                            foreach (var item in (List<Justbok.Models.Payment>)ViewBag.PaymentList)
+                                            {
+                                                <tr role="row" class="odd">
+
+                                                    <td>
+                                                        @item.PaymentDate
+                                                    </td>
+                                                    <td>
+                                                        @item.PaymentAmount
+                                                    </td>
+                                                    <td>
+                                                        @item.PaymentType
+                                                    </td>
+                                                    <td>
+                                                        @item.RecieptNumber
+                                                    </td>
+
+                                                    <td><i class="fa fa-fw fa-edit"></i></td>
+                                                    <td><i class="fa fa-fw fa-close"></i></td>
+                                                    <td><i class="fa fa-fw fa-print"></i></td>
+                                                </tr>*@
+
+                                    @*}
+                                        }*@
+                                    <tr role="row" class="odd"></tr>
+                                </tbody>
+                                <tfoot>
+                                </tfoot>
+                            </table>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-success pull-left" data-dismiss="modal">Payment Receipt</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+
+<div class="modal fade" id="modal-print">
+    <div class="modal-dialog" style="width:700px;">
+        <div class=" modal-content">
+            <div id="divMembership">
+                <div class="modal-body" id="modal-printbody">
+
+                    <div class="col-lg-12">
+                        <div class="row">
+                            <div class="col-lg-4 pull-right">
+                                <div class="row">
+                                    <div class="col-md-12 text-right">
+                                        <div class="form-group">
+                                            <h4><b>Tax Invoice</b></h4>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-7">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <img src="/Theme/img/MWM.jpg" style="max-width:250px; max-height:100px; padding:5px;">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                        <br>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div style="width:250px;float:left;padding-left:10px">
+                                    @*<div class="form-group">GSTIN :<span>2342344354325</span></div>
+                                        <div class="form-group">Gujarat State Code:24</div>*@
+                                    <div class="form-group">Name :<span>Mr World Mohtesham Fitness Club</span></div>
+                                    <div class="form-group">Address :<p>Shop No 1& 2, Concrete Sitar Apartment,<br /> Nallagandla Road, Lingampally,<br /> Near Rythu Bazaar,<br /> Hyderabad - 500019,<br /> Telangana.</p></div>
+                                    @*<div class="form-group">Serial No. of Invoice :<span>15000</span></div>
+                                        <div class="form-group">Date of Invoice :<span>15/09/2017</span></div>*@
+                                </div>
+
+                                <div style="width:250px;float:right">
+                                    <div class="form-group">Details of Receiver (Billed to)</div>
+                                    <div class="form-group">Name : <span id="customerName"></span></div>
+                                    <div class="form-group">GST / Unique ID No :</div>
+                                    <div class="form-group">
+                                        Address : <span id="address"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                        <div style="padding:5px">
+                            <div class="row">
+                                <table width="100%" border="1" id="tblInvoice">
+                                    <thead>
+                                        <tr>
+                                            <td rowspan="2" class="text-center" align="center">Sr. No.</td>
+                                            <td rowspan="2" class="text-center" align="center">Package</td>
+                                            <td rowspan="2" class="text-center" align="center">Rate</td>
+                                            <td rowspan="2" class="text-center" align="center">Total</td>
+                                            <td rowspan="2" class="text-center" align="center">Taxable Value</td>
+                                            <td colspan="2" class="text-center" align="center">CGST</td>
+                                            <td colspan="2" class="text-center" align="center">SGST</td>
+                                        </tr>
+                                        <tr>
+                                            <td style="border-top:1px solid black;border-bottom:1px solid black" class="text-center" align="center">
+                                                Rate
+                                            </td>
+                                            <td style="border-top:1px solid black;border-bottom:1px solid black" class="text-center" align="center">
+                                                Amt
+                                            </td>
+                                            <td style="border-top:1px solid black;border-bottom:1px solid black" class="text-center" align="center">
+                                                Rate
+                                            </td>
+                                            <td style="border-top:1px solid black;border-bottom:1px solid black" class="text-center" align="center">
+                                                Amt
+                                            </td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td style="border-top:1px solid black;" class="text-center">1.</td>
+                                            <td style="border-top:1px solid black;" id="package"></td>
+                                            <td style="border-top:1px solid black;" class="text-right" id="rate"></td>
+                                            <td style="border-top:1px solid black;" class="text-right" id="Total"></td>
+                                            <td style="border-top:1px solid black;" class="text-right" id="taxableValue"></td>
+                                            <td style="border-top:1px solid black;" class="text-right" id="cgstrate"></td>
+                                            <td style="border-top:1px solid black;" class="text-right" id="cgstamount"></td>
+                                            <td style="border-top:1px solid black;" class="text-right" id="sgstrate"></td>
+                                            <td style="border-top:1px solid black;" class="text-right" id="sgstamount"></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <br>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <b>Start Date :</b> &nbsp;&nbsp;<span id="startdate"> </span> &nbsp;&nbsp; <b>End Date :</b>  &nbsp;&nbsp;  <span id="enddate"> </span>
+                                    <br>
+                                    <label> By :</label> <span class="ng-binding">Cash</span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <h4 class="pull-right">Total Invoice Value : <span id="totalAmount"></span> /-</h4>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <hr>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <small>
+                                <ol>
+
+                                    <li>
+                                        Right of admission/ renewal/ termination are reserved.
+                                    </li>
+                                    <li>Member's will use equipment/ facilities with due care and caution and keep the same in proper place after use.</li>
+                                    <li>Member's enrolling with any previous medical history have to keep informed to the trainer.</li>
+                                    <li>No cardio machine will be allowed to be use more than 20 minutes.</li>
+                                    <li>Gym dress code is mandatory as instructed by the trainer.</li>
+                                    <li>No bare foot is allowed on floor.</li>
+                                    <li>Any activity or exercise resulting in pain, faintness, dizziness, or shortness of breath should be stopped immediately.</li>
+                                    <li>Violation of Rules:If any member violates any of the policies, Gym Owners have the right to revoke memberships.</li>
+
+                                    @*<li>
+                                            Right of admission/ renewal/ termination are reserved.
+                                        </li>
+                                        <li>The gymnasium/ clinic is open to members of all communities, irrespective of their caste or creed.</li>
+                                        <li>
+                                            All fees will be received strictly in advance. Fess once paid will not be refunded or transferred under any circumtances.
+                                        </li>
+                                        <li>
+                                            Names of those members who are in arrears of fees for maximum of two months will be stuck off from the Register and re-admission
+                                            will be granted only after payment if all arrears.
+                                        </li>
+                                        <li>
+                                            The institution holds the rights to discontinue or restrict facilities without prior notice.
+                                        </li>
+                                        <li>
+                                            Members will use Equipment/Facilities with due care and coution and keep the same in the proper place after use.
+                                        </li>
+                                        <li>
+                                            Any loss or damage to the Equipment/Facilities resulting from careless handling will have be made good by members/s concerned.
+                                        </li>
+                                        <li>
+                                            If member desiring to discontinue his membership will properly inform the Manager one month in advance.
+                                        </li>
+                                        <li>
+                                            At the time of seeking leave of absence for sometime of discontinuing membership, a member must submit a letter of absence to the
+                                            secretary/ dietitian prior to procedding for the same, if a member is absent from the gymnasium/clinic during vacation or for any
+                                            other reason without previous sanction he is liable to pay the fees for such period. The management holds the right to disallow granting of extensions.
+                                        </li>
+                                        <li>
+                                            Valuables / electronic items given by the members to keep in the office for safe custody will be accepted strictly at concerned member's risk.
+                                            Management is not responsible for any loss or damage of the same.
+                                        </li>
+                                        <li>
+                                            Member shall avail of the facilities at their own risk and liability, the institution will not be liable for any accidents / mishaps or injuries
+                                            to the member during the course of their presence in the gymnasium / clinic.
+                                        </li>
+                                        <li>
+                                            Medical check ups are compulsory when informed.
+                                        </li>
+                                        <li>
+                                            Members enrolling with a history of previous illness / ailments / operations / prior diet programmers / post pregnancy will do so at their own risk.
+                                        </li>
+                                        <li>
+                                            Members are requested to give proper information regarding history of previous illness / ailments / operations / pregnancy at the time of enrolling.
+                                            The Institution shall not be liable for any reoccurrenct or fatalities due to the same.
+                                        </li>
+                                        <li> No Cardio Machine will be allowed to use more than 15 Minutes.</li>*@
+                                </ol>
+                            </small>
+                        </div>
+                    </div>
+
+                    <br>
+                    <div class="row">
+                        <div style="padding-left: 10px; width: 250px; float: left">
+                            <div class="form-group" style="margin-bottom:0">
+                                <label>Received By :</label><span>_________________</span>
+                            </div>
+                            <br>
+                            <div class="form-group" style="margin-bottom:0">
+                                <label>Sign :</label>
+                                <span>________________________</span>
+                            </div>
+                        </div>
+                        <div style="width:300px;float:right">
+                            <div class="form-group" style="margin-bottom:0">
+                                <label class="">Customer Name :</label>
+                                <span>_________________</span>
+                            </div>
+                            <br>
+                            <div class="form-group" style="margin-bottom:0">
+                                <label>Sign :</label>
+                                <span>________________________</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default pull-right" id="closepage" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-success pull-right" id="printpage">Print</button>
+
+            </div>
+
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+<div class="bootbox modal fade in" role="dialog" id="modal_Conformation">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="bootbox-close-button close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title">Confirmation !</h4>
+            </div>
+            <div class="modal-body">
+                <div class="bootbox-body">Are you sure want to delete?</div>
+                <input id="txtPaymentRecieptNo" class="" type="hidden">
+            </div>
+            <div class="modal-footer">
+                <button data-bb-handler="success" type="button" class="btn btn-success btn-flat" id="btnYes">Yes</button>
+                <button data-bb-handler="danger" type="button" class="btn btn-danger btn-flat" data-dismiss="modal">No</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="bootbox modal fade in" role="dialog" id="modal_ConformationPayment">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="bootbox-close-button close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title">Confirmation !</h4>
+            </div>
+            <div class="modal-body">
+                <div class="bootbox-body">Are you sure want to delete?</div>
+                <input id="txtPaymentRecieptNo" class="" type="hidden">
+            </div>
+            <div class="modal-footer">
+                <button data-bb-handler="success" type="button" class="btn btn-success btn-flat" id="btnYesPayment">Yes</button>
+                <button data-bb-handler="danger" type="button" class="btn btn-danger btn-flat" data-dismiss="modal">No</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="bootbox modal fade in" role="dialog" id="modal_Workout">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content" id="divWorkoutCard">
+            <div class="modal-header" style="padding-bottom:5px;">
+                <div class="row">
+                    <div class="col-xs-4">
+                        <img id="invoiceLogo" src="/Img/gym.png" style="max-height:40px;">
+                    </div>
+                    <div class="col-xs-4 text-center">
+                        <h4 class="modal-title" id="myLargeModalLabel">Workout Card</h4>
+                    </div>
+                    <div class="col-xs-4 text-right">
+                        <span style="font-size:20px;" class="text-bold ng-binding">Dharmesh Kubavat121212</span><br>
+                        <label>Member Id :</label> <span class="ng-binding">160013</span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-4">
+                        <span><b class="ng-binding">Gym Fitness ScrumBees</b></span><br>
+                        <span class="ng-binding">K-10 Atlantis</span>
+                    </div>
+                    <div class="col-xs-8">
+                        <span class="ng-binding"><b>Membership : </b>1 Year</span><br>
+                        <div class="row col-xs-6">
+                            <span class="ng-binding"><b>Start Date :</b> 20/2/2018</span>
+                        </div>
+                        <div class="col-xs-6">
+                            <span class="ng-binding"><b>End Date :</b> 19/3/2019</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="modal-body" style="margin-top:5px;padding-top:5px;">
+
+               
+                <div id="Signaturecalender" style="padding-top:20px;">
+                    <div class="table-responsive">
+                        <table id="tblCalander" class="table">
+                            <tbody>
+                                <tr>
+                                    <td style="padding:15px;border: #929191 solid 1px;">&nbsp;</td>
+                                    <td style="padding:15px;border: #929191 solid 1px;">&nbsp;</td>
+                                    <td style="padding:15px;border: #929191 solid 1px;">&nbsp;</td>
+                                    <td style="padding:15px;border: #929191 solid 1px;">&nbsp;</td>
+                                    <td style="padding:15px;border: #929191 solid 1px;">&nbsp;</td>
+                                    <td style="padding:15px;border: #929191 solid 1px;">&nbsp;</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding:15px;border: #929191 solid 1px;">&nbsp;</td>
+                                    <td style="padding:15px;border: #929191 solid 1px;">&nbsp;</td>
+                                    <td style="padding:15px;border: #929191 solid 1px;">&nbsp;</td>
+                                    <td style="padding:15px;border: #929191 solid 1px;">&nbsp;</td>
+                                    <td style="padding:15px;border: #929191 solid 1px;">&nbsp;</td>
+                                    <td style="padding:15px;border: #929191 solid 1px;">&nbsp;</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding:15px;border: #929191 solid 1px;">&nbsp;</td>
+                                    <td style="padding:15px;border: #929191 solid 1px;">&nbsp;</td>
+                                    <td style="padding:15px;border: #929191 solid 1px;">&nbsp;</td>
+                                    <td style="padding:15px;border: #929191 solid 1px;">&nbsp;</td>
+                                    <td style="padding:15px;border: #929191 solid 1px;">&nbsp;</td>
+                                    <td style="padding:15px;border: #929191 solid 1px;">&nbsp;</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding:15px;border: #929191 solid 1px;">&nbsp;</td>
+                                    <td style="padding:15px;border: #929191 solid 1px;">&nbsp;</td>
+                                    <td style="padding:15px;border: #929191 solid 1px;">&nbsp;</td>
+                                    <td style="padding:15px;border: #929191 solid 1px;">&nbsp;</td>
+                                    <td style="padding:15px;border: #929191 solid 1px;">&nbsp;</td>
+                                    <td style="padding:15px;border: #929191 solid 1px;">&nbsp;</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding:15px;border: #929191 solid 1px;">&nbsp;</td>
+                                    <td style="padding:15px;border: #929191 solid 1px;">&nbsp;</td>
+                                    <td style="padding:15px;border: #929191 solid 1px;">&nbsp;</td>
+                                    <td style="padding:15px;border: #929191 solid 1px;">&nbsp;</td>
+                                    <td style="padding:15px;border: #929191 solid 1px;">&nbsp;</td>
+                                    <td style="padding:15px;border: #929191 solid 1px;">&nbsp;</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="row">
+                    <div class="col-md-9 col-md-offset-3">
+                        <button class="btn btn-sm btn-primary btn-flat" ng-click="PrintWorkoutCard()" title="Print"><span class="glyphicon glyphicon-print"></span> Print</button>
+                        <button class="btn btn-sm btn-default btn-flat pull-right" data-dismiss="modal" title="Close"><span class="glyphicon glyphicon-remove"></span> Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="bootbox modal fade in" role="dialog" id="modal_SearchMemberId">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                <h4 class="modal-title">Select Customer</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">Search </label>
+                                <div class="col-md-9">
+                                    <input class="form-control input-sm" id="txtcustomerReference" placeholder="MemberName, Mobile No." title="MemberName, Mobile No." style="" type="text">
+                                    @*<input class="form-control input-sm " id="txtSelectCustomers"  placeholder="MemberName, Mobile No." title="MemberName, Mobile No." type="text">*@
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <button type="button" id="btnSelectCustSearch" class="btn btn-sm btn-primary btn-flat" title="Search">
+                                <i class="glyphicon glyphicon-search"></i> Search
+                            </button>
+                            <button type="button" id="btnSelectCustClear" class="btn btn-default btn-sm btn-flat" ng-click="ResetSelectCustomer()" title="Reset">
+                                <i class="glyphicon glyphicon-refresh"></i> Reset
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-12">
+                        <table id="tblReferenceId" style="display:none;" class="table table-bordered table-striped dataTable " role="grid" aria-describedby="example1_info">
+                            <thead>
+                                <tr role="row">
+                                    <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 143.717px;">Action</th>
+                                    <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 282.583px;">Member Name</th>
+                                    <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 143.717px;">Member Name</th>
+                                    <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 250.767px;">Phone</th>
+                            </thead>
+                            <tbody></tbody>
+                            <tfoot>
+
+                        </table>
+                        <div class="dataTables_paginate paging_simple_numbers" id="tblProductList_paginate">
+                            <ul id="pagination" class="pagination"></ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modal-membersearch" style="z-index:1230;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" aria-label="Close" data-dismiss="modal">
+                    <span>&times;</span>
+                </button>
+                <h4 class="modal-title">Select Customer</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">Search </label>
+                                <div class="col-md-9">
+                                    <input type="text" class="form-control" id="txtSelectCustomers" placeholder="MemberName, Mobile No." title="MemberName, Mobile No." style="">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <button type="button" id="btnSelectCustSearch" class="btn btn-sm btn-primary btn-flat" title="Search" onclick="return SelectCustSearch();">
+                                <i class="glyphicon glyphicon-search"></i> Search
+                            </button>
+                            <button type="button" id="btnSelectCustClear" class="btn btn-default btn-sm btn-flat" title="Reset" onclick="return SelectCustClear();">
+                                <i class="glyphicon glyphicon-refresh"></i> Reset
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div id="divSearchtable" style="display:none;">
+                    <div class="row">
+                        <div class="col-sm-12 table-responsive">
+                            <table id="tblSelectMembers" class="table table-bordered table-striped dataTable" role="grid" aria-describedby="example1_info">
+
+                                <thead>
+                                    <tr role="row">
+                                        <th tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 231.217px;">Action</th>
+                                        <th tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 231.217px;">Member Id</th>
+                                        <th tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 231.217px;">Member Name</th>
+                                        <th tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 231.217px;">Phone</th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                                <tfoot>
+
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="dataTables_paginate paging_simple_numbers" style="margin-left: 400px">
+                        <ul id="pagination-demo" class="pagination-sm"></ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    @section Scripts {
+<script src="~/Scripts/Navigation.js?v=1.2"></script>
+        <script>
+    var DeleteMembershipUrl = '@Url.Action("DeleteMembership", "MemberShip")';
+    var DeletePaymentUrl = '@Url.Action("DeletePayment", "MemberShip")';
+    var EditBindMembership = '@Url.Action("EditMembership", "MemberShip")';
+    var DietPlanList = '@Url.Action("GetDietPlanList", "MemberShip")';
+    var BindDietWorkoutPlan = '@Url.Action("BindDietWorkoutPlan", "MemberShip")';
+    var AddMemberShip = '@Url.Action("AddMemberShip", "MemberShip")';
+    var Payment = '@Url.Action("Payment", "MemberShip")';
+    var BindMembership = '@Url.Action("BindMembership", "MemberShip")';
+    var BindPayment = '@Url.Action("BindPayment", "MemberShip")';
+    var GetInvoice = '@Url.Action("GetInvoice", "MemberShip")';
+    var UploadImage = '@Url.Action("UploadImage", "MemberShip")';
+    var BindWorkoutPlan = '@Url.Action("BindWorkoutPlan", "MemberShip")';
+    var GetPlanListUrl = '@Url.Action("GetPlanList", "MemberShip")';
+            var AddMemberDietPlan = '@Url.Action("AddMemberDietPlan", "MemberShip")';
+            var AddMeasurementUrl = '@Url.Action("AddMeasurement", "MemberShip")';
+            var SaveMemberUrl = '@Url.Action("AddMember", "MemberShip")';
+            var NewMemberUrl = '@Url.Action("EnrolledMembersDetails", "MemberShip")';
+            var enquiryId = '@TempData["EnquiryMemberInfo"]';
+            var SaveWebcamPic = '@Url.Action("Capture", "MemberShip")';
+            var getCaptureUrl = '@Url.Action("GetCapture", "MemberShip")';
+            var swf = "../../Theme/js/jscam.swf";
+            var GetMobileNumberUrl = '@Url.Action("SendMembershipMessage", "MemberShip")';
+            var AutoCompleteUrl = '@Url.Action("GetWorkoutAutoComplete", "WorkoutPlan")';
+            var GetCustomerUrl = '@Url.Action("ReferenceMemberSearch", "MemberShip")';
+            var TransferMemberShipUrl = '@Url.Action("TransferMemberShip", "MemberShip")';
+            var FreezeMemberShipUrl = '@Url.Action("FreezeMemberShip", "MemberShip")';
+            var GetFreezeListUrl = '@Url.Action("GetFreezeList", "MemberShip")';
+            var DeleteFreezeUrl = '@Url.Action("DeleteFreeze", "MemberShip")';
+            var GetMemberDetailsUrl = '@Url.Action("GetMemberDetails", "MemberShip")';
+
+        </script>
+<script src="~/Theme/js/jquery.webcam.js"></script>
+        <script src="~/Content/Members_Membership/Membership.js?v=1.1"></script>
+
+    }
+
+
+<script src="~/Scripts/Navigation.js?v=1.2"></script>
+    <script>
+        var DeleteMembershipUrl = '@Url.Action("DeleteMembership", "MemberShip")';
+        var DeletePaymentUrl = '@Url.Action("DeletePayment", "MemberShip")';
+        var EditBindMembership = '@Url.Action("EditMembership", "MemberShip")';
+        var DietPlanList = '@Url.Action("GetDietPlanList", "MemberShip")';
+        var BindDietWorkoutPlan = '@Url.Action("BindDietWorkoutPlan", "MemberShip")';
+        var AddMemberShip = '@Url.Action("AddMemberShip", "MemberShip")';
+        var Payment = '@Url.Action("Payment", "MemberShip")';
+        var BindMembership = '@Url.Action("BindMembership", "MemberShip")';
+        var BindPayment = '@Url.Action("BindPayment", "MemberShip")';
+        var GetInvoice = '@Url.Action("GetInvoice", "MemberShip")';
+        var UploadImage = '@Url.Action("UploadImage", "MemberShip")';
+        var BindWorkoutPlan = '@Url.Action("BindWorkoutPlan", "MemberShip")';
+        var GetPlanListUrl = '@Url.Action("GetPlanList", "MemberShip")';
+        var AddMemberDietPlan = '@Url.Action("AddMemberDietPlan", "MemberShip")';
+        var SaveMemberUrl = '@Url.Action("AddMember", "MemberShip")';
+        var NewMemberUrl = '@Url.Action("EnrolledMembersDetails", "MemberShip")';
+        var enquiryId = '@TempData["EnquiryMemberInfo"]';
+        var SaveWebcamPic = '@Url.Action("Capture", "MemberShip")';
+        var getCaptureUrl = '@Url.Action("GetCapture", "MemberShip")';
+        var swf = "../../Theme/js/jscam.swf";
+        var GetMobileNumberUrl = '@Url.Action("SendMembershipMessage", "MemberShip")';
+        var AutoCompleteUrl = '@Url.Action("GetWorkoutAutoComplete", "WorkoutPlan")';
+        var GetCustomerUrl = '@Url.Action("ReferenceMemberSearch", "MemberShip")';
+        var TransferMemberShipUrl = '@Url.Action("TransferMemberShip", "MemberShip")';
+        var FreezeMemberShipUrl = '@Url.Action("FreezeMemberShip", "MemberShip")';
+        var GetFreezeListUrl = '@Url.Action("GetFreezeList", "MemberShip")';
+        var DeleteFreezeUrl = '@Url.Action("DeleteFreeze", "MemberShip")';
+        var GetMemberDetailsUrl = '@Url.Action("GetMemberDetails", "MemberShip")';
+    </script>
+<script src="~/Theme/js/jquery.webcam.js"></script>
+    <script src="~/Content/Members_Membership/Membership.js?v=1.1"></script>
+
+
+    @*@Scripts.Render("~/js")
+        @Styles.Render("~/css")*@
+
+    @*<script type="text/javascript">
+                $(document).ready(function () {
+                    $('input[type=datetime]').datepicker({
+                        dateFormat: "dd/m/yy",
+                        changeMonth: true,
+                        changeYear: true,
+                        yearRange: "-60:+100"
+                    });
+                });
+            </script>
+
+
+        }
+        <script>
+         $(document).ready(function () {
+                $.ajax({
+                    url: "@Url.Action("GetDietPlanList")",
+                    data: "",
+                    type: "GET",
+                    dataType: "json",
+                    success: function (data) {
+                    $.each(data, function (i, item) {
+                        $("#txtDietPlanName").append($("<option></option>").val(item.PlaneNameId).html(item.PlanName));
+                    })
+                    },
+                    failure: function (errMsg) {
+                    alert(errMsg.responseText);
+                    }
+                    });
+         });
+
+            $("#txtDietPlanName").change(
+                  function () {
+                      PlanId = $("#txtDietPlanName option:selected").val();
+
+                      $.ajax({
+                          url: "@Url.Action("BindDietWorkoutPlan")",
+                          data: {palnid:PlanId},
+                      type: "GET",
+                      dataType: "json",
+                      success: function (data) {
+                          $('#tblDietPlan tbody').empty();
+                          $.each(data, function (i, item) {
+                              var rows = "<tr>"
+                                   + "<td style='display:none;'> <input type='Text' class='form-control'   id=DietPlanId" + i + "></td>"
+                                    + "<td style='display:none'> <input type='Text' class='form-control'   id=DietId" + i + "></td>"
+                                  + "<td> <input type='Text' class='form-control' readonly id=txtMealTime" + i + "></td>"
+                                   + "<td> <input type='Text' class='form-control'  id=txtMonday" + i + "></td>"
+                                    + "<td> <input type='Text' class='form-control'  id=txtTuesday" + i + "></td>"
+                                     + "<td> <input type='Text' class='form-control'  id=txtWednesday" + i + "></td>"
+                                      + "<td> <input type='Text' class='form-control'  id=txtThursday" + i + "></td>"
+                                       + "<td> <input type='Text' class='form-control'  id=txtFriday" + i + "></td>"
+                                        + "<td> <input type='Text' class='form-control'  id=txtSaturday" + i + "></td>"
+                                         + "<td> <input type='Text' class='form-control'  id=txtSunday" + i + "></td>"
+                              + "</tr>";
+                              $('#tblDietPlan tbody').append(rows);
+
+                              $('#DietPlanId' + i + '').val(item.DietPlanId);
+                              $('#DietId' + i + '').val(item.DietId);
+                              $('#txtMealTime' + i + '').val(item.DietTime);
+                              $('#txtMonday' + i + '').val(item.MondayDiet);
+                              $('#txtTuesday' + i + '').val(item.TuesdayDiet);
+                              $('#txtWednesday' + i + '').val(item.WednesdayDiet);
+                              $('#txtThursday' + i + '').val(item.ThursdayDiet);
+                              $('#txtFriday' + i + '').val(item.FridayDiet);
+                              $('#txtSaturday' + i + '').val(item.SaturdayDiet);
+                              $('#txtSunday' + i + '').val(item.SundayDiet);
+                          })
+                      },
+                      failure: function (errMsg) {
+                          alert(errMsg.responseText);
+                      }
+                  });
+
+
+
+            });
+
+            </script>
+
+        <script type="text/javascript">
+            function show(input) {
+                if (input.files && input.files[0]) {
+                    var filerdr = new FileReader();
+                    filerdr.onload = function (e) {
+                        $('#user_img').attr('src', e.target.result);
+                    }
+                    filerdr.readAsDataURL(input.files[0]);
+                }
+            }
+        </script>
+
+        <script type="text/javascript">
+            function OnSuccess(response) {
+                showError('Data Saved Successfully!!', 'success', true);
+                $('.nav-tabs a[href="#Membership"]').tab('show');
+               //alert("Data Saved Successfully");
+            }
+            function OnFailure(response) {
+                alert("Error occured.");
+            }
+        </script>
+
+        <script type="text/javascript">
+            function success(response) {
+                //$('.nav-tabs a[href="#Membership"]').tab('show');
+                showError('Data Saved Successfully!!', 'success', true);
+               // alert("Data Saved Successfully");
+            }
+            function failure(response) {
+                alert("Error occured.");
+            }
+        </script>
+
+        <script>
+
+            $(document).ready(function () {
+                $("#txtMembershipType").change(
+                    function () {
+                        var ddlmembership = $("#txtMembershipType option:selected").val();
+                        var s = ddlmembership.split(" ");
+                        for (i = 0; i <= s.length; i++) {
+                            if (s[i] == "Month") {
+                                monthCount = i;
+                            }
+
+                        }
+                        var amount = s[monthCount + 1].substr(1).slice(0, -1);
+                        var days = s[1];
+                        $("#txtMonths").val(s[monthCount - 1]);
+                        $("#txtAmount").val(amount);
+                        var now = new Date();
+                        now.setMonth(now.getMonth() + parseInt(s[monthCount - 1]));
+                        $('#txtStartDate').datepicker('setDate', new Date());
+                       $('#txtEndate').datepicker('setDate', now);
+                    }
+                    );
+
+                $('#txtEnrollDate').datepicker('setDate', new Date());
+                $('#txtSource1').hide();
+
+            });
+
+            $("#txtSource").change(
+                     function () {
+                         var ddlSource = $("#txtSource option:selected").val();
+                         if (ddlSource == "Other") {
+                             $("#txtSource1").show();
+                             $("#txtSource1").val("");
+                         }
+                         else {
+                             $("#txtSource1").hide();
+                             $("#txtSource1").val("");
+                         }
+                     }
+                    );
+
+        </script>
+
+        <script>
+            var memberShipId;
+            var paymentId;
+            $(document).ready(function() {
+                var isSucess=false;
+                $('#btnEnroll').click(function () {
+                    ShowLoader();
+
+                    //var jsonObject = {
+                    //    FirstName: $('#txtFirstName').val(), LastName: $('#txtLastName').val(), DOB: $('#txtDOB').val(),Email: $('#txtEmail').val(), Address: $('#txtAddress').val(),
+                    //    MobileNo: $('#txtMobileno').val(), EnrollDate: $('#txtEnrollDate').val(),Representative: $('#ddlRepresentative option:selected').val(), Gender: $('input[name="Gender"]:checked').val(),
+                    //    Married:  $('#chkMarried').val(), SpouseName: $('#txtSpouseName').val(), SpouseBday: $('#txtSpouseBday').val(), AniversaryDate: $('#txtAnniversaryDate').val(),Occupation: $('#txtOccupation').val(),
+                    //    Designation: $('#txtDesignation').val(), Source: $('#txtSource option:selected').val(), PhoneResidence: $('#txtPhoneResi').val(),PhoneOffice: $('#txtPhoneofc').val(),
+                    //    ReferredBy: $('#txtRefferedBy').val(), Programme: $('#txtProgramme').val(),PhoneOffice: $('#txtPhoneofc').val()
+                    var jsonObject = {
+                        MembershipType: $('#txtMembershipType option:selected').val(), Months: $('#txtMonths').val(), Amount: $('#txtAmount').val(), StartDate: $('#txtStartDate').val(), Enddate: $('#txtEndate').val(),
+                        Note: $('#txtNote').val(),Status:"Active"
+                    }
+                    $.ajax({
+                        cache: false,
+                        type: "POST",
+                        url: "@Url.Action("AddMemberShip")",
+                     dataType: "json",
+                    contentType: "application/json; charset=utf-8",
+                    data: JSON.stringify(jsonObject),
+                    success: function (data) {
+                        onsuccess();
+                        HideLoader();
+                                        //alert("Data Submitted");
+                               },
+                    failure: function (errMsg) {
+                        HideLoader();
+                        alert(errMsg.responseText);
+                 }
+                });
+
+                });
+                $(document).on('click', '#tblNewMembership tr', function () {
+
+                   memberShipId = $(this).closest('tr').find('input[type="hidden"]').val();
+                });
+                $('#paymentSave').click(function () {
+                    ShowLoader();
+                var jsonObject = {
+                    PaymentType: $('#ddlPaymentType option:selected').val(), PaymentAmount: $('#
+        ').val(), PaymentDate: $('#txtPaymentDate').val(),
+                    PaymentDueDate: $('#txtDuedate').val(), ReferenceNumber: $('#txtReferenceNo').val(),MembershipId:memberShipId
+                }
+                $.ajax({
+                     cache: false,
+                     type: "POST",
+                     url: "@Url.Action("Payment")",
+                     dataType: "json",
+                    contentType: "application/json; charset=utf-8",
+                    data: JSON.stringify(jsonObject),
+                    success: function (data) {
+                        onsuccess();
+                       // UpdateMemberShipTable();
+                        onPaymentsuccess();
+                        HideLoader();
+
+                               },
+                    failure: function (errMsg) {
+                        HideLoader();
+                        alert(errMsg.responseText);
+                 }
+                });
+                    });
+        });
+
+            function onsuccess()
+             {
+                $.ajax({
+                    url: "@Url.Action("BindMembership", "MemberShip")",
+                    data: "",
+                    type: "GET",
+                    dataType: "json",
+                    success: function (data) {
+                        $('#tblNewMembership tbody').empty();
+                        $.each(data, function (i, item) {
+                            var  dueAmount = 0;
+                            var membertype = item.MemershipType.split(' ');
+                            if (item.PaidAmount == undefined || item.PaidAmount == null) {
+                                item.PaidAmount = "-";
+                                dueAmount = parseInt(item.Amount) || 0;
+                            }
+                            else {
+                                var amount = parseInt(item.Amount)|| 0;
+                                var paidamount = parseInt(item.PaidAmount) || 0;
+                                dueAmount = amount-paidamount;
+                            }
+                            if (item.Status == undefined || item.Status == null) {
+                                item.Status = "-";
+                            }
+                            if (item.Notes == undefined || item.Notes == null) {
+                                item.Notes = "";
+                            }
+                            console.log(dueAmount);
+                            var rowno = i + 1;
+                            var rows = "<tr>"
+                                  + "<td style='display:none'>" + '<input type="hidden" name="hid" value=' + item.MembershipID + '>' + "</td>"
+                                + "<td>" + rowno + "</td>"
+            + "<td>" + membertype[0] + "</td>"
+            + "<td>" + item.StartDate + "</td>"
+            + "<td>" + item.EndDate + "</td>"
+            + "<td>" + item.Months + "</td>"
+            + "<td>" + item.Amount + "</td>"
+            + "<td ><span class='badge bg-red'>" + dueAmount + "</span></td>"
+            + "<td><span class='badge bg-green'>" + item.PaidAmount  + "</span></td>"
+            + "<td><span class='badge bg-green'>" + item.Status + "</span></td>"
+            + "<td>" + item.Notes + "</td>"
+            + "<td><a class='btn btn-info' href='' data-toggle='modal' data-target='#modal-payment'>Payment</a>&nbsp;<a class='btn btn-primary' href=''>Edit</a>&nbsp;<a class='btn btn-danger' href=''>Delete</a></td>"
+            + "</tr>";
+                            $('#tblNewMembership tbody').append(rows);
+
+                        });
+                    },
+                    error: function () {
+                        alert("Failed! Please try again.");
+                    }
+                });
+            }
+
+            function onPaymentsuccess()
+            {
+                $.ajax({
+                    url: "@Url.Action("BindPayment", "MemberShip")",
+                    data: {membershipid:memberShipId},
+                type: "GET",
+                dataType: "json",
+                success: function (data) {
+                    $('#tblPaymentHistory tbody').empty();
+                    $.each(data, function (i, item) {
+                        var rows = "<tr>"
+                              + "<td style='display:none'>" + '<input type="hidden" name="hid" value=' + item.RecieptNumber + '>' + "</td>"
+        + "<td>" + item.PaymentDate + "</td>"
+        + "<td>" + item.PaidAmount + "</td>"
+        + "<td>" + item.PaymentType + "</td>"
+        + "<td>" + item.RecieptNumber + "</td>"
+        + "<td> <i class='fa fa-fw fa-edit'></i></td></td>"
+        + "<td><i class='fa fa-fw fa-close'></i></td>"
+        + "<td><a href='' data-toggle='modal' data-target='#modal-print' ><i class='fa fa-fw fa-print'></i></a></td>"
+        + "</tr>";
+                        $('#tblPaymentHistory tbody').append(rows);
+                    });
+                    $('#modal-payment').modal('toggle');
+                              $('.nav-tabs a[href="#payment-history"]').tab('show');
+                },
+                error: function () {
+                    alert("Failed! Please try again.");
+                }
+            });
+            }
+
+            function UpdateMemberShipTable() {
+                $.ajax({
+                    url: "@Url.Action("UpdateMembership", "MemberShip")",
+                    data: {membershipid:memberShipId},
+                type: "GET",
+                dataType: "json",
+                success: function (data) {
+
+                },
+                error: function () {
+                    alert("Failed! Please try again.");
+                }
+
+                })
+            }
+
+            $(document).on('click', '#tblPaymentHistory tr', function () {
+
+                //var getRow = $(this).closest('tr').find('input:hidden')
+                //memberShipId = getRow.find('input[type="hidden"]').val();
+                paymentId = $(this).closest('tr').find('input[type="hidden"]').val();
+
+                $.ajax({
+                    url: "@Url.Action("GetInvoice")",
+                    data: { membershipid: memberShipId, receiptnumber: paymentId },
+                type: "GET",
+                dataType: "json",
+                success: function (data) {
+
+                    var rate = data.Amount / 1.15;
+                    var taxamount = data.Amount - rate;
+                    var gstamt = taxamount / 2;
+                    var gstRate = 15 / 2;
+
+                    $("#customerName").text(data.FirstName);
+                    $("#address").text(data.Address);
+                    $("#package").text(data.Package);
+                    $("#startdate").text(data.StartDate);
+                    $("#enddate").text(data.EndDate);
+                    $("#totalAmount").text(data.Amount);
+                    $("#rate").text(rate.toFixed(2));
+                    $("#Total").text(rate.toFixed(2));
+                    $("#taxableValue").text(rate.toFixed(2));
+                    $("#cgstrate").text(gstRate);
+                    $("#cgstamount").text(gstamt.toFixed(2));
+                    $("#sgstrate").text(gstRate);
+                    $("#sgstamount").text(gstamt.toFixed(2));
+                },
+                error: function () {
+                    alert("Failed! Please try again.");
+                }
+            });
+
+            });
+
+            //closepage
+
+            $('#closepage').click(function () {
+                $("#modal-printbody").dialog("close");
+            });
+
+            $('#printpage').click(function () {
+
+                PrintOrderReceipt();
+                //var divToPrint = document.getElementById('modal-printbody');
+                //var newWin = window.open('', 'Print-Window');
+                //newWin.document.open();
+                //newWin.document.write('<html><body onload="window.print()">' + divToPrint.innerHTML + '</body></html>');
+                //newWin.document.close();
+                //setTimeout(function () { newWin.close(); }, 10);
+            });
+
+            function PrintOrderReceipt() {
+                var printelem = document.getElementById('divMembership');
+                var myWindow = window.open('', '', 'width=750,height=500', '_blank');
+                myWindow.document.write(document.head.innerHTML);
+                myWindow.document.write(printelem.innerHTML);
+                myWindow.document.write("\x3Cscript>window.print(); window.close();\x3C/script>");
+            }
+
+
+            </script>
+
+              <script>
+                                                    //Preview & Update an image before it is uploaded
+                                                    function readURL(input) {
+                                                        if (input.files && input.files[0]) {
+                                                            var reader = new FileReader();
+                                                            reader.onload = function (e) {
+                                                                $('#userpic').attr('src', e.target.result);
+                                                            }
+                                                        reader.readAsDataURL(input.files[0]);
+                                                        }
+                                                    }
+                                                    $("#imgInp").change(function () {
+                                                        readURL(this);
+                                                    });
+                                                    $(document).ready(function() {
+                                                        $("#btnUpload").click(function () {
+                                                            var formData = new FormData();
+                                                            var totalFiles = document.getElementById("imgInp").files.length;
+                                                            for (var i = 0; i < totalFiles; i++) {
+                                                                var file = document.getElementById("imgInp").files[i];
+                                                                formData.append("imageUploadForm", file);
+                                                            }
+                                                            $.ajax({
+                                                                type: "POST",
+                                                                url: '@Url.Action("UploadImage")',
+                                                                data: formData,
+                                                                dataType: 'json',
+                                                                contentType: false,
+                                                                processData: false,
+                                                                success: function (response) {
+                                                                    if (response == "success") {
+                                                                        alert('Image saved successfully!!');
+                                                                    }
+                                                                    else {
+                                                                        alert("Error:Image not saved");
+                                                                    }
+
+                                                                },
+                                                                error: function (error) {
+                                                                    var obj = JSON.stringify(error);
+                                                                    alert(obj);
+                                                                    console.log(error.responseText);
+                                                                }
+                                                            });
+                                                        });
+                                                    });
+                                                </script>
+
+        <script>
+
+            $(document).ready(function () {
+                var PlanId;
+
+                $('#addWorkout').click(function () {
+                    var i = $("#AddworkoutContainer select").length;
+                    $("#AddworkoutContainer").append('<div class="form-group col-md-2"><label>Workout</label><div class="input-group"><input type="Text" class="form-control"  id="txtworkout' + i + '"></div>');
+                    $("#AddworkoutContainer").append('<div class="form-group col-md-2"><label>Sets</label><div class="input-group"><input type="Text" class="form-control" id="txtsets' + i + '"/><div class="input-group-btn"><button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">Sets <span class="caret"></span></button><ul class="dropdown-menu pull-right"><li><a href="#">Sets</a></li><li><a href="#">Minutes</a></li></ul></div></div></div>');
+                    $("#AddworkoutContainer").append('<div class="form-group col-md-2"><label>Repeats</label><input type="Text" class="form-control" id="txtRepeats' + i + '"/></div>');
+                    $("#AddworkoutContainer").append('<div class="form-group col-md-2"><label>Days</label><select  class="form-control" id="txtdays' + i + '"><option>Mon-Tue-Wed-Thu-Fri-Sat</option><option>Mon-Wed-Fri</option><option>Mon-Wed</option><option>Mon-Thu</option><option>Mon</option><option>Wed</option><option>Fri</option><option>Tue-Thu-Sat</option><option>Tue-Fri</option><option>Wed-Sat</option><option>Tue</option><option>Thu</option><option>Sat</option><option>Sun</option></div>');
+                    $("#AddworkoutContainer").append('<div class="form-group col-md-2"><label>Exercise Order</label><input type="Text" class="form-control" id="txtExcercise' + i + '"/></div>');
+                    $("#AddworkoutContainer").append('<div class="form-group col-md-2"><label>Delete</label><span class="form-control" style="border-style: none;"> <a ><i class="fa fa-remove" aria-hidden="true"></i></a></span></div>');
+                    i++;
+                });
+
+                $("#txtWorkoutPlanName").change(
+                    function () {
+                        PlanId = $("#txtWorkoutPlanName option:selected").val();
+
+                        $.ajax({
+                            url: "@Url.Action("BindWorkoutPlan")",
+                            data: {palnid:PlanId},
+                        type: "GET",
+                        dataType: "json",
+                        success: function (data) {
+                            $('#AddworkoutContainer').empty();
+
+                            $.each(data, function (i, item) {
+                                $("#AddworkoutContainer").append('<div class="form-group col-md-2" style="display:none;"><label>WorkoutId</label><div class="input-group"><input type="Text" class="form-control"  id="txtplanenameid' + i + '"></div>');
+                                $("#AddworkoutContainer").append('<div class="form-group col-md-2" style="display:none;"><label>WorkoutId</label><div class="input-group"><input type="Text" class="form-control"  id="txtplaneid' + i + '"></div>');
+                                $("#AddworkoutContainer").append('<div class="form-group col-md-2"><label>Workout</label><div class="input-group"><input type="Text" class="form-control"  id="txtworkout' + i + '"></div>');
+                                $("#AddworkoutContainer").append('<div class="form-group col-md-2"><label>Sets</label><div class="input-group"><input type="Text" class="form-control" id="txtsets' + i + '"/><div class="input-group-btn"><button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">Sets <span class="caret"></span></button><ul class="dropdown-menu pull-right"><li><a href="#">Sets</a></li><li><a href="#">Minutes</a></li></ul></div></div></div>');
+                                $("#AddworkoutContainer").append('<div class="form-group col-md-2"><label>Repeats</label><input type="Text" class="form-control" id="txtRepeats' + i + '"/></div>');
+                                $("#AddworkoutContainer").append('<div class="form-group col-md-2"><label>Days</label><select  class="form-control" id="txtdays' + i + '"><option>Mon-Tue-Wed-Thu-Fri-Sat</option><option>Mon-Wed-Fri</option><option>Mon-Wed</option><option>Mon-Thu</option><option>Mon</option><option>Wed</option><option>Fri</option><option>Tue-Thu-Sat</option><option>Tue-Fri</option><option>Wed-Sat</option><option>Tue</option><option>Thu</option><option>Sat</option><option>Sun</option></div>');
+                                $("#AddworkoutContainer").append('<div class="form-group col-md-2"><label>Exercise Order</label><input type="Text" class="form-control" id="txtExcercise' + i + '"/></div>');
+                                $("#AddworkoutContainer").append('<div class="form-group col-md-2"><label>Delete</label><span class="form-control" style="border-style: none;"> <a ><i class="fa fa-remove" aria-hidden="true"></i></a></span></div>');
+
+                                $('#txtplanenameid' + i + '').val(item.PlaneNameId);
+                                $('#txtplaneid' + i + '').val(item.Planid);
+                                $('#txtworkout' + i + '').val(item.Workout);
+                                $('#txtsets' + i + '').val(item.NumberOfSets);
+                                $('#txtRepeats' + i + '').val(item.Repeats);
+                                $('#txtdays' + i + '').val(item.NumberofDays);
+                                $('#txtExcercise' + i + '').val(item.ExcerciseOrder)
+                            })
+                        },
+                        failure: function (errMsg) {
+                            alert(errMsg.responseText);
+                        }
+                    });
+
+
+
+                    });
+
+                $('#btnSaveWorkout').click(function () {
+                    var count = $("#AddworkoutContainer select").length;
+                    var jsonObj = [];
+                    jsonObj.push({ "PlanId":PlanId });
+                    for (i = 0; i <= count; i++)
+                    {
+                        jsonObj.push(
+                            { "Workout": $('#txtworkout' + i + '').val(), "NumberOfSets": $('#txtsets' + i + '').val(), "Repeats": $('#txtRepeats' + i + '').val(), "NumberofDays": $('#txtdays' + i + '').val(), "ExcerciseOrder": $('#txtExcercise' + i + '').val() }
+                            );
+                    }
+                    $.ajax({
+                        cache: false,
+                        type: "POST",
+                        url: "@Url.Action("AddMemberWorkoutPlan")",
+                        dataType: "json",
+                    contentType: "application/json; charset=utf-8",
+                    data: JSON.stringify(jsonObj),
+                    success: function (data) {
+                       // onsuccess();
+                        alert("Data Submitted");
+                    },
+                    failure: function (errMsg) {
+                        alert(errMsg.responseText);
+                    }
+                });
+
+                });
+            });
+
+            $(document).ready(function () {
+                $.ajax({
+                    url: "@Url.Action("GetPlanList")",
+                    data: "",
+                    type: "GET",
+                    dataType: "json",
+                    success: function (data) {
+                        $.each(data, function (i, item) {
+                            $("#txtWorkoutPlanName").append($("<option></option>").val(item.PlaneNameId).html(item.PlanName));
+                        })
+                    },
+                    failure: function (errMsg) {
+                        alert(errMsg.responseText);
+                    }
+            });
+            });
+
+        </script>
+
+        <script>
+            $(document).ready(function () {
+                $('#addNewDiet').click(function () {
+                    var i = $('#tblDietPlan tr').length-1;
+                    var rows = "<tr>"
+                               //+ "<td  style='display:none;'> <input type='Text' class='form-control' id=txtdietid" + i + "></td>"
+                                 + "<td  style='display:none;'> <input type='Text' class='form-control' id=txtdietplanid" + i + "></td>"
+                            + "<td> <input type='Text' class='form-control'  id=txtMealTime" + i + "></td>"
+                             + "<td> <input type='Text' class='form-control'  id=txtMonday" + i + "></td>"
+                              + "<td> <input type='Text' class='form-control'  id=txtTuesday" + i + "></td>"
+                               + "<td> <input type='Text' class='form-control'  id=txtWednesday" + i + "></td>"
+                                + "<td> <input type='Text' class='form-control'  id=txtThursday" + i + "></td>"
+                                 + "<td> <input type='Text' class='form-control'  id=txtFriday" + i + "></td>"
+                                  + "<td> <input type='Text' class='form-control'  id=txtSaturday" + i + "></td>"
+                                   + "<td> <input type='Text' class='form-control'  id=txtSunday" + i + "></td>"
+                        + "</tr>";
+                    $('#tblDietPlan tbody').append(rows);
+                });
+
+
+                $('#btnSaveDiet').click(function () {
+                    var rowCount = $('#tblDietPlan tr').length;
+
+                    var jsonObj = [];
+                    jsonObj.push({ "DietPlanName1": $('#txtDietPlanName').val() });
+                    for (i = 0; i <= rowCount; i++) {
+                        jsonObj.push(
+                           {"DietPlanId": $('#txtdietplanid' + i + '').val(), "MealTime1": $('#txtMealTime' + i + '').val(), "MondayDiet": $('#txtMonday' + i + '').val(), "TuesdayDiet": $('#txtTuesday' + i + '').val(), "WednesdayDiet": $('#txtWednesday' + i + '').val(), "ThursdayDiet": $('#txtThursday' + i + '').val(), "FridayDiet": $('#txtFriday' + i + '').val(), "SaturdayDiet": $('#txtSaturday' + i + '').val(), "SundayDiet": $('#txtSunday' + i + '').val() }
+                           );
+                    }
+                    $.ajax({
+                        cache: false,
+                        type: "POST",
+                        url: "@Url.Action("AddMemberDietPlan")",
+                        dataType: "json",
+                    contentType: "application/json; charset=utf-8",
+                    data: JSON.stringify(jsonObj),
+                    success: function (data) {
+                        alert("Data Submitted");
+                    },
+                    failure: function (errMsg) {
+                        alert(errMsg.responseText);
+                    }
+                });
+
+
+
+                });
+            });
+
+        </script>
+
+
+        <script src="~/Theme/js/jquery.webcam.js"></script>
+        <script type="text/javascript">
+            $(function () {
+                jQuery("#webcam").webcam({
+                    width: 320,
+                    height: 240,
+                    mode: "save",
+                    swffile: '/Theme/js/jscam.swf',
+                    debug: function (type, status) {
+                        $('#camStatus').append(type + ": " + status + '<br /><br />');
+                    },
+                    onSave: function (data, ab) {
+                        $.ajax({
+                            type: "POST",
+                            url: '/MemberShip/UploadImage',
+                            data: '',
+                            contentType: "application/json; charset=utf-8",
+                            dataType: "text",
+                            success: function (r) {
+                                $("#imgCapture").css("visibility", "visible");
+                                $("#imgCapture").attr("src", r);
+                            },
+                            failure: function (response) {
+                                alert(response.d);
+                            }
+                        });
+                    },
+                    onCapture: function () {
+                        webcam.save('/MemberShip/UploadImage');
+                    }
+                });
+            });
+
+            function Capture() {
+                webcam.capture();
+            }
+        </script>*@
+
+
+    @*<script type="text/javascript">
+
+            $("#webcam").webcam({
+                width: 320,
+                height: 240,
+                mode: "save",
+                swffile: "@Url.Content("~/Theme/js/jscam.swf")",
+            onTick: function () { },
+            onSave: function (data, ab) {
+
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("Capture")',
+                    data: '',
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "text",
+                    success: function (r) {
+                        $("#imgCapture").css("visibility", "visible");
+                        $("#imgCapture").attr("src", r);
+                    },
+                    failure: function (response) {
+                        alert(response.d);
+                    }
+                });
+            },
+            onCapture: function () {
+                webcam.save("@Url.Content("~/Home/Capture")/");
+            },
+            debug: function () { },
+            onLoad: function () { }
+        });
+
+
+
+        @*$(document).ready(function () {
+            // Your code here
+            $(function () {
+                jQuery("#webcam").webcam({
+                    width: 320,
+                    height: 240,
+                    mode: "save",
+                    swffile: "@Url.Content("~/Theme/js/jscam.swf")",
+                onTick: function () { },
+                onSave: function () {
+                },
+                debug: function (type, status) {
+                    $('#camStatus').append(type + ": " + status + '<br /><br />');
+                },
+                debug: function () { },
+                onLoad: function () { },
+                onSave: function (data, ab) {
+                    $.ajax({
+                        type: "POST",
+                        url: '/Home/GetCapture',
+                        data: '',
+                        contentType: "application/json; charset=utf-8",
+                        dataType: "text",
+                        success: function (r) {
+                            $("#imgCapture").css("visibility", "visible");
+                            $("#imgCapture").attr("src", r);
+                        },
+                        failure: function (response) {
+                            alert(response.d);
+                        }
+                    });
+                },
+                onCapture: function () {
+                    webcam.save('/Home/Capture');
+                }
+            });
+        });
+
+        });*@
+
+
+
+    @*function Capture() {
+                webcam.capture();
+            }
+        </script>*@
+

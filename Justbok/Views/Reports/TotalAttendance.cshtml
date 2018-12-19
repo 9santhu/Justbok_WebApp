@@ -1,0 +1,76 @@
+﻿@{
+    ViewBag.Title = "TotalAttendance";
+}
+<section class="content-header ng-scope">
+    <h1>
+       Total Attendence
+        <div class="pull-right">
+            <a onclick="return LoadPage('@Url.Action("Index", "Reports")','Justbok | Reports Membership');" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-arrow-left"></i> Reports</a><br><br>
+        </div>
+    </h1>
+</section>
+
+<section class="content container-fluid">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Transfered Membership Report</h3>
+                </div><!-- /.box-header -->
+                <div class="box-body">
+                    <div id="example1_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
+
+                        <div class="dataTables_length">
+                            <label>
+                                Show
+                                <select id="tblTotalAttendence_length" name="tblTotalAttendence_length"
+                                        aria-controls="tblTransferredList" class="form-control input-sm"
+                                        onchange="return ShowChange();">
+                                    <option value="10">10</option>
+                                    <option value="25">25</option>
+                                    <option value="50">50</option>
+                                    <option value="100">100</option>
+                                </select> entries
+                            </label>
+                        </div>
+
+                        <div class="col-sm-12 table-responsive">
+                            <table id="tblTotalAttendance" class="table table-bordered table-striped dataTable" role="grid" aria-describedby="example1_info">
+
+                                <thead>
+                                    <tr role="row">
+
+                                        <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 282.583px;" aria-label="Browser: activate to sort column ascending">Date</th>
+                                        <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 143.717px;" aria-label="CSS grade: activate to sort column ascending">Present Staff</th>
+                                        <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 282.583px;" aria-label="Browser: activate to sort column ascending">Present Member</th>
+
+                                </thead>
+                                <tbody></tbody>
+                                <tfoot>
+
+                            </table>
+                            <div class="dataTables_paginate paging_simple_numbers" id="tblTotalAttendance_paginate">
+                                <ul id="pagination" class="pagination"></ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+<script src="~/Scripts/Navigation.js?v=1.2"></script>
+    <script>
+
+        var TotalAttendenceReportUrl = '@Url.Action("ListTotalAttendance", "Reports")';
+    </script>
+<script src="~/Content/Reports/Rpts_TotalAttendence.js"></script>
+}
+
+<script src="~/Scripts/Navigation.js?v=1.2"></script>
+<script>
+ var TotalAttendenceReportUrl = '@Url.Action("ListTotalAttendance", "Reports")';
+</script>
+<script src="~/Content/Reports/Rpts_TotalAttendence.js"></script>

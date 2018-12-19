@@ -1,0 +1,220 @@
+﻿@model Justbok.Models.EnquiryViewModel
+
+@{
+    ViewBag.Title = "Edit Enquiry Details";
+}
+<style>
+    .required {
+        color: #e02222;
+        font-size: 14px;
+        padding-left: 2px;
+    }
+</style>
+
+
+<section class="content container-fluid">
+    <div class="pull-right">
+        <a onclick="return LoadPage('@Url.Action("EnquiryList", "Enquiry")','Justbok | Enquiry List');" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-arrow-left"></i> Enquiry List</a><br><br>
+    </div>
+    <div class="col-xs-12">
+        <div class="box">
+            <div class="box-header">
+                <h3 class="box-title">Enquiry</h3><hr />
+                <div class="col-md-12 text-left">
+                    <h5>
+                        <a id="lnkEditFollowup" class="link" style="display: inline;" onclick="window.history.go(-1); return false;"> Edit FollowUp</a>
+                    </h5>
+                </div>
+                <div class="col-md-12">
+                    @*<h5>Member basic info</h5><hr>*@
+                    @*@using (Html.BeginForm())
+                    {*@
+                         <div class="form-group col-md-4" style="display:none;">
+                            <label for="exampleInputEmail1">Enquiry Id</label>
+                            @Html.TextBoxFor(model => model.EnquiryId, new { @class = "form-control", placeholder = "First Name",id="txtEnquiryId" })
+                            @Html.ValidationMessageFor(model => model.EnquiryId)
+                        </div>
+                        
+                        
+                        <div class="form-group col-md-4">
+                            <label for="exampleInputEmail1">First Name</label><span class="required" aria-required="true"> * </span>
+                            @Html.TextBoxFor(model => model.FirstName, new { @class = "form-control", placeholder = "First Name", id = "txtFirstName" })
+                            @Html.ValidationMessageFor(model => model.FirstName)
+                        </div>
+
+                        <div class="form-group col-md-4">
+                            <label for="exampleInputEmail1">Last Name</label><span class="required" aria-required="true"> * </span>
+                            @Html.TextBoxFor(model => model.LastName, new { @class = "form-control", placeholder = "Last Name", id = "txtLastName" })
+                            @Html.ValidationMessageFor(model => model.LastName)
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="exampleInputEmail1">Mobile Number</label><span class="required" aria-required="true"> * </span>
+                            @Html.TextBoxFor(model => model.MobileNumber, new { @class = "form-control", placeholder = "Mobile Name", id = "txtMobileNo" })
+                            @Html.ValidationMessageFor(model => model.MobileNumber)
+                        </div>
+
+                        <div class="form-group col-md-4">
+                            <label>Date of Birth :</label>
+
+                            <div class="input-group date">
+                                <div class="input-group-addon">
+                                    <i class="fa fa-calendar"></i>
+                                </div>
+                                @Html.TextBoxFor(model => model.DOB, new { @class = "form-control pull-right", @type = "datetime", id = "txtDob" })
+                             
+                            </div>
+                            <!-- /.input group -->
+                        </div>
+
+                        <div class="form-group col-md-4">
+                            <label>Enquiry Date</label><span class="required" aria-required="true"> * </span>
+
+                            <div class="input-group date">
+                                <div class="input-group-addon">
+                                    <i class="fa fa-calendar"></i>
+                                </div>
+                                @Html.TextBoxFor(model => model.EnquiryDate, new { @class = "form-control pull-right", @type = "datetime", id = "txtEqnuiryDate" })
+                            
+                            </div>
+                            <!-- /.input group -->
+                        </div>
+
+                        <div class="form-group col-md-4">
+                            <label for="exampleInputEmail1">Email</label>
+                            @Html.TextBoxFor(model => model.EmailId, new { @class = "form-control", placeholder = "Email", id = "txtEmail" })
+                            @Html.ValidationMessageFor(model => model.EmailId)
+                        </div>
+
+                        <div class="form-group col-md-4">
+                            <label for="exampleInputEmail1">Phone No. (Resi.)</label>
+                            @Html.TextBoxFor(model => model.PhoneNumberResidence, new { @class = "form-control", placeholder = "Phone(Residence)", id = "txtPhResidence" })
+                            @Html.ValidationMessageFor(model => model.PhoneNumberResidence)
+                        </div>
+
+                        <div class="form-group col-md-4">
+                            <label for="exampleInputEmail1">Phone No. (Office)</label>
+                            @Html.TextBoxFor(model => model.PhoneNumberOffice, new { @class = "form-control", placeholder = "Phone(Office)", id = "txtPhOffice" })
+                            @Html.ValidationMessageFor(model => model.PhoneNumberOffice)
+                        </div>
+
+                        <div class="form-group col-md-4">
+                            <label for="exampleInputEmail1">Gender</label><span class="required" aria-required="true"> * </span>
+                            @Html.DropDownListFor(model => model.Gender, new SelectList(new List<string> { "--Select--", "Male", "Female" }), new { @class = "form-control", placeholder = "Gender", id = "ddlGender" })
+                            @Html.ValidationMessageFor(model => model.Gender)
+                        </div>
+
+                        <div class="form-group col-md-4">
+                            <label for="exampleInputEmail1">Address</label>
+                            @Html.TextAreaFor(model => model.Address, new { @class = "form-control", placeholder = "Address", id = "txtAddress" })
+                            @Html.ValidationMessageFor(model => model.Address)
+                        </div>
+
+                        <div class="form-group col-md-4">
+                            <label for="exampleInputEmail1">Age</label>
+                            @Html.TextBoxFor(model => model.Age, new { @class = "form-control", placeholder = "Age", id = "txtAge" })
+                            @Html.ValidationMessageFor(model => model.Age)
+                        </div>
+
+                        <div class="form-group col-md-4">
+                            <label for="exampleInputEmail1">Intention</label>
+                            @Html.DropDownListFor(model => model.Intention,
+                                                   new SelectList(new List<string> { "--Select--", "Body Shaping", "Weight Loss", "Weight Gain", "Body Building", "Fitness", "Sports Training" }),
+                          new { @class = "form-control", placeholder = "Intention", id = "ddlIntension" })
+                            @Html.ValidationMessageFor(model => model.Intention)
+                        </div>
+
+                        <div class="form-group col-md-4">
+                            <label for="exampleInputEmail1">Program Suggested</label>
+                            @Html.DropDownListFor(model => model.ProgramSuggested, new SelectList(ViewBag.Offers), "- Please select -", new { @class = "form-control", id = "ProgramSuggested" })
+                            @*@Html.DropDownListFor(model => model.ProgramSuggested,
+                                new SelectList(new List<string> { "--Select--", "1 month", "3 months", "premium plus", "PT", "9 month plan", "1 Year" }),
+                                new { @class = "form-control", placeholder = "Program Suggested" })*@
+                            @Html.ValidationMessageFor(model => model.ProgramSuggested)
+                        </div>
+
+                        <div class="form-group col-md-4">
+                            <label for="exampleInputEmail1">Category</label>
+                            @Html.DropDownListFor(model => model.Category, new SelectList(ViewBag.Categoery), "- Please select -", new { @class = "form-control", id = "ddlCategory" })
+                            @Html.ValidationMessageFor(model => model.Category)
+                        </div>
+
+                        <div class="form-group col-md-4">
+                            <label for="exampleInputEmail1">Amount Offered</label>
+                            @Html.TextBoxFor(model => model.AmountOffered, new { @class = "form-control", placeholder = "Amount Offered", id = "txtAmtOffered" })
+                            @Html.ValidationMessageFor(model => model.AmountOffered)
+                        </div>
+
+                        <div class="form-group col-md-4">
+                            <label for="exampleInputEmail1">Trial Offered (Days)</label>
+                            @Html.DropDownListFor(model => model.TrailOffered,
+                        new SelectList(new List<string> { "--Select--", "1", "2", "3", "4", "5", "6", "7" }),
+                          new { @class = "form-control", placeholder = "Trial Offered", id = "ddlTrailOffered" })
+                            @Html.ValidationMessageFor(model => model.TrailOffered)
+                        </div>
+
+                        <div class="form-group col-md-4">
+                            <label>Trail Date :</label>
+
+                            <div class="input-group date">
+                                <div class="input-group-addon">
+                                    <i class="fa fa-calendar"></i>
+                                </div>
+                                @Html.TextBoxFor(model => model.TrailDate, new { @class = "form-control pull-right", @type = "datetime", id = "txtTrailDate" })
+                               
+                            </div>
+                            <!-- /.input group -->
+                        </div>
+
+                        <div class="form-group col-md-4">
+                            <label for="exampleInputEmail1">How did you know about us ?</label>
+                            @Html.DropDownListFor(model => model.HowDidYouKnow,
+                        new SelectList(new List<string> { "--Select--", "Other", "News Paper", "Relatives or friends", "Word of mouth", "Advertisement" }),
+                          new { @class = "form-control", placeholder = "First Name", id = "ddlHowDidKNow" })
+                            @Html.ValidationMessageFor(model => model.HowDidYouKnow)
+                        </div>
+
+                        <div class="form-group col-md-4">
+                            <label for="exampleInputEmail1">Received By</label>
+                            @Html.DropDownListFor(model => model.RecievedBy, new SelectList(ViewBag.Representatvie), "Please select", new { @class = "form-control", placeholder = "Received By", id = "ddlRepresentative" })
+                            @Html.ValidationMessageFor(model => model.RecievedBy)
+                        </div>
+
+                        <div class="form-group col-md-4">
+                            <label for="exampleInputEmail1">Notes</label>
+                            @Html.TextAreaFor(model => model.Notes, new { @class = "form-control", placeholder = "Notes", id = "txtNotes" })
+                            @Html.ValidationMessageFor(model => model.Notes)
+                        </div>
+
+                         <div class="form-group col-md-4">
+                        <h3>Followup Mode</h3>
+                        <label>@Html.CheckBoxFor(model => model.SMS, new {id="chkSMS" }) SMS</label>
+                        <label> @Html.CheckBoxFor(model => model.call, new { id = "chkCall" }) Call</label>
+                        <label> @Html.CheckBoxFor(model => model.Email, new { id = "chkEmail" }) Email</label>
+                    </div>
+
+                        <div class="box-footer">
+                            <button type="submit" class="btn btn-default pull-right">Reset</button>
+                            <button type="submit" class="btn btn-info pull-right" style="margin-right: 10px;" id="btnEditEnquiry">Save</button>
+                        </div>
+                    @*}*@
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+@section Scripts {
+<script src="~/Scripts/Navigation.js?v=1.2"></script>
+    <script>
+        var NewEnquiryFormUrl = '@Url.Action("UpdateEnquiryForm", "Enquiry")';
+    </script>
+<script src="~/Content/Enquiry/EditEnquiryDetails.js"></script>
+}
+<script src="~/Scripts/Navigation.js?v=1.2"></script>
+<script>
+        var NewEnquiryFormUrl = '@Url.Action("UpdateEnquiryForm", "Enquiry")';
+</script>
+<script src="~/Content/Enquiry/EditEnquiryDetails.js"></script>

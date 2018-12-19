@@ -1,0 +1,49 @@
+﻿<div tabindex="-1" class="modal-dialog ajax-upload" style="width:500px;">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button class="close" id="cancel1" aria-hidden="true" type="button" onclick="return HideSubModel();">×</button>
+            <h4 class="modal-title">
+                <strong>
+                    Upload Event Logo
+                </strong>
+            </h4>
+        </div>
+        <div class="modal-body">
+            <div class="row">
+                <div class="col-md-6 fileupload-buttonbar">
+                    <div class="form-group">
+                        <label class="control-label" for="">Upload a File</label>
+                        <span class="btn btn-success fileinput-button">
+                            <i class="glyphicon glyphicon-plus"></i>
+                            <span>Add files...</span>
+                            <input type="file" name="files[]" id="fileupload">
+                        </span>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <div class="fileupload-progress">
+                            <div class="progress progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100" id="progress">
+                                <div class="progress-bar progress-bar-success" style="width:0%;"></div>
+                            </div>
+                            <!-- The extended global progress state -->
+                            <div class="progress-extended">&nbsp;</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-default btn-sm btn-flat" type="button" onclick="return HideSubModel();">
+                <i class="glyphicon glyphicon-remove"></i> Cancel
+            </button>
+        </div>
+    </div>
+</div>
+
+<script src="~/Scripts/Navigation.js?v=1.2"></script>
+<script language="JavaScript">
+    var UploadEventImageUrl = '@Url.Action("UploadEventImage", "Event")';
+    $(document).ready(function () { UploadImage() });
+
+</script>

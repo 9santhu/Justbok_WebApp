@@ -1,0 +1,246 @@
+﻿<section class="content container-fluid" id="container">
+
+    <div class="col-xs-12">
+        <div class="box">
+            <div class="box-header">
+                <h3 class="box-title">Add Branch</h3>
+
+                <div class="col-md-12">
+
+
+                    <div id="messages" class="hide" role="alert" style="height:50px;width:250px;border-radius:5px;float:right;text-align:inherit;">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <div id="messages_content"></div>
+                    </div>
+
+                    <hr>
+
+                    <div class="form-group col-md-6">
+                        <label >Select Gym<span class="required" aria-required="true"> * </span></label>
+                        <input type="text" class="form-control" placeholder="Branch Code" id="txtSelectGym" />
+                        <span ></span>
+                    </div>
+
+                    <div class="form-group col-md-6" style="display:none;">
+                        <label for="exampleInputEmail1">Gym Id</label>
+                        <input type="text" class="form-control" placeholder="Branch Code" id="txtGymId" />
+                    </div>
+
+                    <div class="form-group col-md-6">
+                        <label for="exampleInputEmail1">Branch Code</label>
+                      <input type="text" class="form-control" placeholder="Branch Code"  id="txtBranchCode"/>
+                    </div>
+
+                    <div class="form-group col-md-6">
+                        <label for="exampleInputEmail1">Branch Name</label>
+                        <input type="text" class="form-control" placeholder="Branch Name" id="txtBranchName" />
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="exampleInputEmail1"> Address</label>
+                        <input type="text" class="form-control" placeholder="Branch Address" id="txtBranchAddress" />
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="exampleInputEmail1">Phone Number</label>
+                        <input type="text" class="form-control" placeholder="Phone Number" id="txtBranchPhoneNumber" />
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="exampleInputEmail1">City</label>
+                        <input type="text" class="form-control" placeholder="City" id="txtCity" />
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="exampleInputEmail1">State</label>
+                        <input type="text" class="form-control" placeholder="State" id="txtState" />
+                    </div>
+
+                    <div class="box-footer">
+                        <button type="submit" class="btn btn-default pull-right">Reset</button>
+                        <button type="submit" class="btn btn-info pull-right" style="margin-right: 10px;" id="btnGymBranch">Save</button>
+                    </div>
+
+
+            </div>
+        </div>
+    </div>
+
+</section>
+
+@section Scripts {
+<script src="~/Scripts/Navigation.js?v=1.2"></script>
+    <script>
+        var BindGymListUrl = '@Url.Action("BindGymList", "Branch")';
+        var AddGymBranchUrl = '@Url.Action("AddGymBranch", "Branch")';
+
+        $("#txtSelectGym").autocomplete({
+            source: function (request, response) {
+                $.ajax(
+    {
+        url: '@Url.Action("BindGymList","Branch")',
+        data: { prefix: request.term },
+        dataType: "json",
+        type: "GET",
+        contentType: "application/json; charset=utf-8",
+        success: function (data) {
+            response($.map(data, function (item, id) {
+                return {
+
+                    label: item.GymName,
+                    val: item.GymId
+                }
+            }))
+        },
+        error: function (response) {
+            alert(response.responseText);
+        },
+        failure: function (response) {
+            alert(response.responseText);
+        }
+    });
+            },
+            select: function (e, i) {
+
+                $("#txtGymId").val(i.item.val);
+
+            },
+            //appendTo: null,
+            minLength: 2
+        });
+
+    </script>
+
+    <script src="~/Content/Branch/AddBranch.js"></script>
+}
+<script src="~/Scripts/Navigation.js?v=1.2"></script>
+<script>
+        var BindGymListUrl = '@Url.Action("BindGymList", "Branch")';
+    var AddGymBranchUrl = '@Url.Action("AddGymBranch", "Branch")';
+
+    $("#txtSelectGym").autocomplete({
+        source: function (request, response) {
+            $.ajax(
+{
+    url: '@Url.Action("BindGymList","Branch")',
+    data: { prefix: request.term },
+    dataType: "json",
+    type: "GET",
+    contentType: "application/json; charset=utf-8",
+    success: function (data) {
+        response($.map(data, function (item, id) {
+            return {
+
+                label: item.GymName,
+                val: item.GymId
+            }
+        }))
+    },
+    error: function (response) {
+        alert(response.responseText);
+    },
+    failure: function (response) {
+        alert(response.responseText);
+    }
+});
+        },
+        select: function (e, i) {
+
+            $("#txtGymId").val(i.item.val);
+
+        },
+        //appendTo: null,
+        minLength: 2
+    });
+
+</script>
+
+<script src="~/Content/Branch/AddBranch.js"></script>
+
+
+
+    @*@section Scripts {
+<script>
+   
+
+    $("#txtSelectGym").autocomplete({
+        source: function (request, response) {
+            $.ajax(
+{
+    url: '@Url.Action("BindGymList","Branch")',
+    data: { prefix: request.term },
+    dataType: "json",
+    type: "GET",
+    contentType: "application/json; charset=utf-8",
+    success: function (data) {
+        response($.map(data, function (item, id) {
+            return {
+                
+                label: item.GymName,
+                val: item.GymId
+            }
+        }))
+    },
+    error: function (response) {
+        alert(response.responseText);
+    },
+    failure: function (response) {
+        alert(response.responseText);
+    }
+});
+        },
+        select: function (e, i) {
+           
+            $("#txtGymId").val(i.item.val);
+
+        },
+        //appendTo: null,
+        minLength: 2
+    });*@
+
+
+
+    @*$('#btnGymBranch').click(function ()
+
+    {
+        if (Validate()) {
+
+       
+        var jsonObject = {
+            Branchcode: $('#txtBranchCode').val(), BranchName: $('#txtBranchName').val(), BranchAdress: $('#txtBranchAddress').val(),
+            PhoneNo: $('#txtBranchPhoneNumber').val(),
+            City: $('#txtCity').val(), BranchState: $('#txtState').val(), GymId: $('#txtGymId').val()
+        }
+            
+           $.ajax({
+            cache: false,
+            type: "POST",
+        url: "@Url.Action("AddGymBranch")",
+        dataType: "json",
+        contentType: "application/json; charset=utf-8",
+        data: JSON.stringify(jsonObject),
+        success: function (data) {
+            $('.nav-tabs a[href="#Membership"]').tab('show');
+            alert("Data Saved Successfully");
+        },
+        failure: function (errMsg) {
+            alert(errMsg.responseText);
+        }
+    });
+        }
+
+    });*@
+    @*//function Validate() {
+    //    var IsValid = true;
+    //    if ($('#txtSelectGym').val() == "") {
+    //        $('#txtSelectGym').parent().append(errorSpan.replace(/{{Message}}/g, "Please Enter Expense Amount"));
+    //        $('#txtSelectGym').parent().addClass("has-error");
+    //        IsValid = false;
+    //    }
+    //    else {
+    //        $('#txtSelectGym').parent().removeClass("has-error");
+    //        $('#txtSelectGym').parent().find(".help-block-error").remove();
+    //    }
+    //}
+
+
+
+</script>
+
+}*@

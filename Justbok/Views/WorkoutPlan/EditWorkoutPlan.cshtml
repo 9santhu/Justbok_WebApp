@@ -1,0 +1,175 @@
+﻿
+@model Justbok.Models.WorkoutPlanName
+
+<section class="content container-fluid" id="container">
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <section class="content-header ng-scope">
+        <h1>
+          
+            <div class="pull-right">
+                <a onclick="return LoadPage('@Url.Action("GetWorkoutPlans", "WorkoutPlan")','Justbok | Workout Plans');" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-arrow-left"></i> Workout List</a><br><br>
+            </div>
+        </h1>
+    </section>
+
+    <div class="col-xs-12">
+        <div class="box">
+            <div class="box-header">
+              
+
+                <h3 class="box-title">Edit Workout Plan</h3>
+
+                <div class="col-md-12">
+                    <div id="messages" class="hide" role="alert" style="height:50px;width:250px;border-radius:5px;float:right;text-align:inherit;">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <div id="messages_content"></div>
+                    </div>
+
+                    <hr>
+                    <div class="form-group col-md-12">
+                      
+                        <div class="form-group col-md-6">
+                            <label for="exampleInputEmail1">Name</label>
+                            @*<input type="text" class="form-control" id="txtWorkoutPlanName" />*@
+                            @Html.TextBoxFor(model => model.PlanName, new { @class = "form-control", id = "txtWorkoutPlanName" })
+                                @Html.ValidationMessageFor(model => model.PlanName)
+                        </div>
+                    </div>
+                    <div class="form-group col-md-12">
+                        <div class="form-group col-md-2">
+                            <button type="button" class="btn btn-primary pull-right fa fa-plus" aria-hidden="true" id="addWorkout"> Add Workout</button>
+
+                            @*<a onclick="AddWorkout();" class="btn btn-primary pull-right" href="javascript:void(0);"><i class="fa fa-plus" aria-hidden="true"></i> Add Workout</a>*@
+                        </div>
+
+                    </div>
+
+                    <div class="form-group col-md-12" id="AddworkoutContainer">
+
+
+                    </div>
+
+
+                </div>
+
+                <div class="box-footer">
+                    <button type="submit" class="btn btn-default pull-right" id="btnReset">Reset</button>
+                    <button type="submit" class="btn btn-info pull-right" style="margin-right: 10px;" id="btnSaveWorkout">Save</button>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+
+
+</section>
+
+@section Scripts {
+<script src="~/Scripts/Navigation.js?v=1.2"></script>
+    <script>
+
+        var BindWorkoutPlanUrl = '@Url.Action("BindWorkoutPlan", "WorkoutPlan")';
+        var EditWorkoutPlanUrl = '@Url.Action("EditWorkoutPlan", "WorkoutPlan")';
+        var AutoCompleteUrl = '@Url.Action("GetWorkoutAutoComplete", "WorkoutPlan")';
+        @*var DeleteWorkoutPlantUrl = '@Url.Action("DeleteProduct", "WorkoutPlan")';*@
+    </script>
+   <script src="~/Content/WorkoutPlan/EditWorkoutPlan.js"></script>
+}
+<script src="~/Scripts/Navigation.js?v=1.2"></script>
+<script>
+
+        var BindWorkoutPlanUrl = '@Url.Action("BindWorkoutPlan", "WorkoutPlan")';
+    var EditWorkoutPlanUrl = '@Url.Action("EditWorkoutPlan", "WorkoutPlan")';
+    var AutoCompleteUrl = '@Url.Action("GetWorkoutAutoComplete", "WorkoutPlan")';
+        @*var DeleteWorkoutPlantUrl = '@Url.Action("DeleteProduct", "WorkoutPlan")';*@
+</script>
+<script src="~/Content/WorkoutPlan/EditWorkoutPlan.js"></script>
+
+@*<script src="~/Theme/js/jquery.min.js"></script>*@
+
+@*<script>
+
+    $(document).ready(function () {
+
+
+        $('#addWorkout').click(function () {
+            var i = $("#AddworkoutContainer select").length;
+            
+            $("#AddworkoutContainer").append('<div class="form-group col-md-2" style="display:none;"><label>WorkoutId</label><div class="input-group"><input type="Text" class="form-control"  id="txtplanenameid' + i + '"></div>');
+            $("#AddworkoutContainer").append('<div class="form-group col-md-2" style="display:none;"><label>WorkoutId</label><div class="input-group"><input type="Text" class="form-control"  id="txtplaneid' + i + '"></div>');
+            $("#AddworkoutContainer").append('<div class="form-group col-md-2"><label>Workout</label><div class="input-group"><input type="Text" class="form-control"  id="txtworkout' + i + '"></div>');
+            $("#AddworkoutContainer").append('<div class="form-group col-md-2"><label>Sets</label><div class="input-group"><input type="Text" class="form-control" id="txtsets' + i + '"/><div class="input-group-btn"><button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">Sets <span class="caret"></span></button><ul class="dropdown-menu pull-right"><li><a href="#">Sets</a></li><li><a href="#">Minutes</a></li></ul></div></div></div>');
+            $("#AddworkoutContainer").append('<div class="form-group col-md-2"><label>Repeats</label><input type="Text" class="form-control" id="txtRepeats' + i + '"/></div>');
+            $("#AddworkoutContainer").append('<div class="form-group col-md-2"><label>Days</label><select  class="form-control" id="txtdays' + i + '"><option>Mon-Tue-Wed-Thu-Fri-Sat</option><option>Mon-Wed-Fri</option><option>Mon-Wed</option><option>Mon-Thu</option><option>Mon</option><option>Wed</option><option>Fri</option><option>Tue-Thu-Sat</option><option>Tue-Fri</option><option>Wed-Sat</option><option>Tue</option><option>Thu</option><option>Sat</option><option>Sun</option></div>');
+            $("#AddworkoutContainer").append('<div class="form-group col-md-2"><label>Exercise Order</label><input type="Text" class="form-control" id="txtExcercise' + i + '"/></div>');
+            $("#AddworkoutContainer").append('<div class="form-group col-md-2"><label>Delete</label><span class="form-control" style="border-style: none;"> <a ><i class="fa fa-remove" aria-hidden="true"></i></a></span></div>');
+            i++;
+        });
+
+        $('#btnSaveWorkout').click(function () {
+            var count = $("#AddworkoutContainer select").length;
+            var jsonObj = [];
+            jsonObj.push({ "PlanName": $('#txtWorkoutPlanName').val() });
+            for (i = 0; i <= count; i++)
+            {
+                jsonObj.push(
+                    { "Planid": $('#txtplaneid' + i + '').val(), "PlaneNameId": $('#txtplanenameid' + i + '').val(), "Workout": $('#txtworkout' + i + '').val(), "NumberOfSets": $('#txtsets' + i + '').val(), "Repeats": $('#txtRepeats' + i + '').val(), "NumberofDays": $('#txtdays' + i + '').val(), "ExcerciseOrder": $('#txtExcercise' + i + '').val() }
+                    );
+            }
+            $.ajax({
+                cache: false,
+                type: "POST",
+                url: "@Url.Action("EditWorkoutPlan")",
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                data: JSON.stringify(jsonObj),
+                success: function (data) {
+                    // onsuccess();
+                    //alert("Data Submitted");
+                },
+                failure: function (errMsg) {
+                    alert(errMsg.responseText);
+                }
+            });
+
+        });
+    });
+
+    $(document).ready(function () {
+        $.ajax({
+            url: "@Url.Action("BindWorkoutPlan")",
+            data: "",
+        type: "GET",
+        dataType: "json",
+        success: function (data) {
+            $('#AddworkoutContainer').empty();
+            $.each(data, function (i, item) {
+                $("#AddworkoutContainer").append('<div class="form-group col-md-2" style="display:none;"><label>WorkoutId</label><div class="input-group"><input type="Text" class="form-control"  id="txtplanenameid' + i + '"></div>');
+                $("#AddworkoutContainer").append('<div class="form-group col-md-2" style="display:none;"><label>WorkoutId</label><div class="input-group"><input type="Text" class="form-control"  id="txtplaneid' + i + '"></div>');
+                $("#AddworkoutContainer").append('<div class="form-group col-md-2"><label>Workout</label><div class="input-group"><input type="Text" class="form-control"  id="txtworkout' + i + '"></div>');
+                $("#AddworkoutContainer").append('<div class="form-group col-md-2"><label>Sets</label><div class="input-group"><input type="Text" class="form-control" id="txtsets' + i + '"/><div class="input-group-btn"><button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">Sets <span class="caret"></span></button><ul class="dropdown-menu pull-right"><li><a href="#">Sets</a></li><li><a href="#">Minutes</a></li></ul></div></div></div>');
+                $("#AddworkoutContainer").append('<div class="form-group col-md-2"><label>Repeats</label><input type="Text" class="form-control" id="txtRepeats' + i + '"/></div>');
+                $("#AddworkoutContainer").append('<div class="form-group col-md-2"><label>Days</label><select  class="form-control" id="txtdays' + i + '"><option>Mon-Tue-Wed-Thu-Fri-Sat</option><option>Mon-Wed-Fri</option><option>Mon-Wed</option><option>Mon-Thu</option><option>Mon</option><option>Wed</option><option>Fri</option><option>Tue-Thu-Sat</option><option>Tue-Fri</option><option>Wed-Sat</option><option>Tue</option><option>Thu</option><option>Sat</option><option>Sun</option></div>');
+                $("#AddworkoutContainer").append('<div class="form-group col-md-2"><label>Exercise Order</label><input type="Text" class="form-control" id="txtExcercise' + i + '"/></div>');
+                $("#AddworkoutContainer").append('<div class="form-group col-md-2"><label>Delete</label><span class="form-control" style="border-style: none;"> <a ><i class="fa fa-remove" aria-hidden="true"></i></a></span></div>');
+
+                $('#txtplanenameid' + i + '').val(item.PlaneNameId);
+                $('#txtplaneid' + i + '').val(item.Planid);
+                $('#txtworkout' + i + '').val(item.Workout);
+                $('#txtsets' + i + '').val(item.NumberOfSets);
+                $('#txtRepeats' + i + '').val(item.Repeats);
+                $('#txtdays' + i + '').val(item.NumberofDays);
+                $('#txtExcercise' + i + '').val(item.ExcerciseOrder)
+            })
+        },
+        failure: function (errMsg) {
+            alert(errMsg.responseText);
+        }
+    });
+
+    });
+
+</script>*@

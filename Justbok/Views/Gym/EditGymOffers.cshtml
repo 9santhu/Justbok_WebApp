@@ -1,0 +1,65 @@
+﻿@model Justbok.Models.GymAllPackage
+@{
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+
+}
+<section class="content container-fluid" id="container">
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true)
+
+         <div class="col-xs-12">
+            <div class="box">
+                <div class="box-header">
+                    <h3 class="box-title">Add Offers</h3>
+
+                    <div class="col-md-12">
+
+                        @*<div class="alert alert-success" role="alert" id="isSucess" style="display:none; float:right;height:50px; width:200px;text-align:center">Data saved successfully!!</div>*@
+
+                        <div id="messages" class="hide" role="alert" style="height:50px;width:250px;border-radius:5px;float:right;text-align:inherit;">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <div id="messages_content"></div>
+                        </div>
+
+                        <hr>
+                        <div class="form-group col-md-6" style="display:none;">
+                            <label for="exampleInputEmail1">Package</label>
+                            @Html.TextBoxFor(model => model.Package, new { @class = "form-control", id = "txtPackage", placeholder = "Package" })
+                            @Html.ValidationMessageFor(model => model.Package)
+                        </div>
+
+
+                        <div class="form-group col-md-6">
+                            <label for="exampleInputEmail1">Amount</label>
+                            @Html.TextBoxFor(model => model.Amount, new { @class = "form-control", id = "txtAmount", placeholder = "Amount" })
+                            @Html.ValidationMessageFor(model => model.Amount)
+                        </div>
+
+                        <div class="form-group col-md-6">
+                            <label for="exampleInputEmail1">Months</label>
+                            @Html.TextBoxFor(model => model.Months, new { @class = "form-control", placeholder = "Months", id = "txtMonths" })
+                        </div>
+
+
+                        <div class="form-group col-md-6">
+                            <label for="exampleInputEmail1">Package Name</label>
+                            @Html.TextBoxFor(model => model.OfferName, new { @class = "form-control", placeholder = "Package Name", id = "txtPackage" })
+                        </div>
+
+                    </div>
+
+                    <div class="box-footer">
+                        <button type="submit" class="btn btn-default pull-right">Reset</button>
+                        <button type="submit" class="btn btn-info pull-right" style="margin-right: 10px;" id="btnSaveMember">Save</button>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    }
+
+</section>

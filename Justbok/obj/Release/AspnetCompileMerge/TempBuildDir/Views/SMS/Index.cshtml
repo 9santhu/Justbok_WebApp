@@ -1,0 +1,327 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+
+<div class="" style="">
+    <section class="content-header ng-scope">
+        <h1>SMS</h1>
+        <div class="pull-right">
+            <span ng-show="PromotionalBalance != undefined &amp;&amp; PromotionalBalance != ''" style="padding-right:10px" class="ng-hide"> <label class="ng-binding">Promotional Balance : </label> </span>
+            <span ng-show="TransactionalBalance != undefined &amp;&amp; TransactionalBalance != ''" class="ng-hide"> <label class="ng-binding">Transactional  Balance : </label> </span>
+        </div>
+    </section>
+    <section class="content ng-scope">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-xs-12">
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <ul class="nav nav-tabs">
+                            <li class="active"><a data-target="#tab1primary" data-toggle="tab" aria-expanded="true">Inside Contacts</a></li>
+                            <li class=""><a id="lnkOutSideContact" data-target="#tab2primary" data-toggle="tab" aria-expanded="false">Outside Contacts</a></li>
+                        </ul>
+                    </div>
+                    <div class="box-body">
+                        <div class="tab-content mypanel">
+                            <div class="tab-pane fade active in" id="tab1primary">
+                                <div class="table-responsive">
+                                    <div class="btn-group">
+                                        <button data-toggle="dropdown" class="btn btn-default btn-flat dropdown-toggle btnMembers">All Members <span class="caret"></span></button>
+                                        <ul class="dropdown-menu results" >
+                                            <li class='AllMembers'>
+                                                <input id="ex1_1" name="ex1" value="1" checked="" type="radio">
+                                                <label for="ex1_1">All Members</label>
+                                            </li>
+                                            <li class='DueMembership'>
+                                                <input id="ex1_2" name="ex1" value="2" type="radio">
+                                                <label for="ex1_2">Due Membership</label>
+                                            </li>
+                                            <li class='ExpiredMembership'>
+                                                <input id="ex1_3" name="ex1" value="3" type="radio">
+                                                <label for="ex1_3">Expired Membership</label>
+                                            </li>
+                                            <li class='AllEnquiry'>
+                                                <input id="ex1_4" name="ex1" value="4" type="radio">
+                                                <label for="ex1_4">All Enquiry</label>
+                                            </li>
+                                            <li class='PaymentDue'>
+                                                <input id="ex1_5" name="ex1" value="5" type="radio">
+                                                <label for="ex1_5">Payment Due</label>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="clearfix"><br></div>
+
+                                    <div class="row" style="display:none;" id="divDates">
+                                        <div class="col-md-2">
+                                            <div class="form-group">
+                                                <label>From Date</label>
+                                                <input class="form-control input-sm" id="txtFromDate" type="datetime">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <div class="form-group">
+                                                <label>To Date</label>
+                                                <input class="form-control input-sm" id="txtToDate" type="datetime">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2 ">
+                                            <div class="form-group" style="margin-top:25px;">
+                                                <button type="button" id="btnSearch" class="btn btn-sm btn-primary btn-flat" title="Search">
+                                                    <i class="glyphicon glyphicon-search"></i> Search
+                                                </button>
+                                                <button type="button" id="btnReset" class="btn btn-default btn-sm btn-flat" title="Reset">
+                                                    <i class="glyphicon glyphicon-refresh"></i> Reset
+                                                </button>
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+                                    <div class="clearfix"><br></div>
+                                    <div class="row" id="divAllMembers">
+                                        <div class="col-lg-12">
+                                            <div class="row" style="padding-bottom:10px;">
+                                                <div class="col-lg-7">
+                                                    <textarea id="txtAllMemMessage"  rows="3" cols="100" maxlength="160"  style=""></textarea>
+                                                    <span> Only 160 characters are allowed. </span>
+                                                    <!--<span id="allmemmaxlength" style="color:red;"></span>-->
+                                                </div>
+                                                <div class="col-lg-4" ng-show="ManagerViewOnly=='false'">
+                                                    <button type="button" id="btnSendAllMem" class="btn btn-primary btn-sm btn-flat" ng-click="SendAllMem()"><i class="fa fa-paper-plane-o"></i> Send Message </button>
+                                                    <br>
+                                                    <br>
+                                                    <span id="countTextArea"> Character: 0</span>
+                                                </div>
+                                            </div>
+                                            @*<div class="row">
+                                                <div class="col-lg-12">
+                                                    <div class="table-responsive">
+                                                        <div id="tblAllMembers_wrapper" class="dataTables_wrapper form-inline dt-bootstrap no-footer"><div class="DTTT_container"></div><div class="clear"></div><div class="dataTables_length" id="tblAllMembers_length"><label>Show <select name="tblAllMembers_length" aria-controls="tblAllMembers" class="form-control input-sm"><option value="100">100</option><option value="150">150</option><option value="200">200</option><option value="-1">All</option></select> entries</label></div><table class="table table-bordered dataTable no-footer" id="tblAllMembers" role="grid" aria-describedby="tblAllMembers_info" style="width: 1124px;"><thead><tr role="row"><th class="sorting_disabled" rowspan="1" colspan="1" style="width: 25px;"><input onclick="chkmem(this)" type="checkbox"></th><th class="sorting_disabled" rowspan="1" colspan="1" style="width: 190px;">Member Name</th><th class="sorting_disabled" rowspan="1" colspan="1" style="width: 223px;">Email</th><th class="sorting_disabled" rowspan="1" colspan="1" style="width: 386px;">Address</th><th class="sorting_disabled" rowspan="1" colspan="1" style="width: 100px;">PhoneNo</th></tr></thead><tbody><tr role="row" class="odd"><td><input class="chkallmem" value="969696969" type="checkbox"></td><td>abc a</td><td></td><td></td><td>969696969</td></tr><tr role="row" class="even"><td><input class="chkallmem" value="9696969696" type="checkbox"></td><td>xyz z</td><td></td><td></td><td>9696969696</td></tr><tr role="row" class="odd"><td><input class="chkallmem" value="12345688" type="checkbox"></td><td>Tetr Trtrtry</td><td></td><td></td><td>12345688</td></tr><tr role="row" class="even"><td><input class="chkallmem" value="898889898" type="checkbox"></td><td>bhvQ DDGDG</td><td></td><td></td><td>898889898</td></tr><tr role="row" class="odd"><td><input class="chkallmem" value="9377692145" type="checkbox"></td><td>Dharmesh Kubavat121212</td><td></td><td>#101 star mansion bandra mumbai maharastra india</td><td>9377692145</td></tr><tr role="row" class="even"><td><input class="chkallmem" value="9974629531" type="checkbox"></td><td>milan sailor</td><td></td><td></td><td>9974629531</td></tr><tr role="row" class="odd"><td><input class="chkallmem" value="8999999999" type="checkbox"></td><td>Suresh Test</td><td></td><td></td><td>8999999999</td></tr><tr role="row" class="even"><td><input class="chkallmem" value="asa" type="checkbox"></td><td>as asa</td><td></td><td></td><td>asa</td></tr><tr role="row" class="odd"><td><input class="chkallmem" value="9632587410" type="checkbox"></td><td>N B</td><td>nidhi.bhimani@scrumbees.com</td><td>tkhrtiri</td><td>9632587410</td></tr><tr role="row" class="even"><td><input class="chkallmem" value="9874563210" type="checkbox"></td><td>Jinal Patel</td><td>jinal.patel@scrumbees.com</td><td>hjferuyewrtuy</td><td>9874563210</td></tr><tr role="row" class="odd"><td><input class="chkallmem" value="8521479630" type="checkbox"></td><td>xyz s</td><td></td><td></td><td>8521479630</td></tr><tr role="row" class="even"><td><input class="chkallmem" value="9064654789" type="checkbox"></td><td>test test</td><td></td><td></td><td>9064654789</td></tr><tr role="row" class="odd"><td><input class="chkallmem" value="9694782838" type="checkbox"></td><td>demo demo1</td><td>abi67852@gmail.com</td><td>Mumbai</td><td>9694782838</td></tr><tr role="row" class="even"><td><input class="chkallmem" value="" type="checkbox"></td><td>shh ssjs</td><td></td><td></td><td></td></tr><tr role="row" class="odd"><td><input class="chkallmem" value="8521479630" type="checkbox"></td><td>dedwe fder</td><td></td><td></td><td>8521479630</td></tr><tr role="row" class="even"><td><input class="chkallmem" value="9724022581" type="checkbox"></td><td>Abc Abc</td><td></td><td>fnbrefuiewbru</td><td>9724022581</td></tr><tr role="row" class="odd"><td><input class="chkallmem" value="null" type="checkbox"></td><td>pankaj savaliya</td><td></td><td></td><td></td></tr><tr role="row" class="even"><td><input class="chkallmem" value="23452346346" type="checkbox"></td><td>dfrgb dfbnerk</td><td></td><td></td><td>23452346346</td></tr><tr role="row" class="odd"><td><input class="chkallmem" value="null" type="checkbox"></td><td>edgsdr dfyhyrt</td><td></td><td></td><td></td></tr><tr role="row" class="even"><td><input class="chkallmem" value="9408863572" type="checkbox"></td><td>Yami Patel</td><td></td><td></td><td>9408863572</td></tr><tr role="row" class="odd"><td><input class="chkallmem" value="9999998888" type="checkbox"></td><td>Pratik Pawar</td><td></td><td></td><td>9999998888</td></tr><tr role="row" class="even"><td><input class="chkallmem" value="null" type="checkbox"></td><td>Tegrtry Fegetrg</td><td></td><td></td><td></td></tr><tr role="row" class="odd"><td><input class="chkallmem" value="null" type="checkbox"></td><td>dhruv shah</td><td></td><td></td><td></td></tr><tr role="row" class="even"><td><input class="chkallmem" value="null" type="checkbox"></td><td>ankita shah</td><td></td><td></td><td></td></tr><tr role="row" class="odd"><td><input class="chkallmem" value="null" type="checkbox"></td><td>akita shah</td><td></td><td></td><td></td></tr><tr role="row" class="even"><td><input class="chkallmem" value="1234567" type="checkbox"></td><td>gmtown gymtown</td><td></td><td></td><td>1234567</td></tr><tr role="row" class="odd"><td><input class="chkallmem" value="null" type="checkbox"></td><td>xcc zxc</td><td></td><td></td><td></td></tr><tr role="row" class="even"><td><input class="chkallmem" value="null" type="checkbox"></td><td>wedbw sdcbwd</td><td></td><td></td><td></td></tr><tr role="row" class="odd"><td><input class="chkallmem" value="null" type="checkbox"></td><td>ejnfei kdcni</td><td></td><td></td><td></td></tr><tr role="row" class="even"><td><input class="chkallmem" value="5454464546" type="checkbox"></td><td>vhjhvj vm</td><td></td><td></td><td>5454464546</td></tr><tr role="row" class="odd"><td><input class="chkallmem" value="null" type="checkbox"></td><td>ewfef dwefew</td><td></td><td></td><td></td></tr><tr role="row" class="even"><td><input class="chkallmem" value="null" type="checkbox"></td><td>sefreg dfgd</td><td></td><td></td><td></td></tr><tr role="row" class="odd"><td><input class="chkallmem" value="null" type="checkbox"></td><td>Dharmesh kubavat</td><td></td><td></td><td></td></tr><tr role="row" class="even"><td><input class="chkallmem" value="null" type="checkbox"></td><td>efbeu jhbdcfed</td><td></td><td></td><td></td></tr><tr role="row" class="odd"><td><input class="chkallmem" value="null" type="checkbox"></td><td>FGR KJGERKL</td><td></td><td></td><td></td></tr><tr role="row" class="even"><td><input class="chkallmem" value="null" type="checkbox"></td><td>trhjtyfrjty thtrfhj</td><td>y@gmail.com</td><td></td><td></td></tr><tr role="row" class="odd"><td><input class="chkallmem" value="null" type="checkbox"></td><td>hhhhhhhh ssssssss</td><td></td><td></td><td></td></tr><tr role="row" class="even"><td><input class="chkallmem" value="null" type="checkbox"></td><td>jdbfierfbie dofner</td><td></td><td></td><td></td></tr><tr role="row" class="odd"><td><input class="chkallmem" value="null" type="checkbox"></td><td>efkjerj ijebfier</td><td></td><td></td><td></td></tr><tr role="row" class="even"><td><input class="chkallmem" value="8140557006" type="checkbox"></td><td>jignesh Patel</td><td>rikin@student.aau.in</td><td>Anand</td><td>8140557006</td></tr><tr role="row" class="odd"><td><input class="chkallmem" value="null" type="checkbox"></td><td>Albert Kohol</td><td></td><td></td><td></td></tr><tr role="row" class="even"><td><input class="chkallmem" value="122323214" type="checkbox"></td><td>ishan patel</td><td></td><td>Ahmedabad</td><td>122323214</td></tr><tr role="row" class="odd"><td><input class="chkallmem" value="34785934875" type="checkbox"></td><td>Dharmesh Kubavat</td><td></td><td></td><td>34785934875</td></tr><tr role="row" class="even"><td><input class="chkallmem" value="123456781" type="checkbox"></td><td>rahul shah</td><td></td><td></td><td>123456781</td></tr><tr role="row" class="odd"><td><input class="chkallmem" value="null" type="checkbox"></td><td>rahul shah</td><td></td><td></td><td></td></tr><tr role="row" class="even"><td><input class="chkallmem" value="2786785364." type="checkbox"></td><td>shreya gamit</td><td></td><td></td><td>2786785364.</td></tr><tr role="row" class="odd"><td><input class="chkallmem" value="126584165" type="checkbox"></td><td>himansi shah</td><td></td><td></td><td>126584165</td></tr><tr role="row" class="even"><td><input class="chkallmem" value="684651315" type="checkbox"></td><td>himansi shah</td><td></td><td></td><td>684651315</td></tr><tr role="row" class="odd"><td><input class="chkallmem" value="7585488/" type="checkbox"></td><td>Ak Tiwari</td><td>aktiwari@yahoo.com</td><td>Koh-e-fiza Bhopal</td><td>7585488/</td></tr><tr role="row" class="even"><td><input class="chkallmem" value="null" type="checkbox"></td><td>shreya gamit</td><td></td><td></td><td></td></tr><tr role="row" class="odd"><td><input class="chkallmem" value="null" type="checkbox"></td><td>jhgujhgu kjhhui</td><td></td><td></td><td></td></tr><tr role="row" class="even"><td><input class="chkallmem" value="null" type="checkbox"></td><td>kjgbkrtj klgnbkth</td><td></td><td></td><td></td></tr><tr role="row" class="odd"><td><input class="chkallmem" value="null" type="checkbox"></td><td>Jiga Joshi</td><td></td><td></td><td></td></tr><tr role="row" class="even"><td><input class="chkallmem" value="null" type="checkbox"></td><td>tyg6t hbyg</td><td></td><td></td><td></td></tr><tr role="row" class="odd"><td><input class="chkallmem" value="null" type="checkbox"></td><td>uhuu iunuhnu</td><td></td><td></td><td></td></tr><tr role="row" class="even"><td><input class="chkallmem" value="null" type="checkbox"></td><td>guygu hgchg</td><td></td><td></td><td></td></tr><tr role="row" class="odd"><td><input class="chkallmem" value="5252552" type="checkbox"></td><td>3232 007</td><td></td><td>klklk</td><td>5252552</td></tr><tr role="row" class="even"><td><input class="chkallmem" value="null" type="checkbox"></td><td>wrte ryrtyr</td><td></td><td></td><td></td></tr><tr role="row" class="odd"><td><input class="chkallmem" value="null" type="checkbox"></td><td>jfnwi idufeir</td><td></td><td></td><td></td></tr><tr role="row" class="even"><td><input class="chkallmem" value="null" type="checkbox"></td><td>abcd abcd</td><td></td><td></td><td></td></tr><tr role="row" class="odd"><td><input class="chkallmem" value="null" type="checkbox"></td><td>abcd abc</td><td></td><td></td><td></td></tr><tr role="row" class="even"><td><input class="chkallmem" value="758489798" type="checkbox"></td><td>Kamlesh Mehra</td><td></td><td>c 21 Mall Misrod,Bhopal</td><td>758489798</td></tr><tr role="row" class="odd"><td><input class="chkallmem" value="null" type="checkbox"></td><td>wndijwe neijew</td><td></td><td></td><td></td></tr><tr role="row" class="even"><td><input class="chkallmem" value="null" type="checkbox"></td><td>huhui hiuhiu</td><td></td><td></td><td></td></tr><tr role="row" class="odd"><td><input class="chkallmem" value="null" type="checkbox"></td><td>RFREF FVR</td><td></td><td></td><td></td></tr><tr role="row" class="even"><td><input class="chkallmem" value="null" type="checkbox"></td><td>gerg fregf</td><td></td><td></td><td></td></tr><tr role="row" class="odd"><td><input class="chkallmem" value="null" type="checkbox"></td><td>Mayank Patel</td><td></td><td></td><td></td></tr><tr role="row" class="even"><td><input class="chkallmem" value="8340985093" type="checkbox"></td><td>Sudhansu Pattnaik</td><td></td><td></td><td>8340985093</td></tr><tr role="row" class="odd"><td><input class="chkallmem" value="null" type="checkbox"></td><td>3232 007</td><td></td><td></td><td></td></tr><tr role="row" class="even"><td><input class="chkallmem" value="null" type="checkbox"></td><td>d 07</td><td></td><td></td><td></td></tr><tr role="row" class="odd"><td><input class="chkallmem" value="2485669" type="checkbox"></td><td>kk singh</td><td>aktiwari@yahoo.com</td><td>AB Road ,Bhopal(M.P)</td><td>2485669</td></tr><tr role="row" class="even"><td><input class="chkallmem" value="9724022580" type="checkbox"></td><td>xyz xyz</td><td>dbcfuhwf@yahoo.com</td><td>uibqw</td><td>9724022580</td></tr><tr role="row" class="odd"><td><input class="chkallmem" value="1335" type="checkbox"></td><td>Jigar Joshi</td><td></td><td></td><td>1335</td></tr><tr role="row" class="even"><td><input class="chkallmem" value="59458458" type="checkbox"></td><td>ranjit singh</td><td>ranjit@gmail.com</td><td>arera colony,bhopal(m.p)</td><td>59458458</td></tr><tr role="row" class="odd"><td><input class="chkallmem" value="979879879879" type="checkbox"></td><td>Dharmesh Kubavat</td><td></td><td>cxcxc</td><td>979879879879</td></tr><tr role="row" class="even"><td><input class="chkallmem" value="98965654" type="checkbox"></td><td>suveer tiwari</td><td>suveer@gmail.com</td><td></td><td>98965654</td></tr><tr role="row" class="odd"><td><input class="chkallmem" value="798797979" type="checkbox"></td><td>Dharmsh Kubavat</td><td>kubavatdharmesh@gmail.com</td><td></td><td>798797979</td></tr><tr role="row" class="even"><td><input class="chkallmem" value="9893962478" type="checkbox"></td><td>sameer singh</td><td></td><td></td><td>9893962478</td></tr><tr role="row" class="odd"><td><input class="chkallmem" value="null" type="checkbox"></td><td>Maya Patel</td><td></td><td></td><td></td></tr><tr role="row" class="even"><td><input class="chkallmem" value="77775485" type="checkbox"></td><td>Manish Joshi</td><td>mjjoshi@gmail.com</td><td>Near AAshima Mall,bhopal</td><td>77775485</td></tr><tr role="row" class="odd"><td><input class="chkallmem" value="999871115" type="checkbox"></td><td>jagdish sahu</td><td>js@ymail.com</td><td>Ashoka Garden,Bhopal</td><td>999871115</td></tr><tr role="row" class="even"><td><input class="chkallmem" value="555555555" type="checkbox"></td><td>MR. Rohan SINHA</td><td>rohan124@gmail.com</td><td>Bitten Market,Bhopal</td><td>555555555</td></tr><tr role="row" class="odd"><td><input class="chkallmem" value="874512652" type="checkbox"></td><td>raj patel</td><td>RAJSINGH@GMAIL.COM</td><td>KOLAR ROAD ,BHOPAL</td><td>874512652</td></tr><tr role="row" class="even"><td><input class="chkallmem" value="546125478" type="checkbox"></td><td>rahul sh</td><td></td><td></td><td>546125478</td></tr><tr role="row" class="odd"><td><input class="chkallmem" value="998745632" type="checkbox"></td><td>rohit shah</td><td></td><td></td><td>998745632</td></tr><tr role="row" class="even"><td><input class="chkallmem" value="9874125896" type="checkbox"></td><td>Mr. Jayesh patel</td><td>jayesh@gmail.com</td><td>Address</td><td>9874125896</td></tr><tr role="row" class="odd"><td><input class="chkallmem" value="7542123" type="checkbox"></td><td>dev shah</td><td></td><td></td><td>7542123</td></tr><tr role="row" class="even"><td><input class="chkallmem" value="147852369" type="checkbox"></td><td>kiran raval</td><td></td><td></td><td>147852369</td></tr><tr role="row" class="odd"><td><input class="chkallmem" value="4563214562" type="checkbox"></td><td>ravi bajaj</td><td></td><td></td><td>4563214562</td></tr><tr role="row" class="even"><td><input class="chkallmem" value="1234567895" type="checkbox"></td><td>rinku dev</td><td></td><td></td><td>1234567895</td></tr><tr role="row" class="odd"><td><input class="chkallmem" value="9898023154" type="checkbox"></td><td>ravi dev</td><td></td><td></td><td>9898023154</td></tr><tr role="row" class="even"><td><input class="chkallmem" value="9874563214" type="checkbox"></td><td>arun patel</td><td></td><td></td><td>9874563214</td></tr><tr role="row" class="odd"><td><input class="chkallmem" value="9874563214" type="checkbox"></td><td>rahul dev</td><td></td><td></td><td>9874563214</td></tr><tr role="row" class="even"><td><input class="chkallmem" value="98987456321" type="checkbox"></td><td>dhaval shah</td><td></td><td></td><td>98987456321</td></tr><tr role="row" class="odd"><td><input class="chkallmem" value="9874563212" type="checkbox"></td><td>sunil shah</td><td></td><td></td><td>9874563212</td></tr><tr role="row" class="even"><td><input class="chkallmem" value="9898045231" type="checkbox"></td><td>amil patel</td><td></td><td></td><td>9898045231</td></tr><tr role="row" class="odd"><td><input class="chkallmem" value="98980213254" type="checkbox"></td><td>anil shah</td><td></td><td></td><td>98980213254</td></tr><tr role="row" class="even"><td><input class="chkallmem" value="null" type="checkbox"></td><td>rahul shroof</td><td></td><td></td><td></td></tr><tr role="row" class="odd"><td><input class="chkallmem" value="94562134782" type="checkbox"></td><td>dharani bhatt</td><td></td><td></td><td>94562134782</td></tr><tr role="row" class="even"><td><input class="chkallmem" value="9547814526" type="checkbox"></td><td>maya mathur</td><td></td><td></td><td>9547814526</td></tr></tbody></table><div class="dataTables_info" id="tblAllMembers_info" role="status" aria-live="polite">Showing 1 to 100 of 253 entries (filtered from 100 total entries)</div><div class="dataTables_paginate paging_simple_numbers" id="tblAllMembers_paginate"><ul class="pagination"><li class="paginate_button previous disabled" id="tblAllMembers_previous"><a href="#" aria-controls="tblAllMembers" data-dt-idx="0" tabindex="0">Previous</a></li><li class="paginate_button active"><a href="#" aria-controls="tblAllMembers" data-dt-idx="1" tabindex="0">1</a></li><li class="paginate_button "><a href="#" aria-controls="tblAllMembers" data-dt-idx="2" tabindex="0">2</a></li><li class="paginate_button "><a href="#" aria-controls="tblAllMembers" data-dt-idx="3" tabindex="0">3</a></li><li class="paginate_button next" id="tblAllMembers_next"><a href="#" aria-controls="tblAllMembers" data-dt-idx="4" tabindex="0">Next</a></li></ul></div></div>
+                                                    </div>
+                                                </div>
+                                            </div>*@
+                                            @*Table Code*@
+                                            <div class="box-body">
+                                                <div id="example1_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
+                                                    <div class="dataTables_length">
+                                                        <label>
+                                                            Show
+                                                            <select id="tblMemberList_length" name="tblMemberList_length"
+                                                                    aria-controls="tblMemberList_length" class="form-control input-sm"
+                                                                    onchange="return ShowChange();">
+                                                                <option value="100">100</option>
+                                                                <option value="150">150</option>
+                                                                <option value="200">200</option>
+                                                                <option value="">All</option>
+                                                            </select> entries
+                                                        </label>
+                                                    </div>
+                                                    @*table All Members *@
+                                                    <div class="col-sm-12 table-responsive" id="divMemberList">
+                                                        <table id="tblMemberList" class="table table-bordered table-striped dataTable" role="grid" aria-describedby="example1_info">
+                                                            <thead>
+                                                                <tr role="row">
+                                                                    <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 282.583px;" aria-label="Browser: activate to sort column ascending"><input type='checkbox' class='multi-checkbox chkmaster' /></th>
+                                                                    <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 282.583px;" aria-label="Browser: activate to sort column ascending">Member Name</th>
+                                                                    <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 282.583px;" aria-label="Browser: activate to sort column ascending">Email</th>
+                                                                    <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 282.583px;" aria-label="Browser: activate to sort column ascending">Address</th>
+                                                                    <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 282.583px;" aria-label="Browser: activate to sort column ascending">PhoneNo</th>
+                                                            </thead>
+                                                            <tbody></tbody>
+                                                        </table>
+                                                        <div class="dataTables_paginate paging_simple_numbers" id="tblMemberList_paginate">
+                                                            <ul id="pagination" class="pagination"></ul>
+                                                        </div>
+                                                    </div>
+                                                    @*table Due Memberships *@
+                                                    <div class="col-sm-12 table-responsive" style="display:none;" id="divDueMembership">
+                                                        <table id="tblDueMembership" class="table table-bordered table-striped dataTable" role="grid" aria-describedby="example1_info">
+                                                            <thead>
+                                                                <tr role="row">
+                                                                    <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 282.583px;" aria-label="Browser: activate to sort column ascending"><input type='checkbox' class='multi-checkbox chkmaster' /></th>
+                                                                    <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 282.583px;" aria-label="Browser: activate to sort column ascending">Member Name</th>
+                                                                    <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 282.583px;" aria-label="Browser: activate to sort column ascending">Membership Name</th>
+                                                                    <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 282.583px;" aria-label="Browser: activate to sort column ascending">Membership Date</th>
+                                                                    <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 282.583px;" aria-label="Browser: activate to sort column ascending">Membership End Date</th>
+                                                                    <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 282.583px;" aria-label="Browser: activate to sort column ascending">PhoneNo</th>
+                                                            </thead>
+                                                            <tbody></tbody>
+                                                        </table>
+                                                        <div class="dataTables_paginate paging_simple_numbers" id="tblDueMembership_paginate">
+                                                            <ul id="pagination" class="pagination"></ul>
+                                                        </div>
+                                                    </div>
+                                                    @*table Expired Memberships *@
+                                                    <div class="col-sm-12 table-responsive" style="display:none;" id="divExpiredMembership">
+                                                        <table id="tblExpiredMembership" class="table table-bordered table-striped dataTable" role="grid" aria-describedby="example1_info">
+                                                            <thead>
+                                                                <tr role="row">
+                                                                    <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 282.583px;" aria-label="Browser: activate to sort column ascending"><input type='checkbox' class='multi-checkbox chkmaster' /></th>
+                                                                    <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 282.583px;" aria-label="Browser: activate to sort column ascending">Member Name</th>
+                                                                    <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 282.583px;" aria-label="Browser: activate to sort column ascending">Membership Name</th>
+                                                                    <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 282.583px;" aria-label="Browser: activate to sort column ascending">Membership Date</th>
+                                                                    <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 282.583px;" aria-label="Browser: activate to sort column ascending">Membership End Date</th>
+                                                                    <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 282.583px;" aria-label="Browser: activate to sort column ascending">PhoneNo</th>
+                                                            </thead>
+                                                            <tbody></tbody>
+                                                        </table>
+                                                        <div class="dataTables_paginate paging_simple_numbers" id="tblExpiredMembership_paginate">
+                                                            <ul id="pagination" class="pagination"></ul>
+                                                        </div>
+                                                    </div>
+
+                                                    @*table All Enquiries *@
+                                                    <div class="col-sm-12 table-responsive" style="display:none;" id="divAllEnquiry">
+                                                        <table id="tblAllEnquiry" class="table table-bordered table-striped dataTable" role="grid" aria-describedby="example1_info">
+                                                            <thead>
+                                                                <tr role="row">
+                                                                    <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 282.583px;" aria-label="Browser: activate to sort column ascending"><input type='checkbox' class='multi-checkbox chkmaster' /></th>
+                                                                    <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 282.583px;" aria-label="Browser: activate to sort column ascending">Member Name</th>
+                                                                    <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 282.583px;" aria-label="Browser: activate to sort column ascending">Address</th>
+                                                                    <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 282.583px;" aria-label="Browser: activate to sort column ascending">Mobile</th>
+                                                                    <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 282.583px;" aria-label="Browser: activate to sort column ascending">Enquiry Date</th>
+                                                                    <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 282.583px;" aria-label="Browser: activate to sort column ascending">Last FollowUp Date</th>
+                                                                    <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 282.583px;" aria-label="Browser: activate to sort column ascending">Next FollowUp Date</th>
+                                                                    <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 282.583px;" aria-label="Browser: activate to sort column ascending">Status</th>
+                                                            </thead>
+                                                            <tbody></tbody>
+                                                        </table>
+                                                        <div class="dataTables_paginate paging_simple_numbers" id="tblAllEnquiry_paginate">
+                                                            <ul id="pagination" class="pagination"></ul>
+                                                        </div>
+                                                    </div>
+
+                                                    @*table Payment Due *@
+                                                    <div class="col-sm-12 table-responsive" style="display:none;" id="divPaymentDue">
+                                                        <table id="tblPaymentDue" class="table table-bordered table-striped dataTable" role="grid" aria-describedby="example1_info">
+                                                            <thead>
+                                                                <tr role="row">
+                                                                    <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 282.583px;" aria-label="Browser: activate to sort column ascending"><input type='checkbox' class='multi-checkbox chkmaster' /></th>
+                                                                    <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 282.583px;" aria-label="Browser: activate to sort column ascending">Member Name</th>
+                                                                    <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 282.583px;" aria-label="Browser: activate to sort column ascending">Membership Name</th>
+                                                                    <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 282.583px;" aria-label="Browser: activate to sort column ascending">Membership Date</th>
+                                                                    <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 282.583px;" aria-label="Browser: activate to sort column ascending">Membership Amount</th>
+                                                                    <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 282.583px;" aria-label="Browser: activate to sort column ascending">Paid Amount</th>
+                                                                    <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 282.583px;" aria-label="Browser: activate to sort column ascending">Pending Amount</th>
+                                                                    <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 282.583px;" aria-label="Browser: activate to sort column ascending">PhoneNo</th>
+                                                            </thead>
+                                                            <tbody></tbody>
+                                                        </table>
+                                                        <div class="dataTables_paginate paging_simple_numbers" id="tblPaymentDue_paginate">
+                                                            <ul id="pagination" class="pagination"></ul>
+                                                        </div>
+                                                    </div>
+
+
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                   
+                                </div>
+                            </div>
+                           @*Second Tab*@
+                            <div class="tab-pane fade" id="tab2primary">
+                                <div class="table-responsive mypanel">
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <div class="table-responsive">
+                                                <div class="row"><label class="control-label col-md-4">Enter mobile numbers<br> (New-line separated) <b> : </b></label></div>
+                                                <div class="row">
+                                                    @*<div class="col-lg-2">
+                                                        Contact Numbers
+                                                    </div>*@
+                                                    <div class="col-lg-10">
+                                                        <textarea id="txtAllContactNo" ng-model="AllContactNo" rows="10" cols="120" placeholder="Contact numbers" class="ng-pristine ng-valid ng-touched" style=""></textarea>
+                                                    </div>
+                                                    <div class="col-lg-2">
+                                                        Message
+                                                    </div>
+                                                    <div class="col-lg-10">
+                                                        <textarea id="txtOutsideMessage" ng-model="OutsideMessage" rows="3" cols="100" placeholder="Message" class="ng-pristine ng-untouched ng-valid"></textarea>
+                                                        <span id="outsidemaxlength" style="color:red;"></span>
+                                                    </div>
+                                                    <div class="col-lg-2">
+                                                    </div>
+                                                    <div class="col-lg-4">
+                                                        <button type="button" ng-show="ManagerViewOnly=='false'" id="btnOutsideContact" class="btn btn-primary btn-sm btn-flat" ><i class="fa fa-paper-plane-o"></i> Send Message </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    </div>
+
+    @*<div class="row">
+            <div class="col-lg-12">
+                <div class="table-responsive">
+                    <div class="row">
+                        <div class="col-lg-2">
+                            Contact Numbers
+                        </div>
+                        <div class="col-lg-10">
+                            <textarea id="txtAllContactNo"  rows="10" cols="120" placeholder="Contact numbers"  style=""></textarea>
+                        </div>
+                        <div class="col-lg-2">
+                            Message
+                        </div>
+                        <div class="col-lg-10">
+                            <textarea id="txtOutsideMessage"  rows="3" cols="100" placeholder="Message" style=""></textarea>
+                            <span id="outsidemaxlength" style="color:red;"></span>
+                        </div>
+                        <div class="col-lg-2">
+                        </div>
+                        <div class="col-lg-4">
+                            <button type="button"  id="btnOutsideContact" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-paper-plane-o"></i> Send Message </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>*@
+
+    @section Scripts {
+
+        <script src="~/Scripts/Navigation.js?v=1.2"></script>
+        <script>
+            @*var phoneNumber;
+            var message;
+            var url="'http://bulksms.smsroot.com/app/smsapi/index.php?key=35B759B645F85F&campaign=0&routeid=13&type=text&contacts='+ +'&senderid=SMSDMO&msg=Hello+People%2C+have+a+great+day');";
+            var SendSMSUrl = "@Url.Content("http://bulksms.smsroot.com/app/smsapi/index.php?key=35B759B645F85F&campaign=0&routeid=13&type=text&contacts=&senderid=SMSDMO&msg=Hello+People%2C+have+a+great+day");";*@
+            var AllMemberUrl = '@Url.Action("MembersList", "SMS")';
+            var OnloadAllMemberUrl = '@Url.Action("OnloadBindMemberList", "SMS")';
+            var OnloadDueMemberUrl = '@Url.Action("OnloadBindDueMembership", "SMS")';
+            var OnloadExpiredMemberUrl = '@Url.Action("OnloadBindExpiredMembership", "SMS")';
+            var OnloadAllEnquiryUrl = '@Url.Action("OnloadBindAllEnquiryList", "SMS")';
+            var OnloadDuepaymentListUrl = '@Url.Action("OnloadBindDuePaymentList", "SMS")';
+            var messageUrl = '@Url.Action("SaveMessages", "SMS")';
+
+
+
+         </script>
+        <script src="~/Content/SMS/SendingSMS.js"></script>
+    }
+
+    <script src="~/Scripts/Navigation.js?v=1.2"></script>
+    <script>
+        @*var SendSMSUrl = "@Url.Content("http://bulksms.smsroot.com/app/smsapi/index.php?key=35B759B645F85F&campaign=0&routeid=13&type=text&contacts=8885439824,8179416755&senderid=SMSDMO&msg=Hello+People%2C+have+a+great+day");";*@
+        var AllMemberUrl = '@Url.Action("MembersList", "SMS")';
+        var OnloadAllMemberUrl = '@Url.Action("OnloadBindMemberList", "SMS")';
+        var OnloadDueMemberUrl = '@Url.Action("OnloadBindDueMembership", "SMS")';
+        var OnloadExpiredMemberUrl = '@Url.Action("OnloadBindExpiredMembership", "SMS")';
+        var OnloadAllEnquiryUrl = '@Url.Action("OnloadBindAllEnquiryList", "SMS")';
+        var OnloadDuepaymentListUrl = '@Url.Action("OnloadBindDuePaymentList", "SMS")';
+        var messageUrl = '@Url.Action("SaveMessages", "SMS")';
+    </script>
+    <script src="~/Content/SMS/SendingSMS.js"></script>
+   

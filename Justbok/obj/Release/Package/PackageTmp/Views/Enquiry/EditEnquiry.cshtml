@@ -1,0 +1,387 @@
+﻿@model Justbok.Models.EnquiryViewModel
+
+@{
+    ViewBag.Title = "Edit Enquiry";
+}
+
+<style>
+    .required {
+        color: #e02222;
+        font-size: 14px;
+        padding-left: 2px;
+    }
+</style>
+
+<section class="content container-fluid">
+
+    <div class="pull-right">
+        <a onclick="return LoadPage('@Url.Action("EnquiryList", "Enquiry")','Justbok | Enquiry List');" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-arrow-left"></i> Enquiry List</a><br><br>
+    </div>
+
+    <div class="col-xs-12">
+        <div class="box">
+            <div class="box-header">
+                <h3 class="box-title">Enquiry</h3><hr />
+                @*<div class="fonm">
+                        @Html.ActionLink("Edit Enquiry", "/EditEnquiryDetails")
+                    </div>*@
+
+                <div class="col-xs-12">
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h5>
+                                <a id="lnkEditEnquiry" class="link"> Edit Enquiry</a>
+                            </h5>
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-3 col-sm-6">
+                            <h4 class="h4-5">
+                                <i class="fa fa-user"></i>
+                                <span id="customerName"></span>
+                            </h4>
+                        </div>
+                        <div class="col-md-3 col-sm-6">
+                            <h4 class="h4-5">
+                                <i class="fa fa-phone"></i>
+                                <span id="phNumber"></span>
+                            </h4>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-offset-3 col-md-3">
+                            <h4 class="h4-5">
+                                <i class="fa fa-calendar-check-o"></i>
+                                <span id="enquiryDate"></span>
+                            </h4>
+                        </div>
+                        <!-- ngIf: ProgramSuggested != null -->
+                        <!-- ngIf: AmountOffered != null -->
+                    </div>
+
+
+                    @*@if (ViewBag.FollowupList != null)
+                        {
+
+                            foreach (var item in (List<Justbok.Models.EnquiryViewModel>)ViewBag.FollowupList)
+                            {
+                                string dateconverted = "";
+                                if (@item.EnquiryDate != null)
+                                {
+                                    DateTime date = Convert.ToDateTime(@item.EnquiryDate);
+                                     dateconverted = date.ToString("dd/MM/yyyy");
+                                }
+
+                                <div class="form-group col-md-3">
+                                    <i class="fa fa-user"></i> <label>@item.FirstName @item.LastName</label>
+                        </div>
+                             <div class="form-group col-md-3">
+                                 <i class="fa fa-phone"></i>  <label>@item.MobileNumber</label>
+                                            </div>
+                             <div class="form-group col-md-3">
+                                 <i class="fa fa-calendar-check-o"></i>     <label>@dateconverted</label>
+                                            </div>
+                                break;
+                            }
+                        }*@
+                </div>
+
+
+                <h3 class="box-title">Add Followup</h3><hr />
+                @*@using (Html.BeginForm())
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.ValidationSummary(true)*@
+                <div class="col-md-12">
+                    <div class="form-group col-md-6">
+
+                        <input type="text" style="display:none;" id="txtfollowupid" />
+
+                        <label>Follow up Date:</label><span class="required" aria-required="true"> * </span>
+
+                        <div class="input-group date">
+                            <div class="input-group-addon">
+                                <i class="fa fa-calendar"></i>
+                            </div>
+                            @{ Html.EnableClientValidation(false); }
+                            @Html.TextBoxFor(model => model.LastFollowUpDate, new { @class = "form-control pull-right", @type = "datetime", id = "LastFollowUpDate" })
+                        </div>
+                        <!-- /.input group -->
+                    </div>
+
+                    <div class="form-group col-md-6">
+                        <label for="exampleInputEmail1">Status</label><span class="required" aria-required="true"> * </span>
+                        @Html.DropDownListFor(model => model.EnqStatus, new SelectList(new List<string>
+                                     () { "--Select--", "Interested", "Intrested rate problem", "Joined other Gym", "No reply", "Not intrested", "Shifted to other place" }), new { @class = "form-control", id = "EnqStatus" })
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label>Next Follow up Date:</label>
+
+                        <div class="input-group date">
+                            <div class="input-group-addon">
+                                <i class="fa fa-calendar"></i>
+                            </div>
+                            @{ Html.EnableClientValidation(false); }
+                            @Html.TextBoxFor(model => model.NextFollowUpDate, new { @class = "form-control pull-right", @type = "datetime", id = "NextFollowUpDate" })
+                        </div>
+                        <!-- /.input group -->
+                    </div>
+
+                    <div class="form-group col-md-3">
+                        <label>Start Time:</label>
+
+                        <div class="input-group date">
+                            <div class="input-group-addon">
+                                <i class="fa fa-calendar"></i>
+                            </div>
+                            @Html.TextBoxFor(model => model.StartTime, new { @class = "form-control pull-right", id = "StartTime" })
+                        </div>
+                        <!-- /.input group -->
+                    </div>
+
+                    <div class="form-group col-md-3">
+                        <label>End Time:</label>
+
+                        <div class="input-group date">
+                            <div class="input-group-addon">
+                                <i class="fa fa-calendar"></i>
+                            </div>
+                            @Html.TextBoxFor(model => model.EndTime, new { @class = "form-control pull-right", id = "EndTime" })
+                        </div>
+                        <!-- /.input group -->
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group col-md-12">
+                        <label for="exampleInputEmail1">Description</label>
+                        @Html.TextAreaFor(model => model.Description, new { @class = "form-control", rows = "3", placeholder = "Enter", id = "Description" })
+                    </div>
+                    <div class="box-footer">
+                        <button type="submit" class="btn btn-default pull-right">Reset</button>
+                        <button type="submit" class="btn btn-info pull-right" style="margin-right: 10px;" id="btnAddFollowup">Add</button>
+                    </div>
+                </div>
+                @*}*@
+                <h3>Follow Up List</h3><hr>
+                <div class="col-sm-12">
+                    <table id="tblEnquiry" class="table table-bordered table-striped dataTable" role="grid" aria-describedby="example1_info">
+
+                        <thead>
+                            <tr role="row">
+
+
+
+                                <th tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 282.583px; display: none;">Followupid</th>
+                                <th class="" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 282.583px;">Folowup Date</th>
+                                <th class="" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 250.767px;">Next Followup Date</th>
+                                <th class="" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 198.717px;">Start Time</th>
+                                <th class="" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 198.717px;">End Time</th>
+                                <th class="" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 250.767px;">Status</th>
+                                <th class="" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 198.717px;">Description</th>
+
+                                <th class="" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 143.717px;">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+
+
+                            @*@if (ViewBag.FollowupList != null)
+                                {
+
+                                    foreach (var item in (List<Justbok.Models.EnquiryViewModel>)ViewBag.FollowupList)
+                                    {
+                                        string nextFollowupDate = "";
+                                        string lastFollowupDate = "";
+                                        if(@item.NextFollowUpDate!=null)
+                                        {
+                                            DateTime dtnxtFollwupDate=Convert.ToDateTime(@item.NextFollowUpDate);
+                                            nextFollowupDate = dtnxtFollwupDate.ToString("dd/MM/yyyy");
+                                        }
+                                        if (@item.LastFollowUpDate != null)
+                                        {
+                                            DateTime dtlastFollwupDate = Convert.ToDateTime(@item.LastFollowUpDate);
+                                            lastFollowupDate = dtlastFollwupDate.ToString("dd/MM/yyyy");
+                                        }
+
+
+                                        <tr role="row" class="odd">
+
+                                            <td style="display:none;">
+                                                @item.FollowupId
+                                            </td>
+
+                                            <td>
+                                               @lastFollowupDate
+                                            </td>
+                                            <td>
+                                                @nextFollowupDate
+                                            </td>
+                                            <td>
+                                                @item.StartTime
+                                            </td>
+                                            <td>
+                                                @item.EndTime
+                                            </td>
+                                            <td>
+                                                @item.EnqStatus
+                                            </td>
+                                            <td>
+                                                @item.Description
+                                            </td>
+
+                                            <td>
+                                                <a class="btn btn-info btnEditEnquiry" href="" data-toggle="modal" >Edit</a>&nbsp;
+
+                                            </td>
+                                        </tr>
+                                    }
+                                }*@
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+</section>
+
+
+@section Scripts {
+<script src="~/Scripts/Navigation.js?v=1.2"></script>
+    <script>
+        var GetMemberDetailsUrl = '@Url.Action("GetMemberDetails", "Enquiry")';
+        var GetFollowup = '@Url.Action("GetFollowupData", "Enquiry")';
+        var AddFollowupUrl = '@Url.Action("AddFollowup", "Enquiry")';
+        var FollowupDetail = '@Url.Action("FollowupDetails", "Enquiry")';
+    </script>
+
+<script src="~/Content/Enquiry/EditEnquiry.js"></script>
+
+    }
+<script src="~/Scripts/Navigation.js?v=1.2"></script>
+<script>
+        var GetMemberDetailsUrl = '@Url.Action("GetMemberDetails", "Enquiry")';
+    var GetFollowup = '@Url.Action("GetFollowupData", "Enquiry")';
+    var AddFollowupUrl = '@Url.Action("AddFollowup", "Enquiry")';
+    var FollowupDetail = '@Url.Action("FollowupDetails", "Enquiry")';
+</script>
+
+<script src="~/Content/Enquiry/EditEnquiry.js"></script>
+
+
+@*<script src="~/Theme/js/jquery.min.js"></script>*@
+@*@section Scripts {
+
+<script>
+
+    //$(document).ready(function () {
+    //    $('input[type=datetime]').datepicker({
+    //        dateFormat: "dd/mm/yy",
+    //        changeMonth: true,
+    //        changeYear: true,
+    //        yearRange: "-60:+100"
+    //    });
+
+    //    $('#StartTime').wickedpicker();
+    //    $('#EndTime').wickedpicker();
+    //});
+
+
+    $(document).on('click', '.btnEditEnquiry', function () {
+
+        var rowIndex = $(this).closest('td').parent()[0].sectionRowIndex;
+        var followupid = $('#tblEnquiry tr').eq(rowIndex + 1).find('td').eq(0).html();
+        var followupdetails = null;
+        if (followupdetails != null) {
+            $.each(followupdetails, function (i, obj) {
+                if (obj.FollowupId == followupid) {
+                    $('#txtfollowupid').val(obj.FollowupId);
+                    $("#EnqStatus option").each(function () {
+                        if ($(this).text() == obj.EnqStatus) {
+                            $(this).text() == obj.EnqStatus;
+                            $(this).attr('selected', 'selected');
+                        }
+                    });
+                    $('#LastFollowUpDate').val(obj.LastFollowUpDate);
+                    $('#NextFollowUpDate').val(obj.NextFollowUpDate);
+                    $('#StartTime').val(obj.StartTime);
+                    $('#EndTime').val(obj.EndTime);
+                    $('#Description').val(obj.Description);
+                }
+            });
+
+        }
+        else {
+
+            $.ajax({
+                cache: false,
+                type: "GET",
+                url: "@Url.Action("FollowupDetails")",
+                dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            data: { FollowupId: followupid },
+            success: function (data) {
+                followupdetails = data;
+                $.each(data, function (i, obj) {
+                    if (obj.FollowupId == followupid) {
+                        $('#txtfollowupid').val(obj.FollowupId);
+                        $("#EnqStatus option").each(function () {
+                            if ($(this).text() == obj.EnqStatus) {
+                                $(this).text() == obj.EnqStatus;
+                                $(this).attr('selected', 'selected');
+                            }
+                        });
+                        $('#LastFollowUpDate').val(obj.LastFollowUpDate);
+                        $('#NextFollowUpDate').val(obj.NextFollowUpDate);
+                        $('#StartTime').val(obj.StartTime);
+                        $('#EndTime').val(obj.EndTime);
+                        $('#Description').val(obj.Description);
+                    }
+                });
+            },
+            error: function () {
+                alert("Failed! Please try again.");
+            }
+        });
+        }
+    });
+
+    $(document).on('click', '#btnAddFollowup', function () {
+
+
+        var jsonObject = {
+            EnqStatus: $('#EnqStatus option:selected').val(), FollowupId: $('#txtfollowupid').val(), LastFollowUpDate: $('#LastFollowUpDate').val(),
+            NextFollowUpDate: $('#NextFollowUpDate').val(), StartTime: $('#StartTime').val(), EndTime: $('#EndTime').val(),
+            Description: $('#Description').val()
+        }
+
+        $.ajax({
+            cache: false,
+            type: "POST",
+            url: "@Url.Action("AddFollowup")",
+            dataType: "json",
+        contentType: "application/json; charset=utf-8",
+        data: JSON.stringify(jsonObject),
+        success: function (data) {
+            // UpdateMemberShipTable();
+            $('#txtfollowupid').val("");
+            location.reload(true);
+
+
+        },
+        failure: function (errMsg) {
+            alert(errMsg.responseText);
+        }
+    });
+    });
+
+
+
+
+
+</script>
+
+}*@

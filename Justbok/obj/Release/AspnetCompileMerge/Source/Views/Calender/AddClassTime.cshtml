@@ -1,0 +1,84 @@
+﻿<!-- Edit Classtime Modal-->
+<div tabindex="-1" class="modal-dialog addpromo" style="width:650px;">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button class="close" aria-hidden="true" type="button" data-dismiss="modal">×</button>
+            <h4 class="modal-title"><strong>Add Class Time</strong></h4>
+        </div>
+        <div class="modal-body">
+            <div class="row form-group">
+                <div class="col-md-6">
+                    <label class="control-label">Start Time:</label>
+                </div>
+                <div class="col-md-6">
+                    <label class="control-label" id="c_start_time"></label>
+                </div>
+            </div>
+
+            <div class="row form-group">
+                <div class="col-md-6">
+                    <label class="control-label">End Time:</label>
+                </div>
+                <div class="col-md-6">
+                    <input id="c_endtime" class="form-control" type="text" size="8">
+                </div>
+            </div>
+
+            <div class="row form-group">
+                <div class="col-md-6">
+                    <label class="control-label" for="">Class:</label>
+                </div>
+                <div class="col-md-6">
+                    <input id="date" type="hidden" value="">
+                    <select id="classes" class="form-control">
+                        <option value="0">Please select...</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="row form-group">
+                <div class="col-md-6">
+                    <label class="control-label" for="">Recurring:</label>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <div>
+                            <label class="cb-wrapper">
+                                <input id="recurringno" name="recurring" class="flat-red" type="radio" checked="" tabindex="3" value="no">
+                            </label>
+                            <label class="control-label" for="recurringno">
+                                Make this a one time thing
+                            </label>
+                        </div>
+                        <div>
+                            <label class="cb-wrapper">
+                                <input id="recurringyes" name="recurring" class="flat-red" type="radio" tabindex="3" value="yes">
+                            </label>
+                            <label class="control-label" for="recurringno">
+                                Repeat this class time on this day
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div><!-- modal body-->
+        <div class="modal-footer">
+            <button class="btn btn-default btn-sm btn-flat" type="button" data-dismiss="modal" tabindex="15">
+                <i class="glyphicon glyphicon-remove"></i> Cancel
+            </button>
+            <button class="btn btn-primary btn-sm btn-flat" id="btnSaveClassTiming" type="button" tabindex="16" onclick="SaveClassTiming();">
+                <i class="glyphicon glyphicon-ok"></i> Add Class Time
+            </button>
+        </div>
+    </div>
+</div>
+
+<script src="~/Scripts/Navigation.js?v=1.2"></script>
+<script>
+    var GettingClassesUrl = '@Url.Action("GettingClasses", "Calender")';
+    var SaveClassTimingUrl = '@Url.Action("SaveClassTiming", "ClassTime")';
+    $(document).ready(function () {
+        AddClassTimeLoading();
+    });
+</script>

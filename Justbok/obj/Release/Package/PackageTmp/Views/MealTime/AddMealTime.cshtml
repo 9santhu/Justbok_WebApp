@@ -1,0 +1,132 @@
+﻿@model Justbok.Models.MealTime
+
+
+<section class="content container-fluid" id="container">
+
+    <div class="pull-right">
+        <a onclick="return LoadPage('@Url.Action("MealList", "MealTime")','Justbok | Meal Time');" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-arrow-left"></i> Meal Time List</a><br><br>
+    </div>
+
+    @*@using(Html.BeginForm())
+    {*@ 
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    <div class="col-xs-12">
+        <div class="box">
+            <div class="box-header">
+                <h3 class="box-title">Add Meal Time</h3>
+
+                <div class="col-md-12">
+
+                    @*<div class="alert alert-success" role="alert" id="isSucess" style="display:none; float:right;height:50px; width:200px;text-align:center">Data saved successfully!!</div>*@
+
+                    <div id="messages" class="hide" role="alert" style="height:50px;width:250px;border-radius:5px;float:right;text-align:inherit;">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <div id="messages_content"></div>
+                    </div>
+                    <hr>
+                    <div class="form-group col-md-12">
+                        <div class="form-group col-md-10">
+                            <label for="exampleInputEmail1">Start Time</label>
+                            @Html.TextBoxFor(model => model.MealTime1, new { @class = "form-control", id = "txtMealTime" })
+                            @Html.ValidationMessageFor(model => model.MealTime1)
+                        </div>
+
+                        <div class="form-group col-md-10">
+                            <label for="exampleInputEmail1">Description</label>
+                            @Html.TextBoxFor(model => model.MealDescription, new { @class = "form-control", id = "txtMealDescription" })
+                            @Html.ValidationMessageFor(model => model.MealDescription)
+                        </div>
+                    </div>
+                    
+                </div>
+                <div class="box-footer">
+                    <button type="submit" class="btn btn-default pull-right">Reset</button>
+                    <button type="submit" class="btn btn-info pull-right" style="margin-right: 10px;" id="btnSaveMealTime">Save</button>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+    @*}*@
+
+</section>
+
+@section Scripts {
+<script src="~/Scripts/Navigation.js?v=1.2"></script>
+    <script>
+        var AddMealTimeUrl = '@Url.Action("AddMealTime", "MealTime")';
+    </script>
+    
+<script src="~/Content/MealTime/AddMealTime.js"></script>
+}
+<script src="~/Scripts/Navigation.js?v=1.2"></script>
+<script>
+        var AddMealTimeUrl = '@Url.Action("AddMealTime", "MealTime")';
+</script>
+
+<script src="~/Content/MealTime/AddMealTime.js"></script>
+
+
+
+
+@*@section Scripts {*@
+
+    @*@Scripts.Render("~/js")
+    @Styles.Render("~/css")*@
+
+    @*<script type="text/javascript">
+        $(document).ready(function () {
+            $('input[type=datetime]').datepicker({
+                dateFormat: "dd/m/yy",
+                changeMonth: true,
+                changeYear: true,
+                yearRange: "-60:+100"
+            });
+                $('#txtMealTime').wickedpicker();
+        });
+
+
+            
+
+            //submit data
+        $(document).ready(function () {
+            $('#btnSaveMealTime').click(function () {
+                //alert($('#txtMealTime').wickedpicker('time') + $('#txtMealDescription').val());
+
+                var jsonObject = {
+                    MealTime1: $('#txtMealTime').wickedpicker('time'), MealDescription: $('#txtMealDescription').val()
+                }
+                //alert( $('#txtMealTime').wickedpicker('time'));
+
+                $.ajax({
+                    cache: false,
+                    type: "POST",
+                    url: "@Url.Action("AddMealTime")",
+                    dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                data: JSON.stringify(jsonObject),
+                success: function (data) {
+                    //onsuccess();
+                    location.reload();
+                },
+                failure: function (errMsg) {
+                    alert(errMsg.responseText);
+                }
+            });
+
+            });
+        });
+
+
+     
+
+
+
+    </script>*@
+
+
+
+
+@*}*@

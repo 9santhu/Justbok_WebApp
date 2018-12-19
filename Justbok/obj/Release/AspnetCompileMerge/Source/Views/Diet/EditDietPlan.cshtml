@@ -1,0 +1,159 @@
+﻿@model Justbok.Models.DietPlanName
+<section class="content container-fluid" id="container">
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <div class="pull-right">
+        <a onclick="return LoadPage('@Url.Action("DietPlanList", "Diet")','Justbok | Diet Plan');" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-arrow-left"></i>  Diet List</a><br><br>
+    </div>
+    <div class="col-xs-12">
+        <div class="box">
+            <div class="box-header">
+                <h3 class="box-title">Edit Diet Plan</h3>
+
+                <div class="col-md-12">
+                    <div id="messages" class="hide" role="alert" style="height:50px;width:250px;border-radius:5px;float:right;text-align:inherit;">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <div id="messages_content"></div>
+                    </div>
+
+                    <hr>
+                    <div class="form-group col-md-12">
+
+                        <div class="form-group col-md-6">
+                            <label for="exampleInputEmail1">Name</label>
+                            @*<input type="text" class="form-control" id="txtWorkoutPlanName" />*@
+                            @Html.TextBoxFor(model => model.DietPlanName1, new { @class = "form-control", id = "txtDietPlanName" })
+                            @Html.ValidationMessageFor(model => model.DietPlanName1)
+                        </div>
+                    </div>
+                    <div class="form-group col-md-12" id="AddDietContainer">
+
+                        <table id="tblDietPlan" class="table table-bordered table-striped dataTable" role="grid" aria-describedby="example1_info">
+                            <thead>
+                                <tr role="row">
+                                    <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 282.583px; display:none;">DietId</th>
+                                    <th class="sorting_asc" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 231.217px;" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending">Meal</th>
+                                    <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 282.583px;" aria-label="Browser: activate to sort column ascending">Monday</th>
+                                    <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 143.717px;" aria-label="CSS grade: activate to sort column ascending">Tuesday</th>
+                                    <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 143.717px;" aria-label="CSS grade: activate to sort column ascending">Wednesday</th>
+                                    <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 143.717px;" aria-label="CSS grade: activate to sort column ascending">Thursday</th>
+                                    <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 143.717px;" aria-label="CSS grade: activate to sort column ascending">Friday</th>
+                                    <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 143.717px;" aria-label="CSS grade: activate to sort column ascending">Saturday</th>
+                                    <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 143.717px;" aria-label="CSS grade: activate to sort column ascending">Sunday</th>
+                            </thead>
+                            <tbody>
+                              
+                            </tbody>
+                            <tfoot>
+                        </table>
+                    </div>
+
+                </div>
+
+                <div class="box-footer">
+                    <button type="submit" class="btn btn-default pull-right" id="btnReset">Reset</button>
+                    <button type="submit" class="btn btn-info pull-right" style="margin-right: 10px;" id="btnSaveDiet">Save</button>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+
+
+</section>
+@section Scripts {
+<script src="~/Scripts/Navigation.js?v=1.2"></script>
+    <script>
+        var BindEditDietUrl = '@Url.Action("BindEditDiet", "Diet")';
+        var EditDietPlanUrl = '@Url.Action("EditDietPlan", "Diet")';
+    </script>
+    <script src="~/Content/Diet/EditDiet.js"></script>
+}
+<script src="~/Scripts/Navigation.js?v=1.2"></script>
+<script>
+        var BindEditDietUrl = '@Url.Action("BindEditDiet", "Diet")';
+        var EditDietPlanUrl = '@Url.Action("EditDietPlan", "Diet")';
+</script>
+<script src="~/Content/Diet/EditDiet.js"></script>
+
+@*<script src="~/Theme/js/jquery.min.js"></script>*@
+
+
+@*<script>
+    $(document).ready(function () {
+        $.ajax({
+            url: "@Url.Action("BindEditDiet")",
+            data: "",
+        type: "GET",
+        dataType: "json",
+        success: function (data) {
+            $('#tblDietPlan tbody').empty();
+            $.each(data, function (i, item) {
+                var rows = "<tr>"
+                       + "<td  style='display:none;'> <input type='Text' class='form-control' id=txtdietid" + i + "></td>"
+                         + "<td  style='display:none;'> <input type='Text' class='form-control' id=txtdietplanid" + i + "></td>"
+                    + "<td> <input type='Text' class='form-control' readonly id=txtMealTime" + i + "></td>"
+                     + "<td> <input type='Text' class='form-control'  id=txtMonday" + i + "></td>"
+                      + "<td> <input type='Text' class='form-control'  id=txtTuesday" + i + "></td>"
+                       + "<td> <input type='Text' class='form-control'  id=txtWednesday" + i + "></td>"
+                        + "<td> <input type='Text' class='form-control'  id=txtThursday" + i + "></td>"
+                         + "<td> <input type='Text' class='form-control'  id=txtFriday" + i + "></td>"
+                          + "<td> <input type='Text' class='form-control'  id=txtSaturday" + i + "></td>"
+                           + "<td> <input type='Text' class='form-control'  id=txtSunday" + i + "></td>"
+                + "</tr>";
+               
+                $('#tblDietPlan tbody').append(rows);
+                $('#txtdietid' + i + '').val(item.DietId);
+                $('#txtdietplanid' + i + '').val(item.DietPlanId);
+                $('#txtMealTime' + i + '').val(item.DietTime);
+                $('#txtMonday' + i + '').val(item.MondayDiet);
+                $('#txtTuesday' + i + '').val(item.TuesdayDiet);
+                $('#txtWednesday' + i + '').val(item.WednesdayDiet);
+                $('#txtThursday' + i + '').val(item.ThursdayDiet);
+                $('#txtFriday' + i + '').val(item.FridayDiet);
+                $('#txtSaturday' + i + '').val(item.SaturdayDiet);
+                $('#txtSunday' + i + '').val(item.SundayDiet);
+            })
+        },
+        failure: function (errMsg) {
+            alert(errMsg.responseText);
+        }
+        });
+
+        $('#btnSaveDiet').click(function () {
+            var rowCount = $('#tblDietPlan tr').length;
+           
+            var jsonObj = [];
+            jsonObj.push({ "DietPlanName1": $('#txtDietPlanName').val() });
+
+            for (i = 0; i < rowCount - 1; i++) {
+                //alert($('#txtMealTime' + i + '').val());
+                jsonObj.push(
+                   { "DietId": $('#txtdietid' + i + '').val(), "DietPlanId": $('#txtdietplanid' + i + '').val(), "MealTime1": $('#txtMealTime' + i + '').val(), "MondayDiet": $('#txtMonday' + i + '').val(), "TuesdayDiet": $('#txtTuesday' + i + '').val(), "WednesdayDiet": $('#txtWednesday' + i + '').val(), "ThursdayDiet": $('#txtThursday' + i + '').val(), "FridayDiet": $('#txtFriday' + i + '').val(), "SaturdayDiet": $('#txtSaturday' + i + '').val(), "SundayDiet": $('#txtSunday' + i + '').val() }
+                   );
+            }
+           
+            $.ajax({
+                cache: false,
+                type: "POST",
+                url: "@Url.Action("EditDietPlan")",
+                dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify(jsonObj),
+            success: function (data) {
+                
+                alert("Data Submitted");
+            },
+            failure: function (errMsg) {
+                alert(errMsg.responseText);
+            }
+        });
+
+    });
+
+
+    });
+
+</script>*@

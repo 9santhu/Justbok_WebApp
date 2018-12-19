@@ -1,0 +1,142 @@
+﻿@model Justbok.Models.Supplier
+
+@{
+    ViewBag.Title = "Edit Supplier";
+}
+<style>
+    .required {
+        color: #e02222;
+        font-size: 16px;
+        padding-left: 2px;
+    }
+</style>
+<section class="content container-fluid" id="container">
+
+    <div class="pull-right">
+        <a onclick="return LoadPage('@Url.Action("GetSuppliers", "Supplier")','Justbok | Supplier List');" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-arrow-left"></i> Supplier List</a><br><br>
+    </div>
+    @*@using (Ajax.BeginForm("EditSupplier", "Supplier",
+                           new AjaxOptions
+                           {
+                               OnSuccess = "OnSuccess",
+                               OnFailure = "OnFailure",
+                               LoadingElementId = "progress",
+                               OnBegin = "onBegin",
+                               OnComplete = "onComplete"
+                           }))
+    {*@
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true)
+        <div class="col-xs-12">
+            <div class="box">
+                <div class="box-header">
+                    <h3 class="box-title">Edit Supplier</h3>
+
+                    <div class="col-md-12">
+
+                        @*<div class="alert alert-success" role="alert" id="isSucess" style="display:none; float:right;height:50px; width:200px;text-align:center">Data saved successfully!!</div>*@
+
+                        <div id="messages" class="hide" role="alert" style="height:50px;width:250px;border-radius:5px;float:right;text-align:inherit;">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <div id="messages_content"></div>
+                        </div>
+
+                        <hr>
+
+                        <div class="form-group col-md-4" style="display:none;">
+                            <label for="exampleInputEmail1">Supplier Id</label>
+
+                            @Html.TextBoxFor(model => model.SupplierId, new { @class = "form-control", id = "txtSupplierid", placeholder = "Supplier Id" })
+                            @Html.ValidationMessageFor(model => model.SupplierId)>
+                        </div>
+                        <div class="form-group col-md-4" style="display:none;">
+                            <label for="exampleInputEmail1">Gym Id</label>
+                            @Html.TextBoxFor(model => model.GymId, new { @class = "form-control", id = "txtGymid", placeholder = "Gym Id" })
+                            @Html.ValidationMessageFor(model => model.GymId)
+                        </div>
+
+                        <div class="form-group col-md-6">
+                            <label for="exampleInputEmail1">Company Name</label><span class="required" aria-required="true"> * </span>
+                            @Html.TextBoxFor(model => model.CompanyName, new { @class = "form-control", id = "txtCompanyName", placeholder = "Company Name" })
+                            @Html.ValidationMessageFor(model => model.CompanyName)
+                        </div>
+
+                        <div class="form-group col-md-6">
+                            <label for="exampleInputEmail1">Registration No.</label><span class="required" aria-required="true"> * </span>
+                            @Html.TextBoxFor(model => model.RegistrationNumber, new { @class = "form-control", id = "txtRegno", placeholder = "Registartion Number" })
+                            @Html.ValidationMessageFor(model => model.RegistrationNumber)
+                        </div>
+
+
+                        <div class="form-group col-md-6">
+                            <label for="exampleInputEmail1">First Name</label><span class="required" aria-required="true"> * </span>
+                            @Html.TextBoxFor(model => model.FirstName, new { @class = "form-control", placeholder = "Firt Name", id = "txtFirstName" })
+                        </div>
+
+                        <div class="form-group col-md-6">
+                            <label for="exampleInputEmail1">Last Name</label><span class="required" aria-required="true"> * </span>
+                            @Html.TextBoxFor(model => model.LastName, new { @class = "form-control", placeholder = "Last Name", id = "txtLastname" })
+                        </div>
+
+                        <div class="form-group col-md-6">
+                            <label for="Branch">Email</label><span class="required" aria-required="true"> * </span>
+
+                            @Html.TextBoxFor(model => model.Email, new { @class = "form-control", placeholder = "Email", id = "txtEmail" })
+                            <!-- /.input group -->
+                        </div>
+
+                        <div class="form-group col-md-6">
+                            <label for="Branch">Phone No.</label><span class="required" aria-required="true"> * </span>
+
+                            @Html.TextBoxFor(model => model.PhoneNumber, new { @class = "form-control", placeholder = "Phone Number", id = "txtPhnumber" })
+                            <!-- /.input group -->
+                        </div>
+
+                        <div class="form-group col-md-6">
+                            <label for="Branch">Fax No.</label>
+
+                            @Html.TextBoxFor(model => model.FaxNumber, new { @class = "form-control", placeholder = "Fax Number", id = "txtFaxnumber" })
+                            <!-- /.input group -->
+                        </div>
+
+                        <div class="form-group col-md-6">
+                            <label for="exampleInputEmail1">Address</label>
+                            @Html.TextAreaFor(model => model.SupplierAddress, new { @class = "form-control", rows = "3", placeholder = "Address", id = "txtAddress" })
+                        </div>
+
+
+
+                    </div>
+
+                    <div class="box-footer">
+                        <button type="submit" class="btn btn-default pull-right">Reset</button>
+                        <button type="submit" class="btn btn-info pull-right" style="margin-right: 10px;" id="btnSaveSupplier">Save</button>
+                    </div>
+
+
+
+                </div>
+            </div>
+        </div>
+
+    @*}*@
+
+</section>
+
+@section Scripts {
+<script src="~/Scripts/Navigation.js?v=1.2"></script>
+    <script>
+        var AddSupplierUrl = '@Url.Action("EditSupplier", "Supplier")';
+
+    </script>
+
+    <script src="~/Content/Supplier/EditSupplier.js"></script>
+}
+
+<script src="~/Scripts/Navigation.js?v=1.2"></script>
+<script>
+        var AddSupplierUrl = '@Url.Action("EditSupplier", "Supplier")';
+
+</script>
+
+<script src="~/Content/Supplier/EditSupplier.js"></script>

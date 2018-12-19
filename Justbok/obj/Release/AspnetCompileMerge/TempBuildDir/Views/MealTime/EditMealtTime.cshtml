@@ -1,0 +1,76 @@
+﻿@{
+    ViewBag.Title = "EditMealtTime";
+}
+
+
+<section class="content container-fluid" id="container">
+
+    <div class="pull-right">
+        <a onclick="return LoadPage('@Url.Action("MealList", "MealTime")','Justbok | Meal Time');" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-arrow-left"></i> Meal Time List</a><br><br>
+    </div>
+
+    @*@using(Html.BeginForm())
+        {*@
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    <div class="col-xs-12">
+        <div class="box">
+            <div class="box-header">
+                <h3 class="box-title">Add Meal Time</h3>
+
+                <div class="col-md-12">
+
+                    @*<div class="alert alert-success" role="alert" id="isSucess" style="display:none; float:right;height:50px; width:200px;text-align:center">Data saved successfully!!</div>*@
+
+                    <div id="messages" class="hide" role="alert" style="height:50px;width:250px;border-radius:5px;float:right;text-align:inherit;">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <div id="messages_content"></div>
+                    </div>
+                    <hr>
+                    <input type="text" class="form-control" id="txtMealTimeId" style="display:none" />
+                    <div class="form-group col-md-12">
+                        <div class="form-group col-md-8">
+                            <label for="exampleInputEmail1">Start Time</label>
+                            <input type="text" class="form-control" id="txtMealTime" />
+                            @*@Html.TextBoxFor(model => model.MealTime1, new { @class = "form-control", id = "txtMealTime" })
+            @Html.ValidationMessageFor(model => model.MealTime1)></div>*@
+                        </div>
+                        <div class="form-group col-md-8">
+                            <label for="exampleInputEmail1">Description</label>
+                            <input type="text" class="form-control" id="txtMealDescription" />
+                            @*@Html.TextBoxFor(model => model.MealDescription, new { @class = "form-control", id = "txtMealDescription" })
+                            @Html.ValidationMessageFor(model => model.MealDescription)*@
+                        </div>
+                    
+
+                </div>
+                <div class="box-footer">
+                    <button type="submit" class="btn btn-default pull-right">Reset</button>
+                    <button type="submit" class="btn btn-info pull-right" style="margin-right: 10px;" id="btnSaveMealTime">Save</button>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+    @*}*@
+
+</section>
+
+@section Scripts {
+<script src="~/Scripts/Navigation.js?v=1.2"></script>
+    <script>
+        var BindMealUrl = '@Url.Action("BindMeal", "MealTime")';
+        var UpdateMealUrl = '@Url.Action("UpdateMealTime", "MealTime")';
+    </script>
+<script src="~/Content/MealTime/EditMealTime.js"></script>
+    
+}
+
+<script src="~/Scripts/Navigation.js?v=1.2"></script>
+<script>
+    var BindMealUrl = '@Url.Action("BindMeal", "MealTime")';
+    var UpdateMealUrl = '@Url.Action("UpdateMealTime", "MealTime")';
+</script>
+
+<script src="~/Content/MealTime/EditMealTime.js"></script>

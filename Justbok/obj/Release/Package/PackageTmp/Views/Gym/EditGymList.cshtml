@@ -1,0 +1,1808 @@
+﻿
+@model Justbok.Models.GymViewModel
+
+
+@*<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<link href="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.0.3/js/bootstrap.min.js"></script>
+<link href="http://cdn.rawgit.com/davidstutz/bootstrap-
+    /master/dist/css/bootstrap-multiselect.css" rel="stylesheet" type="text/css" />
+<script src="http://cdn.rawgit.com/davidstutz/bootstrap-multiselect/master/dist/js/bootstrap-multiselect.js" type="text/javascript"></script>*@
+@{
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+
+}
+<style>
+    #ui-datepicker-div {
+        z-index: 10000 !important;
+    }
+
+</style>
+
+<!-- Main content -->
+<section class="content container-fluid">
+
+    <div class="col-xs-12">
+        <div class="box">
+            <div class="box-header">
+                <h3 class="box-title">Gym List</h3>
+
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+                <div class="nav-tabs-custom">
+                    <ul class="nav nav-tabs">
+                        <li class="active"><a href="#Gym" data-toggle="tab">Gym Info</a></li>
+                        <li><a href="#GymPackage" data-toggle="tab">Gym Package</a></li>
+                        <li><a href="#Services" data-toggle="tab">Update Services</a></li>
+                        <li><a href="#Amenities-Equipments" data-toggle="tab">Amenities-Equipments</a></li>
+                        @*<li><a href="#Measurement" data-toggle="tab">Measurement</a></li>*@
+                        @*<li><a href="#Workout" data-toggle="tab">Workout</a></li>*@
+                        <li><a href="#Pictures" data-toggle="tab">Pictures</a></li>
+                        @*<li><a href="#Transfer" data-toggle="tab">Transfer</a></li>
+                            <li><a href="#Freeze" data-toggle="tab">Freeze</a></li>
+                            <li><a href="#SMS" data-toggle="tab">SMS History</a></li>
+                            <li><a href="#Diet" data-toggle="tab">Diet Plan</a></li>*@
+                    </ul>
+                    <div class="tab-content">
+                        <!-- Font Awesome Icons -->
+
+
+                        <div class="tab-pane active row" id="Gym">
+                            @*@using (Ajax.BeginForm("EditGym", "Gym",
+                    new AjaxOptions
+                    {
+                        OnSuccess = "OnSuccess",
+                        OnFailure = "OnFailure",
+                        LoadingElementId = "progress"
+                    }))
+                            {*@
+
+                                @Html.AntiForgeryToken()
+                                @Html.ValidationSummary(true)
+                                <div class="col-md-12">
+                                    <h5>Gym info</h5><hr>
+
+                                    <div class="form-group col-md-4">
+                                        <label for="exampleInputEmail1">Gym Id</label>
+                                        @Html.TextBoxFor(model => model.GymId, new { @class = "form-control", placeholder = "Gym Id", @readonly="readonly",id="gymId" })
+                                    </div>
+
+                                    <div class="form-group col-md-4">
+                                        <label for="exampleInputEmail1">Gym Name</label>
+                                        @Html.TextBoxFor(model => model.GymName, new { @class = "form-control", id = "txtGymName", placeholder = "Gym Name" })
+                                        @Html.ValidationMessageFor(model => model.GymName, "", new { @class = "text-danger" })
+                                    </div>
+
+                                    <div class="form-group col-md-4">
+                                        <label for="exampleInputEmail1">First Name</label>
+                                        @Html.TextBoxFor(model => model.OwnerFirstName, new { @class = "form-control", id = "txtFirstName", placeholder = "First Name" })
+                                        @Html.ValidationMessageFor(model => model.OwnerFirstName, "", new { @class = "text-danger" })
+                                    </div>
+
+                                    <div class="form-group col-md-4">
+                                        <label for="exampleInputEmail1">Last Name</label>
+                                        @Html.TextBoxFor(model => model.OwnerLastName, new { @class = "form-control", id = "txtLastName", placeholder = "Last Name" })
+                                        @Html.ValidationMessageFor(model => model.OwnerLastName)
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label for="exampleInputEmail1">Opens at</label>
+                                        @Html.TextBoxFor(model => model.Openedat, new { @class = "form-control", id = "txtOpenat", placeholder = "Open at" })
+                                        @Html.ValidationMessageFor(model => model.Openedat)
+                                    </div>
+
+                                    <div class="form-group col-md-4">
+                                        <label for="exampleInputEmail1">Close at</label>
+                                        @Html.TextBoxFor(model => model.Closeat, new { @class = "form-control", id = "txtCloseat", placeholder = "Close at" })
+                                        @Html.ValidationMessageFor(model => model.Closeat)
+                                    </div>
+
+
+                                    <div class="form-group col-md-4">
+                                        <label>Enroll Date:</label>
+                                        <div class="input-group date">
+                                            <div class="input-group-addon">
+                                                <i class="fa fa-calendar"></i>
+                                            </div>
+                                            @{ Html.EnableClientValidation(false); }
+                                            @Html.TextBoxFor(model => model.EnrolDate, new { @class = "form-control pull-right", @type = "datetime", id = "txtEnrollDate" })
+                                        </div>
+                                        <!-- /.input group -->
+                                    </div>
+
+                                    <div class="form-group col-md-4">
+                                        <label for="exampleInputEmail1">Email</label>
+                                        @Html.TextBoxFor(model => model.Email, new { @class = "form-control", placeholder = "Email", id = "txtEmail" })
+                                    </div>
+
+
+
+
+                                    <div class="form-group col-md-4">
+                                        <label for="exampleInputEmail1">Mobile No.</label>
+                                        @Html.TextBoxFor(model => model.MobileNumber, new { @class = "form-control", placeholder = "Mobile Number", id = "txtMobileno" })
+                                    </div>
+
+                                    <div class="form-group col-md-4">
+                                        <label for="exampleInputEmail1">Phone Number(Gym)</label>
+                                        @Html.TextBoxFor(model => model.PhoneNumberGym, new { @class = "form-control", placeholder = "Phone Number(Gym)", id = "txtPhGym" })
+                                    </div>
+
+                                    <div class="form-group col-md-4">
+                                        <label>Established Year</label>
+                                        @Html.TextBoxFor(model => model.EstablishedYear, new { @class = "form-control pull-right", id = "txtEstablishedYear" })
+                                    </div>
+                                    
+                                      <div class="form-group col-md-4">
+                                        <label >Instruction Message</label>
+                                        @Html.TextAreaFor(model => model.InstructionMessage, new { @class = "form-control", rows = "3", placeholder = "Enter", id = "txtInstructionMsg" })
+                                    </div>
+
+
+
+                                    <div class="form-group col-md-4">
+                                        <label for="exampleInputEmail1">Address</label>
+                                        @Html.TextAreaFor(model => model.GymAddress, new { @class = "form-control", rows = "3", placeholder = "Enter", id = "txtAddress" })
+                                    </div>
+
+                                    <div class="form-group col-md-4">
+                                        <label for="exampleInputEmail1">About</label>
+                                        @Html.TextAreaFor(model => model.About, new { @class = "form-control", rows = "3", placeholder = "Enter", id = "txtAbout" })
+                                    </div>
+
+                                    <div class="form-group col-md-4">
+                                        <label for="exampleInputEmail1">FeedBack</label>
+                                        @Html.TextAreaFor(model => model.FeedBack, new { @class = "form-control", rows = "3", placeholder = "Enter", id = "txtFeedBack" })
+                                    </div>
+
+
+
+                                   
+
+
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <button type="button" class="btn btn-info pull-right" style="margin-right: 10px; " id="btnCreateGymLogin">Create Login</button>
+                                </div>
+                                <div class="col-md-12" style="display: none;" id="userform">
+                                    <div class="form-group col-md-4" style="display: none;">
+                                        <label>User Id</label>
+                                        <input type="text" class="form-control" id="txtLoginid" /><!-- /.input group -->
+                                    </div>
+
+                                    <div class="form-group col-md-4">
+                                        <label for="Branch">User Name</label>
+                                        @Html.TextBoxFor(model => model.UserName, new { @class = "form-control", placeholder = "User Name", id = "txtUname" })
+                                        <!-- /.input group -->
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label for="Branch">Password</label>
+                                        @Html.PasswordFor(model => model.Password, new { @class = "form-control", placeholder = "Password", id = "txtpwd" })
+                                        <!-- /.input group -->
+                                    </div>
+                                    <div class="form-group col-md-2">
+                                        <label>Is Login Active @Html.CheckBoxFor(model => model.IsLoginActive, new { id = "chkIsLoginActive"})</label>
+                                    </div>
+                                </div>
+
+
+                                <div class="box-footer">
+                                    <button type="submit" class="btn btn-default pull-right">Reset</button>
+                                    <button type="submit" class="btn btn-info pull-right" style="margin-right: 10px;" id="btnSaveGym">Save Gym</button>
+                                </div>
+                            @*}*@
+                        </div>
+                        <div class="tab-pane row" id="Services">
+                            <h5>Service List</h5><hr>
+                            <div class="col-md-12">
+                                <div class="col-md-6">
+                                    <div class="checkbox">
+                                        <label><input type="checkbox" id="chkGym" value="Gym">Gym</label>
+                                    </div>
+                                    </div>
+                                <div class="col-md-6">
+                                    <div class="checkbox">
+                                        <label><input type="checkbox" id="chkMembership" value="Membership">Membership</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="checkbox">
+                                        <label><input type="checkbox" id="chkEnquiry" value="Enquiry">Enquiry</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="checkbox">
+                                        <label><input type="checkbox" id="chkSetting" value="Setting">Setting</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="checkbox">
+                                        <label><input type="checkbox" id="chkExpense" value="Expense">Expense</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="checkbox">
+                                        <label><input type="checkbox" id="chkTimeSheet" value="TimeSheet">TimeSheet</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="checkbox">
+                                        <label><input type="checkbox" id="chkReports" value="Reports">Reports</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="checkbox">
+                                        <label><input type="checkbox" id="chkInventory" value="Inventory">Inventory</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="checkbox">
+                                        <label><input type="checkbox" id="chkSMS" value="SMS">SMS</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="checkbox">
+                                        <label><input type="checkbox" id="chkWorkout" value="Workout">Workout</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="checkbox">
+                                        <label><input type="checkbox" id="chkDiet" value="Diet">Diet</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="checkbox">
+                                        <label><input type="checkbox" id="chkQuickPrint" value="QuickPrint">Quick Print</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="checkbox">
+                                        <label><input type="checkbox" id="chkAttendance" value="Attendance">Attendance</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="checkbox">
+                                        <label><input type="checkbox" id="chkCalender" value="Calender">Calender</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="checkbox">
+                                        <label><input type="checkbox" id="chkPOS" value="POS">Point Of Sale</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="checkbox">
+                                        <label><input type="checkbox" id="chkDashboard" value="DashBoard">Dashboard</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="checkbox">
+                                        <label><input type="checkbox" id="chkFindMember" value="MemberInfo">Find Member</label>
+                                    </div>
+                                </div>
+                                <div class="box-footer">
+                                    <button type="submit" id="btnServices" class="btn btn-success pull-right"><i class="fa fa-plus" aria-hidden="true"></i> Update Service</button>
+                                </div>
+
+                                </div>
+                        </div>
+
+                        <div class="tab-pane row" id="Amenities-Equipments">
+                            <div id="amenities">
+                                <h4>Amenities List</h4><hr>
+                                <div class="col-md-12" id="AddAmenities" style="background-color: #e5e5e5;">
+
+                                </div>
+
+                            </div>
+                            <br />
+                            <br />
+                            <br />
+                            <div id="amenities">
+                                <h4>Equipment List</h4><hr>
+                                <div class="col-md-12" id="AddEquipment" style="background-color: #e5e5e5;">
+
+                                </div>
+
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-primary btn-sm" id="btnSave"><i class="glyphicon glyphicon-ok"></i> Save</button>
+                                <button type="button" class="btn btn-default btn-sm" data-dismiss="modal"><i class="glyphicon glyphicon-remove"></i>Reset</button>
+                            </div>
+
+                        </div>
+
+
+                            <div class="tab-pane row" id="GymPackage">
+                                @*@using (Ajax.BeginForm("AddMemberShip", "MemberShip",
+                                    new AjaxOptions
+                                    {
+                                        OnSuccess = "Success",
+                                        OnFailure = "Failure",
+                                        LoadingElementId = "progress",
+                                        UpdateTargetId = "tblNewMembership"
+                                    }))
+                {*@
+
+                                <h5>Gym Packages</h5><hr>
+
+                                <div style="display:none;">
+                                    <label for="Branch">Package ID</label>
+                                    <input type="text" id="txtPackageid" />
+                                    <!-- /.input group -->
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group col-md-12">
+                                        <label for="Branch">Select Package</label>
+                                        @Html.DropDownListFor(model => model.PackageType, new SelectList(ViewBag.PackageList), "- Please select -", new { @class = "form-control", id = "ddlPackage" })
+                                        <!-- /.input group -->
+                                    </div>
+
+
+
+                                    <div class="form-group col-md-6">
+                                        <label for="exampleInputEmail1">Months</label>
+                                        @Html.TextBoxFor(model => model.Months, new { @class = "form-control", placeholder = "Months", id = "txtMonths" })
+
+                                    </div>
+
+                                    <div class="form-group col-md-6">
+                                        <label for="exampleInputEmail1">Amount</label>
+                                        @Html.TextBoxFor(model => model.PackageAmount, new { @class = "form-control", placeholder = "Amount", id = "txtPackageamount" })
+
+                                    </div>
+
+
+
+                                    <div class="form-group col-md-6">
+                                        <label>Start Date:</label>
+
+                                        <div class="input-group date">
+                                            <div class="input-group-addon">
+                                                <i class="fa fa-calendar"></i>
+                                            </div>
+                                            @Html.TextBoxFor(model => model.StartDate, new { @class = "form-control pull-right", @type = "datetime", id = "txtStartDate" })
+                                        </div>
+                                        <!-- /.input group -->
+                                    </div>
+
+                                    <div class="form-group col-md-6">
+                                        <label>End Date:</label>
+
+                                        <div class="input-group date">
+                                            <div class="input-group-addon">
+                                                <i class="fa fa-calendar"></i>
+                                            </div>
+                                            @Html.TextBoxFor(model => model.EndDate, new { @class = "form-control pull-right", @type = "datetime", id = "txtEndate" })
+                                        </div>
+                                        <!-- /.input group -->
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group col-md-12">
+                                        <label for="exampleInputEmail1">Note</label>
+                                        @Html.TextAreaFor(model => model.Note, new { @class = "form-control", rows = "3", placeholder = "Enter", id = "txtNote" })
+                                    </div>
+                                    <div class="box-footer">
+                                        <button type="submit" id="btnEnroll" class="btn btn-success pull-right"><i class="fa fa-plus" aria-hidden="true"></i> Enroll Gym</button>
+                                    </div>
+                                </div>
+                                <h5>Gym Details</h5><hr>
+                                <div class="col-sm-12">
+                                    <table id="tblNewGymPackage" class="table table-bordered table-striped dataTable" role="grid" aria-describedby="example1_info">
+                                        <thead>
+                                            <tr role="row">
+                                                <th class="" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 231.217px;display:none"></th>
+                                                <th class="" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 231.217px;">#</th>
+                                                <th class="" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 282.583px;">Package Type</th>
+                                                <th class="" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 250.767px;">Start Date</th>
+                                                <th class="" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 198.717px;">End Date</th>
+                                                <th class="" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 198.717px;">Month</th>
+                                                <th class="" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 250.767px;">Amount</th>
+                                                <th class="" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 198.717px;">Due Amount</th>
+                                                <th class="" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 143.717px;">Paid Amount</th>
+                                                <th class="" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 143.717px;">Status</th>
+                                                <th class="" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 143.717px;">Notes</th>
+                                                <th class="" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 143.717px;">Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody></tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                        <div class="tab-pane row" id="Pictures">
+                            @*@using (Html.BeginForm())
+            {*@
+                            <h5>Pictures</h5><hr>
+                            <div class="col-md-6">
+                                <div class="form-group col-md-12">
+
+                                    <img id="userpic" class="photo">
+                                    <label for="imgInp" class="custom-file-upload">
+                                        <i class="fa fa-cloud-upload"></i>Add Image
+                                    </label>
+                                    <input type='file' id="imgInp" name="image" />
+                                    <input type="button" value="Upload" id="btnUpload" />
+
+                                    <style type="text/css">
+                                        input[type="file"] {
+                                            display: none;
+                                        }
+
+                                        .custom-file-upload {
+                                            border: 1px solid rgb(197, 197, 197);
+                                            border-radius: 4px 4px 4px 4px;
+                                            display: inline-block;
+                                            padding: 6px 12px;
+                                            cursor: pointer;
+                                            float: left;
+                                            width: 5.25em;
+                                            margin-right: 250px;
+                                        }
+
+                                        .photo {
+                                            width: 7em;
+                                            height: 9em;
+                                            border: 1px solid rgb(197, 197, 197);
+                                            border-radius: 4px 4px 4px 4px;
+                                            float: left;
+                                        }
+                                    </style>
+
+
+                                </div>
+
+                            </div>
+
+                            <div class="col-md-6">
+                                @*<input type="button" value="Capture Image" id="btnCapture" onclick="webcam.capture();"   />
+
+                <div id="webcam">
+                </div>
+                <div id="imgShow">*@
+                                <table border="0" cellpadding="0" cellspacing="0">
+                                    <tr>
+                                        <td align="center"><u>Live Camera</u></td>
+                                        <td></td>
+                                        <td align="center"><u>Captured Picture</u></td>
+                                    </tr>
+                                    <tr>
+                                        <td><div id="webcam"></div></td>
+                                        <td>&nbsp;</td>
+                                        <td><img id="imgCapture" style="visibility: hidden; width: 320px;height: 240px" /></td>
+                                    </tr>
+                                </table>
+                                <br />
+                                <input type="button" value="Capture" onclick="Capture();" />
+                                <br />
+                                <span id="camStatus"></span>
+
+
+                                @*</div>*@
+                            </div>
+                            @*}*@
+                        </div>
+                            <!-- /.box-body -->
+                        </div>
+                    <!-- /.box-body -->
+                </div>
+
+</section>
+<!-- /.content -->
+<!-- /.content-wrapper -->
+<!-- ./wrapper -->
+<!-- .modal -->
+<div class="modal fade" id="modal-payment">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title">Payment</h4>
+            </div>
+            <div class="modal-body">
+
+                <div class="nav-tabs-custom">
+                    <ul class="nav nav-tabs">
+                        <li class="active"><a href="#add-payment" data-toggle="tab">Add Payment</a></li>
+                        <li><a href="#payment-history" data-toggle="tab">Payment History</a></li>
+                    </ul>
+                    <div class="tab-content">
+                        <!-- Font Awesome Icons -->
+
+                        <div class="tab-pane active row" id="add-payment">
+                            @*@using (Html.BeginForm())
+                                {
+                                    @Html.AntiForgeryToken()*@
+
+                            <div class="col-md-6">
+                                <div class="form-group col-md-12">
+                                    <label for="Branch">Payment Type</label>
+                                    @Html.DropDownListFor(model => model.PaymentType, new SelectList(new List<string>
+                                         () { "--Select--", "Cash", "Cheque", "Card", "Bank Transfer" }), new { @class = "form-control", id = "ddlPaymentType" })
+
+                                    <!-- /.input group -->
+                                </div>
+
+                                <div class="form-group col-md-12">
+                                    <label>Payment Date:</label>
+
+                                    <div class="input-group date">
+                                        <div class="input-group-addon">
+                                            <i class="fa fa-calendar"></i>
+                                        </div>
+                                        @Html.TextBoxFor(model => model.PaymentDate, new { @class = "form-control pull-right", @type = "datetime", id = "txtPaymentDate" })
+                                    </div>
+                                    <!-- /.input group -->
+                                </div>
+
+                                <div class="form-group col-md-12">
+                                    <label for="exampleInputEmail1">Receipt Number</label>
+                                    @Html.TextBoxFor(model => model.RecieptNumber, new { @class = "form-control", placeholder = "Reciept Number", id = "txtRecieptNumber" })
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group col-md-12">
+                                    <label for="exampleInputEmail1">Paid Amount</label>
+
+                                    @Html.TextBoxFor(model => model.PaymentAmount, new { @class = "form-control", placeholder = "Paid Amount", id = "txtPaymentAmount" })
+                                </div>
+
+                                <div class="form-group col-md-12">
+                                    <label>Payment Due Date:</label>
+
+                                    <div class="input-group date">
+                                        <div class="input-group-addon">
+                                            <i class="fa fa-calendar"></i>
+                                        </div>
+                                        @Html.TextBoxFor(model => model.PaymentDueDate, new { @class = "form-control pull-right", @type = "datetime", id = "txtDuedate" })
+
+                                    </div>
+                                    <!-- /.input group -->
+                                </div>
+
+                                <div class="form-group col-md-12">
+                                    <label for="exampleInputEmail1">Reference Number</label>
+                                    @Html.TextBoxFor(model => model.ReferenceNumber, new { @class = "form-control", placeholder = "Reference Number", id = "txtReferenceNo" })
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="submit" id="GymPaymentSave" class="btn btn-default" data-dismiss="modal">Save</button>
+                                <button type="submit" class="btn btn-primary">Close</button>
+                            </div>
+                            @*}*@
+                        </div>
+
+                        <div class="tab-pane row" id="payment-history">
+                            <table id="tblGymPaymentHistory" class="table table-bordered table-striped dataTable" role="grid" aria-describedby="example1_info">
+                                <thead>
+                                    <tr role="row">
+                                        <th class="" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 231.217px;">Payment Date</th>
+                                        <th class="" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 231.217px;">Paid Amount</th>
+                                        <th class="" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 231.217px;">Payment type</th>
+                                        <th class="" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 231.217px;">Receipt No.</th>
+                                        <th class="" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 231.217px;">Edit</th>
+                                        <th class="" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 231.217px;">Delete</th>
+                                        <th class="" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 231.217px;">Print</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                    <tr role="row" class="odd"></tr>
+                                </tbody>
+                                <toot>
+                                </toot>
+                            </table>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-success pull-left" data-dismiss="modal">Payment Receipt</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+
+<div class="modal fade" id="modal-print">
+    <div class="modal-dialog" style="width:700px;">
+        <div class=" modal-content">
+            <div id="divMembership">
+                <div class="modal-body" id="modal-printbody">
+
+                    <div class="col-lg-12">
+                        <div class="row">
+                            <div class="col-lg-4 pull-right">
+                                <div class="row">
+                                    <div class="col-md-12 text-right">
+                                        <div class="form-group">
+                                            <h4><b>Tax Invoice</b></h4>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-7">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <img src="/Theme/img/MWM.jpg" style="max-width:250px; max-height:100px; padding:5px;">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                        <br>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div style="width:250px;float:left;padding-left:10px">
+                                    @*<div class="form-group">GSTIN :<span>2342344354325</span></div>
+                                        <div class="form-group">Gujarat State Code:24</div>*@
+                                    <div class="form-group">Name :<span>Justbok</span></div>
+                                    <div class="form-group">Address :<p>Shop No 1& 2, Concrete Sitar Apartment,<br /> Nallagandla Road, Lingampally,<br /> Near Rythu Bazaar,<br /> Hyderabad - 500019,<br /> Telangana.</p></div>
+                                    @*<div class="form-group">Serial No. of Invoice :<span>15000</span></div>
+                                        <div class="form-group">Date of Invoice :<span>15/09/2017</span></div>*@
+                                </div>
+
+                                <div style="width:250px;float:right">
+                                    <div class="form-group">Details of Receiver (Billed to)</div>
+                                    <div class="form-group">Name : <span id="customerName"></span></div>
+                                    <div class="form-group">GST / Unique ID No :</div>
+                                    <div class="form-group">
+                                        Address : <span id="address"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                        <div style="padding:5px">
+                            <div class="row">
+                                <table width="100%" border="1" id="tblInvoice">
+                                    <thead>
+                                        <tr>
+                                            <td rowspan="2" class="text-center" align="center">Sr. No.</td>
+                                            <td rowspan="2" class="text-center" align="center">Package</td>
+                                            <td rowspan="2" class="text-center" align="center">Rate</td>
+                                            <td rowspan="2" class="text-center" align="center">Total</td>
+                                            <td rowspan="2" class="text-center" align="center">Taxable Value</td>
+                                            <td colspan="2" class="text-center" align="center">CGST</td>
+                                            <td colspan="2" class="text-center" align="center">SGST</td>
+                                        </tr>
+                                        <tr>
+                                            <td style="border-top:1px solid black;border-bottom:1px solid black" class="text-center" align="center">
+                                                Rate
+                                            </td>
+                                            <td style="border-top:1px solid black;border-bottom:1px solid black" class="text-center" align="center">
+                                                Amt
+                                            </td>
+                                            <td style="border-top:1px solid black;border-bottom:1px solid black" class="text-center" align="center">
+                                                Rate
+                                            </td>
+                                            <td style="border-top:1px solid black;border-bottom:1px solid black" class="text-center" align="center">
+                                                Amt
+                                            </td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td style="border-top:1px solid black;" class="text-center">1.</td>
+                                            <td style="border-top:1px solid black;" id="package"></td>
+                                            <td style="border-top:1px solid black;" class="text-right" id="rate"></td>
+                                            <td style="border-top:1px solid black;" class="text-right" id="Total"></td>
+                                            <td style="border-top:1px solid black;" class="text-right" id="taxableValue"></td>
+                                            <td style="border-top:1px solid black;" class="text-right" id="cgstrate"></td>
+                                            <td style="border-top:1px solid black;" class="text-right" id="cgstamount"></td>
+                                            <td style="border-top:1px solid black;" class="text-right" id="sgstrate"></td>
+                                            <td style="border-top:1px solid black;" class="text-right" id="sgstamount"></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <br>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <b>Start Date :</b> &nbsp;&nbsp;<span id="startdate"> </span> &nbsp;&nbsp; <b>End Date :</b>  &nbsp;&nbsp;  <span id="enddate"> </span>
+                                    <br>
+                                    <label> By :</label> <span class="ng-binding">Cash</span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <h4 class="pull-right">Total Invoice Value : <span id="totalAmount"></span> /-</h4>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <hr>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <small>
+                                <ol>
+
+                                    <li>
+                                        Right of admission/ renewal/ termination are reserved.
+                                    </li>
+                                    <li>Member's will use equipment/ facilities with due care and caution and keep the same in proper place after use.</li>
+                                    <li>Member's enrolling with any previous medical history have to keep informed to the trainer.</li>
+                                    <li>No cardio machine will be allowed to be use more than 20 minutes.</li>
+                                    <li>Gym dress code is mandatory as instructed by the trainer.</li>
+                                    <li>No bare foot is allowed on floor.</li>
+                                    <li>Any activity or exercise resulting in pain, faintness, dizziness, or shortness of breath should be stopped immediately.</li>
+                                    <li>Violation of Rules:If any member violates any of the policies, Gym Owners have the right to revoke memberships.</li>
+
+                                   
+                                </ol>
+                            </small>
+                        </div>
+                    </div>
+
+                    <br>
+                    <div class="row">
+                        <div style="padding-left: 10px; width: 250px; float: left">
+                            <div class="form-group" style="margin-bottom:0">
+                                <label>Received By :</label><span>_________________</span>
+                            </div>
+                            <br>
+                            <div class="form-group" style="margin-bottom:0">
+                                <label>Sign :</label>
+                                <span>________________________</span>
+                            </div>
+                        </div>
+                        <div style="width:300px;float:right">
+                            <div class="form-group" style="margin-bottom:0">
+                                <label class="">Customer Name :</label>
+                                <span>_________________</span>
+                            </div>
+                            <br>
+                            <div class="form-group" style="margin-bottom:0">
+                                <label>Sign :</label>
+                                <span>________________________</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default pull-right" id="closepage" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-success pull-right" id="printpage">Print</button>
+
+            </div>
+
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+<div class="bootbox modal fade in" role="dialog" id="modal_ConformationPayment">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="bootbox-close-button close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title">Confirmation !</h4>
+            </div>
+            <div class="modal-body">
+                <div class="bootbox-body">Are you sure want to delete?</div>
+                <input id="txtPaymentRecieptNo" class="" type="hidden">
+            </div>
+            <div class="modal-footer">
+                <button data-bb-handler="success" type="button" class="btn btn-success btn-flat" id="btnYesPayment">Yes</button>
+                <button data-bb-handler="danger" type="button" class="btn btn-danger btn-flat" data-dismiss="modal">No</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="bootbox modal fade in" role="dialog" id="modal_Conformation">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="bootbox-close-button close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title">Confirmation !</h4>
+            </div>
+            <div class="modal-body">
+                <div class="bootbox-body">Are you sure want to delete?</div>
+                <input id="txtPaymentRecieptNo" class="" type="hidden">
+            </div>
+            <div class="modal-footer">
+                <button data-bb-handler="success" type="button" class="btn btn-success btn-flat" id="btnYes">Yes</button>
+                <button data-bb-handler="danger" type="button" class="btn btn-danger btn-flat" data-dismiss="modal">No</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/Theme/js/jquery.min.js"></script>
+<script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+
+
+
+
+
+@section Scripts {
+
+    @*@Scripts.Render("~/js")
+    @Styles.Render("~/css")*@
+
+    <script type="text/javascript">
+    $(document).ready(function () {
+        $('input[type=datetime]').datepicker({
+            dateFormat: "dd/m/yy",
+            changeMonth: true,
+            changeYear: true,
+            yearRange: "-60:+100"
+        });
+
+        $("#txtOpenat, #txtCloseat").datetimepicker({
+            format: 'HH:mm',
+            useCurrent: true,
+            stepping: 1
+        });
+
+        //$('#txtEstablishedYear').datepicker({
+        //    dateFormat: "yy",
+        //    changeMonth: true,
+        //    changeYear: true,
+        //    yearRange: "-60:+100"
+           
+        //});
+        //$('#txtOpenat').wickedpicker();
+        //$('#txtCloseat').wickedpicker();
+        BindGymlist();
+        ShowAmenitiesCheckBoxs();
+        ShowEquipmentCheckBoxes();
+        onsuccess();
+    });
+
+    function BindGymlist()
+    {
+        var GymlistData = null;
+       
+        if (GymlistData != null) {
+          
+            $.each(GymlistData, function (i, item) {
+                $("#gymId").val(item.GymId);
+                $("#txtEstablishedYear").val(item.EstablishedYear);
+                $("#txtInstructionMsg").val(item.InstructionMessage);
+                $("#txtAbout").val(item.About);
+                $("#txtFeedBack").val(item.FeedBack);
+                $("#txtLoginid").val(item.Loginid);
+                $("#txtUname").val(item.UserName);
+                $("#txtpwd").val(item.Password);
+                if (item.IsLoginActive) {
+                    $("#chkIsLoginActive").prop("checked", true);
+                }
+                else {
+                    $("#chkIsLoginActive").prop("checked", false);
+                }
+              
+
+            });
+        }
+        else {
+            
+            $.ajax({
+                url: "@Url.Action("BindGymList")",
+                data: "",
+                type: "GET",
+                dataType: "json",
+                success: function (data) {
+                    GymlistData = data;
+                    $.each(GymlistData, function (i, item) {
+                      
+                        $("#gymId").val(item.GymId);
+                        $("#txtEstablishedYear").val(item.EstablishedYear);
+                        $("#txtInstructionMsg").val(item.InstructionMessage);
+                        $("#txtAbout").val(item.About);
+                        $("#txtFeedBack").val(item.FeedBack);
+                        $("#txtLoginid").val(item.Loginid);
+                        $("#txtUname").val(item.UserName);
+                        $("#txtpwd").val(item.Password);
+                        if (item.IsLoginActive) {
+                            $("#chkIsLoginActive").prop("checked", true);
+                        }
+                        else {
+                            $("#chkIsLoginActive").prop("checked", false);
+                        }
+
+                    });
+                },
+                error: function () {
+                    alert("Failed! Please try again.");
+                }
+            });
+
+        }
+    }
+
+
+
+    function ShowAmenitiesCheckBoxs() {
+        $.ajax({
+            cache: false,
+            type: "GET",
+            url: "@Url.Action("GetAmenitiesList")",
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                data: "",
+                success: function (data) {
+                    $.each(data, function (i, item) {
+                        var AminityName = item.AmenitiesName.replace(/ /g, "");
+                        $("#AddAmenities").append('<div class="col-md-6"> <div class="checkbox"><label><input type="checkbox" class="chkAminity" id="chk' + AminityName + '" value=' + AminityName + '>' + item.AmenitiesName + '</label> </div> </div>');
+                    });
+
+                    UpdateAmenitiesCheckBoxes();
+
+
+                },
+                failure: function (errMsg) {
+                    alert(errMsg.responseText);
+                }
+            });
+        }
+
+        function ShowEquipmentCheckBoxes()
+        {
+            $.ajax({
+                cache: false,
+                type: "GET",
+                url: "@Url.Action("GetEquipmentList")",
+                dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            data: "",
+            success: function (data) {
+                $.each(data, function (i, item) {
+                    var EquipmentName = item.EquipmentName.replace(/ /g, "");
+                    $("#AddEquipment").append('<div class="col-md-6"> <div class="checkbox"><label><input type="checkbox" class="chkEquipment" id="chk' + EquipmentName + '" value=' + EquipmentName + '>' + item.EquipmentName + '</label> </div> </div>');
+                });
+                UpdateEquipmentCheckBoxes();
+            },
+            failure: function (errMsg) {
+                alert(errMsg.responseText);
+            }
+        });
+
+
+        }
+
+
+        function UpdateAmenitiesCheckBoxes()
+        {
+            $.ajax({
+                cache: false,
+                type: "GET",
+                url: "@Url.Action("EditAmenitiesList")",
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            data: "",
+            success: function (data) {
+                $.each(data, function (i, item) {
+
+                    if (item.AminityEnable) {
+                        $("input:checkbox[class=chkAminity]").each(function () {
+
+                            var aminity = $(this).val();
+                            var AminityName = item.GymAmenitiesName.replace(/ /g, "");
+                            if (AminityName == aminity)
+                            {
+                                $(this).prop( "checked", true );
+                            }
+                        });
+                    }
+
+                    //if (item.AminityEnable) {
+
+                    //    $("#AddAmenities").append('<div class="col-md-6"> <div class="checkbox"><label><input type="checkbox" class="chkAminity" id="chk' + item.GymAmenitiesName + '" value=' + item.GymAmenitiesId + ' checked>' + item.GymAmenitiesName + '</label> </div> </div>');
+                    //}
+                    //else {
+                    //    $("#AddAmenities").append('<div class="col-md-6"> <div class="checkbox"><label><input type="checkbox" class="chkAminity" id="chk' + item.GymAmenitiesName + '" value=' + item.GymAmenitiesId + '>' + item.GymAmenitiesName + '</label> </div> </div>');
+                    //}
+
+
+
+                });
+            },
+            failure: function (errMsg) {
+                alert(errMsg.responseText);
+            }
+        });
+
+
+        }
+
+        function UpdateEquipmentCheckBoxes()
+        {
+            $.ajax({
+                cache: false,
+                type: "GET",
+                url: "@Url.Action("EditEquipmentList")",
+                dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            data: "",
+            success: function (data) {
+                $.each(data, function (i, item) {
+                    if (item.EquipmentEnable) {
+                        $("input:checkbox[class=chkEquipment]").each(function () {
+                            var equipment = $(this).val();
+                            var EquipmentName = item.GymEquipmentName.replace(/ /g, "");
+
+                            if (EquipmentName == equipment)
+                            {
+                                $(this).prop( "checked", true );
+                            }
+                        });
+                    }
+                });
+            },
+            failure: function (errMsg) {
+                alert(errMsg.responseText);
+            }
+        });
+
+
+        }
+
+
+
+    $('#btnSave').click(function () {
+        var jsonObj = { Aminities: [],Equipment:[] };
+        $("input:checkbox[class=chkAminity]:checked").each(function () {
+            jsonObj['Aminities'].push($(this).val());
+        });
+        $("input:checkbox[class=chkEquipment]:checked").each(function () {
+            jsonObj['Equipment'].push($(this).val());
+        });
+       // jsonObj['Equipment'].push("Hello");
+        $.ajax({
+            cache: false,
+            type: "POST",
+            url: "@Url.Action("EditUpdateAmenityandEnquiry")",
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify(jsonObj),
+            success: function (data) {
+                redirecttoedit();
+            },
+            failure: function (errMsg) {
+                alert(errMsg.responseText);
+            }
+        });
+    });
+
+    function redirecttoedit() {
+        window.location.href = '/Gym/GetGymList';
+    }
+
+
+    </script>
+
+
+
+
+
+
+}
+
+<script type="text/javascript">
+    $(function () {
+        $('#mySkills').multiselect({
+            includeSelectAllOption: true
+
+        });
+    });
+</script>
+
+@*<script type="text/javascript">
+    function OnSuccess(response) {
+        $('.nav-tabs a[href="#GymPackage"]').tab('show');
+        alert("Data Saved Successfully");
+    }
+    function OnFailure(response) {
+        alert("Error occured.");
+    }
+</script>*@
+
+
+
+<script>
+    var packageId;
+    var paymentId;
+    var packageData = null;
+    var paymentData = null;
+    $(document).ready(function() {
+        var isSucess=false;
+        $('#btnEnroll').click(function () {
+
+            var jsonObject = {
+                PackageType: $('#ddlPackage option:selected').val(), Months: $('#txtMonths').val(), PackageAmount: $('#txtPackageamount').val(), StartDate: $('#txtStartDate').val(), Enddate: $('#txtEndate').val(),
+                Note: $('#txtNote').val(), GymStatus: "Active",PackageId:$('#txtPackageid').val()
+            }
+            $.ajax({
+                cache: false,
+                type: "POST",
+                url: "@Url.Action("EditAddPackages")",
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                data: JSON.stringify(jsonObject),
+                success: function (data) {
+                    onsuccess();
+                    toastr.success("Data Saved Successfully.");
+                   // alert("Data Submitted");
+                },
+                failure: function (errMsg) {
+                    alert(errMsg.responseText);
+                }
+            });
+
+        });
+
+        $('#btnSaveGym').click(function () {
+            var jsonObject = {
+                Gymid: $('#gymId').val(), GymName: $('#txtGymName').val(), OwnerFirstName: $('#txtFirstName').val(), OwnerLastName: $('#txtLastName').val(),
+                Openedat: $('#txtOpenat').val(), Closeat: $('#txtCloseat').val(), GymAddress: $('#txtAddress').val(),
+                Email: $('#txtEmail').val(), EnrolDate: $('#txtEnrollDate').val(), MobileNumber: $('#txtMobileno').val(),
+                PhoneNumberGym: $('#txtPhGym').val(), InstructionMessage: $('#txtInstructionMsg').val(),
+                EstablishedYear: $('#txtEstablishedYear').val(), About: $('#txtAbout').val(), FeedBack: $('#txtFeedBack').val(),
+                UserName: $('#txtUname').val(), Password: $('#txtpwd').val(), IsLoginActive: $('#chkIsLoginActive').val(), Loginid: $('#txtLoginid').val()
+            }
+            $.ajax({
+                cache: false,
+                type: "POST",
+                url: "@Url.Action("EditGym")",
+                dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify(jsonObject),
+            success: function (data) {
+                $('.nav-tabs a[href="#GymPackage"]').tab('show');
+                toastr.success("Data Saved Successfully.");
+               // alert("Data Saved Successfully");
+
+            },
+            failure: function (errMsg) {
+                alert(errMsg.responseText);
+            }
+        });
+
+        });
+
+
+
+        //$(document).on('click', '#tblNewGymPackage tr', function () {
+
+        //    packageId = $(this).closest('tr').find('input[type="hidden"]').val();
+        //});
+
+        $('#GymPaymentSave').click(function () {
+
+          
+            var jsonObject = {
+                PaymentType: $('#ddlPaymentType option:selected').val(), PaymentAmount: $('#txtPaymentAmount').val(), PaymentDate: $('#txtPaymentDate').val(),
+                PaymentDueDate: $('#txtDuedate').val(), ReferenceNumber: $('#txtReferenceNo').val(), PackageId: packageId,RecieptNumber: $('#txtRecieptNumber').val()
+            }
+            $.ajax({
+                cache: false,
+                type: "POST",
+                url: "@Url.Action("EditGymPayment")",
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                data: JSON.stringify(jsonObject),
+                success: function (data) {
+                    onPaymentsuccess();
+                    onsuccess();
+
+                },
+                failure: function (errMsg) {
+                    alert(errMsg.responseText);
+                }
+            });
+        });
+
+
+    });
+
+
+    function onsuccess()
+    {
+        $.ajax({
+            url: "@Url.Action("EditBindGymPackage", "Gym")",
+            data: "",
+            type: "GET",
+            dataType: "json",
+            success: function (data) {
+                packageData = data;
+                $('#txtPackageid').val("");
+                $('#tblNewGymPackage tbody').empty();
+                $.each(data, function (i, item) {
+
+                    var  dueAmount = 0;
+                    var gymtype = item.PackageType.split(' ');
+                    //if (item.DueAmount == undefined || item.DueAmount == null)
+                    //{
+                    //    item.DueAmount = "-";
+                    //}
+                    if (item.PaymentAmount == undefined || item.PaymentAmount == null) {
+
+                        item.PaymentAmount = "-";
+                        dueAmount = parseInt(item.PackageAmount) || 0;
+                    }
+                    else {
+                        var amount = parseInt(item.PackageAmount) || 0;
+                        var PaymentAmount = parseInt(item.PaymentAmount) || 0;
+                        dueAmount = amount - PaymentAmount;
+                    }
+                    if (item.Status == undefined || item.Status == null) {
+                        item.Status = "-";
+                    }
+                    if (item.Notes == undefined || item.Notes == null) {
+                        item.Notes = "";
+                    }
+
+                    // console.log(dueAmount);
+                    var rowno = i + 1;
+                    var rows = "<tr>"
+
+                          + "<td style='display:none'>" + '<input type="hidden" name="hid" value=' + item.PackageId + '>' + "</td>"
+
+                        + "<td>" + rowno + "</td>"
+
+
+
+    + "<td>" + gymtype[0] + "</td>"
+
+    + "<td>" + item.StartDate + "</td>"
+
+    + "<td>" + item.EndDate + "</td>"
+
+    + "<td>" + item.Months + "</td>"
+
+    + "<td>" + item.PackageAmount + "</td>"
+    + "<td ><span class='badge bg-red'>" + dueAmount + "</span></td>"
+    + "<td><span class='badge bg-green'>" + item.PaymentAmount + "</span></td>"
+    + "<td><span class='badge bg-green'>" + item.Status + "</span></td>"
+    + "<td>" + item.Notes + "</td>"
+
+    + "<td><a class='btn btn-info btnPayment' data-toggle='modal' data-target='#modal-payment'>Payment</a>&nbsp;<a class='btn btn-primary btnEditPackage' >Edit</a>&nbsp;<a class='btn btn-danger btnDeletePackage'>Delete</a></td>"
+    + "</tr>";
+
+                    $('#tblNewGymPackage tbody').append(rows);
+
+                });
+            },
+            error: function () {
+                alert("Failed! Please try again.");
+            }
+        });
+    }
+
+    function onPaymentsuccess()
+    {
+        $.ajax({
+            url: "@Url.Action("GymBindPayment")",
+            data: { PackageId: packageId },
+            type: "GET",
+            dataType: "json",
+            success: function (data) {
+                paymentData = data;
+                $('#tblGymPaymentHistory tbody').empty();
+                $.each(data, function (i, item) {
+
+                    var rows = "<tr>"
+                          + "<td style='display:none'>" + '<input type="hidden" name="hid" value=' + item.RecieptNumber + '>' + "</td>"
+    + "<td>" + item.PaymentDate + "</td>"
+
+    + "<td>" + item.PaidAmount + "</td>"
+
+    + "<td>" + item.PaymentType + "</td>"
+
+    + "<td>" + item.RecieptNumber + "</td>"
+
+    + "<td> <i class='fa fa-fw fa-edit btnEditPayment'></i></td></td>"
+    + "<td><i class='fa fa-fw fa-close btnDeletePayment'></i></td>"
+    + "<td><a href='' data-toggle='modal' data-target='#modal-print' ><i class='fa fa-fw fa-print'></i></a></td>"
+    + "</tr>";
+
+                    $('#tblGymPaymentHistory tbody').append(rows);
+
+                });
+                //  $('#modal-payment').modal('toggle');
+                $('.nav-tabs a[href="#payment-history"]').tab('show');
+            },
+            error: function () {
+                alert("Failed! Please try again.");
+            }
+        });
+    }
+
+
+    $(document).on('click', '.btnPayment', function () {
+        packageId = $(this).closest('tr').find('input[type="hidden"]').val();
+        onPaymentsuccess();
+    });
+
+    $('#btnCreateGymLogin').click(function () {
+
+        $('#userform').show();
+
+    });
+
+
+    $(document).on('click', '.btnEditPackage', function () {
+
+        var rowIndex = $(this).closest('td').parent()[0].sectionRowIndex;
+        var packageId = $('#tblNewGymPackage tr').eq(rowIndex + 1).find('td').eq(0).find('input[type="hidden"]').val();
+
+        if (packageData != null && packageId != null) {
+
+            $.each(packageData, function (i, obj) {
+                if (obj.PackageId == packageId) {
+                    $('#txtPackageid').val(obj.PackageId);
+                    $("#ddlPackage option").each(function () {
+                        if ($(this).text() == obj.PackageType) {
+                            $(this).prop("selected", true)
+                        }
+                    });
+
+                    $('#txtMonths').val(obj.Months);
+                    //$('#txtAmount').val(obj.Amount);
+                    $('#txtPackageamount').val(obj.PackageAmount);
+                    $('#txtStartDate').val(obj.StartDate);
+                    $('#txtEndate').val(obj.EndDate);
+                    $('#txtNote').val(obj.Note);
+                }
+            });
+        }
+        else
+        {
+            $.ajax({
+                cache: false,
+                type: "GET",
+                url: "@Url.Action("EditBindGymPackage")",
+                dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            data: "",
+            success: function (data) {
+
+                $.each(data, function (i, obj) {
+
+                    if (obj.PackageId == packageId) {
+                        $('#txtPackageid').val(obj.PackageId);
+                        $("#ddlPackage option").each(function () {
+                            if ($(this).text() == obj.PackageType) {
+                               // $(this).text() == obj.PackageType;
+                                $(this).prop("selected", true)
+                            }
+                        });
+                        $('#txtMonths').val(obj.Months);
+                        $('#txtPackageamount').val(obj.PackageAmount);
+                        //$('#txtAmount').val(obj.Amount);
+                        $('#txtStartDate').val(obj.StartDate);
+                        $('#txtEndate').val(obj.EndDate);
+                        $('#txtNote').val(obj.Note);
+                    }
+                });
+            },
+            error: function () {
+                alert("Failed! Please try again.");
+            }
+        });
+    }
+    });
+
+    $(document).ready(function () {
+    }).on('click', '.btnDeletePackage', function () {
+        var rowIndex = $(this).closest('td').parent()[0].sectionRowIndex;
+        var packageId = $('#tblNewGymPackage tr').eq(rowIndex + 1).find('td').eq(0).find('input[type="hidden"]').val();
+        $('#txtPackageid').val(packageId);
+        $('#modal_Conformation').modal('show');
+    });
+
+
+
+    $(document).ready(function () {
+    }).on('click', '#btnYes', function () {
+        $('#modal_Conformation').modal('hide');
+        packageId = $('#txtPackageid').val();
+        $('#txtPackageid').val("");
+        $.ajax({
+            cache: false,
+            type: "GET",
+            url: "@Url.Action("DeletePackage")",
+            dataType: "json",
+        contentType: "application/json; charset=utf-8",
+        data: { PackageId: packageId },
+        success: function (data) {
+            onsuccess();
+        },
+        error: function () {
+            alert("Failed! Please try again.");
+        }
+        });
+    });
+
+
+    $(document).on('click', '.btnEditPayment', function () {
+        
+        var rowIndex = $(this).closest('td').parent()[0].sectionRowIndex;
+        var RecieptNo = $('#tblGymPaymentHistory tr').eq(rowIndex + 1).find('td').eq(4).html();
+        if (paymentData != null && RecieptNo != null) {
+            $.each(paymentData, function (i, obj) {
+                if (obj.RecieptNumber == RecieptNo)
+                {
+                    //select dropdown payment type
+                    $("#ddlPaymentType option").each(function () {
+                        if ($(this).text() == obj.PaymentType) {
+                            //$(this).text() == obj.PaymentType;
+                            //$(this).attr('selected', 'selected');
+                            $(this).prop("selected", true)
+                        }
+                    });
+
+                    //payment amount 
+                    $('#txtPaymentAmount').val(obj.PaidAmount);
+                    $('#txtPaymentDate').val(obj.PaymentDate);
+                    $('#txtDuedate').val(obj.PaymentDueDate);
+                    $('#txtRecieptNumber').val(obj.RecieptNumber);
+                    $('.nav-tabs a[href="#add-payment"]').tab('show');
+                }
+            });
+        }
+        else {
+            $.ajax({
+                url: "@Url.Action("GymBindPayment")",
+                data: { PackageId: packageId },
+            type: "GET",
+            dataType: "json",
+            success: function (data) {
+                //alert("else conditon");
+                paymentData = data;
+                $.each(paymentData, function (i, obj) {
+                    if (obj.RecieptNumber == RecieptNo) {
+                        //select dropdown payment type
+                        $("#ddlPaymentType option").each(function () {
+                            if ($(this).text() == obj.PaymentType) {
+                                //$(this).text() == obj.PaymentType;
+                                //$(this).attr('selected', 'selected');
+                                $(this).prop("selected", true)
+                            }
+                        });
+
+                        //payment amount 
+                        $('#txtPaymentAmount').val(obj.PaidAmount);
+                        $('#txtPaymentDate').val(obj.PaymentDate);
+                        $('#txtDuedate').val(obj.PaymentDueDate);
+                        $('#txtRecieptNumber').val(obj.RecieptNumber);
+                        $('.nav-tabs a[href="#add-payment"]').tab('show');
+                    }
+                });
+            },
+
+            error: function () {
+                alert("Failed! Please try again.");
+            }
+        });
+    }
+    });
+
+
+    $(document).ready(function () {
+    }).on('click', '.btnDeletePayment', function () {
+        var rowIndex = $(this).closest('td').parent()[0].sectionRowIndex;
+        var RecieptNo = $('#tblGymPaymentHistory tr').eq(rowIndex + 1).find('td').eq(4).html();
+        $('#txtPaymentRecieptNo').val(RecieptNo);
+        $('#modal_ConformationPayment').modal('show');
+    });
+
+    $(document).ready(function () {
+    }).on('click', '#btnYesPayment', function () {
+        $('#modal_ConformationPayment').modal('hide');
+       
+        recieptNumber = $('#txtPaymentRecieptNo').val();
+       
+      
+        $.ajax({
+            cache: false,
+            type: "GET",
+            url: "@Url.Action("DeletePayment")",
+            dataType: "json",
+        contentType: "application/json; charset=utf-8",
+        data: {RecieptNumber: recieptNumber},
+        success: function (data) {
+            // $("#modal-delete").dialog("close");
+            onPaymentsuccess();
+            onsuccess();
+        },
+        failure: function (errMsg) {
+            alert(errMsg.responseText);
+        }
+    });
+
+    });
+
+
+    $(document).on('click', '#tblGymPaymentHistory tr', function () {
+        paymentId = $(this).closest('tr').find('input[type="hidden"]').val();
+
+        $.ajax({
+            url: "@Url.Action("EditGetGymInvoice")",
+            data: { packageid: packageId, receiptnumber: paymentId },
+        type: "GET",
+        dataType: "json",
+        success: function (data) {
+
+            var rate = data.Amount / 1.15;
+            var taxamount = data.Amount - rate;
+            var gstamt = taxamount / 2;
+            var gstRate = 15 / 2;
+           
+            $("#customerName").text(data.FirstName);
+            $("#address").text(data.GymAddress);
+            $("#package").text(data.PackageType);
+            $("#startdate").text(data.StartDate);
+            $("#enddate").text(data.EndDate);
+            $("#totalAmount").text(data.Amount);
+            $("#rate").text(rate.toFixed(2));
+            $("#Total").text(rate.toFixed(2));
+            $("#taxableValue").text(rate.toFixed(2));
+            $("#cgstrate").text(gstRate);
+            $("#cgstamount").text(gstamt.toFixed(2));
+            $("#sgstrate").text(gstRate);
+            $("#sgstamount").text(gstamt.toFixed(2));
+        },
+        error: function () {
+            alert("Failed! Please try again.");
+        }
+    });
+
+    });
+
+
+
+
+</script>
+
+<script>
+
+    $(document).ready(function () {
+        $("#ddlPackage").change(
+            function () {
+                var monthCount = 0;
+                var ddlmembership = $("#ddlPackage option:selected").val();
+                var s = ddlmembership.split(" ");
+                for (i = 0; i <= s.length; i++) {
+                    if (s[i] == "Month") {
+                        monthCount = i;
+                    }
+
+                }
+                var amount = s[monthCount + 1].substr(1).slice(0, -1);
+                $("#txtMonths").val(s[monthCount - 1]);
+                $("#txtPackageamount").val(amount);
+                var now = new Date();
+                now.setMonth(now.getMonth() + parseInt(s[monthCount - 1]));
+                $('#txtStartDate').datepicker('setDate', new Date());
+                $('#txtEndate').datepicker('setDate', now);
+            }
+            );
+
+
+    });
+
+    $('#printpage').click(function () {
+        PrintOrderReceipt();
+    });
+
+    function PrintOrderReceipt() {
+        var printelem = document.getElementById('divMembership');
+        var myWindow = window.open('', '', 'width=750,height=500', '_blank');
+        myWindow.document.write(document.head.innerHTML);
+        myWindow.document.write(printelem.innerHTML);
+        myWindow.document.write("\x3Cscript>window.print(); window.close();\x3C/script>");
+    }
+
+
+</script>
+
+<script>
+    $(document).ready(function () {
+        $.ajax({
+            url:"@Url.Action("EditServiceList", "Gym")",
+            data: "",
+        type: "GET",
+        dataType: "json",
+        success: function (data) {
+            $.each(data, function (i, item) {
+
+                if (item.ServiceName == "Membership") {
+                    $('#chkMembership').attr('checked', true);
+                }
+                if (item.ServiceName == "Enquiry") {
+                    $('#chkEnquiry').attr('checked', true);
+                }
+                if (item.ServiceName == "Setting") {
+                    $('#chkSetting').attr('checked', true);
+                }
+                if (item.ServiceName == "Expense") {
+                    $('#chkExpense').attr('checked', true);
+                }
+                if (item.ServiceName == "TimeSheet") {
+                    $('#chkTimeSheet').attr('checked', true);
+                }
+                if (item.ServiceName == "Reports") {
+                    $('#chkReports').attr('checked', true);
+                }
+                if (item.ServiceName == "Inventory") {
+                    $('#chkInventory').attr('checked', true);
+                }
+                if (item.ServiceName == "SMS") {
+                    $('#chkSMS').attr('checked', true);
+                }
+                if (item.ServiceName == "Workout") {
+                    $('#chkWorkout').attr('checked', true);
+                }
+                if (item.ServiceName == "Diet") {
+                    $('#chkDiet').attr('checked', true);
+                }
+                if (item.ServiceName == "Gym") {
+                    $('#chkGym').attr('checked', true);
+                }
+                if (item.ServiceName == "QuickPrint") {
+                    $('#chkQuickPrint').attr('checked', true);
+                }
+                if (item.ServiceName == "Attendance") {
+                    $('#chkAttendance').attr('checked', true);
+                }
+                if (item.ServiceName == "Calender") {
+                    $('#chkCalender').attr('checked', true);
+                }
+                if (item.ServiceName == "POS") {
+                    $('#chkPOS').attr('checked', true);
+                }
+                if (item.ServiceName == "DashBoard") {
+                    $('#chkDashboard').attr('checked', true);
+                }
+                if (item.ServiceName == "MemberInfo") {
+                    $('#chkFindMember').attr('checked', true);
+                }
+
+
+            })
+        },
+        failure: function (errMsg) {
+            alert(errMsg.responseText);
+        }
+        });
+
+        $('#btnServices').click(function () {
+          
+
+            var jsonObj = { Services: [] };
+            $("input[type = 'checkbox']").each(function () {
+                var chkChecked = $(this).is(":checked");
+                if (chkChecked)
+                { 
+               // alert($(this).val());
+                jsonObj['Services'].push($(this).val());
+                }
+            });
+
+            //if ($('#chkGym').attr('checked', true))
+            //{
+            //    jsonObj.push({"ServiceName":[$('#chkGym').val()]});
+               
+            //}
+            //if ($('#chkMembership').attr('checked', true)) {
+            //    jsonObj.push({ "ServiceName": [$('#chkMembership').val()] });
+               
+            //}
+            //if ($('#chkEnquiry').attr('checked', true)) {
+            //    jsonObj.push({ "ServiceName": [$('#chkEnquiry').val()] });
+               
+            //}
+            //if ($('#chkSetting').attr('checked', true)) {
+            //    jsonObj.push({ "ServiceName":[$('#chkSetting').val()]});
+            //}
+            //if ($('#chkExpense').attr('checked', true)) {
+            //    jsonObj.push({ "ServiceName":[$('#chkExpense').val()]});
+            //}
+            //if ($('#chkTimeSheet').attr('checked', true)) {
+            //    jsonObj.push({ "ServiceName":[$('#chkTimeSheet').val()]});
+            //}
+            //if ($('#chkReports').attr('checked', true)) {
+            //    jsonObj.push({ "ServiceName":[$('#chkReports').val()]});
+            //}
+            //if ($('#chkInventory').attr('checked', true)) {
+            //    jsonObj.push({ "ServiceName":[$('#chkInventory').val()]});
+            //}
+            //if ($('#chkSMS').attr('checked', true)) {
+            //    jsonObj.push({ "ServiceName":[$('#chkSMS').val()]});
+            //}
+            //if ($('#chkWorkout').attr('checked', true)) {
+            //    jsonObj.push({ "ServiceName":[$('#chkWorkout').val()]});
+            //}
+            //if ($('#chkDiet').attr('checked', true)) {
+            //    jsonObj.push({ "ServiceName":[$('#chkDiet').val()]});
+            //}
+            $.ajax({
+                cache: false,
+                type: "POST",
+                url: "@Url.Action("EditServices")",
+                dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify(jsonObj),
+            success: function (data) {
+                // onsuccess();
+                toastr.success("Data Saved Successfully.");
+               // alert("Data Submitted");
+            },
+            failure: function (errMsg) {
+                alert(errMsg.responseText);
+
+            }
+        });
+        });
+    });
+
+    //Preview & Update an image before it is uploaded
+
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#userpic').attr('src', e.target.result);
+
+            }
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+    $("#imgInp").change(function () {
+        readURL(this);
+    });
+
+
+    $(document).ready(function () {
+        $("#btnUpload").click(function () {
+            var formData = new FormData();
+            var totalFiles = document.getElementById("imgInp").files.length;
+            for (var i = 0; i < totalFiles; i++) {
+                var file = document.getElementById("imgInp").files[i];
+                formData.append("imageUploadForm", file);
+            }
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("UpdateUploadImage")',
+                data: formData,
+                dataType: 'json',
+                contentType: false,
+                processData: false,
+                success: function (response) {
+                    if (response == "success") {
+                        alert('Image saved successfully!!');
+                    }
+                    else {
+                        alert("Error:Image not saved");
+                    }
+
+                },
+                error: function (error) {
+                    alert("error");
+                }
+            });
+            //.done(function() {
+            //    alert('success');
+            //}.fail(function( xhr, status, errorThrown ) {
+            //    alert('fail');
+            //}));
+        });
+    });
+    
+
+</script>

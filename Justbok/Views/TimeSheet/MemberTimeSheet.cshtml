@@ -1,0 +1,276 @@
+﻿@model Justbok.Models.MemberTimeSheet
+
+<div class="col-xs-12">
+    <div class="box">
+        <div class="box-header">
+            <span class="glyphicon glyphicon-search"></span> <h1 class="box-title"> Search Timesheet</h1>
+        </div>
+        <div class="box-body">
+            <div class="row">
+                <div class="col-md-6">
+
+                    <div class="form-group col-md-6">
+                        <label>Date</label>
+
+                        <div class="input-group date">
+                            <div class="input-group-addon">
+                                <i class="fa fa-calendar"></i>
+                            </div>
+                            @Html.TextBoxFor(model => model.AttendenceDate, "{0:dd/MM/yyyy}", new { @class = "form-control", @type = "datetime", id = "txtAttendanceDate" })
+
+                        </div>
+                        <!-- /.input group -->
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<section class="content container-fluid">
+    <div class="col-xs-12">
+        <div class="box">
+            <div class="box-header">
+                <h3 class="box-title">Timesheet List</h3>
+                <div class="pull-right">
+                    <button id="btnAllPresent" class="btn btn-success btn-sm btn-flat" type="button"><i class="fa fa-check"> Present Selected</i></button>
+                </div>
+            </div>
+           
+            <div class="box-body">
+                <div class="col-sm-12 table-responsive">
+                    <table id="tblTimesheet" class="table table-bordered table-striped dataTable" role="grid" aria-describedby="example1_info">
+
+                        <thead>
+                            <tr role="row">
+                                <th class="sorting_asc" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 231.217px;" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending">Member Id</th>
+                                <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 282.583px;" aria-label="Browser: activate to sort column ascending">Member Name</th>
+                                <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 143.717px;" aria-label="CSS grade: activate to sort column ascending">Is Present</th>
+                                <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 250.767px;" aria-label="Platform(s): activate to sort column ascending">Phone No.</th>
+                                <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 143.717px;" aria-label="CSS grade: activate to sort column ascending">Action</th>
+                                <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 143.717px;" aria-label="CSS grade: activate to sort column ascending"><input type='checkbox' class='multi-checkbox chkmaster' /></th>
+
+                        </thead>
+                        <tbody></tbody>
+                        <tfoot>
+
+                    </table>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+@section Scripts {
+<script src="~/Scripts/Navigation.js?v=1.2"></script>
+    <script>
+        var MembersAttendanceListUrl = '@Url.Action("MembersAttendanceList", "TimeSheet")';
+        var AddUpdateMemberAttendenceUrl = '@Url.Action("AddUpdateMemberAttendence", "TimeSheet")';
+        var MulitpleMemberAttendanceUrl = '@Url.Action("MulitpleMemberAttendance", "TimeSheet")';
+        
+    </script>
+    <script src="~/Content/Timesheet/Member.js"></script>
+}
+<script src="~/Scripts/Navigation.js?v=1.2"></script>
+<script>
+         var MembersAttendanceListUrl = '@Url.Action("MembersAttendanceList", "TimeSheet")';
+        var AddUpdateMemberAttendenceUrl = '@Url.Action("AddUpdateMemberAttendence", "TimeSheet")';
+        var MulitpleMemberAttendanceUrl = '@Url.Action("MulitpleMemberAttendance", "TimeSheet")';
+</script>
+<script src="~/Content/Timesheet/Member.js"></script>
+
+
+@*@section Scripts {*@
+
+    @*@Scripts.Render("~/js")
+    @Styles.Render("~/css")*@
+
+    @*<script type="text/javascript">
+        $(document).ready(function () {
+            $('#txtAttendanceDate').datepicker({
+                dateFormat: "m/dd/yy",
+                changeMonth: true,
+                changeYear: true,
+                yearRange: "-60:+100"
+
+            });
+
+            //Set date to today date 
+            $('#txtAttendanceDate').datepicker('setDate', new Date());
+            UpdateTable();
+
+           
+        });
+
+        function UpdateTable()
+        {
+            $.ajax({
+                url: "@Url.Action("MembersAttendanceList")",
+                data: {date: $('#txtAttendanceDate').val()},
+            type: "GET",
+            dataType: "json",
+            success: function (data) {
+
+                $('#tblTimesheet tbody').empty();
+                $.each(data, function (i, item) {
+                    var rows = "<tr>"
+                        + "<td>" + item.MemberID + "</td>"
+                         + "<td >" + item.FirstName + " " + item.LastName + "</td>"
+                    //Present
+                    if (item.Present !=null && item.Present == "Yes") {
+                        rows = rows + "<td > <label class='label label-success' >" + item.Present + "</label></td>"
+                    }
+                    else if (item.Present != null && $.trim(item.Present) == "No")
+                    {
+                        rows = rows + "<td > <label class='label label-warning' >" + item.Present + "</label></td>"
+                    }
+                    else {
+                        rows = rows + "<td></td>"
+                    }
+                    rows = rows + "<td >" + item.MobileNumber + "</td>"
+                   
+                    if (item.Present != null && item.Present == "Yes")
+                    {
+                        rows = rows + "<td><strong><a class='text-danger link btnAbsent'>Mark Absent</a></strong></td>"
+                    }
+                    else
+                    {
+                        rows = rows + "<td><strong><a class='text-success link btnPresent'>Mark Present</a></strong></td>"
+                    }
+                    rows = rows + "<td><input type='checkbox' class='multi-checkbox' /></td>"
+                    + "</tr>";
+                    $('#tblTimesheet tbody').append(rows);
+
+                })
+            },
+            error: function () {
+                alert("Failed! Please try again.");
+            }
+        });
+
+
+        }*@
+
+        @*//Mark Pesent 
+
+        $(document).ready(function () {
+        }).on('click', '.btnPresent', function () {
+            var rowIndex = $(this).closest('td').parent()[0].sectionRowIndex;
+            
+            $('#tblTimesheet tr').eq(rowIndex + 1).find('td').eq(2).html("<label class='label label-success' >Yes</label>");
+            var jsonObject = {
+                MemberID: $('#tblTimesheet tr').eq(rowIndex + 1).find('td').eq(0).html(),AttendenceDate: $('#txtAttendanceDate').val(),
+                 IsPresent: $('#tblTimesheet tr').eq(rowIndex + 1).find('td').eq(2).find("label").text()
+
+            //
+            }
+
+            $.ajax({
+                cache: false,
+                type: "POST",
+                url: "@Url.Action("AddUpdateMemberAttendence")",
+                dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify(jsonObject),
+            success: function (data) {
+               
+                UpdateTable();
+            },
+            failure: function (errMsg) {
+                alert(errMsg.responseText);
+            }
+        });
+           
+        });
+
+        $(document).ready(function () {
+        }).on('click', '.btnAbsent', function () {
+            var rowIndex = $(this).closest('td').parent()[0].sectionRowIndex;
+            
+            $('#tblTimesheet tr').eq(rowIndex + 1).find('td').eq(2).html("<label class='label label-warning' >No</label>");
+            var jsonObject = {
+                MemberID: $('#tblTimesheet tr').eq(rowIndex + 1).find('td').eq(0).html(),AttendenceDate: $('#txtAttendanceDate').val(),
+                IsPresent: $('#tblTimesheet tr').eq(rowIndex + 1).find('td').eq(2).find("label").text()
+
+                //
+            }
+
+            $.ajax({
+                cache: false,
+                type: "POST",
+                url: "@Url.Action("AddUpdateMemberAttendence")",
+                dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify(jsonObject),
+            success: function (data) {
+                UpdateTable();
+            },
+            failure: function (errMsg) {
+                alert(errMsg.responseText);
+            }
+        });
+           
+        });
+
+        $(document).ready(function () {
+
+            $('#txtAttendanceDate').on('change', function () {
+                UpdateTable();
+            });
+
+        });
+
+
+        $('.chkmaster').click(function (e) {
+            $(this).closest('table').find('td input:checkbox').prop('checked', this.checked);
+        });
+
+        $('#btnAllPresent').click(function (e) {
+
+            //var rowCount = $('#tblDietPlan tr').length;
+            var memberid="";
+            var ispresent="";
+            var jsonObj = [];
+
+            $('#tblTimesheet').find('tr').each(function (i, el) {
+
+                //if($(this).has('input[type=checkbox]:checked'))
+                //{
+                var chkbox = $(this).find("input[type='checkbox']");
+                
+                if(chkbox.prop('checked')==true)
+                    {
+                    var $tds = $(this).find('td');
+                    var memberid = $tds.eq(0).text();
+                    jsonObj.push(
+                  { "MemberID": memberid, "IsPresent": "Yes", AttendenceDate: $('#txtAttendanceDate').val()}
+                  );
+                }
+
+            });
+
+            $.ajax({
+                cache: false,
+                type: "POST",
+                url: "@Url.Action("MulitpleMemberAttendance")",
+                dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify(jsonObj),
+            success: function (data) {
+                UpdateTable();
+            },
+            failure: function (errMsg) {
+                alert(errMsg.responseText);
+            }
+        });
+         
+          
+        @*});*@
+
+
+    @*</script>
+
+    }*@

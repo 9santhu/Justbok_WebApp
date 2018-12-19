@@ -1,0 +1,201 @@
+﻿<div class="modal-body">
+    <input type="hidden" id="HFPurchaseId"/>
+    <div class="row">
+        <div class="col-md-3">
+            <div class="form-group">
+                <label for="txtMemberId">MemberId</label>
+                <div class="input-group">
+                    <input type="text" id="txtMemberId" class="form-control ng-pristine ng-untouched ng-valid" placeholder="Member ID" disabled="" />
+                    <div class="input-group-addon" onclick="OpeningPopup('#modal-membersearch')">
+                        <i class="fa fa-search"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-group">
+                <label for="txtFirstName">First Name</label>
+                <input type="text" id="txtFirstName" class="form-control" placeholder="First Name" />
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-group">
+                <label for="txtLastName">Last Name</label>
+                <input type="text" id="txtLastName" class="form-control" placeholder="Last Name" />
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-group">
+                <label for="txtMobileNo">Mobile No.</label>
+                <input type="text" id="txtMobileNo" class="form-control" placeholder="Mobile.No" />
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            <div class="form-group">
+                <label for="txtOrderDate">Order Date</label>
+                <input class="form-control input-sm" type="datetime" id="txtOrderDate" onkeypress="return false;" onpaste="return false;" />
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="table-responsive">
+            <table id="tblProduct" class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Product</th>
+                        <th>Qty</th>
+                        <th>Rate</th>
+                        <th>Discount Type</th>
+                        <th>Discount Amount</th>
+                        <th>GST</th>
+                        <th>GST Amount</th>
+                        <th>Total Ex.GST</th>
+                        <th>Delete</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <button type="submit" class="btn btn-sm btn-primary btn-flat pull-left fa fa-plus" aria-hidden="true" id="btnAddProduct"> Add a new item</button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group col-md-4">
+                <label for="ddlPaymentType">Payment via </label>
+                <select class="form-control" id="ddlPaymentType">
+                    <option value="Cash">Cash</option>
+                    <option value="Card">Card</option>
+                    <option value="Pending">Pending</option>
+                    <option value="Cancel">Cancel</option>
+                </select>
+            </div>
+            <div class="form-group col-md-4">
+                <label for="ddlRepresentative">Representative</label>
+                <select id="ddlRepresentative" class="form-control"> 
+                    <option value="">- Please select -</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <table style="width:30%;text-align:right;float:right;" cellpadding="5" cellspacing="5">
+                <tbody>
+                    <tr>
+                        <td>Sub Total</td>
+                        <td><label class="pull-right" id="lblSubtotal"></label></td>
+                    </tr>
+                    <tr></tr>
+                    <tr>
+                        <td>Total GST</td>
+                        <td><label class="pull-right" id="lbltotalgst"></label></td>
+                    </tr>
+                    <tr>
+                        <td>Total </td>
+                        <td><label class="pull-right" id="lbltotal"></label></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modal-membersearch" style="z-index:1230;">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" aria-label="Close" onclick="ClosingPopup('#modal-membersearch')">
+                        <span>&times;</span>
+                    </button>
+                    <h4 class="modal-title">Select Customer</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">Search </label>
+                                    <div class="col-md-9">
+                                        <input type="text" class="form-control" id="txtSelectCustomers" placeholder="MemberName, Mobile No." title="MemberName, Mobile No." style="">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <button type="button" id="btnSelectCustSearch" class="btn btn-sm btn-primary btn-flat" title="Search">
+                                    <i class="glyphicon glyphicon-search"></i> Search
+                                </button>
+                                <button type="button" id="btnSelectCustClear" class="btn btn-default btn-sm btn-flat" title="Reset">
+                                    <i class="glyphicon glyphicon-refresh"></i> Reset
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="divSearchtable" style="display:none;">
+                        <div class="row">
+                            <div class="col-sm-12 table-responsive">
+                                <table id="tblSelectMembers" class="table table-bordered table-striped dataTable" role="grid" aria-describedby="example1_info">
+
+                                    <thead>
+                                        <tr role="row">
+                                            <th tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 231.217px;">Action</th>
+                                            <th tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 231.217px;">Member Id</th>
+                                            <th tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 231.217px;">Member Name</th>
+                                            <th tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 231.217px;">Phone</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody></tbody>
+                                    <tfoot>
+
+                                </table>
+                            </div>
+                        </div>
+
+                        <div class="dataTables_paginate paging_simple_numbers" style="margin-left: 400px">
+                            <ul id="pagination-demo" class="pagination-sm"></ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <button type="submit" class="btn btn-default btn-sm btn-flat pull-right" onclick="return HideModel('#purchaseorder')" id="btnCancel">
+        <i class="glyphicon glyphicon-remove"></i> Cancel
+    </button>
+    <button type="submit" class="btn btn-primary btn-sm btn-flat pull-right" style="margin-right: 10px;" id="btnPOSSave">
+        <i class="glyphicon glyphicon-save"></i> Save
+    </button>
+</div>
+
+<script src="~/Scripts/Navigation.js?v=1.2"></script>
+<script>
+    var GetMemberDetailsUrl = '@Url.Action("GetMemberDetails", "POS")';
+    var GetProductsUrl = '@Url.Action("GetProducts", "POS")';
+    var GetProductDetailsUrl = '@Url.Action("GetProductDetails", "POS")';
+    var PurchaseOrdersUrl = '@Url.Action("PurchaseOrders", "POS")';
+    var GetStaffUrl = '@Url.Action("GetStaff","Common")';
+    $(document).ready(function () {
+        PurchaseOrderLoading();
+
+        $('#btnSelectCustSearch').click(function () {
+            SelectCustSearch();
+        });
+
+        $('#btnSelectCustClear').click(function () {
+            SelectCustClear();
+        });
+
+        $('#btnAddProduct').click(function () {
+            AddProduct();
+        });
+
+        $('#btnPOSSave').click(function () { POSSave(); });
+    });
+</script>

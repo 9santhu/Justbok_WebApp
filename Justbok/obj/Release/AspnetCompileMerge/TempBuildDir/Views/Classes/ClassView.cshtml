@@ -1,0 +1,114 @@
+﻿<div class="modal-body">
+    <input id="c_id" type="hidden" value="">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+                <label class="control-label">Class Name</label>
+                <input id="class_name" class="form-control" type="text" placeholder="Class Name" title="Class Name" tabindex="1" />
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+                <label class="control-label">Description</label>
+                <textarea id="c_description" class="form-control" placeholder="Description" title="Description" tabindex="2" />
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3 col-sm-6">
+            <div class="form-group">
+                <label class="control-label">Attendance Limit</label>
+                <input id="c_attendance_limit" class="form-control" type="text" value="" placeholder="Attendance Limit" title="Attendance Limit" tabindex="3"
+                       onblur="return limitblur();" />
+            </div>
+        </div>
+        <div class="col-md-3 col-sm-6">
+            <div class="form-group">
+                <label class="control-label">Reservation Limit</label>
+                <input id="c_registration_limit" class="form-control" type="text" value="" placeholder="Reservation Limit" title="Reservation Limit" tabindex="4"
+                       onblur="return limitblur();" />
+            </div>
+        </div>
+        <div class="col-md-6 col-sm-6">
+            <div class="form-group">
+                <div class="radio radio-replace neon-cb-replacement checked">
+                    <label class="cb-wrapper">
+                        <input name="useDefaultDropInRate" id="DefaultDropIn" type="radio" checked="" value="1" class="flat-red" onchange="return DropInChange();" tabindex="5" />
+                    </label>
+                    <label class="control-label" for="DefaultDropIn">Use Gym Default Drop in Rate (Rs)</label>
+                </div>
+                <div class="radio radio-replace neon-cb-replacement">
+                    <label class="cb-wrapper">
+                        <input name="useDefaultDropInRate" id="ClassDropIn" type="radio" value="0" class="flat-red" onchange="return DropInChange();" tabindex="6" />
+                    </label>
+                    <label class="control-label" for="ClassDropIn">Create Drop in Rate for Class</label>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row" id="limitwarn" style="margin:10px;display:none;">
+        <div class="alert alert-warning">
+            <strong>Warning!</strong> The reservation limit should be less than or equal to the attendance limit
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6 col-sm-12">
+            <div class="form-group">
+                <label class="control-label">Calendar Color</label>
+                <input id="c_color" class="jscolor form-control" data-jscolor="{padding:5, borderWidth:1, zIndex:1230}" type="text" value="4096EE" autocomplete="off" readonly tabindex="7" />
+            </div>
+        </div>
+        <div class="col-md-6 col-sm-6" id="dropin" style="display:none;">
+            <div class="form-group">
+                <label class="control-label">Drop in Rate:</label>
+                <input id="c_dropinrate" class="form-control" type="text" placeholder="₹" value="" tabindex="8" />
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-default btn-sm btn-flat" onclick="return HideModel();" tabindex="9" title="Cancel">
+        <i class="glyphicon glyphicon-remove"></i> Cancel
+    </button>
+    <button type="button" class="btn btn-primary btn-sm btn-flat" tabindex="10" title="Save" id="btnSave" onclick="return SaveClass();">
+        <i class="glyphicon glyphicon-ok"></i> Save
+    </button>
+</div>
+
+<script src="~/Scripts/Navigation.js?v=1.2"></script>
+<script>
+    var ClassDetailsByIdUrl = '@Url.Action("ClassDetailsById", "Classes")';
+    var SaveClassUrl =  '@Url.Action("SaveClass", "Classes")';
+    var DeleteClassUrl = '@Url.Action("DeleteClass", "Classes")';
+
+    $(document).ready(function () {
+        $("#c_attendance_limit").keydown(function (event) {
+            allownumbers(event);
+        });
+
+        $("#c_registration_limit").keydown(function (event) {
+            allownumbers(event);
+        });
+
+        $('input[type="checkbox"].flat-red, input[type="radio"].flat-red').iCheck({
+            checkboxClass: 'icheckbox_square-blue',
+            radioClass: 'iradio_square-blue',
+        });
+
+        jscolor.installByClassName("jscolor");
+
+        $('.flat-red').on('ifChanged', function (e) {
+            $(this).trigger("onchange", e);
+        });
+
+        if (classId != 0) {
+            ClassDetailsById();
+        }
+        else {
+            HideLoader();
+        }
+    });
+
+</script>

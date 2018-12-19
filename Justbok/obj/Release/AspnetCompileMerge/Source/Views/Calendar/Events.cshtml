@@ -1,0 +1,171 @@
+﻿@{
+    ViewBag.Title = "Events";
+}
+
+<section class="content-header ng-scope">
+    <h1>
+        Events
+        <div class="pull-right">
+            <button type="button" style="float:right;margin-top: 10px;" class="btn btn-primary btn-sm btn-flat"
+                    title="Add Class" onclick="return EventsView('0')">
+                <i class="glyphicon glyphicon-plus"></i> Add
+            </button><br><br>
+        </div>
+    </h1>
+</section>
+
+<section class="content ng-scope">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <i class="fa fa-search"></i>
+                    <h3 class="box-title">Event Search</h3>
+                    <div class="box-tools pull-right">
+                        <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                    </div>
+                </div>
+                <div class="box-body">
+                    <form role="form" class="ng-pristine ng-valid">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label>Name </label>
+                                <input class="form-control input-sm input-sm" id="searchName" placeholder="Name" title="Name" type="text" value="">
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label>Description </label>
+                                <input class="form-control input-sm input-sm" id="searchDescription" placeholder="Description" title="Description" type="text" value="">
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label>From Date </label>
+                                <input class="form-control input-sm input-sm" id="searchFromDate" placeholder="From Date" title="From Date" type="text" value="">
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label>End Date </label>
+                                <input class="form-control input-sm input-sm" id="searchToDate" placeholder="End Date" title="End Date" type="text" value="">
+                            </div>
+                        </div>
+                        <div class="col-md-3" style="margin-top:25px;">
+                            <div class="form-group">
+                                <button type="button" id="btnSearch" class="btn btn-sm btn-primary btn-flat" title="Search" onclick="return Search();"><i class="glyphicon glyphicon-search"></i>Search</button>
+                                <button type="button" id="btnClear" class="btn btn-default btn-sm btn-flat" title="Reset" onclick="return Reset();"><i class="glyphicon glyphicon-refresh"></i>Reset</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Events List</h3>
+                </div>
+                <div class="box-body">
+                    <div class="col-lg-12">
+                        <div class="table-responsive">
+                            <div id="tblEvents_wrapper" class="dataTables_wrapper form-inline dt-bootstrap no-footer">
+                                <div class="DTTT_container"></div>
+                                <div class="clear"></div>
+                                <div class="dataTables_length">
+                                    <label>
+                                        Show
+                                        <select id="tblEvents_length"
+                                                aria-controls="tblEvents" class="form-control input-sm"
+                                                onchange="return ShowChange();">
+                                            <option value="10">10</option>
+                                            <option value="25">25</option>
+                                            <option value="50">50</option>
+                                            <option value="100">100</option>
+                                        </select> entries
+                                    </label>
+                                </div>
+                                <table class="table table-bordered dataTable no-footer" id="tblEvents" role="grid">
+                                    <thead>
+                                        <tr role="row">
+                                            <th class="sorting Sortable" style="width: 120px;" onclick="SortData(this)" key="startdate" headerid="startdate" id="startdate">Event Starts</th>
+                                            <th class="sorting Sortable" style="width: 120px;" onclick="SortData(this)" key="enddate" headerid="enddate" id="enddate">Event Ends</th>
+                                            <th class="sorting Sortable" style="width: 150px;" onclick="SortData(this)" key="name" headerid="name" id="name">Name</th>
+                                            <th class="sorting Sortable" style="width: 200px;" onclick="SortData(this)" key="description" headerid="description" id="description">Description</th>
+                                            <th class="sorting Sortable" style="width: 100px;" onclick="SortData(this)" key="price" headerid="price" id="price">Price</th>
+                                            <th style="width: 150px;">Photo</th>
+                                            <th style="width: 150px;">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody></tbody>
+                                </table>
+                                <div class="dataTables_paginate paging_simple_numbers" id="tblEvents_paginate">
+                                    <ul id="pagination" class="pagination"></ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- /.box-body -->
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="bootbox modal fade in" role="dialog" id="modal_Conformation">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="bootbox-close-button close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title">Confirmation !</h4>
+            </div>
+            <div class="modal-body">
+                <div class="bootbox-body">Are you sure want to delete?</div>
+            </div>
+            <div class="modal-footer">
+                <button data-bb-handler="success" type="button" class="btn btn-success btn-flat" id="btnYes" onclick="return OnYesClick();">Yes</button>
+                <button data-bb-handler="danger" type="button" class="btn btn-danger btn-flat" data-dismiss="modal">No</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade ng-scope in" id="eventView" role="dialog">
+    <div class="modal-dialog classdialog" style="width:700px;">
+        <div id="modelBody"></div>
+    </div>
+</div>
+
+<div class="modal fade ng-scope in" id="submodel" role="dialog" style="z-index:1230">
+    <div id="subModelBody"></div>
+</div>
+
+
+
+@section Scripts {
+<script src="~/Scripts/Navigation.js?v=1.2"></script>
+    <script>
+        var EventsUrl = '@Url.Action("Events", "Event")';
+        var EventViewUrl = '@Url.Action("EventView", "Event")';
+        var DeleteEventUrl = '@Url.Action("DeleteEvent", "Event")';
+    </script>
+    <script src="~/Plugins/Upload/js/jquery.iframe-transport.js"></script>
+    <script src="~/Plugins/Upload/js/jquery.fileupload.js"></script>
+    <script src="~/Plugins/Upload/js/jquery.fileupload-process.js"></script>
+    <script src="~/Plugins/Upload/js/jquery.fileupload-ui.js"></script>
+    <script src="~/Plugins/Upload/js/main.js"></script>
+    <script src="~/Content/Calender/Events.js"></script>
+}
+<script src="~/Scripts/Navigation.js?v=1.2"></script>
+<script>
+    var EventsUrl = '@Url.Action("Events", "Event")';
+    var EventViewUrl = '@Url.Action("EventView", "Event")';
+     var DeleteEventUrl = '@Url.Action("DeleteEvent", "Event")';
+</script>
+<script src="~/Plugins/Upload/js/jquery.iframe-transport.js"></script>
+<script src="~/Plugins/Upload/js/jquery.fileupload.js"></script>
+<script src="~/Plugins/Upload/js/jquery.fileupload-process.js"></script>
+<script src="~/Plugins/Upload/js/jquery.fileupload-ui.js"></script>
+<script src="~/Plugins/Upload/js/main.js"></script>
+<script src="~/Content/Calender/Events.js"></script>

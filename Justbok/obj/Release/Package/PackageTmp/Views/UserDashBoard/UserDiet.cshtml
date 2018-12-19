@@ -1,0 +1,54 @@
+﻿@{
+    ViewBag.Title = "UserDiet";
+    Layout = "~/Views/Shared/UserLayout.cshtml";
+}
+
+<section class="content container-fluid" id="container">
+    <input type="hidden" value="@Session["UserName"]" id="myHiddenVar" />
+    <div class="form-group col-md-12">
+        <div class="form-group col-md-6">
+            <label for="exampleInputEmail1">Name</label>
+            <select class="form-control" id="txtDietPlanName">
+                <option>---Select Diet---</option>
+            </select>
+        </div>
+
+    </div>
+    <div class="form-group col-md-12" id="AddDietContainer">
+
+        <table id="tblDietPlan" class="table table-bordered table-striped dataTable" role="grid" aria-describedby="example1_info">
+            <thead>
+                <tr role="row">
+                    <th class="sorting_asc" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 231.217px;display:none" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending">DietPlanId</th>
+                    <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 282.583px; display: none;" aria-label="Browser: activate to sort column ascending">Diet</th>
+                    <th class="sorting_asc" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 231.217px;" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending">Meal</th>
+                    <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 282.583px;" aria-label="Browser: activate to sort column ascending">Monday</th>
+                    <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 143.717px;" aria-label="CSS grade: activate to sort column ascending">Tuesday</th>
+                    <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 143.717px;" aria-label="CSS grade: activate to sort column ascending">Wednesday</th>
+                    <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 143.717px;" aria-label="CSS grade: activate to sort column ascending">Thursday</th>
+                    <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 143.717px;" aria-label="CSS grade: activate to sort column ascending">Friday</th>
+                    <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 143.717px;" aria-label="CSS grade: activate to sort column ascending">Saturday</th>
+                    <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 143.717px;" aria-label="CSS grade: activate to sort column ascending">Sunday</th>
+
+            </thead>
+            <tbody></tbody>
+            <tfoot>
+        </table>
+    </div>
+
+
+</section>
+@section Scripts {
+<script src="~/Scripts/Navigation.js?v=1.2"></script>
+    <script>
+        var GetDietPlanList = '@Url.Action("GetDietPlanList", "MemberShip")';
+        var EditMemberDietPlanUrl = '@Url.Action("EditMemberDietPlan", "UserDashBoard")';
+    </script>
+<script src="~/Content/UserDashboard/Diet.js"></script>
+}
+<script src="~/Scripts/Navigation.js?v=1.2"></script>
+<script>
+    var GetDietPlanList = '@Url.Action("GetDietPlanList", "MemberShip")';
+   var EditMemberDietPlanUrl = '@Url.Action("EditMemberDietPlan", "UserDashBoard")';
+</script>
+<script src="~/Content/UserDashboard/Diet.js"></script>

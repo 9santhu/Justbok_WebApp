@@ -1,0 +1,294 @@
+﻿@{
+    ViewBag.Title = "Appointment Configuration";
+}
+
+<section class="content-header ng-scope">
+    <h1>
+        Appointment Configuration
+        <div class="pull-right">
+            <button type="button" style="float:right;margin-top: 10px;" class="btn btn-primary btn-sm btn-flat"
+                    title="Add Appointment Config" onclick="return ShowModel('0')">
+                <i class="glyphicon glyphicon-plus"></i> Add
+            </button><br><br>
+        </div>
+    </h1>
+</section>
+
+<section class="content ng-scope">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <i class="fa fa-search"></i>
+                    <h3 class="box-title">Appointment Configuration Search</h3>
+                    <div class="box-tools pull-right">
+                        <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                    </div>
+                </div>
+                <div class="box-body">
+                    <form role="form" class="ng-pristine ng-valid">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label>Title </label>
+                                <input class="form-control input-sm input-sm" id="txtSearchTitle" placeholder="Title" title="Title" type="text" value="">
+                            </div>
+                        </div>
+                        <div class="col-md-3" style="margin-top:25px;">
+                            <div class="form-group">
+                                <button type="button" id="btnSearch" class="btn btn-sm btn-primary btn-flat" title="Search"><i class="glyphicon glyphicon-search"></i>Search</button>
+                                <button type="button" id="btnClear" class="btn btn-default btn-sm btn-flat" title="Reset"><i class="glyphicon glyphicon-refresh"></i>Reset</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Appointment Configuration List</h3>
+                </div><!-- /.box-header -->
+                <div class="box-body">
+                    <div class="col-lg-12">
+                        <div class="table-responsive">
+                            <div id="TblAppConfig_wrapper" class="dataTables_wrapper form-inline dt-bootstrap no-footer">
+                                <div class="DTTT_container"></div>
+                                <div class="clear"></div>
+                                <div class="dataTables_length">
+                                    <label>
+                                        Show
+                                        <select id="TblAppConfig_length" name="TblAppConfig_length"
+                                                aria-controls="TblAppConfig" class="form-control input-sm"
+                                                onchange="return ShowChange();">
+                                            <option value="10">10</option>
+                                            <option value="25">25</option>
+                                            <option value="50">50</option>
+                                            <option value="100">100</option>
+                                        </select> entries
+                                    </label>
+                                </div>
+                                <table class="table table-bordered dataTable no-footer" id="TblAppConfig" role="grid">
+                                    <thead>
+                                        <tr role="row">
+                                            <th class="sorting Sortable" style="width: 120px;" onclick="SortData(this)" key="TITLE" headerid="TITLE" id="TITLE">Title</th>
+                                            <th style="width: 130px;">Staff Members</th>
+                                            <th style="width: 130px;">Rates</th>
+                                            <th style="width: 130px;">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody></tbody>
+                                </table>
+                                <div class="dataTables_paginate paging_simple_numbers" id="TblAppConfig_paginate">
+                                    <ul id="pagination" class="pagination"></ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- /.box-body -->
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="modal fade ng-scope in" id="addAppConfig" role="dialog">
+    <div class="modal-dialog" style="width:600px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" aria-label="Close" onclick="HideModel('#addAppConfig')"><span aria-hidden="true">×</span></button>
+                <h4 class="modal-title" id="gridSystemModalLabel">Appointment Configuration</h4>
+            </div>
+            <input id="HFConfigId" class="ng-pristine ng-untouched ng-valid" type="hidden">
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label>Title <span class="required" aria-required="true"> * </span></label>
+                            <input class="form-control input-sm ng-pristine ng-untouched ng-valid" id="txtTitle"
+                                   tabindex="1" type="text">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Staff <span class="required" aria-required="true"> * </span></label>
+                            <br />
+                            <label>
+                                <input tabindex="2" type="radio" value="1" name="Staff" checked="" onchange="return StaffChange(this);" id="AllStaff" />
+                                All Staff
+                            </label>
+                            <br />
+                            <label>
+                                <input tabindex="2" type="radio" value="0" name="Staff" onchange="return StaffChange(this);" id="SpecificStaff" />
+                                Only the Following Staff
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Includes Tax <span class="required" aria-required="true"> * </span></label>
+                            <select class="form-control select2" style="width: 100%;" id="ddlTax" onchange="return TaxChange(this);"></select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group" id="Staff" style="display:none;">
+                            <label>&nbsp;</label>
+                            <select class="form-control select2" multiple="multiple" data-placeholder="Select a Staff"
+                                    style="width: 100%;" id="ddlStaff"></select>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group" id="Tax" style="display:block;">
+                            <label>Tax Percentage<span class="required" aria-required="true"> * </span></label>
+                            <input class="form-control input-sm ng-pristine ng-untouched ng-valid rate" id="txtTax"
+                                   tabindex="1" type="text">
+                        </div>
+                    </div>
+                </div>
+                <hr />
+                <div class="row Pricing" id="Pricing_1">
+                    <div class="col-md-6">
+                        <div class="input-group">
+                            <span class="input-group-addon">min</span>
+                            <input class="form-control input-sm ng-pristine ng-untouched ng-valid minutes"
+                                   tabindex="1" type="text">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="input-group">
+                            <span class="input-group-addon">Rs</span>
+                            <input class="form-control input-sm ng-pristine ng-untouched ng-valid rate"
+                                   tabindex="1" type="text">
+                        </div>
+                    </div>
+                </div>
+                <hr />
+                <div class="row Pricing" id="Pricing_2">
+                    <div class="col-md-6">
+                        <div class="input-group">
+                            <span class="input-group-addon">min</span>
+                            <input class="form-control input-sm ng-pristine ng-untouched ng-valid minutes"
+                                   tabindex="1" type="text">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="input-group">
+                            <span class="input-group-addon">Rs</span>
+                            <input class="form-control input-sm ng-pristine ng-untouched ng-valid rate"
+                                   tabindex="1" type="text">
+                        </div>
+                    </div>
+                </div>
+                <hr />
+                <div class="row Pricing" id="Pricing_3">
+                    <div class="col-md-6">
+                        <div class="input-group">
+                            <span class="input-group-addon">min</span>
+                            <input class="form-control input-sm ng-pristine ng-untouched ng-valid minutes"
+                                   tabindex="1" type="text">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="input-group">
+                            <span class="input-group-addon">Rs</span>
+                            <input class="form-control input-sm ng-pristine ng-untouched ng-valid rate"
+                                   tabindex="1" type="text">
+                        </div>
+                    </div>
+                </div>
+                <hr />
+                <div class="row Pricing" id="Pricing_4">
+                    <div class="col-md-6">
+                        <div class="input-group">
+                            <span class="input-group-addon">min</span>
+                            <input class="form-control input-sm ng-pristine ng-untouched ng-valid minutes"
+                                   tabindex="1" type="text">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="input-group">
+                            <span class="input-group-addon">Rs</span>
+                            <input class="form-control input-sm ng-pristine ng-untouched ng-valid rate"
+                                   tabindex="1" type="text">
+                        </div>
+                    </div>
+                </div>
+                <hr />
+                <div class="row Pricing" id="Pricing_5">
+                    <div class="col-md-6">
+                        <div class="input-group">
+                            <span class="input-group-addon">min</span>
+                            <input class="form-control input-sm ng-pristine ng-untouched ng-valid minutes"
+                                   tabindex="1" type="text">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="input-group">
+                            <span class="input-group-addon">Rs</span>
+                            <input class="form-control input-sm ng-pristine ng-untouched ng-valid rate"
+                                   tabindex="1" type="text">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary btn-sm btn-flat" tabindex="8" title="Save" id="btnSave">
+                    <i class="glyphicon glyphicon-ok"></i> Save
+                </button>
+                <button type="button" class="btn btn-default btn-sm btn-flat" tabindex="9"
+                        title="Close" onclick="HideModel('#addAppConfig')">
+                    <i class="glyphicon glyphicon-remove"></i> Close
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<div class="bootbox modal fade in" role="dialog" id="modal_Conformation">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="bootbox-close-button close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title">Confirmation !</h4>
+            </div>
+            <div class="modal-body">
+                <div class="bootbox-body">Are you sure want to delete?</div>
+            </div>
+            <div class="modal-footer">
+                <button data-bb-handler="success" type="button" class="btn btn-success btn-flat" id="btnYes">Yes</button>
+                <button data-bb-handler="danger" type="button" class="btn btn-danger btn-flat" data-dismiss="modal">No</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+<script src="~/Scripts/Navigation.js?v=1.2"></script>
+    <script>
+    var GetTaxTypesUrl = '@Url.Action("GetTaxTypes", "Common")';
+    var GetStaffUrl = '@Url.Action("GetStaff", "Common")';
+    var SaveAppointmentConfigUrl = '@Url.Action("SaveAppointmentConfig", "AppointmentConfig")';
+    var AppointmentConfigListUrl = '@Url.Action("AppointmentConfigList", "AppointmentConfig")';
+    var DeactivateUrl = '@Url.Action("Deactivate", "AppointmentConfig")';
+    var GetAppointmentConfigByIdUrl = '@Url.Action("GetAppointmentConfigById", "AppointmentConfig")';
+    </script>
+    <script src="~/Content/Book_Appointment/AppointmentConfig.js?v=1.9"></script>
+}
+<script src="~/Scripts/Navigation.js?v=1.2"></script>
+<script>
+    var GetTaxTypesUrl = '@Url.Action("GetTaxTypes", "Common")';
+    var GetStaffUrl = '@Url.Action("GetStaff", "Common")';
+    var SaveAppointmentConfigUrl = '@Url.Action("SaveAppointmentConfig", "AppointmentConfig")';
+    var AppointmentConfigListUrl = '@Url.Action("AppointmentConfigList", "AppointmentConfig")';
+    var DeactivateUrl = '@Url.Action("Deactivate", "AppointmentConfig")';
+    var GetAppointmentConfigByIdUrl = '@Url.Action("GetAppointmentConfigById", "AppointmentConfig")';
+</script>
+<script src="~/Content/Book_Appointment/AppointmentConfig.js?v=1.9"></script>

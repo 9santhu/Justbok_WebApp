@@ -1,0 +1,356 @@
+﻿
+@model  PagedList.IPagedList<Justbok.Models.EnquiryViewModel>
+@using PagedList.Mvc;
+
+<section class="content-header">
+    <h1>
+        Enquiry  <a class="btn btn-primary pull-right" href="/Enquiry/NewEnquiryForm"><i class="fa fa-plus" aria-hidden="true"></i> Add</a>
+    </h1>
+</section>
+
+
+<section class="content-header">
+    <div class="col-xs-12">
+        <div class="box">
+            <div class="box-header">
+                <i class="fa fa-search"></i>
+                <h3 class="box-title">Search Enquiry</h3>
+                <div class="form">
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label>Search </label> <input class="form-control input-sm" placeholder="Member Name,Mobile No" aria-controls="example1" type="search" id="txtMemberNamePhone"/>
+                        </div>
+                    </div>
+
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label>Gender </label> 
+                          <select id="ddlGenderSearch" class="form-control input-sm">
+                              <option>-----Select-----</option>
+                              <option>Male</option>
+                              <option>Female</option>
+                          </select>
+                        </div>
+                    </div>
+
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label>Filter </label> 
+                            <select id="ddlFilterSearch" class="form-control input-sm">
+                                <option>Enquiry Date</option>
+                                <option>Next Followup Date</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label>From Date </label> 
+                            <input class="form-control input-sm datepicker" type="text" id="txtFromdate" />
+                        </div>
+                    </div>
+
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label>To Date </label> 
+                            <input class="form-control input-sm datepicker" type="text" id="txtTodate" />
+                        </div>
+                    </div>
+
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label>Status </label> 
+                            <select id="ddlStatus" class="form-control input-sm">
+                                <option>----All-----</option>
+                                <option>Interested</option>
+                                <option>Intrested rate problem</option>
+                                <option>Joined other Gym</option>
+                                <option>No reply</option>
+                                <option>Not intrested</option>
+                                <option>Shifted to other place</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label>Membership </label>
+                            <select id="ddlMembership" class="form-control input-sm">
+                                <option>----All-----</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label>Received By </label> 
+                            <select id="ddlRecievedby" class="form-control input-sm">
+                                <option>----All-----</option>
+                            </select>
+                            
+                        </div>
+                    </div>
+
+
+                    <div class="col-md-4">
+                        <div class="form-group" style="margin-top:24px;">
+                            <button type="button" class="btn btn-info" id="btnSearchEnquiry">
+                                <span class="glyphicon glyphicon-search"></span> Search
+                            </button>
+                            <button type="button" class="btn btn-default btn-sm" id="btnSearchReset">
+                                <span class="glyphicon glyphicon-refresh"></span> Refresh
+                            </button>
+                        </div>
+                        </div>
+
+                    </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+<section class="content container-fluid">
+
+    <div class="col-xs-12">
+        <div class="box">
+            <div class="box-header">
+                <h3 class="box-title">Enquiry List</h3>
+
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+                <div id="example1_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
+                    <div class="dataTables_length">
+                        <label>
+                            Show
+                            <select id="tblEnquiryList_length" name="tblEnquiryList_length"
+                                    aria-controls="tblEnquiryList" class="form-control input-sm"
+                                    onchange="return ShowChange();">
+                                <option value="10">10</option>
+                                <option value="25">25</option>
+                                <option value="50">50</option>
+                                <option value="100">100</option>
+                            </select> entries
+                        </label>
+                    </div>
+                    @*<div class="row"><div class="col-sm-6"><div class="dataTables_length"><label>Show <select id="ddlNumber" aria-controls="example1" class="form-control input-sm"><option value="10">10</option><option value="25">25</option><option value="50">50</option><option value="100">100</option></select> entries</label></div></div></div><div class="row">*@
+                        <div class="col-sm-12 table-responsive">
+                            <table id="tblEnquiryList" class="table table-bordered table-striped dataTable" role="grid" aria-describedby="example1_info">
+
+                                <thead>
+                                    <tr role="row">
+                                        <th class="sorting_asc" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 231.217px;" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending">Name</th>
+                                        <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 282.583px;" aria-label="Browser: activate to sort column ascending">Mobile No.</th>
+                                        <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 282.583px;" aria-label="Browser: activate to sort column ascending">Enquiry Date</th>
+                                        <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 282.583px;" aria-label="Browser: activate to sort column ascending">Last FollowUp Date</th>
+                                        <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 282.583px;" aria-label="Browser: activate to sort column ascending">Next FollowUp Date</th>
+                                        <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 282.583px;" aria-label="Browser: activate to sort column ascending">Status</th>
+                                        <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 282.583px;" aria-label="Browser: activate to sort column ascending">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @*@foreach (var item in Model)
+                                    {
+                                        <tr role="row" class="odd">
+                                            <td class="sorting_1">@Html.DisplayFor(modelItem => item.FirstName) @Html.DisplayFor(modelItem => item.LastName)</td>
+                                            <td class="sorting_1">@Html.DisplayFor(modelItem => item.MobileNumber)</td>
+                                            <td class="sorting_1">@Html.DisplayFor(modelItem => item.EnquiryDate)</td>
+                                            <td class="sorting_1">@Html.DisplayFor(modelItem => item.LastFollowUpDate)</td>
+                                            <td class="sorting_1">@Html.DisplayFor(modelItem => item.NextFollowUpDate)</td>
+                                            <td class="sorting_1">@Html.DisplayFor(modelItem => item.EnqStatus)</td>
+                                            <td>
+                                                @Html.ActionLink("Edit", "EditEnquiry", new { id = item.EnquiryId, }, new { @class = "btn btn-info" })
+                                                @Html.ActionLink("Enroll", "DeleteWorkout", new { id = item.EnquiryId }, new { @class = "btn btn-info"})
+                                            </td>
+                                        </tr>
+                                    }*@
+                                </tbody>
+                                <tfoot>
+
+                            </table>
+                            <div class="dataTables_paginate paging_simple_numbers" id="tblEnquiryList_paginate">
+                                <ul id="pagination" class="pagination"></ul>
+                            </div>
+                        </div>
+                    </div>@*<div class="row"><div class="col-sm-5"><div class="dataTables_info" id="example1_info" role="status" aria-live="polite"></div></div><div class="col-sm-7"><div class="dataTables_paginate paging_simple_numbers" id="example1_paginate"><ul class="pagination"><li class="paginate_button previous disabled" id="example1_previous"><a href="#" aria-controls="example1" data-dt-idx="0" tabindex="0">Previous</a></li><li class="paginate_button active"><a href="#" aria-controls="example1" data-dt-idx="1" tabindex="0">1</a></li><li class="paginate_button "><a href="#" aria-controls="example1" data-dt-idx="2" tabindex="0">2</a></li><li class="paginate_button next" id="example1_next"><a href="#" aria-controls="example1" data-dt-idx="7" tabindex="0">Next</a></li></ul></div></div></div>*@
+                    @*<div class="dataTables_paginate paging_simple_numbers" style="margin-left: 400px">
+                        Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)
+                        of @Model.PageCount   @Html.PagedListPager(Model, page => Url.Action("EnquiryList", new { page }))
+                    </div>*@
+                </div>
+            </div>
+            <!-- /.box-body -->
+        </div>
+        <!-- /.box-body -->
+
+
+</section>
+
+@section Scripts {
+<script src="~/Scripts/Navigation.js?v=1.2"></script>
+    <script>
+
+        var GetEnquieryListUrl = '@Url.Action("GetEnquiryList", "Enquiry")';
+        var GetRepresentativeList = '@Url.Action("GetRepresentativeList", "Enquiry")';
+        var GetMembershipOffersUrl = '@Url.Action("GetMembershipOffers", "Enquiry")';
+        var SearchMemberListEnquiryUrl = '@Url.Action("SearchMemberList", "Enquiry")';
+        var EditEnquiryUrl = '@Url.Action("EditEnquiry", "Enquiry")';
+        var NewMemberUrl = '@Url.Action("NewMembershipDetails", "Enquiry")';
+
+    </script>
+<script src="~/Content/Enquiry/EnquiryList.js"></script>
+}
+<script src="~/Scripts/Navigation.js?v=1.2"></script>
+<script>
+
+    var GetEnquieryListUrl = '@Url.Action("GetEnquiryList", "Enquiry")';
+        var GetRepresentativeList = '@Url.Action("GetRepresentativeList", "Enquiry")';
+        var GetMembershipOffersUrl = '@Url.Action("GetMembershipOffers", "Enquiry")';
+    var SearchMemberListEnquiryUrl = '@Url.Action("SearchMemberList", "Enquiry")';
+    var EditEnquiryUrl = '@Url.Action("EditEnquiry", "Enquiry")';
+    var NewMemberUrl = '@Url.Action("NewMembershipDetails", "Enquiry")';
+</script>
+<script src="~/Content/Enquiry/EnquiryList.js"></script>
+
+
+@*@section Scripts {*@
+
+    @*@Scripts.Render("~/js")
+    @Styles.Render("~/css")*@
+
+@*<script type="text/javascript">
+    $(document).ready(function () {
+        $('.datepicker').datepicker({
+            dateFormat: "dd/mm/yy",
+            changeMonth: true,
+            changeYear: true,
+            yearRange: "-60:+100"
+        });
+    });
+
+    //Bind dropdowns membership and recieved by
+    $(document).ready(function () {
+        $.ajax({
+            cache: false,
+            type: "GET",
+            url: "@Url.Action("GetRepresentativeList")",
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            data: "",
+            success: function (data) {
+                $.each(data, function (key, value) {
+                    $("#ddlRecievedby").append($("<option></option>").val(value.FirstName + " " + value.LastName).html(value.FirstName + " " + value.LastName));
+                });
+
+
+            },
+            failure: function (errMsg) {
+                alert(errMsg.responseText);
+            }
+        });
+
+        $.ajax({
+            cache: false,
+            type: "GET",
+            url: "@Url.Action("GetMembershipOffers")",
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            data: "",
+            success: function (data) {
+                $.each(data, function (key, value) {
+                    $("#ddlMembership").append($("<option></option>").val(value.OfferName).html(value.OfferName));
+                });
+
+
+            },
+            failure: function (errMsg) {
+                alert(errMsg.responseText);
+            }
+        });
+
+
+        //search functionality
+
+        $('#btnSearchEnquiry').click(function () {
+            var jsonObject = {
+                FirstName: $('#txtMemberNamePhone').val(), Gender: $('#ddlGenderSearch option:selected').val(), LastFollowUpDate: $('#txtFromdate').val(),
+                NextFollowUpDate: $('#txtTodate').val(), EnqStatus: $('#ddlStatus option:selected').val(),
+                ProgramSuggested: $('#ddlMembership option:selected').val(), RecievedBy: $('#ddlRecievedby option:selected').val()
+            }
+
+
+            $.ajax({
+                cache: false,
+                type: "POST",
+                url: "@Url.Action("SearchMemberList")",
+                dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify(jsonObject),
+            success: function (data) {
+                $('#tblEnquiryList tbody').empty();
+                $.each(data, function (i, item) {
+
+   var rows = "<tr>"
+
+
+    + "<td style='display:none'>" + '<input type="hidden" name="hid" value=' + item.EnquiryId + '>' + "</td>"
+   + "<td>" + item.FirstName + " " + item.LastName + "</td>"
+   + "<td>" + item.MobileNumber + "</td>"
+   + "<td>" + item.EnquiryDate + "</td>"
+   + "<td>" + item.LastFollowUpDate + "</td>"
+     + "<td>" + item.NextFollowUpDate + "</td>"
+     + "<td>" + item.EnqStatus + "</td>"
+   + "<td><button class='btn btn-info btnEdit' type='button'>Edit</button><button class='btn btn-info btnGoEnroll' type='button'>Enroll</button> </td>"
+   + "</tr>";
+   $('#tblEnquiryList tbody').append(rows);
+
+                });
+
+
+            },
+            failure: function (errMsg) {
+                alert(errMsg.responseText);
+            }
+        });
+
+
+        });
+
+        //Search edit click
+
+        
+        $(document).on('click', '.btnEdit', function () {
+
+
+            var rowIndex = $(this).closest('td').parent()[0].sectionRowIndex;
+            var enquiryId = $(this).closest('tr').find('input[type="hidden"]').val();
+            redirecttoedit(enquiryId);
+           
+        });
+
+        $(document).on('click', '.btnGoEnroll', function () {
+
+
+            var rowIndex = $(this).closest('td').parent()[0].sectionRowIndex;
+            var enquiryId = $(this).closest('tr').find('input[type="hidden"]').val();
+            redirecttoedit(enquiryId);
+
+        });
+
+        function redirecttoedit(id) {
+            window.location.href = '/Enquiry/EditEnquiry/' + id;
+        }
+
+        function redirecttoenroll(id) {
+            window.location.href = '/Enquiry/EditEnquiry/' + id;
+        }
+
+
+
+    });
+
+</script>*@
+
+@*}*@

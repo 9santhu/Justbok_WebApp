@@ -1,0 +1,752 @@
+﻿@model Justbok.Models.TimeSheet
+
+<section class="content-header">
+
+    <div class="col-xs-12">
+        <div class="box">
+            <div class="box-header">
+                <span class="glyphicon glyphicon-search"></span> <h1 class="box-title"> Search Timesheet</h1>
+            </div>
+            <div class="box-body">
+                <div class="row">
+                    <div class="col-md-6">
+
+                        <div class="form-group col-md-6">
+                            <label>Date</label>
+
+                            <div class="input-group date">
+                                <div class="input-group-addon">
+                                    <i class="fa fa-calendar"></i>
+                                </div>
+                                @Html.TextBoxFor(model => model.AttendenceDate, "{0:dd/MM/yyyy}", new { @class = "form-control", @type = "datetime", id = "txtAttendanceDate" })
+
+                            </div>
+                            <!-- /.input group -->
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</section>
+
+<section class="content container-fluid">
+    <div class="col-xs-12">
+        <div class="box">
+            <div class="box-header">
+                <h3 class="box-title">Timesheet List</h3>
+            </div>
+            <div class="box-body">
+                <div class="col-sm-12 table-responsive">
+                    <table id="tblTimesheet" class="table table-bordered table-striped dataTable" role="grid" aria-describedby="example1_info">
+
+                        <thead>
+                            <tr role="row">
+                                <th class="sorting_asc" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 231.217px;" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending">Name</th>
+                                <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 282.583px;" aria-label="Browser: activate to sort column ascending">(Present)</th>
+                                <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 143.717px;" aria-label="CSS grade: activate to sort column ascending">In Time</th>
+                                <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 250.767px;" aria-label="Platform(s): activate to sort column ascending">Out Time</th>
+                                <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 143.717px;" aria-label="CSS grade: activate to sort column ascending">Leave</th>
+                                <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 143.717px;" aria-label="CSS grade: activate to sort column ascending">Action</th>
+
+                        </thead>
+                        <tbody></tbody>
+                        <tfoot>
+
+                    </table>
+                </div>
+
+                <!--
+                *****************
+
+                manual pop modal box
+
+                ****************
+                --->
+                <div class="modal fade" id="modal-manual">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                                <h4 class="modal-title" id="">Add Timesheet Manually</h4>
+                                <input id="" class="" type="hidden">
+                            </div>
+                            <div class="modal-body" id="divManual" style="">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label class="">User Name :  <span id="txtmembername"></span></label>
+                                            <input id="txtManualTimesheetId" class="" type="hidden">
+                                            <input id="txtManualMemberId" class="" type="hidden">
+                                            <input id="txtManualPresent" class="" type="hidden">
+                                            <input id="txtManualLeave" class="" type="hidden">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Select Shift</label>
+                                            <select class="form-control" style=""><option label="Morning" value="10" selected="selected">Morning</option></select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Shift Timings :</label>
+                                            <label class=""> 9:30 AM To 9:30 PM  </label>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Time In <span class="required" aria-required="true"> * </span></label>
+                                            <input class="form-control" id="txtTimeIn" type="text">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Time Out</label>
+                                            <input class="form-control" id="txtTimeOut" type="text">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            @*<div class="modal-body" id="divLeave" style="display: none;">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+
+
+
+
+                                            <label>Leave Type <span class="required" aria-required="true"> * </span></label>
+                                            <select id="" class="" style="">
+                                                <option value="">---Select---</option>
+                                                <option value="true">Paid Leave</option>
+                                                <option value="false">Unpaid Leave</option>
+                                            </select>
+
+
+
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Leave <span class="required" aria-required="true"> * </span></label>
+                                            <select id="" class="">
+                                                <option value="">---Select Leave---</option>
+                                                <option value="1">Full day</option>
+                                                <option value="0.5">Half day</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Reason</label>
+                                            <textarea id="reason" class="" rows="3"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>*@
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-primary btn-sm" id="btnManualSave"><i class="glyphicon glyphicon-ok"></i> Save</button>
+                                <button type="button" class="btn btn-default btn-sm" data-dismiss="modal"><i class="glyphicon glyphicon-remove"></i> Close</button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- /.modal-dialog -->
+                <!--
+                *****************
+
+                manual pop modal box
+
+                ****************
+                --->
+                <div class="modal fade" id="modal-leave">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" aria-label="Close"><span aria-hidden="true">×</span></button>
+                                <h4 class="modal-title" id="">Add Leave</h4>
+                                <input id="txtMemberidLeave" class="" type="hidden">
+                            </div>
+                            <div class="modal-body" id="" style="display: none;">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label class="">User Name : <span id="UserName"></span>    </label>
+                                            <input id="" class="" type="hidden">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Select Shift</label>
+                                            <select class="" style=""><option label="Morning" value="10" selected="selected">Morning</option></select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Shift Timings : </label>
+                                            <label class=""> 9:30 AM To 9:30 PM  </label>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Time In <span class="required" aria-required="true"> * </span></label>
+                                            <input class="form-control input-sm" id="txtTimeIn" type="text">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Time Out</label>
+                                            <input class="form-control input-sm" id="txtTimeOut" type="text">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-body" id="" style="">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            @*Hidden values*@
+                                            <input id="txtTimeSheetId" class="" type="text" style="display:none;" >
+                                            <input id="txtMmeberIdLeave" class="" type="text" style="display:none;">
+                                            <input id="txtIsPresent" class="" type="text" style="display:none;">
+                                            <input id="txtInTime" class="" type="text" style="display:none;">
+                                            <input id="txtOutTime" class="" type="text" style="display:none;">
+                                            <input id="txtLeaveDetails" class="" type="text" style="display:none;">
+                                            <input id="txtLeaveId" class="" type="text" style="display:none;">
+
+                                            <label>Leave Type <span class="required" aria-required="true"> * </span></label>
+                                            <select id="ddlLeaveType" class="form-control" style="">
+                                                <option value="">---Select---</option>
+                                                <option value="true">Paid Leave</option>
+                                                <option value="false">Unpaid Leave</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Leave <span class="required" aria-required="true"> * </span></label>
+                                            <select id="ddlLeave" class="form-control">
+                                                <option value="">---Select Leave---</option>
+                                                @*<option value="1">Full day</option>
+                                                <option value="0.5">Half day</option>*@
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Reason</label>
+                                            <textarea id="txtreason" class="form-control" rows="3"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-primary btn-sm" id="btnsaveleave"><i class="glyphicon glyphicon-ok"></i> Save</button>
+                                <button type="button" class="btn btn-default btn-sm" data-dismiss="modal"><i class="glyphicon glyphicon-remove"></i> Close</button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- /.modal-dialog -->
+
+
+
+            </div>
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+<script src="~/Scripts/Navigation.js?v=1.2"></script>
+    <script>
+        var GetMemberListUrl = '@Url.Action("GetMemberList", "TimeSheet")';
+        var AddUpdateAttendenceUrl = '@Url.Action("AddUpdateAttendence", "TimeSheet")';
+        var BindLeaveUrl = '@Url.Action("BingLeaveType", "TimeSheet")';
+        var AddAbsentUrl = '@Url.Action("AddLeave", "TimeSheet")';
+    </script>
+    <script src="~/Content/Timesheet/Staff.js"></script>
+}
+<script src="~/Scripts/Navigation.js?v=1.2"></script>
+<script>
+        var GetMemberListUrl = '@Url.Action("GetMemberList", "TimeSheet")';
+    var AddUpdateAttendenceUrl = '@Url.Action("AddUpdateAttendence", "TimeSheet")';
+    var BindLeaveUrl = '@Url.Action("BingLeaveType", "TimeSheet")';
+    var AddAbsentUrl = '@Url.Action("AddLeave", "TimeSheet")';
+</script>
+<script src="~/Content/Timesheet/Staff.js"></script>
+
+
+
+@*@section Scripts {*@
+
+    @*@Scripts.Render("~/js")
+    @Styles.Render("~/css")*@
+
+    @*<script type="text/javascript">
+        $(document).ready(function () {
+            $('#txtAttendanceDate').datepicker({
+                dateFormat: "m/dd/yy",
+                changeMonth: true,
+                changeYear: true,
+                yearRange: "-60:+100"
+
+            });
+        });
+
+    </script>*@
+
+@*}*@
+
+@*<script src="~/Theme/js/jquery.min.js"></script>
+<script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#txtAttendanceDate').datepicker('setDate', new Date());
+       
+        UpdateTable();
+    });*@
+
+
+    @*function UpdateTable()
+    {
+        $.ajax({
+            url: "@Url.Action("GetMemberList")",
+            data: {date: $('#txtAttendanceDate').val()},
+        type: "GET",
+        dataType: "json",
+        success: function (data) {
+
+            $('#tblTimesheet tbody').empty();
+            $.each(data, function (i, item) {
+
+                var datematched = false;
+
+                var rows = "<tr>"
+                    + "<td style='display:none'>" + item.StaffId + "</td>"
+                     + "<td >" + item.FirstName + " " + item.LastName + "</td>"
+                //Present
+                if (item.Present !=null && item.Present == "Yes") {
+                    rows = rows + "<td > <i class='fa fa-check-circle' style='color:#00a65a;'></i><span style='display:none'>" + item.Present + "</span></td>"
+                }
+
+                else {
+
+                    rows = rows + "<td></td>"
+                }
+
+                // In
+                var todaydate = new Date();
+                var month = todaydate.getMonth() + 1;
+                var day = todaydate.getDate();
+
+                var convertTodayDate = todaydate.getFullYear() + '/' +
+                    (('' + month).length < 2 ? '0' : '') + month + '/' +
+                    (('' + day).length < 2 ? '0' : '') + day;
+                // alert("Attendence "+item.AttendenceDate);
+                //if (item.AttendenceDate != null) {
+
+                var totaldate = convertDate(convertTodayDate);
+
+                var gotDate = toDate(item.AttendenceDate)
+                console.log("totaldate " + totaldate.toString());
+                console.log("gotDate "+gotDate.toString());
+
+                    //var Tmonth = gotDate.getMonth() + 1;
+                    //var Tday = gotDate.getDate();
+
+
+                    //var convertGotDate = gotDate.getFullYear() + '/' +
+                    //    (('' + month).length < 2 ? '0' : '') + month + '/' +
+                    //    (('' + day).length < 2 ? '0' : '') + day;
+
+                    //if (convertTodayDate === convertGotDate) {
+                    //    datematched = true;
+                //}
+                if (totaldate.toString() === gotDate.toString()) {
+
+                    datematched = true;
+                }
+                    if (item.InTime != null) {
+                    rows = rows + "<td >" + item.InTime + "</td>"
+                }
+                else if (datematched)
+                {
+                    rows = rows + "<td > <a class='btn btn-success btn-xs btn-flat btnIn '>In</a></td>"
+                }
+                else {
+                    rows = rows + "<td ></td>"
+                }
+
+                // out
+                if (item.OutTime != null) {
+                    rows = rows + "<td >" + item.OutTime + "</td>"
+                }
+                else if(datematched)
+                {
+                 rows = rows + "<td > <a class='btn btn-danger btn-xs btn-flat btnOut'>Out</a></td>"
+                }
+
+                else {
+                    rows = rows + "<td ></td>"
+                }
+                //Leave
+                if (item.Leave != null) {
+                    rows = rows + "<td >" + item.Leave + "</td>"
+                }
+                else {
+                    rows = rows + "<td ></td>"
+                }
+                rows = rows+ "<td >"
+                if (item.Present != null && item.Present == "Yes")
+                {
+                    rows = rows+"<a class='btn btn-xs btn-success btn-flat btnPresent' style='display:none;'>Present</a>&nbsp;"
+                }
+                else
+                {
+                    rows = rows + "<a class='btn btn-xs btn-success btn-flat btnPresent' >Present</a>&nbsp;"
+                }
+                rows = rows + "<a class='btn btn-primary btn-xs btn-flat btnManual' data-toggle='modal' data-target='#modal-manual'>Manual</a>&nbsp;<a class='btn btn-warning btn-xs btn-flat btnLeave' data-toggle='modal' data-target='#modal-leave'>Absent</a></td>"
+                + "</tr>";
+                $('#tblTimesheet tbody').append(rows);
+
+            })
+        },
+        error: function () {
+            alert("Failed! Please try again.");
+        }
+    });
+
+
+    }*@
+
+    @*///////////////////////////////////////////////////////////////////////////////////////
+    //on button In click in table*@
+
+        @*$(document).ready(function () {
+        }).on('click', '.btnIn', function () {
+         var rowIndex=  $(this).closest('td').parent()[0].sectionRowIndex;
+         //var memberId = $('#tblTimesheet tr').eq(rowIndex+1).find('td').eq(0).html();
+            //alert(memberId);
+            var date = new Date();
+            var time = formatAMPM(date);
+            $('#tblTimesheet tr').eq(rowIndex + 1).find('td').eq(3).html(time);
+
+            var jsonObject = {
+                StaffId: $('#tblTimesheet tr').eq(rowIndex + 1).find('td').eq(0).html(), AttendenceDate: $('#txtAttendanceDate').val(),
+                Present: $('#tblTimesheet tr').eq(rowIndex + 1).find('td').eq(2).find("span").text(), InTime: $('#tblTimesheet tr').eq(rowIndex + 1).find('td').eq(3).html(),
+                OutTime: $('#tblTimesheet tr').eq(rowIndex + 1).find('td').eq(4).text(),
+                Leave: $('#tblTimesheet tr').eq(rowIndex + 1).find('td').eq(5).html()
+            }
+
+            $.ajax({
+                cache: false,
+                type: "POST",
+                url: "@Url.Action("AddUpdateAttendence")",
+                dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify(jsonObject),
+            success: function (data) {
+                //alert('hello');
+                //UpdateTable();
+            },
+            failure: function (errMsg) {
+                alert(errMsg.responseText);
+            }
+        });
+
+
+        });*@
+    @*///////////////////////////////////////////////////////////////////////////////////////
+    //on button out click in table*@
+
+    @*$(document).ready(function () {
+    }).on('click', '.btnOut', function () {
+        var rowIndex=  $(this).closest('td').parent()[0].sectionRowIndex;
+        //var memberId = $('#tblTimesheet tr').eq(rowIndex+1).find('td').eq(0).html();
+        //alert(memberId);
+        var date = new Date();
+        var time = formatAMPM(date);
+        $('#tblTimesheet tr').eq(rowIndex + 1).find('td').eq(4).html(time);
+
+        var jsonObject = {
+            StaffId: $('#tblTimesheet tr').eq(rowIndex + 1).find('td').eq(0).html(), AttendenceDate: $('#txtAttendanceDate').val(),
+            Present: $('#tblTimesheet tr').eq(rowIndex + 1).find('td').eq(2).find("span").text(), InTime: $('#tblTimesheet tr').eq(rowIndex + 1).find('td').eq(3).text(),
+            OutTime: $('#tblTimesheet tr').eq(rowIndex + 1).find('td').eq(4).text(),
+            Leave: $('#tblTimesheet tr').eq(rowIndex + 1).find('td').eq(5).html()
+        }
+
+        $.ajax({
+            cache: false,
+            type: "POST",
+            url: "@Url.Action("AddUpdateAttendence")",
+            dataType: "json",
+        contentType: "application/json; charset=utf-8",
+        data: JSON.stringify(jsonObject),
+        success: function (data) {
+            //alert('hello');
+            //UpdateTable();
+        },
+        failure: function (errMsg) {
+            alert(errMsg.responseText);
+        }
+    });
+
+
+    });*@
+
+    @*///////////////////////////////////////////////////////////////////////////////////////
+    //on button present click in table*@
+    @*$(document).ready(function () {
+    }).on('click', '.btnPresent', function () {
+        //var date= $('#txtAttendanceDate').val();
+        //var attendance = toDate(selector);
+        //console.log("Pressent"+attendance);
+        var rowIndex = $(this).closest('td').parent()[0].sectionRowIndex;
+        //$('#tblTimesheet tr').eq(rowIndex + 1).find('td').eq(4).html("");
+        var jsonObject = {
+            StaffId: $('#tblTimesheet tr').eq(rowIndex + 1).find('td').eq(0).html(), AttendenceDate: $('#txtAttendanceDate').val(),
+            Present: "Yes", InTime: $('#tblTimesheet tr').eq(rowIndex + 1).find('td').eq(3).html(),
+            OutTime: $('#tblTimesheet tr').eq(rowIndex + 1).find('td').eq(4).text(),
+            Leave: $('#tblTimesheet tr').eq(rowIndex + 1).find('td').eq(5).html()
+        }
+
+        $.ajax({
+            cache: false,
+            type: "POST",
+            url: "@Url.Action("AddUpdateAttendence")",
+            dataType: "json",
+        contentType: "application/json; charset=utf-8",
+        data: JSON.stringify(jsonObject),
+        success: function (data) {
+
+            UpdateTable();
+        },
+        failure: function (errMsg) {
+            alert(errMsg.responseText);
+        }
+    });
+
+    });*@
+
+
+    @*///////////////////////////////////////////////////////////////////////////////////////*@
+
+    @*//$(document).ready(function () {
+    //}).on('click', '.btnManual', function () {
+    //    //$('#txtTimeIn').wickedpicker();
+    //    var rowIndex = $(this).closest('td').parent()[0].sectionRowIndex;
+    //    $('#txtMmeberId').val($('#tblTimesheet tr').eq(rowIndex + 1).find('td').eq(0).html());
+    //    $('#txtmembername').text($('#tblTimesheet tr').eq(rowIndex + 1).find('td').eq(1).html());
+    //    $('#txtPresent').val($('#tblTimesheet tr').eq(rowIndex + 1).find('td').eq(2).find("span").text());
+    //    $('#txtInTime').text($('#tblTimesheet tr').eq(rowIndex + 1).find('td').eq(3).html());
+    //    $('#txtOutTime').text($('#tblTimesheet tr').eq(rowIndex + 1).find('td').eq(4).html());
+    //    $('#txtLeave').text($('#tblTimesheet tr').eq(rowIndex + 1).find('td').eq(5).html());
+
+
+    //    //$('#modal-manual').modal('show');
+
+    //});
+
+    //$(function () {
+    //    $('#modal-manual').modal({
+    //        keyboard: true,
+    //        backdrop: "static",
+    //        show: false,
+
+    //    }).on('show', function () { //subscribe to show method
+
+    //        var rowIndex = $(event.target).closest('tr'); //get the id from tr
+    //        $('#txtmembername').val($('#txtMmeberId').val($('#tblTimesheet tr').eq(rowIndex + 1).find('td').eq(0).html()));
+    //        //make your ajax call populate items or what even you need
+    //       // $(this).find('#orderDetails').html($('<b> Order Id selected: ' + getIdFromRow + '</b>'))
+    //    });
+    //});
+
+
+    //$('#modal-manual').on('show.bs.modal', function (e) {
+
+    //    console.log("Hii");
+    //    var rowIndex = $(this).closest('td').parent()[0].sectionRowIndex;
+
+    //    $('#txtMmeberId').val($('#tblTimesheet tr').eq(rowIndex + 1).find('td').eq(0).html());
+    //    $('#txtmembername').val($('#tblTimesheet tr').eq(rowIndex + 1).find('td').eq(2).html());
+    //})
+
+    //$('#modal-leave').on('show.bs.modal', function () {
+    //    var rowIndex = $(this).closest('td').parent()[0].sectionRowIndex;
+    //    $('#txtMmeberId').val($('#tblTimesheet tr').eq(rowIndex + 1).find('td').eq(0).html());
+    //    $('#txtmembername').val($('#tblTimesheet tr').eq(rowIndex + 1).find('td').eq(2).html());
+    //})*@
+
+
+
+    @*///////////////////////////////////////////////////////////////////////////////////////*@
+    @*$(document).ready(function () {
+    }).on('click', '#btnManualSave', function (e) {
+
+
+        var jsonObject = {
+            StaffId: $('#txtMmeberId').val(), AttendenceDate: $('#txtAttendanceDate').val(), Present: $('#txtPresent').val(),
+            InTime: $('#txtTimeIn').val(),
+            OutTime: $('#txtTimeOut').val(), Leave: $('#txtLeave').val()
+        }
+
+
+
+        $.ajax({
+            cache: false,
+            type: "POST",
+            url: "@Url.Action("AddUpdateAttendence")",
+            dataType: "json",
+        contentType: "application/json; charset=utf-8",
+        data: JSON.stringify(jsonObject),
+        success: function (data) {
+
+            UpdateTable();
+            $("#modal-manual").modal('close');
+
+        },
+        failure: function (errMsg) {
+            alert(errMsg.responseText);
+        }
+    });
+
+    });*@
+
+
+    @*///////////////////////////////////////////////////////////////////////////////////////
+    //$(document).ready(function () {
+    //}).on('click', '.btnLeave', function () {
+    //    //$('#txtTimeIn').wickedpicker();
+
+    //    var rowIndex = $(this).closest('td').parent()[0].sectionRowIndex;
+    //    $('#txtMmeberIdLeave').val($('#tblTimesheet tr').eq(rowIndex + 1).find('td').eq(0).html());
+    //    //$('#txtmembername').text($('#tblTimesheet tr').eq(rowIndex + 1).find('td').eq(1).html());
+    //    $('#txtPresenttxtPresentLeave').val($('#tblTimesheet tr').eq(rowIndex + 1).find('td').eq(2).find("span").text());
+    //    $('#txtInTimetxtInTimeLeave').text($('#tblTimesheet tr').eq(rowIndex + 1).find('td').eq(3).html());
+    //    $('#txtOutTimetxtOutTimeLeave').text($('#tblTimesheet tr').eq(rowIndex + 1).find('td').eq(4).html());
+
+
+
+    //});*@
+
+
+
+
+    @*$(document).ready(function () {
+    }).on('click', '#btnsaveleave', function () {
+
+        var jsonObject = {
+            StaffId: $('#txtMmeberIdLeave').val(), AttendenceDate: $('#txtAttendanceDate').val(), Present: $('#txtPresentLeave').val(),
+            InTime: $('#txtInTimeLeave').val(),
+            OutTime: $('#txtOutTimeLeave').val(), Leave: $('#ddlLeave  option:selected').val() + " | " + $('#ddlLeave  option:selected').text()
+        }
+
+        $.ajax({
+            cache: false,
+            type: "POST",
+            url: "@Url.Action("AddUpdateAttendence")",
+            dataType: "json",
+        contentType: "application/json; charset=utf-8",
+        data: JSON.stringify(jsonObject),
+        success: function (data) {
+
+            UpdateTable();
+
+            $("#modal-leave").dialog("close");
+
+        },
+        failure: function (errMsg) {
+            alert(errMsg.responseText);
+        }
+    });
+
+    });*@
+
+
+
+
+   @*// date change event
+    //$(document).ready(function () {
+
+    //    $('#txtAttendanceDate').on('change', function () {
+    //        UpdateTable();
+
+
+
+    //    });
+
+    //});*@
+
+
+
+
+
+        @*//function formatAMPM(date) {
+
+        //    var hours = date.getHours();
+        //    var minutes = date.getMinutes();
+        //    var ampm = hours >= 12 ? 'PM' : 'AM';
+        //    hours = hours % 12;
+        //    hours = hours ? hours : 12; // the hour '0' should be '12'
+        //    minutes = minutes < 10 ? '0' + minutes : minutes;
+        //    var strTime = hours + ':' + minutes + ' ' + ampm;
+        //    return strTime;
+        //}
+
+        //function convertDate(selector)
+        //{
+        //    //console.log("date format:" + selector);
+        //    var from = selector.split("/");
+        //    var gdate = from[0].toString() + "/" + from[1].toString() + "/" + from[2].toString();
+        //    var sel = new Date(gdate);
+        //    return sel;
+
+        //}
+
+        //function GetDate(selector)
+        //{
+        //    try {
+        //        var from = selector.split("-");
+        //        var gdate = from[1].toString() + "/" + from[0].toString() + "/" + from[2].toString();
+        //       // var sel = new Date(gdate);
+
+        //        //var date = new Date(sel);
+        //        //date.setMinutes(date.getMinutes() + date.getTimezoneOffset());
+
+
+
+        //        return gdate;
+        //    }
+        //    catch (err) {
+        //        var from = selector.split("/");
+        //        var gdate = from[1].toString() + "/" + from[0].toString() + "/" + from[2].toString();
+        //       // var sel = new Date(gdate);
+        //        //var date = new Date(sel);
+        //        //date.setMinutes(date.getMinutes() + date.getTimezoneOffset());
+
+
+        //        return gdate;
+        //    }
+               
+        //}
+
+        //function toDate(selector) {
+        //   // alert(selector);
+
+        //   // var sel = selector.substr(0, selector.indexOf(' '));
+        //    //var from = sel.split("-");
+        //    //var from = selector.split("-");
+        //    //return new Date(from[2], from[1] - 1, from[0]);
+
+        //    try {
+        //        var from = selector.split("-");
+        //        var gdate = from[0].toString() + "/" + from[1].toString() + "/" + from[2].toString();
+        //        var sel = new Date(gdate);
+
+        //        //var date = new Date(sel);
+        //        //date.setMinutes(date.getMinutes() + date.getTimezoneOffset());
+
+
+
+        //        return sel;
+        //    }
+        //    catch (err) {
+        //        var from = selector.split("/");
+        //        var gdate = from[2].toString() + "/" + from[1].toString() + "/" + from[0].toString();
+        //        var sel = new Date(gdate);
+        //        //var date = new Date(sel);
+        //        //date.setMinutes(date.getMinutes() + date.getTimezoneOffset());
+
+
+        //        return sel;
+        //    }
+        //}
+
+
+</script>*@

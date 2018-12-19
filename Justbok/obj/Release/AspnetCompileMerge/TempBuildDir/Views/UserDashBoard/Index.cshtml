@@ -1,0 +1,137 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/UserLayout.cshtml";
+}
+<input type="hidden" value="@Session["UserName"]" id="myHiddenVar" />  
+<section class="content container-fluid" id="container">
+    <div class="col-xs-12">
+        <div class="box">
+            <div class="box-header">
+                <h3 class="box-title">User Details</h3>
+                <div class="col-md-12">
+                    <hr>
+                    <div class="form-group col-md-2">
+                        <img id="customerimage" class="form-control" alt="Member profile" style="height:100px;width:100px;" src="" />
+                    </div>
+
+                    <div class="form-group col-md-4">
+                        <label >Member Id:</label>
+                        <label id="lblMemberId"></label>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="exampleInputEmail1">Name:</label>
+                        <label id="lblMemberName"></label>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="exampleInputEmail1">Phone Number:</label>
+                        <label id="lblPhoneNumber"></label>
+                    </div>
+
+                    <div class="form-group col-md-4">
+                        <label for="exampleInputEmail1">Enroll Date:</label>
+                        <label id="lblEnrollDate"></label>
+                       
+                    </div>
+
+                    @*<div class="form-group col-md-4">
+                        <label for="exampleInputEmail1">Membership Type:</label>
+                        <label id="lblMembershipType"></label>
+                       
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="Branch">Status: </label>
+                        <label id="lblStatus"></label>
+                    </div>*@
+                </div>
+            </div>
+            <div class="box-body">
+                <div class="col-sm-12 table-responsive">
+                    <hr />
+                    <h4>Membership Details</h4><hr>
+                    <table id="tblMembership" class="table table-bordered table-striped dataTable" role="grid" aria-describedby="example1_info">
+                        <thead>
+                            <tr role="row">
+                                <th class="" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 231.217px;display:none"></th>
+                                <th class="" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 231.217px;">#</th>
+                                <th class="" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 282.583px;">Membership</th>
+                                <th class="" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 250.767px;">Start Date</th>
+                                <th class="" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 198.717px;">End Date</th>
+                                <th class="" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 198.717px;">Month</th>
+                                <th class="" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 250.767px;">Amount</th>
+                                <th class="" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 198.717px;">Due Amount</th>
+                                <th class="" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 143.717px;">Paid Amount</th>
+                                <th class="" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 143.717px;">Status</th>
+                                <th class="" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 143.717px;">Notes</th>
+                                <th class="" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 143.717px;">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+                </div>
+            </div>
+    </div>
+
+   
+
+</section>
+
+<div class="modal fade" id="modal-payment">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title">Payment</h4>
+            </div>
+            <div class="modal-body">
+                <div class="tab-pane row" id="payment-history">
+                    <table id="tblPaymentHistory" class="table table-bordered table-striped dataTable" role="grid" aria-describedby="example1_info">
+                        <thead>
+                            <tr role="row">
+                                <th class="" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 231.217px;">Payment Date</th>
+                                <th class="" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 231.217px;">Paid Amount</th>
+                                <th class="" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 231.217px;">Payment type</th>
+                                <th class="" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 231.217px;">Receipt No.</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            <tr role="row" class="odd"></tr>
+                        </tbody>
+                        <tfoot>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+
+
+@section Scripts {
+<script src="~/Scripts/Navigation.js?v=1.2"></script>
+    <script>
+        
+        var GetMemberInfoUrl = '@Url.Action("GetMemberInfo", "UserDashBoard")';
+        var GetMemberImageUrl = '@Url.Action("GetMemberImage", "UserDashBoard")';
+        var EditBindMembershipUrl = '@Url.Action("EditBindMembership", "MemberShip")';
+        var BindPayment = '@Url.Action("BindPayment", "MemberShip")';
+       
+    </script>
+<script src="~/Content/UserDashboard/UserDashBoard.js"></script>
+   
+}
+
+<script src="~/Scripts/Navigation.js?v=1.2"></script>
+<script>
+
+    var GetMemberInfoUrl = '@Url.Action("GetMemberInfo", "UserDashBoard")';
+    var GetMemberImageUrl = '@Url.Action("GetMemberImage", "UserDashBoard")';
+    var EditBindMembershipUrl = '@Url.Action("EditBindMembership", "MemberShip")';
+    var BindPayment = '@Url.Action("BindPayment", "MemberShip")';
+</script>
+<script src="~/Content/UserDashboard/UserDashBoard.js"></script>

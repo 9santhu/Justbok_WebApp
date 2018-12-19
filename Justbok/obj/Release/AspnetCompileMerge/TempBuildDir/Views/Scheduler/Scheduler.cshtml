@@ -1,0 +1,506 @@
+﻿<section class="content-header ng-scope">
+    <h1>
+        Scheduler
+    </h1>
+</section>
+
+<section class="content ng-scope">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box box-primary">
+                <div class="box-body">
+                    <div class="col-lg-12">
+                        <div id='calendar'></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="modal fade ng-scope in" id="addScheduler" role="dialog">
+    <div class="modal-dialog" style="width:650px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                <h4 class="modal-title" id="gridSystemModalLabel">Scheduler</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Member</label>
+                            <select class="form-control input-sm ng-pristine ng-untouched ng-valid" id="ddlMember">
+                                <option value="0" class="" selected="selected">---Select---</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Trainer</label>
+                            <select class="form-control input-sm ng-pristine ng-valid ng-touched" id="ddltrainer">
+                                <option value="0" class="" selected="selected">---Select---</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Start Date</label>
+                            <input class="form-control input-sm ng-pristine ng-untouched ng-valid" id="txtStartDate" type="text" onkeypress="return false;" onpaste="return false;" />
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>End Date</label>
+                            <input class="form-control input-sm ng-pristine ng-untouched ng-valid" id="txtEndDate" type="text" onkeypress="return false;" onpaste="return false;" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>From</label>
+                            <input id="txtFromTime" class="form-control input-sm" type="text" onkeypress="return false;" onpaste="return false;">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>To</label>
+                            <input id="txtToTime" class="form-control input-sm" type="text" onkeypress="return false;" onpaste="return false;">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Days</label>
+                            <select class="form-control input-sm" id="ddlDays" onchange="return DaysChanges()">
+                                <option value="1">Every Day</option>
+                                <option value="2">Custom</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12" id="divSelectedDays" style="display:none;">
+                        <label>Select Days: &nbsp;</label>
+                        <div class="form-group">
+                            <input class="two-checkbox" id="chkMon" type="checkbox" dayvalue="1">&nbsp;&nbsp;Monday&nbsp;
+                            <input class="two-checkbox" id="chkTue" type="checkbox" dayvalue="2">&nbsp;&nbsp;Tuesday&nbsp;
+                            <input class="two-checkbox" id="chkWed" type="checkbox" dayvalue="3">&nbsp;&nbsp;Wednesday&nbsp;
+                            <input class="two-checkbox" id="chkThu" type="checkbox" dayvalue="4">&nbsp;&nbsp;Thruesday&nbsp;
+                            <input class="two-checkbox" id="chkFri" type="checkbox" dayvalue="5">&nbsp;&nbsp;Friday&nbsp;
+                            <input class="two-checkbox" id="chkSat" type="checkbox" dayvalue="6">&nbsp;&nbsp;Saturday&nbsp;
+                            <input class="two-checkbox" id="chkSun" type="checkbox" dayvalue="0">&nbsp;&nbsp;Sunday&nbsp;
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary btn-sm btn-flat" tabindex="4" title="Save" id="btnSave">
+                        <i class="glyphicon glyphicon-ok"></i> Save
+                    </button>
+                    <button type="button" class="btn btn-default btn-sm btn-flat" data-dismiss="modal" tabindex="5" title="Close">
+                        <i class="glyphicon glyphicon-remove"></i> Close
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+<script src="~/Scripts/Navigation.js?v=1.2"></script>
+    <script>
+
+        var defaultview = 'agendaWeek';
+        var calendarviewbuttons = 'month,agendaWeek,agendaDay';
+
+        var SchedulerId = 0;
+
+        $(document).ready(function () {
+
+            GettingMemebers();
+            GettingStaff();
+
+            $('#txtStartDate,#txtEndDate').datepicker({
+                dateFormat: 'dd/mm/yy',
+                changeMonth: true,
+                changeYear: true,
+                yearRange: "-60:+100"
+            });
+
+            $("#txtFromTime, #txtToTime").datetimepicker({
+                format: 'HH:mm',
+                useCurrent: true,
+                stepping: 1
+            });
+
+            $('#calendar').fullCalendar({
+                eventConstraint: {
+                    start: '00:00',
+                    end: '24:59'
+                },
+                allDaySlot: false,
+                defaultView: defaultview,
+                header: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: calendarviewbuttons
+                },
+                events: function (start, end, timezone, callback) {
+                    $.ajax({
+                        cache: false,
+                        type: "GET",
+                        /**/
+                        url: '@Url.Action("GetSchedules", "Scheduler")',
+                        /**/
+                        dataType: "json",
+                        data: {
+                            start: $.datepicker.formatDate('dd M, yy', new Date(start._d)),
+                            end: $.datepicker.formatDate('dd M, yy', new Date(end._d)),
+                            resourceView: ""
+                        },
+                        success: function (data) {
+                            if (data != null) {
+                                var events = [];
+                                $.each(data, function (i, item) {
+                                    events.push({
+                                        id: item.SchedulerId,
+                                        title: item.Title,
+                                        start: new Date(parseInt(item.StartDate.replace(/\D/g, ""))),
+                                        end: new Date(parseInt(item.EndDate.replace(/\D/g, "")))
+                                    });
+                                });
+                                callback(events);
+                            }
+                        },
+                        error: function (errMsg) {
+                        },
+                        failure: function (data) {
+
+                        }
+                    });
+                },
+                editable: true,
+                dayClick: function (when, allDay, jsEvent, view) {
+                    $("#txtFromTime").data("DateTimePicker").date(formatAMPMUTC(when._d));
+                    $("#txtToTime").data("DateTimePicker").date(formatAMPMUTC(new Date(when._d.getTime() + 30 * 60000)));
+                    $('#txtStartDate').datepicker('setDate', new Date(when._d));
+                    $("#ddlMember").val("0");
+                    $("#ddltrainer").val("0");
+                    $("#ddlDays").val("1");
+                    $("#divSelectedDays").hide();
+                    $('#chkMon').prop('checked', false);
+                    $('#chkTue').prop('checked', false);
+                    $('#chkWed').prop('checked', false);
+                    $('#chkThu').prop('checked', false);
+                    $('#chkFri').prop('checked', false);
+                    $('#chkSat').prop('checked', false);
+                    $('#chkSun').prop('checked', false);
+                    SchedulerId = 0;
+                    $('#addScheduler').modal('show');
+                },
+                eventResize: function (event, delta, revertFunc) {
+                    if (!confirm("Are you sure to change event timing?")) {
+                        revertFunc();
+                    }
+                    else {
+                        UpdateDuration(event.id, ((event.start - event.end) / (1000 * 60)) * -1);
+                    }
+                },
+                eventClick: function (calEvent, jsEvent, view) {
+                    GettingSchedulerDetails(calEvent.id);
+                },
+                loading: function (isLoading, view) {
+                    if (isLoading)
+                        ShowLoader();
+                    else
+                        HideLoader();
+                }
+            });
+
+        });
+
+        function formatAMPMUTC(date) {
+            date = new Date(date);
+            var hours = date.getUTCHours();
+            var minutes = date.getUTCMinutes();
+            minutes = minutes < 10 ? '0' + minutes : minutes;
+            var strTime = hours + ':' + minutes;
+            return strTime;
+        }
+
+        function GetResourceView() {
+            return ResourceView;
+        }   
+
+        function UpdateDuration(Id, Duration) {
+            ShowLoader();
+            $.ajax({
+                cache: false,
+                type: "POST",
+                url: "@Url.Action("UpdateScheduleDetails")",
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                data: JSON.stringify({ ScheduleId: parseInt(Id), Duration: parseInt(Duration)}),
+                success: function (data) {
+                    if (data.Success == "True") {
+                        HideLoader();
+                        toastr.success("Scheduled Infomration Updated Successfully.");
+                    }
+                    else {
+                        HideLoader();
+                        toastr.error("Unable To Update Information.");
+                    }
+                },
+                error: function (errMsg) {
+                    HideLoader();
+                    toastr.error("Unable To Update Information.");
+                },
+                failure: function (errMsg) {
+                    HideLoader();
+                    toastr.error("Unable To Update Information.");
+                }
+            });
+        }
+
+
+        $('#btnSave').click(function () {
+            ShowLoader();
+            if (true) {
+                var Scheduler = {
+                    SchedulerId: SchedulerId,
+                    MemberId: $("#ddlMember").val(),
+                    StaffId: $("#ddltrainer").val(),
+                    StartDate: $("#txtStartDate").val(),
+                    EndDate: $("#txtEndDate").val(),
+                    Repeatable: Repeatable(),
+                    Duration: ((parseTime($("#txtFromTime").val()) - parseTime($("#txtToTime").val())) / (1000 * 60)) * -1,
+                    IsActive: true,
+                    SelectType: $("#ddlDays").val(),
+                    SelectedDay: SelectedDays(),
+                }
+                $.ajax({
+                    cache: false,
+                    type: "POST",
+                    /**/
+                    /**/
+                    url: "@Url.Action("PostSchedule")",
+                    /**/
+                    /**/
+                    dataType: "json",
+                    contentType: "application/json; charset=utf-8",
+                    data: JSON.stringify({ Scheduler: Scheduler }),
+                    success: function (data) {
+                        if (data.Success == "True") {
+                            HideLoader();
+                            toastr.success("Scheduled Infomration Saved Successfully.");
+                            $('#addScheduler').modal('hide');
+                            $("#calendar").fullCalendar('refresh');
+                            $('#calendar').fullCalendar('refetchEvents');
+                        }
+                        else {
+                            HideLoader();
+                            toastr.error("Unable To Save Information.");
+                        }
+                    },
+                    error: function (errMsg) {
+                        HideLoader();
+                        toastr.error("Unable To Update Information.");
+                    },
+                    failure: function (errMsg) {
+                        HideLoader();
+                        toastr.error("Unable To Save Information.");
+                    }
+                });
+            }
+            else {
+                HideLoader();
+            }
+            return false;
+        });
+
+        function SelectedDays() {
+            var days = "";
+            if ($("#ddlDays").val() == "1") {
+                days = "0,1,2,3,4,5,6";
+            }
+            else {
+                $('.two-checkbox:checked').each(function () { days = days + $(this).attr("dayvalue") + "," });
+                days = days.substring(0, days.length - 1);
+            }
+            return days;
+
+        }
+
+        function DaysChanges() {
+            if ($("#ddlDays").val() == "1") {
+                $('#divSelectedDays').hide();
+            }
+            else {
+                $('#divSelectedDays').show();
+            }
+        }
+
+        function parseTime(cTime) {
+            if (cTime == '') return null;
+            var d = new Date();
+            var time = cTime.match(/(\d+)(:(\d\d))?\s*(p?)/);
+            d.setHours(parseInt(time[1]) + ((parseInt(time[1]) < 12 && time[4]) ? 12 : 0));
+            d.setMinutes(parseInt(time[3]) || 0);
+            d.setSeconds(0, 0);
+            return d;
+        }
+
+        function Repeatable() {
+            var From = $('#txtFromTime').val();
+            var res = From.split(":");
+            var Pattern = res[1] + " " + res[0] + " * * " + SelectedDays();
+            return Pattern;
+        }
+
+        var option = '<option value="{{value}}">{{text}}</option>';
+
+        function GettingMemebers() {
+            $.ajax({
+                cache: false,
+                type: "GET",
+                /**/
+                url: '@Url.Action("GetMembers", "Scheduler")',
+                /**/
+                dataType: "json",
+                data: "",
+                success: function (data) {
+                    if (data != null) {
+                        $.each(data, function (i, item) {
+                            var rows = option.replace(/{{value}}/g, item.MemberId)
+                                .replace(/{{text}}/g, item.FirstName + " " + item.LastName)
+                            $('#ddlMember').append(rows);
+                        });
+                    }
+                },
+                error: function (errMsg) {
+                },
+                failure: function (errMsg) {
+                }
+            });
+            return false;
+        }
+
+        function GettingStaff() {
+            $.ajax({
+                cache: false,
+                type: "GET",
+                /**/
+                url: '@Url.Action("GetStaff", "Scheduler")',
+                /**/
+                dataType: "json",
+                data: "",
+                success: function (data) {
+                    if (data != null) {
+                        $.each(data, function (i, item) {
+                            var rows = option.replace(/{{value}}/g, item.StaffId)
+                                .replace(/{{text}}/g, item.FirstName + " " + item.LastName)
+                            $('#ddltrainer').append(rows);
+                        });
+                    }
+                },
+                error: function (errMsg) {
+                },
+                failure: function (errMsg) {
+                }
+            });
+            return false;
+        }
+
+        function GettingSchedulerDetails(Id) {
+            ShowLoader();
+            $.ajax({
+                cache: false,
+                type: "GET",
+                /**/
+                url: '@Url.Action("GetScheduleDetailsById", "Scheduler")',
+                /**/
+                dataType: "json",
+                data: { ScheduleId: Id },
+                success: function (data) {
+                    if (data != null) {
+                        var StartDate = isoDateReviver(data.strStartDate);
+                        $("#txtFromTime").data("DateTimePicker").date(formatAMPMUTC(StartDate));
+                        $("#txtToTime").data("DateTimePicker").date(formatAMPMUTC(new Date(StartDate.getTime() + data.Duration * 60000)));
+                        $('#txtStartDate').datepicker('setDate', new Date(parseInt(data.StartDate.replace(/\D/g, ""))));
+                        if (data.EndDate != null) {
+                            $('#txtEndDate').datepicker('setDate', new Date(parseInt(data.EndDate.replace(/\D/g, ""))));
+                        }
+                        $('#ddlMember').val(data.MemberId);
+                        $('#ddltrainer').val(data.StaffId);
+                        SchedulerId = Id;
+                        $('#ddlDays').val(data.SelectType);
+
+                        $("#divSelectedDays").hide();
+                        $('#chkMon').prop('checked', false);
+                        $('#chkTue').prop('checked', false);
+                        $('#chkWed').prop('checked', false);
+                        $('#chkThu').prop('checked', false);
+                        $('#chkFri').prop('checked', false);
+                        $('#chkSat').prop('checked', false);
+                        $('#chkSun').prop('checked', false);
+
+                        if (data.SelectType == "2") { $("#divSelectedDays").show(); }
+
+                        var res = data.SelectedDay.split(",")
+
+                        $.each(res, function (i, item) {
+                            if (item == "0") {
+                                $('#chkSun').prop('checked', true);
+                            }
+                            else if (item == "1") {
+                                $('#chkMon').prop('checked', true);
+                            }
+                            else if (item == "2") {
+                                $('#chkTue').prop('checked', true);
+                            }
+                            else if (item == "3") {
+                                $('#chkWed').prop('checked', true);
+                            }
+                            else if (item == "4") {
+                                $('#chkThu').prop('checked', true);
+                            }
+                            else if (item == "5") {
+                                $('#chkFri').prop('checked', true);
+                            }
+                            else if (item == "6") {
+                                $('#chkSat').prop('checked', true);
+                            }
+                        });
+
+                        $('#addScheduler').modal('show');
+
+                    }
+                    HideLoader();
+                },
+                error: function (errMsg) {
+                    HideLoader();
+                },
+                failure: function (errMsg) {
+                    HideLoader();
+                }
+            });
+            return false;
+        }
+
+        function isoDateReviver(value) {
+            if (typeof value === 'string') {
+                var a = /^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2}(?:\.\d*)?)(?:([\+-])(\d{2})\:(\d{2}))?Z?$/.exec(value.replace(/\"/g, ""));
+                if (a) {
+                    var utcMilliseconds = Date.UTC(+a[1], +a[2] - 1, +a[3], +a[4], +a[5], +a[6]);
+                    return new Date(utcMilliseconds);
+                }
+            }
+            return value;
+        }
+
+    </script>
+}

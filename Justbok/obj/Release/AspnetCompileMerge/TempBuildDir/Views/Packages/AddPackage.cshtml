@@ -1,0 +1,193 @@
+﻿@model Justbok.Models.MembershipOffer
+
+
+<style>
+    .required {
+        color: #e02222;
+        font-size: 14px;
+        padding-left: 1px;
+    }
+</style>
+<section class="content container-fluid" id="container">
+
+    <div class="pull-right">
+        <a onclick="return LoadPage('@Url.Action("GetPackages", "Packages")','Justbok | Packages List');" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-arrow-left"></i> Packages List</a><br><br>
+    </div>
+    @*@using (Ajax.BeginForm("AddPackage", "Packages",
+                   new AjaxOptions
+                   {
+                       OnSuccess = "OnSuccess",
+                       OnFailure = "OnFailure",
+                       LoadingElementId = "progress",
+                       OnBegin = "onBegin",
+                       OnComplete = "onComplete"
+                   }))
+    {*@
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true)
+        <div class="col-xs-12">
+            <div class="box">
+                <div class="box-header">
+                    <h3 class="box-title">Packages</h3>
+
+                    <div class="col-md-12">
+                     
+
+                            <div id="messages" class="hide" role="alert" style="height:50px;width:250px;border-radius:5px;float:right;text-align:inherit;">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                <div id="messages_content"></div>
+                            </div>
+
+                            <hr>
+
+                        <div class="col-lg-6">
+                            <div class="col-md-8">
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1"> Name</label><span class="required" aria-required="true"> * </span>
+                                    <input class="form-control" id="txtName" type="text" />
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Months</label><span class="required" aria-required="true"> * </span>
+                                    <input class="form-control" id="txtMonths" type="number" />
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Amount</label><span class="required" aria-required="true"> * </span>
+                                    <input class="form-control" id="txtAmount" type="number" />
+                                    @*@Html.TextBoxFor(model => model.Amount, new { @class = "form-control", placeholder = "Amount", id = "txtAmount" })*@
+                                </div>
+                                </div>
+                            </div>
+
+                        <div class="col-lg-6">
+                            <div class="col-md-8">
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Minimum Amount</label>
+                                    <input class="form-control" id="txtMinamount" type="number" />
+                                    @*@Html.TextBoxFor(model => model.MinimumAmount, new { @class = "form-control", placeholder = "Min Amount", id = "txtMinamount" })*@
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="Branch">Category</label><span class="required" aria-required="true"> * </span>
+                                    <select class="form-control" id="ddlCategory">
+                                        <option>---Select---</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>IsActive</label>  <input id="chkActive" type="checkbox" checked />
+                                </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    <div class="box-footer">
+                        <button type="submit" class="btn btn-default pull-right">Reset</button>
+                        <button type="submit" class="btn btn-info pull-right" style="margin-right: 10px;" id="btnSavePackages">Save</button>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    @*}*@
+
+</section>
+
+@section Scripts {
+<script src="~/Scripts/Navigation.js?v=1.2"></script>
+    <script>
+
+        var GetCategoryListUrl = '@Url.Action("GetCategoryList", "Packages")';
+        var AddPackageUrl = '@Url.Action("AddPackage", "Packages")';
+    </script>
+
+    <script src="~/Content/Package/AddPackage.js"></script>
+}
+
+<script src="~/Scripts/Navigation.js?v=1.2"></script>
+<script>
+        var GetCategoryListUrl = '@Url.Action("GetCategoryList", "Packages")';
+        var AddPackageUrl = '@Url.Action("AddPackage", "Packages")';
+</script>
+
+<script src="~/Content/Package/AddPackage.js"></script>
+
+
+@*@section Scripts {
+    <script>
+     $(document).ready(function () {
+
+         BindCategory();
+
+     });
+
+        //Binding category
+
+     function BindCategory()
+     {
+         $.ajax({
+             cache: false,
+             type: "GET",
+             url: "@Url.Action("GetCategoryList")",
+             dataType: "json",
+         contentType: "application/json; charset=utf-8",
+         data: "",
+         success: function (data) {
+             $.each(data, function (i, item) {
+                 if (item.Active)
+                     {
+                     $("#ddlCategory").append($("<option></option>").val(item.CategoryName).html(item.CategoryName));
+                 }
+             });
+         },
+         error: function () {
+             alert("Failed! Please try again.");
+         }
+     });
+
+     }
+
+        //Save packages 
+
+        $('#btnSavePackages').click(function () {
+
+            var isActive = false;
+            if ($('#chkActive').is(':checked')) {
+                isActive=true
+            }
+            //alert($('#chkActive').val());
+
+            var jsonObject = {
+
+                OfferName: $('#txtName').val(), Months: $('#txtMonths').val(), Amount: $('#txtAmount').val(),
+                MinimumAmount: $('#txtMinamount').val(), Category: $('#ddlCategory option:selected').val(),
+                Active: isActive
+            }
+
+            $.ajax({
+                cache: false,
+                type: "POST",
+                url: "@Url.Action("AddPackage")",
+                dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify(jsonObject),
+            success: function (data) {
+
+                redirecttoedit();
+              
+            },
+            failure: function (errMsg) {
+                alert(errMsg.responseText);
+            }
+        });
+
+        });
+
+
+        function redirecttoedit() {
+            window.location.href = '/Packages/GetPackages/';
+        }
+
+     </script>
+    
+}*@

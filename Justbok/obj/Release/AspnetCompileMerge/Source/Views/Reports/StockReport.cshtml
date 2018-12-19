@@ -1,0 +1,145 @@
+﻿@{
+    ViewBag.Title = "StockReport";
+}
+
+
+<div class="" style="">
+    <section class="content-header ng-scope">
+        <h1>
+            Stock 
+            <div class="pull-right">
+                <a onclick="return LoadPage('@Url.Action("Index", "Reports")','Justbok | Reports Membership');" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-arrow-left"></i> Reports</a><br><br>
+            </div>
+        </h1>
+    </section>
+    <section class="content ng-scope">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <i class="fa fa-search"></i>
+                        <h3 class="box-title"> Search </h3>
+                        <div class="box-tools pull-right">
+                            <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                        </div><!-- /.box-tools -->
+                    </div><!-- /.box-header -->
+                    <div class="box-body">
+                        <div class="row">
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label>Product Name</label>
+                                    <input class="form-control input-sm" id="txtProductName" type="text">
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label>From Date</label>
+                                    <input class="form-control input-sm" id="txtFromDate" type="datetime">
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label>To Date</label>
+                                    <input class="form-control input-sm" id="txtToDate" type="datetime">
+                                </div>
+                            </div>
+
+                            <div class="col-md-2 ">
+                                <div class="form-group" style="margin-top:25px;">
+                                    <button type="button" id="btnSearch" class="btn btn-sm btn-primary btn-flat" title="Search">
+                                        <i class="glyphicon glyphicon-search"></i> Search
+                                    </button>
+                                    <button type="button" id="btnReset" class="btn btn-default btn-sm btn-flat" title="Reset">
+                                        <i class="glyphicon glyphicon-refresh"></i> Reset
+                                    </button>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Stock Report</h3>
+                    </div>
+                    <div class="box-body">
+                        <div id="example1_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
+                            <div class="dataTables_length">
+                                <label>
+                                    Show
+                                    <select id="tblStock_length" name="tblStock_length"
+                                            aria-controls="tblStock_length" class="form-control input-sm"
+                                            onchange="return ShowChange();">
+                                        <option value="10">10</option>
+                                        <option value="25">25</option>
+                                        <option value="50">50</option>
+                                        <option value="100">100</option>
+                                    </select> entries
+                                </label>
+                                <div class="pull-right">
+                                    <img src="~/Theme/img/excel.jpg" width="30" height="30" id="dwnldExcel" />
+                                    <img src="~/Theme/img/pdf.png" width="30" height="30" id="dwnldPdf" />
+                                </div>
+                            </div>
+
+                            <div class="col-sm-12 table-responsive">
+                                <table id="tblStock" class="table table-bordered table-striped dataTable" role="grid" aria-describedby="example1_info">
+
+                                    <thead>
+                                        <tr role="row">
+
+                                            <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 282.583px;" aria-label="Browser: activate to sort column ascending">Manufacture Name</th>
+                                            <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 282.583px;" aria-label="Browser: activate to sort column ascending">Product Name</th>
+                                            <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 143.717px;" aria-label="CSS grade: activate to sort column ascending">Stock In</th>
+                                            <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 143.717px;" aria-label="CSS grade: activate to sort column ascending">Stock Out</th>
+                                            <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 143.717px;" aria-label="CSS grade: activate to sort column ascending">Date</th>
+                                            <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 143.717px;" aria-label="CSS grade: activate to sort column ascending">Total Charges</th>
+                                    </thead>
+                                    <tbody></tbody>
+                                </table>
+                                <div class="dataTables_paginate paging_simple_numbers" id="tblSalesBranchWise_paginate">
+                                    <ul id="pagination" class="pagination"></ul>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </section>
+
+</div>
+
+@section Scripts {
+<script src="~/Scripts/Navigation.js?v=1.2"></script>
+    <script>
+
+        var StockReportUrl = '@Url.Action("StockReportList", "Reports")';
+        var SearchStockReportUrl = '@Url.Action("SearchStockReportList", "Reports")';
+        var ExcelUrl = '@Url.Action("GenarateExcelReportsStock", "Reports")';
+        var PDFUrl = '@Url.Action("GenaratePdfReportsStock", "Reports")';
+        var DownloadExcelUrl = '@Url.Action("Download", "Reports")';
+        var DownloadPdfUrl = '@Url.Action("DownloadPDF", "Reports")';
+        @*var BindMembershipUrl = '@Url.Action("BindMembership", "Reports")';*@
+
+    </script>
+
+<script src="~/Content/Reports/Rpts_Stock.js"></script>
+}
+<script src="~/Scripts/Navigation.js?v=1.2"></script>
+<script>
+
+   var StockReportUrl = '@Url.Action("StockReportList", "Reports")';
+    var SearchStockReportUrl = '@Url.Action("SearchBranchWiseSale", "Reports")';
+    var ExcelUrl = '@Url.Action("GenarateExcelReportsStock", "Reports")';
+    var PDFUrl = '@Url.Action("GenaratePdfReportsStock", "Reports")';
+    var DownloadExcelUrl = '@Url.Action("Download", "Reports")';
+    var DownloadPdfUrl = '@Url.Action("DownloadPDF", "Reports")';
+   @*var BindMembershipUrl = '@Url.Action("BindMembership", "Reports")';*@
+</script>
+
+<script src="~/Content/Reports/Rpts_Stock.js"></script>

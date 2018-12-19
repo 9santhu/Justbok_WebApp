@@ -1,0 +1,184 @@
+﻿<div class="modal-body">
+    <input type="hidden" id="HFSlotId" />
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label>Staff Name</label>
+                <input class="form-control" type="hidden" value="" id="HFStaffId">
+                <input id="txtStaff" class="form-control" type="text" placeholder="Search Staff" tabindex="1">
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label>Available For</label>
+                <div id="divConfig">
+                    <select class="form-control select2" multiple="multiple" data-placeholder="---Select---"
+                            id="ddlAppConfig" style="width:100%;" tabindex="2   "></select>
+                </div>
+                <div class='col-md-12' id="loader" style="display:none;"><i class="fa fa-spin fa-refresh"></i></div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6" id="when">
+            <div class="row">
+                <div class="col-md-12">
+                    <label class="control-label">When</label>
+                </div>
+                <div class="col-md-12 col-xs-5 form-group">
+                    <input id="as_startdate" class="form-control" type="text" value="" onkeypress="return false;" onkeydown="return false;" onpaste="return false;" tabindex="3">
+                </div>
+                <div class="col-md-5 col-xs-3 form-group">
+                    <input id="as_starttime" class="form-control" type="text" value="" onkeypress="return false;" onkeydown="return false;" onpaste="return false;" tabindex="4">
+                </div>
+                <div class="col-md-2 col-xs-1">
+                    to
+                </div>
+                <div class="col-md-5 col-xs-3 form-group">
+                    <input id="as_endtime" class="form-control" type="text" value="" onkeypress="return false;" onkeydown="return false;" onpaste="return false;" tabindex="5">
+                </div>
+            </div>
+            <br />
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label class="cb-wrapper">
+                            <input type="checkbox" name="as_repeats" class="flat-red" id="as_repeats" onchange="return OnRepeat();" tabindex="6" />
+                        </label>
+                        <label class="control-label" for="as_repeats">&nbsp;&nbsp;&nbsp;Repeat...</label>
+                    </div>
+                </div>
+            </div>
+        </div><!-- end when -->
+
+        <div class="col-md-6" id="repeat" style="display: none;">
+            <div class="row">
+                <div class="col-md-12">
+                    <label class="control-label">Frequency</label>
+                    <input disabled="" class="form-control" type="text" value="Weekly">
+                </div>
+            </div>
+            <br />
+            <div class="row" id="daysofweek">
+                <div class="col-md-12">
+                    <label class="control-label">Repeats On:</label>
+                </div>
+                <div class="col-md-12 col-xs-1 form-group">
+                    <div class="form-group" style="margin-bottom:0px;">
+                        <label class="cb-wrapper">
+                            <input name="as_repeats_sun" id="as_repeats_sun" type="checkbox" value="0" class="flat-red Repeats_On">
+                        </label><label class="control-label" for="as_repeats_sun">&nbsp;&nbsp;&nbsp;Sun</label>
+                    </div>
+                    <div class="form-group" style="margin-bottom:0px;">
+                        <label class="cb-wrapper">
+                            <input name="as_repeats_mon" id="as_repeats_mon" type="checkbox" value="1" class="flat-red Repeats_On">
+                        </label><label class="control-label" for="as_repeats_mon">&nbsp;&nbsp;&nbsp;Mon</label>
+                    </div>
+                    <div class="form-group" style="margin-bottom:0px;">
+                        <label class="cb-wrapper">
+                            <input name="as_repeats_tue" id="as_repeats_tue" type="checkbox" value="2" class="flat-red Repeats_On">
+                        </label><label class="control-label" for="as_repeats_tue">&nbsp;&nbsp;&nbsp;Tue</label>
+                    </div>
+                    <div class="form-group" style="margin-bottom:0px;">
+                        <label class="cb-wrapper">
+                            <input name="as_repeats_wed" id="as_repeats_wed" type="checkbox" value="3" class="flat-red Repeats_On">
+                        </label><label class="control-label" for="as_repeats_wed">&nbsp;&nbsp;&nbsp;Wed</label>
+                    </div>
+                    <div class="form-group" style="margin-bottom:0px;">
+                        <label class="cb-wrapper">
+                            <input name="as_repeats_thu" id="as_repeats_thu" type="checkbox" value="4" class="flat-red Repeats_On">
+                        </label><label class="control-label" for="as_repeats_thu">&nbsp;&nbsp;&nbsp;Thu</label>
+                    </div>
+                    <div class="form-group" style="margin-bottom:0px;">
+                        <label class="cb-wrapper">
+                            <input name="as_repeats_fri" id="as_repeats_fri" type="checkbox" value="5" class="flat-red Repeats_On">
+                        </label><label class="control-label" for="as_repeats_fri">&nbsp;&nbsp;&nbsp;Fri</label>
+                    </div>
+                    <div class="form-group" style="margin-bottom:0px;">
+                        <label class="cb-wrapper">
+                            <input name="as_repeats_sat" id="as_repeats_sat" type="checkbox" value="6" class="flat-red Repeats_On">
+                        </label><label class="control-label" for="as_repeats_sat">&nbsp;&nbsp;&nbsp;Sat</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <label class="control-label">Ends:</label>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label class="cb-wrapper">
+                            <input name="as_repeats_end" id="as_repeats_end_never" type="radio" value="0" class="flat-red" />
+                        </label><label class="control-label">&nbsp;&nbsp;&nbsp;Never</label>
+                    </div>
+                </div>
+                <div class="col-md-4 col-xs-2">
+                    <div class="form-group">
+                        <label class="cb-wrapper">
+                            <input id="as_repeats_end_on" name="as_repeats_end" class="flat-red" type="radio" checked=""
+                                   value="1" />
+                        </label><label class="control-label">&nbsp;&nbsp;&nbsp;On</label>
+                    </div>
+                </div>
+                <div class="col-md-8 col-xs-10 form-group">
+                    <input id="as_repeats_enddate" class="form-control" type="text" value="" onkeypress="return false;" onkeydown="return false;" onpaste="return false;">
+                </div>
+            </div>
+        </div><!-- end repeat -->
+
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <label class="control-label">Type</label>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label class="cb-wrapper">
+                    <input name="type" type="radio" checked="" value="single" class="flat-red" id="type_single" tabindex="7" />
+                </label>
+                <label class="control-label" for="type_single">Single Slot with a minimum of:</label>
+            </div>
+        </div>
+        <div class="col-md-6 form-group">
+            <input id="as_minlength" class="form-control" type="text" value="30" i="">Minutes
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label class="cb-wrapper">
+                    <input name="type" type="radio" value="multiple" class="flat-red" id="type_multiple" tabindex="8" />
+                </label>
+                <label class="control-label" for="type_multiple">Multiple Slots where each block is:</label>
+            </div>
+        </div>
+        <div class="col-md-6 form-group">
+            <input id="as_slotlength" class="form-control" type="text" size="3" value="30">Minutes
+        </div>
+    </div>
+</div>
+
+<div class="modal-footer">
+    <button type="button" class="btn btn-danger btn-sm btn-flat" tabindex="9" title="Delete Slot" id="btnDelete" style="display:none;">
+        <i class="glyphicon glyphicon-trash"></i> Delete Slot
+    </button>
+    <button type="button" class="btn btn-default btn-sm btn-flat" onclick="return CloseModel();" tabindex="10" title="Cancel">
+        <i class="glyphicon glyphicon-remove"></i> Cancel
+    </button>
+    <button type="button" class="btn btn-primary btn-sm btn-flat" tabindex="11" title="Save" id="btnSave">
+        <i class="glyphicon glyphicon-ok"></i> Save
+    </button>
+</div>
+<script src="~/Scripts/Navigation.js?v=1.2"></script>
+<script>
+    var SlotDetailsByIdUrl = '@Url.Action("SlotDetailsById", "BookAppointment")';
+    var GetStaffForAutoCompleteUrl = '@Url.Action("GetStaffForAutoComplete", "Common")';
+    var GetAppConfigByStaffIdUrl = '@Url.Action("GetAppConfigByStaffId", "BookAppointment")';
+    var SavingAppointmentSlotUrl = '@Url.Action("SavingAppointmentSlot", "BookAppointment")';
+    var DeleteAppointmentSlotUrl = '@Url.Action("DeleteAppointmentSlot", "BookAppointment")';
+    $(document).ready(function () {
+        ShowSubModel = 0;
+        AddAppointmentLoading();
+    });
+    $("#btnDelete").click(function () { DeleteSlot(); });
+    $("#btnSave").click(function () { SaveAppointmentSlot(); });
+    $("#txtStaff").blur(function () { StaffBlur(); });
+</script>

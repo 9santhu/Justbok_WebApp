@@ -1,0 +1,105 @@
+﻿<div tabindex="-1" class="modal-dialog addpromo" style="width:600px;">
+    <input name="ct_id" class="form-control" type="hidden" value="">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button class="close" aria-hidden="true" type="button" onclick="return HideModel();">×</button>
+            <h4 class="modal-title"><strong></strong></h4>
+        </div>
+        <div class="modal-body">
+            <div class="row form-group">
+                <div class="col-md-4 cal-member-list">
+                    <div class="form-group">
+                        <label class="control-label" for="">Waiting</label>
+                        <ol id="waitlist"></ol>
+                    </div>
+                </div>
+                <div class="col-md-4 cal-member-list">
+                    <div class="form-group">
+                        <label class="control-label" for="">Reserved</label>
+                        <ol id="reservelist"></ol>
+                    </div>
+                </div>
+                <div class="col-md-4 cal-member-list">
+                    <div class="form-group">
+                        <label class="control-label" for="">Attended</label>
+                        <ol id="signinlist"></ol>
+                    </div>
+                </div>
+            </div>
+            <div class="row form-group">
+                <div class="col-md-4">
+                </div>
+                <div class="col-md-4">
+                    <button class="btn bg-navy btn-sm btn-flat" onclick="return move_all_attended();" href="#"><i class="glyphicon glyphicon-arrow-right"></i> Move All to Attended</button>
+                </div>
+                <div class="col-md-4">
+                </div>
+            </div>
+
+            <div class="row form-group">
+                <div class="col-md-6">
+                    <label class="control-label" for="">Instructor</label>
+                    <input id="instructor" class="form-control" tabindex="10" placeholder="Search Instructor" />
+                    <input id="HFStaffId" type="hidden" class="form-control"/>
+                </div>
+            </div>
+            <div class="row form-group">
+                <div class="col-md-6">
+                    <label class="control-label" style="float:right;padding-right:15px;">Reserve for Member</label>
+                </div>
+                <div class="col-md-6">
+                    <input id="reserve_member" class="form-control" placeholder="Reserve Member" />
+                </div>
+            </div>
+            <div class="row form-group" id="waitlistrow" style="display:none;">
+                <div class="col-md-6">
+                    <label class="control-label" style="float:right;padding-right:15px;">Add to wait list</label>
+                </div>
+                <div class="col-md-6">
+                    <input id="wait_member" class="form-control" tabindex="10" placeholder="Add to Waitlist" />
+                </div>
+            </div>
+            <div class="row form-group">
+                <div class="col-md-6">
+                    <label class="control-label" style="float:right;padding-right:15px;">Sign-in Member</label>
+                </div>
+                <div class="col-md-6">
+                    <input id="attend_member" class="form-control" placeholder="Member Attending" />
+                </div>
+            </div>
+            <div class="row form-group">
+                <div class="col-md-4">
+                    <button class="btn bg-navy btn-sm btn-flat" onclick="return DeleteClass()">Delete Class</button>
+                </div>
+                <div class="col-md-4">
+                    <button class="editattdone btn bg-navy btn-sm btn-flat" onclick="return editatt(1)" >Edit Attendees</button>
+                    <button class="editatt btn bg-navy btn-sm btn-flat" onclick="return editatt(0)" style="display:none;">Done</button>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary btn-sm btn-flat" type="button" onclick="return HideModel();">
+                <i class="glyphicon glyphicon-ok"></i>
+                Done
+            </button>
+        </div>
+    </div>
+</div>
+
+<script src="~/Scripts/Navigation.js?v=1.2"></script>
+<script>
+
+    var GetMembersForAutoCompleteUrl = '@Url.Action("GetMembersForAutoComplete","Common")';
+    var GetStaffForAutoCompleteUrl = '@Url.Action("GetStaffForAutoComplete", "Common")';
+
+    var GettingCalendarInstructorUrl = '@Url.Action("GettingCalendarInstructor", "Calender")';
+    var UpdatingCalendarInstructorUrl = '@Url.Action("UpdatingCalendarInstructor", "Calender")';
+    var GettingCalendarMembersUrl = '@Url.Action("GettingCalendarMembers", "Calender")';
+    var SvaingCalendarMemberUrl = '@Url.Action("SvaingCalendarMember", "Calender")';
+    var DeleteMemberUrl = '@Url.Action("DeleteMember", "Calender")';
+    var DeleteClassTimingUrl = '@Url.Action("DeleteClassTiming", "ClassTime")';
+
+    $(document).ready(function () {
+        AddPeopleLoading();
+    });
+</script>

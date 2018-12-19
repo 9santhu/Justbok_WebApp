@@ -1,0 +1,3027 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="JustbokModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Amenity">
+    <Key>
+      <PropertyRef Name="AmenitiesId" />
+    </Key>
+    <Property Name="AmenitiesId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="AmenitiesName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="Appointment">
+    <Key>
+      <PropertyRef Name="AppointmentId" />
+    </Key>
+    <Property Name="AppointmentId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Title" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="IsAllStaff" Type="Boolean" />
+    <Property Name="TaxType" Type="Int32" />
+    <Property Name="GymId" Type="Int32" />
+    <Property Name="IsActive" Type="Boolean" />
+    <Property Name="TaxPercentage" Type="Decimal" Precision="5" Scale="2" />
+    <Property Name="BranchId" Type="Int32" />
+    <NavigationProperty Name="AppointmentSlotConfigs" Relationship="Self.FK__Appointme__Appoi__12C8C788" FromRole="Appointment" ToRole="AppointmentSlotConfig" />
+    <NavigationProperty Name="AppointmentStaffs" Relationship="Self.FK__Appointme__Appoi__6319B466" FromRole="Appointment" ToRole="AppointmentStaff" />
+    <NavigationProperty Name="AppointmentSlabs" Relationship="Self.FK__Appointme__Appoi__66EA454A" FromRole="Appointment" ToRole="AppointmentSlab" />
+    <NavigationProperty Name="Branch" Relationship="Self.FK__Appointme__Branc__090A5324" FromRole="Appointment" ToRole="Branch" />
+    <NavigationProperty Name="GymList" Relationship="Self.FK__Appointme__GymId__603D47BB" FromRole="Appointment" ToRole="GymList" />
+    <NavigationProperty Name="TaxType1" Relationship="Self.FK__Appointme__TaxTy__5F492382" FromRole="Appointment" ToRole="TaxType" />
+    <NavigationProperty Name="BookAppointments" Relationship="Self.FK__BookAppoi__Confi__1A69E950" FromRole="Appointment" ToRole="BookAppointment" />
+  </EntityType>
+  <EntityType Name="AppointmentBill">
+    <Key>
+      <PropertyRef Name="BillId" />
+    </Key>
+    <Property Name="BillId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="BookingId" Type="Int32" />
+    <Property Name="BillDate" Type="DateTime" Precision="3" />
+    <Property Name="Description" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="Amount" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="PaidAmount" Type="Decimal" Precision="18" Scale="2" />
+    <NavigationProperty Name="BookAppointment" Relationship="Self.FK__Appointme__Booki__1E3A7A34" FromRole="AppointmentBills" ToRole="BookAppointment" />
+  </EntityType>
+  <EntityType Name="AppointmentSlab">
+    <Key>
+      <PropertyRef Name="SlabId" />
+    </Key>
+    <Property Name="SlabId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="AppointmentId" Type="Int32" />
+    <Property Name="Minutes" Type="Int32" />
+    <Property Name="Price" Type="Decimal" Precision="14" Scale="2" />
+    <NavigationProperty Name="Appointment" Relationship="Self.FK__Appointme__Appoi__66EA454A" FromRole="AppointmentSlab" ToRole="Appointment" />
+  </EntityType>
+  <EntityType Name="AppointmentSlot">
+    <Key>
+      <PropertyRef Name="SlotId" />
+    </Key>
+    <Property Name="SlotId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="StaffId" Type="Int32" />
+    <Property Name="StartDate" Type="DateTime" Precision="3" />
+    <Property Name="EndDate" Type="DateTime" Precision="3" />
+    <Property Name="IsRepeat" Type="Boolean" />
+    <Property Name="MinDuration" Type="Int32" />
+    <Property Name="SlotType" Type="Int32" />
+    <Property Name="GymId" Type="Int32" />
+    <Property Name="IsActive" Type="Boolean" />
+    <Property Name="TotalDuaration" Type="Int32" />
+    <Property Name="UsedDuration" Type="Int32" />
+    <Property Name="BranchId" Type="Int32" />
+    <NavigationProperty Name="Branch" Relationship="Self.FK__Appointme__Branc__062DE679" FromRole="AppointmentSlot" ToRole="Branch" />
+    <NavigationProperty Name="GymList" Relationship="Self.FK__Appointme__GymId__0EF836A4" FromRole="AppointmentSlot" ToRole="GymList" />
+    <NavigationProperty Name="AppointmentSlotConfigs" Relationship="Self.FK__Appointme__SlotI__11D4A34F" FromRole="AppointmentSlot" ToRole="AppointmentSlotConfig" />
+    <NavigationProperty Name="AppointmentSlotPatterns" Relationship="Self.FK__Appointme__SlotI__15A53433" FromRole="AppointmentSlot" ToRole="AppointmentSlotPattern" />
+    <NavigationProperty Name="Staff" Relationship="Self.FK__Appointme__Staff__0E04126B" FromRole="AppointmentSlot" ToRole="Staff" />
+  </EntityType>
+  <EntityType Name="AppointmentSlotConfig">
+    <Key>
+      <PropertyRef Name="SlotConfigId" />
+    </Key>
+    <Property Name="SlotConfigId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="SlotId" Type="Int32" />
+    <Property Name="AppointmentId" Type="Int32" />
+    <NavigationProperty Name="Appointment" Relationship="Self.FK__Appointme__Appoi__12C8C788" FromRole="AppointmentSlotConfig" ToRole="Appointment" />
+    <NavigationProperty Name="AppointmentSlot" Relationship="Self.FK__Appointme__SlotI__11D4A34F" FromRole="AppointmentSlotConfig" ToRole="AppointmentSlot" />
+  </EntityType>
+  <EntityType Name="AppointmentSlotPattern">
+    <Key>
+      <PropertyRef Name="PatternId" />
+    </Key>
+    <Property Name="PatternId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="SlotId" Type="Int32" />
+    <Property Name="Pattern" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+    <Property Name="SlotDuration" Type="Int32" />
+    <NavigationProperty Name="AppointmentSlot" Relationship="Self.FK__Appointme__SlotI__15A53433" FromRole="AppointmentSlotPattern" ToRole="AppointmentSlot" />
+  </EntityType>
+  <EntityType Name="AppointmentStaff">
+    <Key>
+      <PropertyRef Name="AppointmentStaffId" />
+    </Key>
+    <Property Name="AppointmentStaffId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="AppointmentId" Type="Int32" />
+    <Property Name="StaffId" Type="Int32" />
+    <NavigationProperty Name="Appointment" Relationship="Self.FK__Appointme__Appoi__6319B466" FromRole="AppointmentStaff" ToRole="Appointment" />
+    <NavigationProperty Name="Staff" Relationship="Self.FK__Appointme__Staff__640DD89F" FromRole="AppointmentStaff" ToRole="Staff" />
+  </EntityType>
+  <EntityType Name="BookAppointment">
+    <Key>
+      <PropertyRef Name="BookingId" />
+    </Key>
+    <Property Name="BookingId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="MemberId" Type="Int32" />
+    <Property Name="StaffId" Type="Int32" />
+    <Property Name="ConfigId" Type="Int32" />
+    <Property Name="StartDate" Type="DateTime" Precision="3" />
+    <Property Name="EndDate" Type="DateTime" Precision="3" />
+    <Property Name="IsRepatable" Type="Boolean" />
+    <Property Name="Pattern" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+    <Property Name="MeetingDuration" Type="Int32" />
+    <Property Name="GymId" Type="Int32" />
+    <Property Name="IsActive" Type="Boolean" />
+    <Property Name="AppSlotId" Type="Int32" />
+    <Property Name="IsBillsDeleted" Type="Boolean" />
+    <Property Name="BranchId" Type="Int32" />
+    <NavigationProperty Name="Appointment" Relationship="Self.FK__BookAppoi__Confi__1A69E950" FromRole="BookAppointment" ToRole="Appointment" />
+    <NavigationProperty Name="AppointmentBills" Relationship="Self.FK__Appointme__Booki__1E3A7A34" FromRole="BookAppointment" ToRole="AppointmentBills" />
+    <NavigationProperty Name="Branch" Relationship="Self.FK__BookAppoi__Branc__0539C240" FromRole="BookAppointment" ToRole="Branch" />
+    <NavigationProperty Name="GymList" Relationship="Self.FK__BookAppoi__GymId__1B5E0D89" FromRole="BookAppointment" ToRole="GymList" />
+    <NavigationProperty Name="MemberInfo" Relationship="Self.FK__BookAppoi__Membe__1881A0DE" FromRole="BookAppointment" ToRole="MemberInfo" />
+    <NavigationProperty Name="Staff" Relationship="Self.FK__BookAppoi__Staff__1975C517" FromRole="BookAppointment" ToRole="Staff" />
+  </EntityType>
+  <EntityType Name="Branch">
+    <Key>
+      <PropertyRef Name="BranchId" />
+    </Key>
+    <Property Name="BranchId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Branchcode" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="BranchName" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="BranchAdress" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="PhoneNo" Type="Int64" />
+    <Property Name="City" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="BranchState" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="GymId" Type="Int32" />
+    <NavigationProperty Name="Appointments" Relationship="Self.FK__Appointme__Branc__090A5324" FromRole="Branch" ToRole="Appointment" />
+    <NavigationProperty Name="AppointmentSlots" Relationship="Self.FK__Appointme__Branc__062DE679" FromRole="Branch" ToRole="AppointmentSlot" />
+    <NavigationProperty Name="BookAppointments" Relationship="Self.FK__BookAppoi__Branc__0539C240" FromRole="Branch" ToRole="BookAppointment" />
+    <NavigationProperty Name="GymList" Relationship="Self.FK__Branch__GymId__76619304" FromRole="Branch" ToRole="GymList" />
+    <NavigationProperty Name="Categories" Relationship="Self.FK__Category__Branch__15702A09" FromRole="Branch" ToRole="Category" />
+    <NavigationProperty Name="Classes" Relationship="Self.FK__Classes__BranchI__035179CE" FromRole="Branch" ToRole="Classes" />
+    <NavigationProperty Name="ClassTimings" Relationship="Self.FK__ClassTimi__Branc__00750D23" FromRole="Branch" ToRole="ClassTiming" />
+    <NavigationProperty Name="DeletAppointmentSlots" Relationship="Self.FK__DeletAppo__Branc__04459E07" FromRole="Branch" ToRole="DeletAppointmentSlot" />
+    <NavigationProperty Name="DietPlanNames" Relationship="Self.FK__DietPlanN__Branc__1387E197" FromRole="Branch" ToRole="DietPlanName" />
+    <NavigationProperty Name="Enquiries" Relationship="Self.FK__Enquiry__BranchI__0BE6BFCF" FromRole="Branch" ToRole="Enquiry" />
+    <NavigationProperty Name="Events" Relationship="Self.FK__Events__BranchId__2B5F6B28" FromRole="Branch" ToRole="Events" />
+    <NavigationProperty Name="Expenses" Relationship="Self.FK__Expenses__Branch__0CDAE408" FromRole="Branch" ToRole="Expenses" />
+    <NavigationProperty Name="ExpensesTypes" Relationship="Self.FK__ExpensesT__Branc__0DCF0841" FromRole="Branch" ToRole="ExpensesType" />
+    <NavigationProperty Name="GymAmenities" Relationship="Self.FK__GymAmenit__Branc__08162EEB" FromRole="Branch" ToRole="GymAmenities" />
+    <NavigationProperty Name="GymEquipments" Relationship="Self.FK__GymEquipm__Branc__07220AB2" FromRole="Branch" ToRole="GymEquipment" />
+    <NavigationProperty Name="GymPackages" Relationship="Self.FK__GymPackag__Branc__0AF29B96" FromRole="Branch" ToRole="GymPackage" />
+    <NavigationProperty Name="GymServiceLists" Relationship="Self.FK__GymServic__Branc__1A34DF26" FromRole="Branch" ToRole="GymServiceList" />
+    <NavigationProperty Name="MealTimes" Relationship="Self.FK__MealTime__Branch__1293BD5E" FromRole="Branch" ToRole="MealTime" />
+    <NavigationProperty Name="MembershipOffers" Relationship="Self.FK__Membershi__Branc__16644E42" FromRole="Branch" ToRole="MembershipOffers" />
+    <NavigationProperty Name="MemberTimeSheets" Relationship="Self.FK__MemberTim__Branc__0EC32C7A" FromRole="Branch" ToRole="MemberTimeSheet" />
+    <NavigationProperty Name="Products" Relationship="Self.FK__Product__BranchI__1758727B" FromRole="Branch" ToRole="Product" />
+    <NavigationProperty Name="PurchaseOrderHeaders" Relationship="Self.FK__PurchaseO__Branc__0FB750B3" FromRole="Branch" ToRole="PurchaseOrderHeader" />
+    <NavigationProperty Name="PurchaseOrders" Relationship="Self.FK__PurchaseO__Branc__119F9925" FromRole="Branch" ToRole="PurchaseOrder" />
+    <NavigationProperty Name="Schedulers" Relationship="Self.FK__Scheduler__Branc__09FE775D" FromRole="Branch" ToRole="Scheduler" />
+    <NavigationProperty Name="SelectedPackages" Relationship="Self.FK__SelectedP__Branc__1B29035F" FromRole="Branch" ToRole="SelectedPackage" />
+    <NavigationProperty Name="StaffBranches" Relationship="Self.FK__StaffBran__Branc__5BE2A6F2" FromRole="Branch" ToRole="StaffBranch" />
+    <NavigationProperty Name="Stocks" Relationship="Self.FK__Stock__BranchId__1D114BD1" FromRole="Branch" ToRole="Stock" />
+    <NavigationProperty Name="Suppliers" Relationship="Self.FK__Supplier__Branch__1940BAED" FromRole="Branch" ToRole="Supplier" />
+    <NavigationProperty Name="Tasks" Relationship="Self.FK__Task__BranchId__184C96B4" FromRole="Branch" ToRole="Task" />
+    <NavigationProperty Name="Workouts" Relationship="Self.FK__Workout__BranchI__1C1D2798" FromRole="Branch" ToRole="Workout" />
+    <NavigationProperty Name="WorkoutPlanNames" Relationship="Self.FK__WorkoutPl__Branc__147C05D0" FromRole="Branch" ToRole="WorkoutPlanName" />
+  </EntityType>
+  <EntityType Name="CalendarInstructor">
+    <Key>
+      <PropertyRef Name="CalendarId" />
+    </Key>
+    <Property Name="CalendarId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TimeId" Type="Int32" />
+    <Property Name="StaffId" Type="Int32" />
+    <Property Name="CalendarDate" Type="DateTime" Precision="3" />
+    <Property Name="IsActive" Type="Boolean" />
+    <Property Name="IsClass" Type="Boolean" />
+    <NavigationProperty Name="Staff" Relationship="Self.FK__CalendarI__Staff__35DCF99B" FromRole="CalendarInstructor" ToRole="Staff" />
+  </EntityType>
+  <EntityType Name="CalendarMember">
+    <Key>
+      <PropertyRef Name="CMemberId" />
+    </Key>
+    <Property Name="CMemberId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CalendarId" Type="Int32" />
+    <Property Name="MemberId" Type="Int32" />
+    <Property Name="Type" Type="Int32" />
+    <Property Name="isAttended" Type="Boolean" />
+    <Property Name="isReserved" Type="Boolean" />
+    <NavigationProperty Name="MemberInfo" Relationship="Self.FK__CalendarM__Membe__38B96646" FromRole="CalendarMember" ToRole="MemberInfo" />
+  </EntityType>
+  <EntityType Name="Category">
+    <Key>
+      <PropertyRef Name="CategoryId" />
+    </Key>
+    <Property Name="CategoryId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CategoryName" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="CategoryDescription" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="Active" Type="Boolean" />
+    <Property Name="GymId" Type="Int32" />
+    <Property Name="BranchId" Type="Int32" />
+    <NavigationProperty Name="Branch" Relationship="Self.FK__Category__Branch__15702A09" FromRole="Category" ToRole="Branch" />
+    <NavigationProperty Name="GymList" Relationship="Self.FK__Category__GymId__42E1EEFE" FromRole="Category" ToRole="GymList" />
+  </EntityType>
+  <EntityType Name="Class">
+    <Key>
+      <PropertyRef Name="ClassId" />
+    </Key>
+    <Property Name="ClassId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ClassName" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+    <Property Name="Description" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+    <Property Name="AttendenceLimit" Type="Int32" />
+    <Property Name="ReservationLimit" Type="Int32" />
+    <Property Name="DropInType" Type="Int32" />
+    <Property Name="DropInRate" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="CalendarColor" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
+    <Property Name="GymId" Type="Int32" />
+    <Property Name="IsActive" Type="Boolean" />
+    <Property Name="BranchId" Type="Int32" />
+    <NavigationProperty Name="Branch" Relationship="Self.FK__Classes__BranchI__035179CE" FromRole="Classes" ToRole="Branch" />
+    <NavigationProperty Name="GymList" Relationship="Self.FK__Classes__GymId__6A85CC04" FromRole="Classes" ToRole="GymList" />
+    <NavigationProperty Name="ClassTimings" Relationship="Self.FK__ClassTimi__Class__025D5595" FromRole="Classes" ToRole="ClassTiming" />
+  </EntityType>
+  <EntityType Name="ClassTiming">
+    <Key>
+      <PropertyRef Name="TimingId" />
+    </Key>
+    <Property Name="TimingId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="StaffId" Type="Int32" />
+    <Property Name="ClassId" Type="Int32" />
+    <Property Name="IsRepeats" Type="Boolean" />
+    <Property Name="Every" Type="Int32" />
+    <Property Name="StartDate" Type="DateTime" Precision="3" />
+    <Property Name="EndDate" Type="DateTime" Precision="3" />
+    <Property Name="StartTime" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="EndTime" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="Pattern" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Duration" Type="Int32" />
+    <Property Name="DayNames" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="DayVals" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="IsActive" Type="Boolean" />
+    <Property Name="GymId" Type="Int32" />
+    <Property Name="BranchId" Type="Int32" />
+    <NavigationProperty Name="Branch" Relationship="Self.FK__ClassTimi__Branc__00750D23" FromRole="ClassTiming" ToRole="Branch" />
+    <NavigationProperty Name="Class" Relationship="Self.FK__ClassTimi__Class__025D5595" FromRole="ClassTiming" ToRole="Classes" />
+    <NavigationProperty Name="GymList" Relationship="Self.FK__ClassTimi__GymId__7F80E8EA" FromRole="ClassTiming" ToRole="GymList" />
+    <NavigationProperty Name="Staff" Relationship="Self.FK__ClassTimi__Staff__0169315C" FromRole="ClassTiming" ToRole="Staff" />
+  </EntityType>
+  <EntityType Name="DeletAppointmentSlot">
+    <Key>
+      <PropertyRef Name="DeletedId" />
+    </Key>
+    <Property Name="DeletedId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="AppSlotId" Type="Int32" />
+    <Property Name="SlotDate" Type="DateTime" Precision="3" />
+    <Property Name="GymId" Type="Int32" />
+    <Property Name="BranchId" Type="Int32" />
+    <NavigationProperty Name="Branch" Relationship="Self.FK__DeletAppo__Branc__04459E07" FromRole="DeletAppointmentSlot" ToRole="Branch" />
+    <NavigationProperty Name="GymList" Relationship="Self.FK__DeletAppo__GymId__65C116E7" FromRole="DeletAppointmentSlot" ToRole="GymList" />
+  </EntityType>
+  <EntityType Name="Diet">
+    <Key>
+      <PropertyRef Name="DietId" />
+    </Key>
+    <Property Name="DietId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="DietTime" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="MondayDiet" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="TuesdayDiet" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="WednesdayDiet" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="ThursdayDiet" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="FridayDiet" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="SaturdayDiet" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="SundayDiet" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="DietPlanId" Type="Int32" />
+    <NavigationProperty Name="DietPlanName" Relationship="Self.FK__Diet__DietPlanId__625A9A57" FromRole="Diet" ToRole="DietPlanName" />
+  </EntityType>
+  <EntityType Name="DietPlanName">
+    <Key>
+      <PropertyRef Name="DietPlanId" />
+    </Key>
+    <Property Name="DietPlanId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="DietPlanName1" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="GymId" Type="Int32" />
+    <Property Name="BranchId" Type="Int32" />
+    <NavigationProperty Name="Branch" Relationship="Self.FK__DietPlanN__Branc__1387E197" FromRole="DietPlanName" ToRole="Branch" />
+    <NavigationProperty Name="Diets" Relationship="Self.FK__Diet__DietPlanId__625A9A57" FromRole="DietPlanName" ToRole="Diet" />
+    <NavigationProperty Name="GymList" Relationship="Self.FK__DietPlanN__GymId__5F7E2DAC" FromRole="DietPlanName" ToRole="GymList" />
+    <NavigationProperty Name="MemberDietPlans" Relationship="Self.FK__MemberDie__DietP__0880433F" FromRole="DietPlanName" ToRole="MemberDietPlan" />
+  </EntityType>
+  <EntityType Name="Enquiry">
+    <Key>
+      <PropertyRef Name="EnquiryId" />
+    </Key>
+    <Property Name="EnquiryId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="MobileNumber" Type="Int64" />
+    <Property Name="DOB" Type="DateTime" Precision="0" />
+    <Property Name="EnquiryDate" Type="DateTime" Precision="0" />
+    <Property Name="EmailId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="PhoneNumberResidence" Type="Int64" />
+    <Property Name="PhoneNumberOffice" Type="Int64" />
+    <Property Name="Gender" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="Address" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="Age" Type="Int32" />
+    <Property Name="Intention" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="ProgramSuggested" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="Category" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="AmountOffered" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="TrailOffered" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="TrailDate" Type="DateTime" Precision="0" />
+    <Property Name="HowDidYouKnow" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="RecievedBy" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="Notes" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="SMS" Type="String" MaxLength="5" FixedLength="true" Unicode="false" />
+    <Property Name="call" Type="String" MaxLength="5" FixedLength="true" Unicode="false" />
+    <Property Name="Email" Type="String" MaxLength="5" FixedLength="true" Unicode="false" />
+    <Property Name="GymId" Type="Int32" />
+    <Property Name="BranchId" Type="Int32" />
+    <NavigationProperty Name="Branch" Relationship="Self.FK__Enquiry__BranchI__0BE6BFCF" FromRole="Enquiry" ToRole="Branch" />
+    <NavigationProperty Name="GymList" Relationship="Self.FK__Enquiry__GymId__756D6ECB" FromRole="Enquiry" ToRole="GymList" />
+    <NavigationProperty Name="Followups" Relationship="Self.FK__Followup__Enquir__22AA2996" FromRole="Enquiry" ToRole="Followup" />
+  </EntityType>
+  <EntityType Name="Equipment">
+    <Key>
+      <PropertyRef Name="EquipmentId" />
+    </Key>
+    <Property Name="EquipmentId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="EquipmentName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="Event">
+    <Key>
+      <PropertyRef Name="EventId" />
+    </Key>
+    <Property Name="EventId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Description" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
+    <Property Name="StartDate" Type="DateTime" Precision="3" />
+    <Property Name="EndDate" Type="DateTime" Precision="3" />
+    <Property Name="IsAllDay" Type="Boolean" />
+    <Property Name="IncludedTax" Type="Boolean" />
+    <Property Name="Price" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="RegistrationLimit" Type="Int32" />
+    <Property Name="PhotoUrl" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="GymId" Type="Int32" />
+    <Property Name="BranchId" Type="Int32" />
+    <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+    <Property Name="ModifiedOn" Type="DateTime" Precision="3" />
+    <Property Name="IsActive" Type="Boolean" />
+    <NavigationProperty Name="Branch" Relationship="Self.FK__Events__BranchId__2B5F6B28" FromRole="Events" ToRole="Branch" />
+    <NavigationProperty Name="GymList" Relationship="Self.FK__Events__GymId__2A6B46EF" FromRole="Events" ToRole="GymList" />
+  </EntityType>
+  <EntityType Name="ExpenseMode">
+    <Key>
+      <PropertyRef Name="ModeId" />
+    </Key>
+    <Property Name="ModeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Mode" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="Expens">
+    <Key>
+      <PropertyRef Name="ExpensesId" />
+    </Key>
+    <Property Name="ExpensesId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ExpenseTypeId" Type="Int32" />
+    <Property Name="ExpenseAmount" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="ExpenseDate" Type="DateTime" Precision="3" />
+    <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="IsActive" Type="Boolean" />
+    <Property Name="GymId" Type="Int32" />
+    <Property Name="ReferenceNumber" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="ExpenseMode" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="BranchId" Type="Int32" />
+    <NavigationProperty Name="Branch" Relationship="Self.FK__Expenses__Branch__0CDAE408" FromRole="Expenses" ToRole="Branch" />
+    <NavigationProperty Name="ExpensesType" Relationship="Self.FK__Expenses__Expens__2AD55B43" FromRole="Expenses" ToRole="ExpensesType" />
+    <NavigationProperty Name="GymList" Relationship="Self.FK__Expenses__GymId__2BC97F7C" FromRole="Expenses" ToRole="GymList" />
+  </EntityType>
+  <EntityType Name="ExpensesType">
+    <Key>
+      <PropertyRef Name="ExpenseTypeId" />
+    </Key>
+    <Property Name="ExpenseTypeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ExpenseTypeName" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+    <Property Name="ExpenseTypeDescription" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+    <Property Name="GymId" Type="Int32" />
+    <Property Name="BranchId" Type="Int32" />
+    <NavigationProperty Name="Branch" Relationship="Self.FK__ExpensesT__Branc__0DCF0841" FromRole="ExpensesType" ToRole="Branch" />
+    <NavigationProperty Name="Expenses" Relationship="Self.FK__Expenses__Expens__2AD55B43" FromRole="ExpensesType" ToRole="Expenses" />
+    <NavigationProperty Name="GymList" Relationship="Self.FK__ExpensesT__GymId__27F8EE98" FromRole="ExpensesType" ToRole="GymList" />
+  </EntityType>
+  <EntityType Name="Followup">
+    <Key>
+      <PropertyRef Name="FollowupId" />
+    </Key>
+    <Property Name="FollowupId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="LastFollowUpDate" Type="DateTime" Precision="0" />
+    <Property Name="NextFollowUpDate" Type="DateTime" Precision="0" />
+    <Property Name="EnqStatus" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="StartTime" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="EndTime" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="EnquiryId" Type="Int32" />
+    <NavigationProperty Name="Enquiry" Relationship="Self.FK__Followup__Enquir__22AA2996" FromRole="Followup" ToRole="Enquiry" />
+  </EntityType>
+  <EntityType Name="GymAdmin">
+    <Key>
+      <PropertyRef Name="GymAdminId" />
+    </Key>
+    <Property Name="GymAdminId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="AdminName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="AdminPwd" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="GymAllPackage">
+    <Key>
+      <PropertyRef Name="Package" />
+    </Key>
+    <Property Name="Package" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Amount" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="Months" Type="Int32" />
+    <Property Name="OfferName" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="SelectedPackages" Relationship="Self.FK__SelectedP__Packa__2DE6D218" FromRole="GymAllPackages" ToRole="SelectedPackage" />
+  </EntityType>
+  <EntityType Name="GymAmenity">
+    <Key>
+      <PropertyRef Name="GymAmenitiesId" />
+    </Key>
+    <Property Name="GymAmenitiesId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="GymAmenitiesName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="AminityEnable" Type="Boolean" />
+    <Property Name="GymId" Type="Int32" />
+    <Property Name="BranchId" Type="Int32" />
+    <NavigationProperty Name="Branch" Relationship="Self.FK__GymAmenit__Branc__08162EEB" FromRole="GymAmenities" ToRole="Branch" />
+    <NavigationProperty Name="GymList" Relationship="Self.FK__GymAmenit__GymId__6F7F8B4B" FromRole="GymAmenities" ToRole="GymList" />
+  </EntityType>
+  <EntityType Name="GymEquipment">
+    <Key>
+      <PropertyRef Name="GymEquipmentId" />
+    </Key>
+    <Property Name="GymEquipmentId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="GymEquipmentName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="EquipmentEnable" Type="Boolean" />
+    <Property Name="GymId" Type="Int32" />
+    <Property Name="BranchId" Type="Int32" />
+    <NavigationProperty Name="Branch" Relationship="Self.FK__GymEquipm__Branc__07220AB2" FromRole="GymEquipment" ToRole="Branch" />
+    <NavigationProperty Name="GymList" Relationship="Self.FK__GymEquipm__GymId__725BF7F6" FromRole="GymEquipment" ToRole="GymList" />
+  </EntityType>
+  <EntityType Name="GymImage">
+    <Key>
+      <PropertyRef Name="GymImageId" />
+    </Key>
+    <Property Name="GymImageId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ImageData" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="GymId" Type="Int32" />
+    <NavigationProperty Name="GymList" Relationship="Self.FK__GymImage__GymId__2116E6DF" FromRole="GymImage" ToRole="GymList" />
+  </EntityType>
+  <EntityType Name="GymList">
+    <Key>
+      <PropertyRef Name="Gymid" />
+    </Key>
+    <Property Name="Gymid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="GymName" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="FirstName" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="LastName" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="Openat" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Closeat" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="GymAddress" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="Email" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="EnrolDate" Type="DateTime" Precision="0" />
+    <Property Name="MobileNumber" Type="Int64" />
+    <Property Name="PhoneNumberGym" Type="Int64" />
+    <Property Name="Representative" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="EstablishedYear" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="InstructionMessage" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="About" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="FeedBack" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Appointments" Relationship="Self.FK__Appointme__GymId__603D47BB" FromRole="GymList" ToRole="Appointment" />
+    <NavigationProperty Name="AppointmentSlots" Relationship="Self.FK__Appointme__GymId__0EF836A4" FromRole="GymList" ToRole="AppointmentSlot" />
+    <NavigationProperty Name="BookAppointments" Relationship="Self.FK__BookAppoi__GymId__1B5E0D89" FromRole="GymList" ToRole="BookAppointment" />
+    <NavigationProperty Name="Branches" Relationship="Self.FK__Branch__GymId__76619304" FromRole="GymList" ToRole="Branch" />
+    <NavigationProperty Name="Categories" Relationship="Self.FK__Category__GymId__42E1EEFE" FromRole="GymList" ToRole="Category" />
+    <NavigationProperty Name="Classes" Relationship="Self.FK__Classes__GymId__6A85CC04" FromRole="GymList" ToRole="Classes" />
+    <NavigationProperty Name="ClassTimings" Relationship="Self.FK__ClassTimi__GymId__7F80E8EA" FromRole="GymList" ToRole="ClassTiming" />
+    <NavigationProperty Name="DeletAppointmentSlots" Relationship="Self.FK__DeletAppo__GymId__65C116E7" FromRole="GymList" ToRole="DeletAppointmentSlot" />
+    <NavigationProperty Name="DietPlanNames" Relationship="Self.FK__DietPlanN__GymId__5F7E2DAC" FromRole="GymList" ToRole="DietPlanName" />
+    <NavigationProperty Name="Enquiries" Relationship="Self.FK__Enquiry__GymId__756D6ECB" FromRole="GymList" ToRole="Enquiry" />
+    <NavigationProperty Name="Events" Relationship="Self.FK__Events__GymId__2A6B46EF" FromRole="GymList" ToRole="Events" />
+    <NavigationProperty Name="Expenses" Relationship="Self.FK__Expenses__GymId__2BC97F7C" FromRole="GymList" ToRole="Expenses" />
+    <NavigationProperty Name="ExpensesTypes" Relationship="Self.FK__ExpensesT__GymId__27F8EE98" FromRole="GymList" ToRole="ExpensesType" />
+    <NavigationProperty Name="GymAmenities" Relationship="Self.FK__GymAmenit__GymId__6F7F8B4B" FromRole="GymList" ToRole="GymAmenities" />
+    <NavigationProperty Name="GymEquipments" Relationship="Self.FK__GymEquipm__GymId__725BF7F6" FromRole="GymList" ToRole="GymEquipment" />
+    <NavigationProperty Name="GymImages" Relationship="Self.FK__GymImage__GymId__2116E6DF" FromRole="GymList" ToRole="GymImage" />
+    <NavigationProperty Name="GymLogins" Relationship="Self.FK__GymLogin__GymId__208CD6FA" FromRole="GymList" ToRole="GymLogin" />
+    <NavigationProperty Name="GymPackages" Relationship="Self.FK__GymPackag__GymId__32AB8735" FromRole="GymList" ToRole="GymPackage" />
+    <NavigationProperty Name="GymPayments" Relationship="Self.FK__GymPaymen__GymId__1DB06A4F" FromRole="GymList" ToRole="GymPayment" />
+    <NavigationProperty Name="GymServiceLists" Relationship="Self.FK__GymServic__GymId__31B762FC" FromRole="GymList" ToRole="GymServiceList" />
+    <NavigationProperty Name="MealTimes" Relationship="Self.FK__MealTime__GymId__65370702" FromRole="GymList" ToRole="MealTime" />
+    <NavigationProperty Name="MemberInfoes" Relationship="Self.FK__MemberInf__GymId__339FAB6E" FromRole="GymList" ToRole="MemberInfo" />
+    <NavigationProperty Name="MembershipOffers" Relationship="Self.FK__Membershi__GymId__3A4CA8FD" FromRole="GymList" ToRole="MembershipOffers" />
+    <NavigationProperty Name="MemberTimeSheets" Relationship="Self.FK__MemberTim__GymId__24285DB4" FromRole="GymList" ToRole="MemberTimeSheet" />
+    <NavigationProperty Name="Products" Relationship="Self.FK__Product__GymId__367C1819" FromRole="GymList" ToRole="Product" />
+    <NavigationProperty Name="PurchaseOrders" Relationship="Self.FK__PurchaseO__GymId__793DFFAF" FromRole="GymList" ToRole="PurchaseOrder" />
+    <NavigationProperty Name="Schedulers" Relationship="Self.FK__Scheduler__GymId__5A846E65" FromRole="GymList" ToRole="Scheduler" />
+    <NavigationProperty Name="SelectedPackages" Relationship="Self.FK__SelectedP__GymId__2EDAF651" FromRole="GymList" ToRole="SelectedPackage" />
+    <NavigationProperty Name="Staffs" Relationship="Self.FK__Staff__GymId__1209AD79" FromRole="GymList" ToRole="Staff" />
+    <NavigationProperty Name="Stocks" Relationship="Self.FK__Stock__GymId__5CA1C101" FromRole="GymList" ToRole="Stock" />
+    <NavigationProperty Name="Suppliers" Relationship="Self.FK__Supplier__GymId__395884C4" FromRole="GymList" ToRole="Supplier" />
+    <NavigationProperty Name="Tasks" Relationship="Self.FK__Task__GymId__40058253" FromRole="GymList" ToRole="Task" />
+    <NavigationProperty Name="Workouts" Relationship="Self.FK__Workout__GymId__503BEA1C" FromRole="GymList" ToRole="Workout" />
+    <NavigationProperty Name="WorkoutPlanNames" Relationship="Self.FK__WorkoutPl__GymId__540C7B00" FromRole="GymList" ToRole="WorkoutPlanName" />
+  </EntityType>
+  <EntityType Name="GymLogin">
+    <Key>
+      <PropertyRef Name="Loginid" />
+    </Key>
+    <Property Name="Loginid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserName" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="Password" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="GymId" Type="Int32" />
+    <Property Name="IsLoginActive" Type="String" MaxLength="3" FixedLength="true" Unicode="false" />
+    <Property Name="Role" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="StaffId" Type="Int32" />
+    <Property Name="MemberId" Type="Int32" />
+    <NavigationProperty Name="GymList" Relationship="Self.FK__GymLogin__GymId__208CD6FA" FromRole="GymLogin" ToRole="GymList" />
+  </EntityType>
+  <EntityType Name="GymPackage">
+    <Key>
+      <PropertyRef Name="PackageId" />
+    </Key>
+    <Property Name="PackageId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="PackageType" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="PackageAmount" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="StartDate" Type="DateTime" Precision="0" />
+    <Property Name="EndDate" Type="DateTime" Precision="0" />
+    <Property Name="Note" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="GymStatus" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="GymId" Type="Int32" />
+    <Property Name="Months" Type="Int32" />
+    <Property Name="Status" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="BranchId" Type="Int32" />
+    <NavigationProperty Name="Branch" Relationship="Self.FK__GymPackag__Branc__0AF29B96" FromRole="GymPackage" ToRole="Branch" />
+    <NavigationProperty Name="GymList" Relationship="Self.FK__GymPackag__GymId__32AB8735" FromRole="GymPackage" ToRole="GymList" />
+    <NavigationProperty Name="GymPayments" Relationship="Self.FK__GymPaymen__Packa__1CBC4616" FromRole="GymPackage" ToRole="GymPayment" />
+  </EntityType>
+  <EntityType Name="GymPayment">
+    <Key>
+      <PropertyRef Name="RecieptNumber" />
+    </Key>
+    <Property Name="RecieptNumber" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="PaymentType" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="PaymentAmount" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="PaymentDate" Type="DateTime" Precision="0" />
+    <Property Name="PaymentDueDate" Type="DateTime" Precision="0" />
+    <Property Name="ReferenceNumber" Type="Int64" />
+    <Property Name="PackageId" Type="Int32" />
+    <Property Name="GymId" Type="Int32" />
+    <NavigationProperty Name="GymList" Relationship="Self.FK__GymPaymen__GymId__1DB06A4F" FromRole="GymPayment" ToRole="GymList" />
+    <NavigationProperty Name="GymPackage" Relationship="Self.FK__GymPaymen__Packa__1CBC4616" FromRole="GymPayment" ToRole="GymPackage" />
+  </EntityType>
+  <EntityType Name="GymServiceList">
+    <Key>
+      <PropertyRef Name="ServiceId" />
+    </Key>
+    <Property Name="ServiceId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ServiceName" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="GymId" Type="Int32" />
+    <Property Name="BranchId" Type="Int32" />
+    <Property Name="Enable" Type="Boolean" />
+    <NavigationProperty Name="Branch" Relationship="Self.FK__GymServic__Branc__1A34DF26" FromRole="GymServiceList" ToRole="Branch" />
+    <NavigationProperty Name="GymList" Relationship="Self.FK__GymServic__GymId__31B762FC" FromRole="GymServiceList" ToRole="GymList" />
+  </EntityType>
+  <EntityType Name="MealTime">
+    <Key>
+      <PropertyRef Name="MealTimeId" />
+    </Key>
+    <Property Name="MealTimeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="MealTime1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="MealDescription" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="GymId" Type="Int32" />
+    <Property Name="BranchId" Type="Int32" />
+    <NavigationProperty Name="Branch" Relationship="Self.FK__MealTime__Branch__1293BD5E" FromRole="MealTime" ToRole="Branch" />
+    <NavigationProperty Name="GymList" Relationship="Self.FK__MealTime__GymId__65370702" FromRole="MealTime" ToRole="GymList" />
+  </EntityType>
+  <EntityType Name="Measurement">
+    <Key>
+      <PropertyRef Name="MeasurementId" />
+    </Key>
+    <Property Name="MeasurementId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="MeasurementDate" Type="DateTime" Precision="0" />
+    <Property Name="NextMeasurementDate" Type="DateTime" Precision="0" />
+    <Property Name="Height" Type="Decimal" Precision="4" Scale="2" />
+    <Property Name="weight" Type="Decimal" Precision="4" Scale="2" />
+    <Property Name="UpperArm" Type="Decimal" Precision="4" Scale="2" />
+    <Property Name="ForeArm" Type="Decimal" Precision="4" Scale="2" />
+    <Property Name="Calves" Type="Decimal" Precision="4" Scale="2" />
+    <Property Name="BMI" Type="Decimal" Precision="4" Scale="2" />
+    <Property Name="VFat" Type="Decimal" Precision="4" Scale="2" />
+    <Property Name="Shoulder" Type="Decimal" Precision="4" Scale="2" />
+    <Property Name="Chest" Type="Decimal" Precision="4" Scale="2" />
+    <Property Name="Arms" Type="Decimal" Precision="4" Scale="2" />
+    <Property Name="UpperABS" Type="Decimal" Precision="4" Scale="2" />
+    <Property Name="WaistABS" Type="Decimal" Precision="4" Scale="2" />
+    <Property Name="LowerABS" Type="Decimal" Precision="4" Scale="2" />
+    <Property Name="Glutes" Type="Decimal" Precision="4" Scale="2" />
+    <Property Name="Thighs" Type="Decimal" Precision="4" Scale="2" />
+    <Property Name="MemberID" Type="Int32" />
+    <NavigationProperty Name="MemberInfo" Relationship="Self.FK__Measureme__Membe__4F47C5E3" FromRole="Measurement" ToRole="MemberInfo" />
+  </EntityType>
+  <EntityType Name="MemberDietPlan">
+    <Key>
+      <PropertyRef Name="MemberDietPlanid" />
+    </Key>
+    <Property Name="MemberDietPlanid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="DietTime" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="MondayDiet" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="TuesdayDiet" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="WednesdayDiet" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="ThursdayDiet" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="FridayDiet" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="SaturdayDiet" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="SundayDiet" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="DietPlanId" Type="Int32" />
+    <Property Name="MemberID" Type="Int32" />
+    <NavigationProperty Name="DietPlanName" Relationship="Self.FK__MemberDie__DietP__0880433F" FromRole="MemberDietPlan" ToRole="DietPlanName" />
+    <NavigationProperty Name="MemberInfo" Relationship="Self.FK__MemberDie__Membe__09746778" FromRole="MemberDietPlan" ToRole="MemberInfo" />
+  </EntityType>
+  <EntityType Name="MemberFreeze">
+    <Key>
+      <PropertyRef Name="FreezeId" />
+    </Key>
+    <Property Name="FreezeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="MemberShipId" Type="Int32" />
+    <Property Name="StartDate" Type="DateTime" Precision="3" />
+    <Property Name="EndDate" Type="DateTime" Precision="3" />
+    <Property Name="IsActive" Type="Boolean" />
+    <Property Name="Member_Id" Type="Int32" />
+    <NavigationProperty Name="MemberShip" Relationship="Self.FK__MemberFre__Membe__414EAC47" FromRole="MemberFreeze" ToRole="MemberShip" />
+  </EntityType>
+  <EntityType Name="MemberImage">
+    <Key>
+      <PropertyRef Name="ImageId" />
+    </Key>
+    <Property Name="ImageId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ImageData" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="MemberId" Type="Int32" />
+    <NavigationProperty Name="MemberInfo" Relationship="Self.FK__MemberIma__Membe__38996AB5" FromRole="MemberImage" ToRole="MemberInfo" />
+  </EntityType>
+  <EntityType Name="MemberInfo">
+    <Key>
+      <PropertyRef Name="MemberID" />
+    </Key>
+    <Property Name="MemberID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Dob" Type="DateTime" Precision="0" />
+    <Property Name="Gender" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="MobileNumber" Type="Int64" />
+    <Property Name="MemberAddress" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="EnrollDate" Type="DateTime" Precision="0" />
+    <Property Name="Married" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="SpouseName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="SpouseBirthDate" Type="DateTime" Precision="0" />
+    <Property Name="AnniversaryDate" Type="DateTime" Precision="0" />
+    <Property Name="Occupation" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Designation" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="MemberSource" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="PhoneResidence" Type="Int64" />
+    <Property Name="PhoneOffice" Type="Int64" />
+    <Property Name="ReferredBy" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Programme" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Representative" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="GymId" Type="Int32" />
+    <Property Name="BranchId" Type="Int32" />
+    <NavigationProperty Name="BookAppointments" Relationship="Self.FK__BookAppoi__Membe__1881A0DE" FromRole="MemberInfo" ToRole="BookAppointment" />
+    <NavigationProperty Name="CalendarMembers" Relationship="Self.FK__CalendarM__Membe__38B96646" FromRole="MemberInfo" ToRole="CalendarMember" />
+    <NavigationProperty Name="GymList" Relationship="Self.FK__MemberInf__GymId__339FAB6E" FromRole="MemberInfo" ToRole="GymList" />
+    <NavigationProperty Name="Measurements" Relationship="Self.FK__Measureme__Membe__4F47C5E3" FromRole="MemberInfo" ToRole="Measurement" />
+    <NavigationProperty Name="MemberDietPlans" Relationship="Self.FK__MemberDie__Membe__09746778" FromRole="MemberInfo" ToRole="MemberDietPlan" />
+    <NavigationProperty Name="MemberImages" Relationship="Self.FK__MemberIma__Membe__38996AB5" FromRole="MemberInfo" ToRole="MemberImage" />
+    <NavigationProperty Name="MemberShips" Relationship="Self.FK__MemberShi__Membe__1DE57479" FromRole="MemberInfo" ToRole="MemberShip" />
+    <NavigationProperty Name="MemberTimeSheets" Relationship="Self.FK__MemberTim__Membe__2334397B" FromRole="MemberInfo" ToRole="MemberTimeSheet" />
+    <NavigationProperty Name="MemberWorkoutPlans" Relationship="Self.FK__MemberWor__Membe__5AB9788F" FromRole="MemberInfo" ToRole="MemberWorkoutPlan" />
+    <NavigationProperty Name="Payments" Relationship="Self.FK__Payment__MemberI__1920BF5C" FromRole="MemberInfo" ToRole="Payment" />
+    <NavigationProperty Name="Schedulers" Relationship="Self.FK__Scheduler__Membe__589C25F3" FromRole="MemberInfo" ToRole="Scheduler" />
+    <NavigationProperty Name="Tranfers" Relationship="Self.FK__Tranfer__Transfe__2D27B809" FromRole="MemberInfo" ToRole="Tranfer" />
+    <NavigationProperty Name="Tranfers1" Relationship="Self.FK__Tranfer__Transfe__2E1BDC42" FromRole="MemberInfo" ToRole="Tranfer" />
+    <Property Name="MemberReference" Type="Int32" />
+  </EntityType>
+  <EntityType Name="MemberShip">
+    <Key>
+      <PropertyRef Name="MembershipId" />
+    </Key>
+    <Property Name="MembershipId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="MembershipType" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="Months" Type="Int32" />
+    <Property Name="Amount" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="StartDate" Type="DateTime" Precision="0" />
+    <Property Name="EndDate" Type="DateTime" Precision="0" />
+    <Property Name="Note" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="MemberID" Type="Int32" />
+    <NavigationProperty Name="MemberFreezes" Relationship="Self.FK__MemberFre__Membe__414EAC47" FromRole="MemberShip" ToRole="MemberFreeze" />
+    <NavigationProperty Name="MemberInfo" Relationship="Self.FK__MemberShi__Membe__1DE57479" FromRole="MemberShip" ToRole="MemberInfo" />
+    <NavigationProperty Name="Payments" Relationship="Self.FK__Payment__Members__3F466844" FromRole="MemberShip" ToRole="Payment" />
+  </EntityType>
+  <EntityType Name="MembershipOffer">
+    <Key>
+      <PropertyRef Name="MembershipOfferId" />
+    </Key>
+    <Property Name="MembershipOfferId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Amount" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="Months" Type="Int32" />
+    <Property Name="OfferName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="MinimumAmount" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="Category" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="Active" Type="Boolean" />
+    <Property Name="GymId" Type="Int32" />
+    <Property Name="AppLen" Type="Int32" />
+    <Property Name="BranchId" Type="Int32" />
+    <NavigationProperty Name="Branch" Relationship="Self.FK__Membershi__Branc__16644E42" FromRole="MembershipOffers" ToRole="Branch" />
+    <NavigationProperty Name="GymList" Relationship="Self.FK__Membershi__GymId__3A4CA8FD" FromRole="MembershipOffers" ToRole="GymList" />
+  </EntityType>
+  <EntityType Name="MemberTimeSheet">
+    <Key>
+      <PropertyRef Name="MemberTimeSheetId" />
+    </Key>
+    <Property Name="MemberTimeSheetId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="IsPresent" Type="String" MaxLength="3" FixedLength="true" Unicode="false" />
+    <Property Name="MemberID" Type="Int32" />
+    <Property Name="GymId" Type="Int32" />
+    <Property Name="AttendenceDate" Type="DateTime" Precision="0" />
+    <Property Name="BranchId" Type="Int32" />
+    <NavigationProperty Name="Branch" Relationship="Self.FK__MemberTim__Branc__0EC32C7A" FromRole="MemberTimeSheet" ToRole="Branch" />
+    <NavigationProperty Name="GymList" Relationship="Self.FK__MemberTim__GymId__24285DB4" FromRole="MemberTimeSheet" ToRole="GymList" />
+    <NavigationProperty Name="MemberInfo" Relationship="Self.FK__MemberTim__Membe__2334397B" FromRole="MemberTimeSheet" ToRole="MemberInfo" />
+  </EntityType>
+  <EntityType Name="MemberWorkoutPlan">
+    <Key>
+      <PropertyRef Name="MemberWorkoutPlanid" />
+    </Key>
+    <Property Name="MemberWorkoutPlanid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Workout" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="NumberOfSets" Type="String" MaxLength="5" FixedLength="true" Unicode="false" />
+    <Property Name="NumberOfMinutes" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="NumberofDays" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="ExcerciseOrder" Type="String" MaxLength="5" FixedLength="true" Unicode="false" />
+    <Property Name="PlaneNameId" Type="Int32" />
+    <Property Name="MemberID" Type="Int32" />
+    <Property Name="Repeats" Type="Int32" />
+    <NavigationProperty Name="MemberInfo" Relationship="Self.FK__MemberWor__Membe__5AB9788F" FromRole="MemberWorkoutPlan" ToRole="MemberInfo" />
+    <NavigationProperty Name="WorkoutPlanName" Relationship="Self.FK__MemberWor__Plane__59C55456" FromRole="MemberWorkoutPlan" ToRole="WorkoutPlanName" />
+  </EntityType>
+  <EntityType Name="Order">
+    <Key>
+      <PropertyRef Name="OrderId" />
+    </Key>
+    <Property Name="OrderId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Product" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="Quantity" Type="Int32" />
+    <Property Name="Price" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="Total" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="PurchaseOrderId" Type="Int32" />
+    <NavigationProperty Name="PurchaseOrder" Relationship="Self.FK__Orders__Purchase__7C1A6C5A" FromRole="Orders" ToRole="PurchaseOrder" />
+  </EntityType>
+  <EntityType Name="Payment">
+    <Key>
+      <PropertyRef Name="RecieptNumber" />
+    </Key>
+    <Property Name="RecieptNumber" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="PaymentType" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="PaymentAmount" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="PaymentDate" Type="DateTime" Precision="0" />
+    <Property Name="PaymentDueDate" Type="DateTime" Precision="0" />
+    <Property Name="ReferenceNumber" Type="Int64" />
+    <Property Name="MemberID" Type="Int32" />
+    <Property Name="MembershipId" Type="Int32" />
+    <NavigationProperty Name="MemberInfo" Relationship="Self.FK__Payment__MemberI__1920BF5C" FromRole="Payment" ToRole="MemberInfo" />
+    <NavigationProperty Name="MemberShip" Relationship="Self.FK__Payment__Members__3F466844" FromRole="Payment" ToRole="MemberShip" />
+  </EntityType>
+  <EntityType Name="Product">
+    <Key>
+      <PropertyRef Name="ProductId" />
+    </Key>
+    <Property Name="ProductId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="BrandName" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="ProductName" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="Price" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="Quantity" Type="Int32" />
+    <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="ForSale" Type="Boolean" />
+    <Property Name="LowStockQuantity" Type="Int32" />
+    <Property Name="GymId" Type="Int32" />
+    <Property Name="BranchId" Type="Int32" />
+    <NavigationProperty Name="Branch" Relationship="Self.FK__Product__BranchI__1758727B" FromRole="Product" ToRole="Branch" />
+    <NavigationProperty Name="GymList" Relationship="Self.FK__Product__GymId__367C1819" FromRole="Product" ToRole="GymList" />
+    <NavigationProperty Name="PurchaseOrderDetails" Relationship="Self.FK__PurchaseO__Produ__251C81ED" FromRole="Product" ToRole="PurchaseOrderDetail" />
+    <NavigationProperty Name="Stocks" Relationship="Self.FK__Stock__ProductId__5BAD9CC8" FromRole="Product" ToRole="Stock" />
+  </EntityType>
+  <EntityType Name="PurchaseOrder">
+    <Key>
+      <PropertyRef Name="PurchaseOrderId" />
+    </Key>
+    <Property Name="PurchaseOrderId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FirstName" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="LastName" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="OrderDate" Type="DateTime" Precision="0" />
+    <Property Name="PaymentVia" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="Representative" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="GymId" Type="Int32" />
+    <Property Name="BranchId" Type="Int32" />
+    <NavigationProperty Name="Branch" Relationship="Self.FK__PurchaseO__Branc__119F9925" FromRole="PurchaseOrder" ToRole="Branch" />
+    <NavigationProperty Name="GymList" Relationship="Self.FK__PurchaseO__GymId__793DFFAF" FromRole="PurchaseOrder" ToRole="GymList" />
+    <NavigationProperty Name="Orders" Relationship="Self.FK__Orders__Purchase__7C1A6C5A" FromRole="PurchaseOrder" ToRole="Orders" />
+  </EntityType>
+  <EntityType Name="PurchaseOrderDetail">
+    <Key>
+      <PropertyRef Name="DetailId" />
+    </Key>
+    <Property Name="DetailId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="PurchaseId" Type="Int32" />
+    <Property Name="ProductId" Type="Int32" />
+    <Property Name="Qty" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="Rate" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="DiscountType" Type="Int32" />
+    <Property Name="Discount" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="GST" Type="Int32" />
+    <NavigationProperty Name="Product" Relationship="Self.FK__PurchaseO__Produ__251C81ED" FromRole="PurchaseOrderDetail" ToRole="Product" />
+    <NavigationProperty Name="PurchaseOrderHeader" Relationship="Self.FK__PurchaseO__Purch__2057CCD0" FromRole="PurchaseOrderDetail" ToRole="PurchaseOrderHeader" />
+  </EntityType>
+  <EntityType Name="PurchaseOrderHeader">
+    <Key>
+      <PropertyRef Name="PurchaseId" />
+    </Key>
+    <Property Name="PurchaseId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="MemberId" Type="Int32" />
+    <Property Name="FirstName" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="LastName" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="MobileNo" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="OrderDate" Type="DateTime" Precision="3" />
+    <Property Name="PaymentVia" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="Representative" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="GymId" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="SubTotal" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="GSTAmount" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="TotalAmount" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="BranchId" Type="Int32" />
+    <Property Name="StaffId" Type="Int32" />
+    <NavigationProperty Name="Branch" Relationship="Self.FK__PurchaseO__Branc__0FB750B3" FromRole="PurchaseOrderHeader" ToRole="Branch" />
+    <NavigationProperty Name="PurchaseOrderDetails" Relationship="Self.FK__PurchaseO__Purch__2057CCD0" FromRole="PurchaseOrderHeader" ToRole="PurchaseOrderDetail" />
+    <NavigationProperty Name="Staff" Relationship="Self.FK__PurchaseO__Staff__3C89F72A" FromRole="PurchaseOrderHeader" ToRole="Staff" />
+  </EntityType>
+  <EntityType Name="Scheduler">
+    <Key>
+      <PropertyRef Name="SchedulerId" />
+    </Key>
+    <Property Name="SchedulerId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="MemberId" Type="Int32" />
+    <Property Name="StaffId" Type="Int32" />
+    <Property Name="StartDate" Type="DateTime" Precision="0" />
+    <Property Name="EndDate" Type="DateTime" Precision="0" />
+    <Property Name="Repeatable" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Duration" Type="Int32" />
+    <Property Name="IsActive" Type="Boolean" />
+    <Property Name="GymId" Type="Int32" />
+    <Property Name="SelectType" Type="Int32" />
+    <Property Name="SelectedDay" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Name="BranchId" Type="Int32" />
+    <NavigationProperty Name="Branch" Relationship="Self.FK__Scheduler__Branc__09FE775D" FromRole="Scheduler" ToRole="Branch" />
+    <NavigationProperty Name="GymList" Relationship="Self.FK__Scheduler__GymId__5A846E65" FromRole="Scheduler" ToRole="GymList" />
+    <NavigationProperty Name="MemberInfo" Relationship="Self.FK__Scheduler__Membe__589C25F3" FromRole="Scheduler" ToRole="MemberInfo" />
+    <NavigationProperty Name="Staff" Relationship="Self.FK__Scheduler__Staff__59904A2C" FromRole="Scheduler" ToRole="Staff" />
+  </EntityType>
+  <EntityType Name="SelectedPackage">
+    <Key>
+      <PropertyRef Name="PackageSelectid" />
+    </Key>
+    <Property Name="PackageSelectid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Package" Type="Int32" />
+    <Property Name="GymId" Type="Int32" />
+    <Property Name="BranchId" Type="Int32" />
+    <NavigationProperty Name="Branch" Relationship="Self.FK__SelectedP__Branc__1B29035F" FromRole="SelectedPackage" ToRole="Branch" />
+    <NavigationProperty Name="GymAllPackage" Relationship="Self.FK__SelectedP__Packa__2DE6D218" FromRole="SelectedPackage" ToRole="GymAllPackages" />
+    <NavigationProperty Name="GymList" Relationship="Self.FK__SelectedP__GymId__2EDAF651" FromRole="SelectedPackage" ToRole="GymList" />
+  </EntityType>
+  <EntityType Name="ShiftType">
+    <Key>
+      <PropertyRef Name="ShiftId" />
+    </Key>
+    <Property Name="ShiftId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ShiftName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="StaffShifts" Relationship="Self.FK__StaffShif__Shift__5812160E" FromRole="ShiftType" ToRole="StaffShift" />
+  </EntityType>
+  <EntityType Name="Staff">
+    <Key>
+      <PropertyRef Name="StaffId" />
+    </Key>
+    <Property Name="StaffId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FirstName" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="LastName" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="Email" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="DOB" Type="DateTime" Precision="0" />
+    <Property Name="PhoneNumber" Type="Int64" />
+    <Property Name="StaffAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="StaffRole" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="DailySalary" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="Isactive" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="GymId" Type="Int32" />
+    <NavigationProperty Name="AppointmentSlots" Relationship="Self.FK__Appointme__Staff__0E04126B" FromRole="Staff" ToRole="AppointmentSlot" />
+    <NavigationProperty Name="AppointmentStaffs" Relationship="Self.FK__Appointme__Staff__640DD89F" FromRole="Staff" ToRole="AppointmentStaff" />
+    <NavigationProperty Name="BookAppointments" Relationship="Self.FK__BookAppoi__Staff__1975C517" FromRole="Staff" ToRole="BookAppointment" />
+    <NavigationProperty Name="CalendarInstructors" Relationship="Self.FK__CalendarI__Staff__35DCF99B" FromRole="Staff" ToRole="CalendarInstructor" />
+    <NavigationProperty Name="ClassTimings" Relationship="Self.FK__ClassTimi__Staff__0169315C" FromRole="Staff" ToRole="ClassTiming" />
+    <NavigationProperty Name="GymList" Relationship="Self.FK__Staff__GymId__1209AD79" FromRole="Staff" ToRole="GymList" />
+    <NavigationProperty Name="PurchaseOrderHeaders" Relationship="Self.FK__PurchaseO__Staff__3C89F72A" FromRole="Staff" ToRole="PurchaseOrderHeader" />
+    <NavigationProperty Name="Schedulers" Relationship="Self.FK__Scheduler__Staff__59904A2C" FromRole="Staff" ToRole="Scheduler" />
+    <NavigationProperty Name="StaffBranches" Relationship="Self.FK__StaffBran__Staff__5AEE82B9" FromRole="Staff" ToRole="StaffBranch" />
+    <NavigationProperty Name="StaffLogins" Relationship="Self.FK__StaffLogi__Staff__4CA06362" FromRole="Staff" ToRole="StaffLogin" />
+    <NavigationProperty Name="StaffShifts" Relationship="Self.FK__StaffShif__Staff__571DF1D5" FromRole="Staff" ToRole="StaffShift" />
+    <NavigationProperty Name="TrainerDetails" Relationship="Self.FK__TrainerDe__Staff__3B95D2F1" FromRole="Staff" ToRole="TrainerDetails" />
+  </EntityType>
+  <EntityType Name="StaffBranch">
+    <Key>
+      <PropertyRef Name="StaffBranchId" />
+    </Key>
+    <Property Name="StaffBranchId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="StaffId" Type="Int32" />
+    <Property Name="BranchId" Type="Int32" />
+    <Property Name="Enable" Type="Boolean" />
+    <NavigationProperty Name="Branch" Relationship="Self.FK__StaffBran__Branc__5BE2A6F2" FromRole="StaffBranch" ToRole="Branch" />
+    <NavigationProperty Name="Staff" Relationship="Self.FK__StaffBran__Staff__5AEE82B9" FromRole="StaffBranch" ToRole="Staff" />
+  </EntityType>
+  <EntityType Name="StaffLogin">
+    <Key>
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="UserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Uname" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="pwd" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="IsLoginactive" Type="String" MaxLength="3" FixedLength="true" Unicode="false" />
+    <Property Name="StaffId" Type="Int32" />
+    <NavigationProperty Name="Staff" Relationship="Self.FK__StaffLogi__Staff__4CA06362" FromRole="StaffLogin" ToRole="Staff" />
+  </EntityType>
+  <EntityType Name="StaffShift">
+    <Key>
+      <PropertyRef Name="StaffShiftId" />
+    </Key>
+    <Property Name="StaffShiftId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="StaffId" Type="Int32" />
+    <Property Name="ShiftId" Type="Int32" />
+    <Property Name="Enable" Type="Boolean" />
+    <NavigationProperty Name="ShiftType" Relationship="Self.FK__StaffShif__Shift__5812160E" FromRole="StaffShift" ToRole="ShiftType" />
+    <NavigationProperty Name="Staff" Relationship="Self.FK__StaffShif__Staff__571DF1D5" FromRole="StaffShift" ToRole="Staff" />
+  </EntityType>
+  <EntityType Name="Stock">
+    <Key>
+      <PropertyRef Name="StockId" />
+    </Key>
+    <Property Name="StockId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="StockIn" Type="Int32" />
+    <Property Name="StockOut" Type="Int32" />
+    <Property Name="StockinDate" Type="DateTime" Precision="0" />
+    <Property Name="StockoutDate" Type="DateTime" Precision="0" />
+    <Property Name="ProductId" Type="Int32" />
+    <Property Name="GymId" Type="Int32" />
+    <Property Name="BranchId" Type="Int32" />
+    <NavigationProperty Name="Branch" Relationship="Self.FK__Stock__BranchId__1D114BD1" FromRole="Stock" ToRole="Branch" />
+    <NavigationProperty Name="GymList" Relationship="Self.FK__Stock__GymId__5CA1C101" FromRole="Stock" ToRole="GymList" />
+    <NavigationProperty Name="Product" Relationship="Self.FK__Stock__ProductId__5BAD9CC8" FromRole="Stock" ToRole="Product" />
+  </EntityType>
+  <EntityType Name="Supplier">
+    <Key>
+      <PropertyRef Name="SupplierId" />
+    </Key>
+    <Property Name="SupplierId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CompanyName" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="RegistrationNumber" Type="Int64" />
+    <Property Name="FirstName" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="LastName" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="Email" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="ForSale" Type="String" MaxLength="3" FixedLength="true" Unicode="false" />
+    <Property Name="PhoneNumber" Type="Int64" />
+    <Property Name="SupplierAddress" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="FaxNumber" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="GymId" Type="Int32" />
+    <Property Name="BranchId" Type="Int32" />
+    <NavigationProperty Name="Branch" Relationship="Self.FK__Supplier__Branch__1940BAED" FromRole="Supplier" ToRole="Branch" />
+    <NavigationProperty Name="GymList" Relationship="Self.FK__Supplier__GymId__395884C4" FromRole="Supplier" ToRole="GymList" />
+  </EntityType>
+  <EntityType Name="Task">
+    <Key>
+      <PropertyRef Name="TaskId" />
+    </Key>
+    <Property Name="TaskId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Title" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="TaskDescription" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="Interval" Type="Int32" />
+    <Property Name="IntervalType" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="StartDate" Type="DateTime" Precision="0" />
+    <Property Name="GymId" Type="Int32" />
+    <Property Name="BranchId" Type="Int32" />
+    <NavigationProperty Name="Branch" Relationship="Self.FK__Task__BranchId__184C96B4" FromRole="Task" ToRole="Branch" />
+    <NavigationProperty Name="GymList" Relationship="Self.FK__Task__GymId__40058253" FromRole="Task" ToRole="GymList" />
+    <NavigationProperty Name="DailyTaskLists" Relationship="JustbokModel.FK__DailyTask__TaskI__5090EFD7" FromRole="Task" ToRole="DailyTaskList" />
+  </EntityType>
+  <EntityType Name="TaxType">
+    <Key>
+      <PropertyRef Name="TaxTypeId" />
+    </Key>
+    <Property Name="TaxTypeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Description" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Appointments" Relationship="Self.FK__Appointme__TaxTy__5F492382" FromRole="TaxType" ToRole="Appointment" />
+  </EntityType>
+  <EntityType Name="TrainerDetail">
+    <Key>
+      <PropertyRef Name="Trainerid" />
+    </Key>
+    <Property Name="Trainerid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ImageData" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Experience" Type="Int32" />
+    <Property Name="Qulifiaction" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="TrainerDescription" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="StaffId" Type="Int32" />
+    <NavigationProperty Name="Staff" Relationship="Self.FK__TrainerDe__Staff__3B95D2F1" FromRole="TrainerDetails" ToRole="Staff" />
+  </EntityType>
+  <EntityType Name="Tranfer">
+    <Key>
+      <PropertyRef Name="TransferId" />
+    </Key>
+    <Property Name="TransferId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TransferFrom" Type="Int32" />
+    <Property Name="TransferDate" Type="DateTime" Precision="0" />
+    <Property Name="MembershipType" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="StartDate" Type="DateTime" Precision="0" />
+    <Property Name="EndDate" Type="DateTime" Precision="0" />
+    <Property Name="TransferTo" Type="Int32" />
+    <NavigationProperty Name="MemberInfo" Relationship="Self.FK__Tranfer__Transfe__2D27B809" FromRole="Tranfer" ToRole="MemberInfo" />
+    <NavigationProperty Name="MemberInfo1" Relationship="Self.FK__Tranfer__Transfe__2E1BDC42" FromRole="Tranfer" ToRole="MemberInfo" />
+  </EntityType>
+  <EntityType Name="Workout">
+    <Key>
+      <PropertyRef Name="WorkoutId" />
+    </Key>
+    <Property Name="WorkoutId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="WorkoutName" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="Unit" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="GymId" Type="Int32" />
+    <Property Name="BranchId" Type="Int32" />
+    <NavigationProperty Name="Branch" Relationship="Self.FK__Workout__BranchI__1C1D2798" FromRole="Workout" ToRole="Branch" />
+    <NavigationProperty Name="GymList" Relationship="Self.FK__Workout__GymId__503BEA1C" FromRole="Workout" ToRole="GymList" />
+  </EntityType>
+  <EntityType Name="WorkoutPlan">
+    <Key>
+      <PropertyRef Name="Planid" />
+    </Key>
+    <Property Name="Planid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Workout" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="NumberOfSets" Type="String" MaxLength="5" FixedLength="true" Unicode="false" />
+    <Property Name="NumberOfMinutes" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="NumberofDays" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="ExcerciseOrder" Type="String" MaxLength="5" FixedLength="true" Unicode="false" />
+    <Property Name="PlaneNameId" Type="Int32" />
+    <Property Name="Repeats" Type="Int32" />
+    <NavigationProperty Name="WorkoutPlanName" Relationship="Self.FK__WorkoutPl__Plane__56E8E7AB" FromRole="WorkoutPlan" ToRole="WorkoutPlanName" />
+  </EntityType>
+  <EntityType Name="WorkoutPlanName">
+    <Key>
+      <PropertyRef Name="PlaneNameId" />
+    </Key>
+    <Property Name="PlaneNameId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="PlanName" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="GymId" Type="Int32" />
+    <Property Name="BranchId" Type="Int32" />
+    <NavigationProperty Name="Branch" Relationship="Self.FK__WorkoutPl__Branc__147C05D0" FromRole="WorkoutPlanName" ToRole="Branch" />
+    <NavigationProperty Name="GymList" Relationship="Self.FK__WorkoutPl__GymId__540C7B00" FromRole="WorkoutPlanName" ToRole="GymList" />
+    <NavigationProperty Name="MemberWorkoutPlans" Relationship="Self.FK__MemberWor__Plane__59C55456" FromRole="WorkoutPlanName" ToRole="MemberWorkoutPlan" />
+    <NavigationProperty Name="WorkoutPlans" Relationship="Self.FK__WorkoutPl__Plane__56E8E7AB" FromRole="WorkoutPlanName" ToRole="WorkoutPlan" />
+  </EntityType>
+  <Association Name="FK__Appointme__Appoi__12C8C788">
+    <End Role="Appointment" Type="Self.Appointment" Multiplicity="0..1" />
+    <End Role="AppointmentSlotConfig" Type="Self.AppointmentSlotConfig" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Appointment">
+        <PropertyRef Name="AppointmentId" />
+      </Principal>
+      <Dependent Role="AppointmentSlotConfig">
+        <PropertyRef Name="AppointmentId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Appointme__Appoi__6319B466">
+    <End Role="Appointment" Type="Self.Appointment" Multiplicity="0..1" />
+    <End Role="AppointmentStaff" Type="Self.AppointmentStaff" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Appointment">
+        <PropertyRef Name="AppointmentId" />
+      </Principal>
+      <Dependent Role="AppointmentStaff">
+        <PropertyRef Name="AppointmentId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Appointme__Appoi__66EA454A">
+    <End Role="Appointment" Type="Self.Appointment" Multiplicity="0..1" />
+    <End Role="AppointmentSlab" Type="Self.AppointmentSlab" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Appointment">
+        <PropertyRef Name="AppointmentId" />
+      </Principal>
+      <Dependent Role="AppointmentSlab">
+        <PropertyRef Name="AppointmentId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Appointme__Branc__090A5324">
+    <End Role="Branch" Type="Self.Branch" Multiplicity="0..1" />
+    <End Role="Appointment" Type="Self.Appointment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Branch">
+        <PropertyRef Name="BranchId" />
+      </Principal>
+      <Dependent Role="Appointment">
+        <PropertyRef Name="BranchId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Appointme__GymId__603D47BB">
+    <End Role="GymList" Type="Self.GymList" Multiplicity="0..1" />
+    <End Role="Appointment" Type="Self.Appointment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="GymList">
+        <PropertyRef Name="Gymid" />
+      </Principal>
+      <Dependent Role="Appointment">
+        <PropertyRef Name="GymId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Appointme__TaxTy__5F492382">
+    <End Role="TaxType" Type="Self.TaxType" Multiplicity="0..1" />
+    <End Role="Appointment" Type="Self.Appointment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TaxType">
+        <PropertyRef Name="TaxTypeId" />
+      </Principal>
+      <Dependent Role="Appointment">
+        <PropertyRef Name="TaxType" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__BookAppoi__Confi__1A69E950">
+    <End Role="Appointment" Type="Self.Appointment" Multiplicity="0..1" />
+    <End Role="BookAppointment" Type="Self.BookAppointment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Appointment">
+        <PropertyRef Name="AppointmentId" />
+      </Principal>
+      <Dependent Role="BookAppointment">
+        <PropertyRef Name="ConfigId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Appointme__Booki__1E3A7A34">
+    <End Role="BookAppointment" Type="Self.BookAppointment" Multiplicity="0..1" />
+    <End Role="AppointmentBills" Type="Self.AppointmentBill" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="BookAppointment">
+        <PropertyRef Name="BookingId" />
+      </Principal>
+      <Dependent Role="AppointmentBills">
+        <PropertyRef Name="BookingId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Appointme__Branc__062DE679">
+    <End Role="Branch" Type="Self.Branch" Multiplicity="0..1" />
+    <End Role="AppointmentSlot" Type="Self.AppointmentSlot" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Branch">
+        <PropertyRef Name="BranchId" />
+      </Principal>
+      <Dependent Role="AppointmentSlot">
+        <PropertyRef Name="BranchId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Appointme__GymId__0EF836A4">
+    <End Role="GymList" Type="Self.GymList" Multiplicity="0..1" />
+    <End Role="AppointmentSlot" Type="Self.AppointmentSlot" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="GymList">
+        <PropertyRef Name="Gymid" />
+      </Principal>
+      <Dependent Role="AppointmentSlot">
+        <PropertyRef Name="GymId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Appointme__SlotI__11D4A34F">
+    <End Role="AppointmentSlot" Type="Self.AppointmentSlot" Multiplicity="0..1" />
+    <End Role="AppointmentSlotConfig" Type="Self.AppointmentSlotConfig" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AppointmentSlot">
+        <PropertyRef Name="SlotId" />
+      </Principal>
+      <Dependent Role="AppointmentSlotConfig">
+        <PropertyRef Name="SlotId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Appointme__SlotI__15A53433">
+    <End Role="AppointmentSlot" Type="Self.AppointmentSlot" Multiplicity="0..1" />
+    <End Role="AppointmentSlotPattern" Type="Self.AppointmentSlotPattern" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AppointmentSlot">
+        <PropertyRef Name="SlotId" />
+      </Principal>
+      <Dependent Role="AppointmentSlotPattern">
+        <PropertyRef Name="SlotId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Appointme__Staff__0E04126B">
+    <End Role="Staff" Type="Self.Staff" Multiplicity="0..1" />
+    <End Role="AppointmentSlot" Type="Self.AppointmentSlot" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Staff">
+        <PropertyRef Name="StaffId" />
+      </Principal>
+      <Dependent Role="AppointmentSlot">
+        <PropertyRef Name="StaffId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Appointme__Staff__640DD89F">
+    <End Role="Staff" Type="Self.Staff" Multiplicity="0..1" />
+    <End Role="AppointmentStaff" Type="Self.AppointmentStaff" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Staff">
+        <PropertyRef Name="StaffId" />
+      </Principal>
+      <Dependent Role="AppointmentStaff">
+        <PropertyRef Name="StaffId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__BookAppoi__Branc__0539C240">
+    <End Role="Branch" Type="Self.Branch" Multiplicity="0..1" />
+    <End Role="BookAppointment" Type="Self.BookAppointment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Branch">
+        <PropertyRef Name="BranchId" />
+      </Principal>
+      <Dependent Role="BookAppointment">
+        <PropertyRef Name="BranchId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__BookAppoi__GymId__1B5E0D89">
+    <End Role="GymList" Type="Self.GymList" Multiplicity="0..1" />
+    <End Role="BookAppointment" Type="Self.BookAppointment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="GymList">
+        <PropertyRef Name="Gymid" />
+      </Principal>
+      <Dependent Role="BookAppointment">
+        <PropertyRef Name="GymId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__BookAppoi__Membe__1881A0DE">
+    <End Role="MemberInfo" Type="Self.MemberInfo" Multiplicity="0..1" />
+    <End Role="BookAppointment" Type="Self.BookAppointment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MemberInfo">
+        <PropertyRef Name="MemberID" />
+      </Principal>
+      <Dependent Role="BookAppointment">
+        <PropertyRef Name="MemberId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__BookAppoi__Staff__1975C517">
+    <End Role="Staff" Type="Self.Staff" Multiplicity="0..1" />
+    <End Role="BookAppointment" Type="Self.BookAppointment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Staff">
+        <PropertyRef Name="StaffId" />
+      </Principal>
+      <Dependent Role="BookAppointment">
+        <PropertyRef Name="StaffId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Branch__GymId__76619304">
+    <End Role="GymList" Type="Self.GymList" Multiplicity="0..1" />
+    <End Role="Branch" Type="Self.Branch" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="GymList">
+        <PropertyRef Name="Gymid" />
+      </Principal>
+      <Dependent Role="Branch">
+        <PropertyRef Name="GymId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Category__Branch__15702A09">
+    <End Role="Branch" Type="Self.Branch" Multiplicity="0..1" />
+    <End Role="Category" Type="Self.Category" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Branch">
+        <PropertyRef Name="BranchId" />
+      </Principal>
+      <Dependent Role="Category">
+        <PropertyRef Name="BranchId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Classes__BranchI__035179CE">
+    <End Role="Branch" Type="Self.Branch" Multiplicity="0..1" />
+    <End Role="Classes" Type="Self.Class" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Branch">
+        <PropertyRef Name="BranchId" />
+      </Principal>
+      <Dependent Role="Classes">
+        <PropertyRef Name="BranchId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__ClassTimi__Branc__00750D23">
+    <End Role="Branch" Type="Self.Branch" Multiplicity="0..1" />
+    <End Role="ClassTiming" Type="Self.ClassTiming" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Branch">
+        <PropertyRef Name="BranchId" />
+      </Principal>
+      <Dependent Role="ClassTiming">
+        <PropertyRef Name="BranchId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__DeletAppo__Branc__04459E07">
+    <End Role="Branch" Type="Self.Branch" Multiplicity="0..1" />
+    <End Role="DeletAppointmentSlot" Type="Self.DeletAppointmentSlot" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Branch">
+        <PropertyRef Name="BranchId" />
+      </Principal>
+      <Dependent Role="DeletAppointmentSlot">
+        <PropertyRef Name="BranchId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__DietPlanN__Branc__1387E197">
+    <End Role="Branch" Type="Self.Branch" Multiplicity="0..1" />
+    <End Role="DietPlanName" Type="Self.DietPlanName" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Branch">
+        <PropertyRef Name="BranchId" />
+      </Principal>
+      <Dependent Role="DietPlanName">
+        <PropertyRef Name="BranchId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Enquiry__BranchI__0BE6BFCF">
+    <End Role="Branch" Type="Self.Branch" Multiplicity="0..1" />
+    <End Role="Enquiry" Type="Self.Enquiry" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Branch">
+        <PropertyRef Name="BranchId" />
+      </Principal>
+      <Dependent Role="Enquiry">
+        <PropertyRef Name="BranchId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Events__BranchId__2B5F6B28">
+    <End Role="Branch" Type="Self.Branch" Multiplicity="0..1" />
+    <End Role="Events" Type="Self.Event" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Branch">
+        <PropertyRef Name="BranchId" />
+      </Principal>
+      <Dependent Role="Events">
+        <PropertyRef Name="BranchId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Expenses__Branch__0CDAE408">
+    <End Role="Branch" Type="Self.Branch" Multiplicity="0..1" />
+    <End Role="Expenses" Type="Self.Expens" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Branch">
+        <PropertyRef Name="BranchId" />
+      </Principal>
+      <Dependent Role="Expenses">
+        <PropertyRef Name="BranchId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__ExpensesT__Branc__0DCF0841">
+    <End Role="Branch" Type="Self.Branch" Multiplicity="0..1" />
+    <End Role="ExpensesType" Type="Self.ExpensesType" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Branch">
+        <PropertyRef Name="BranchId" />
+      </Principal>
+      <Dependent Role="ExpensesType">
+        <PropertyRef Name="BranchId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__GymAmenit__Branc__08162EEB">
+    <End Role="Branch" Type="Self.Branch" Multiplicity="0..1" />
+    <End Role="GymAmenities" Type="Self.GymAmenity" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Branch">
+        <PropertyRef Name="BranchId" />
+      </Principal>
+      <Dependent Role="GymAmenities">
+        <PropertyRef Name="BranchId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__GymEquipm__Branc__07220AB2">
+    <End Role="Branch" Type="Self.Branch" Multiplicity="0..1" />
+    <End Role="GymEquipment" Type="Self.GymEquipment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Branch">
+        <PropertyRef Name="BranchId" />
+      </Principal>
+      <Dependent Role="GymEquipment">
+        <PropertyRef Name="BranchId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__GymPackag__Branc__0AF29B96">
+    <End Role="Branch" Type="Self.Branch" Multiplicity="0..1" />
+    <End Role="GymPackage" Type="Self.GymPackage" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Branch">
+        <PropertyRef Name="BranchId" />
+      </Principal>
+      <Dependent Role="GymPackage">
+        <PropertyRef Name="BranchId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__GymServic__Branc__1A34DF26">
+    <End Role="Branch" Type="Self.Branch" Multiplicity="0..1" />
+    <End Role="GymServiceList" Type="Self.GymServiceList" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Branch">
+        <PropertyRef Name="BranchId" />
+      </Principal>
+      <Dependent Role="GymServiceList">
+        <PropertyRef Name="BranchId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__MealTime__Branch__1293BD5E">
+    <End Role="Branch" Type="Self.Branch" Multiplicity="0..1" />
+    <End Role="MealTime" Type="Self.MealTime" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Branch">
+        <PropertyRef Name="BranchId" />
+      </Principal>
+      <Dependent Role="MealTime">
+        <PropertyRef Name="BranchId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Membershi__Branc__16644E42">
+    <End Role="Branch" Type="Self.Branch" Multiplicity="0..1" />
+    <End Role="MembershipOffers" Type="Self.MembershipOffer" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Branch">
+        <PropertyRef Name="BranchId" />
+      </Principal>
+      <Dependent Role="MembershipOffers">
+        <PropertyRef Name="BranchId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__MemberTim__Branc__0EC32C7A">
+    <End Role="Branch" Type="Self.Branch" Multiplicity="0..1" />
+    <End Role="MemberTimeSheet" Type="Self.MemberTimeSheet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Branch">
+        <PropertyRef Name="BranchId" />
+      </Principal>
+      <Dependent Role="MemberTimeSheet">
+        <PropertyRef Name="BranchId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Product__BranchI__1758727B">
+    <End Role="Branch" Type="Self.Branch" Multiplicity="0..1" />
+    <End Role="Product" Type="Self.Product" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Branch">
+        <PropertyRef Name="BranchId" />
+      </Principal>
+      <Dependent Role="Product">
+        <PropertyRef Name="BranchId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__PurchaseO__Branc__0FB750B3">
+    <End Role="Branch" Type="Self.Branch" Multiplicity="0..1" />
+    <End Role="PurchaseOrderHeader" Type="Self.PurchaseOrderHeader" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Branch">
+        <PropertyRef Name="BranchId" />
+      </Principal>
+      <Dependent Role="PurchaseOrderHeader">
+        <PropertyRef Name="BranchId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__PurchaseO__Branc__119F9925">
+    <End Role="Branch" Type="Self.Branch" Multiplicity="0..1" />
+    <End Role="PurchaseOrder" Type="Self.PurchaseOrder" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Branch">
+        <PropertyRef Name="BranchId" />
+      </Principal>
+      <Dependent Role="PurchaseOrder">
+        <PropertyRef Name="BranchId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Scheduler__Branc__09FE775D">
+    <End Role="Branch" Type="Self.Branch" Multiplicity="0..1" />
+    <End Role="Scheduler" Type="Self.Scheduler" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Branch">
+        <PropertyRef Name="BranchId" />
+      </Principal>
+      <Dependent Role="Scheduler">
+        <PropertyRef Name="BranchId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__SelectedP__Branc__1B29035F">
+    <End Role="Branch" Type="Self.Branch" Multiplicity="0..1" />
+    <End Role="SelectedPackage" Type="Self.SelectedPackage" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Branch">
+        <PropertyRef Name="BranchId" />
+      </Principal>
+      <Dependent Role="SelectedPackage">
+        <PropertyRef Name="BranchId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__StaffBran__Branc__5BE2A6F2">
+    <End Role="Branch" Type="Self.Branch" Multiplicity="0..1" />
+    <End Role="StaffBranch" Type="Self.StaffBranch" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Branch">
+        <PropertyRef Name="BranchId" />
+      </Principal>
+      <Dependent Role="StaffBranch">
+        <PropertyRef Name="BranchId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Stock__BranchId__1D114BD1">
+    <End Role="Branch" Type="Self.Branch" Multiplicity="0..1" />
+    <End Role="Stock" Type="Self.Stock" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Branch">
+        <PropertyRef Name="BranchId" />
+      </Principal>
+      <Dependent Role="Stock">
+        <PropertyRef Name="BranchId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Supplier__Branch__1940BAED">
+    <End Role="Branch" Type="Self.Branch" Multiplicity="0..1" />
+    <End Role="Supplier" Type="Self.Supplier" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Branch">
+        <PropertyRef Name="BranchId" />
+      </Principal>
+      <Dependent Role="Supplier">
+        <PropertyRef Name="BranchId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Task__BranchId__184C96B4">
+    <End Role="Branch" Type="Self.Branch" Multiplicity="0..1" />
+    <End Role="Task" Type="Self.Task" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Branch">
+        <PropertyRef Name="BranchId" />
+      </Principal>
+      <Dependent Role="Task">
+        <PropertyRef Name="BranchId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Workout__BranchI__1C1D2798">
+    <End Role="Branch" Type="Self.Branch" Multiplicity="0..1" />
+    <End Role="Workout" Type="Self.Workout" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Branch">
+        <PropertyRef Name="BranchId" />
+      </Principal>
+      <Dependent Role="Workout">
+        <PropertyRef Name="BranchId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__WorkoutPl__Branc__147C05D0">
+    <End Role="Branch" Type="Self.Branch" Multiplicity="0..1" />
+    <End Role="WorkoutPlanName" Type="Self.WorkoutPlanName" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Branch">
+        <PropertyRef Name="BranchId" />
+      </Principal>
+      <Dependent Role="WorkoutPlanName">
+        <PropertyRef Name="BranchId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__CalendarI__Staff__35DCF99B">
+    <End Role="Staff" Type="Self.Staff" Multiplicity="0..1" />
+    <End Role="CalendarInstructor" Type="Self.CalendarInstructor" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Staff">
+        <PropertyRef Name="StaffId" />
+      </Principal>
+      <Dependent Role="CalendarInstructor">
+        <PropertyRef Name="StaffId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__CalendarM__Membe__38B96646">
+    <End Role="MemberInfo" Type="Self.MemberInfo" Multiplicity="0..1" />
+    <End Role="CalendarMember" Type="Self.CalendarMember" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MemberInfo">
+        <PropertyRef Name="MemberID" />
+      </Principal>
+      <Dependent Role="CalendarMember">
+        <PropertyRef Name="MemberId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Category__GymId__42E1EEFE">
+    <End Role="GymList" Type="Self.GymList" Multiplicity="0..1" />
+    <End Role="Category" Type="Self.Category" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="GymList">
+        <PropertyRef Name="Gymid" />
+      </Principal>
+      <Dependent Role="Category">
+        <PropertyRef Name="GymId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Classes__GymId__6A85CC04">
+    <End Role="GymList" Type="Self.GymList" Multiplicity="0..1" />
+    <End Role="Classes" Type="Self.Class" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="GymList">
+        <PropertyRef Name="Gymid" />
+      </Principal>
+      <Dependent Role="Classes">
+        <PropertyRef Name="GymId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__ClassTimi__Class__025D5595">
+    <End Role="Classes" Type="Self.Class" Multiplicity="0..1" />
+    <End Role="ClassTiming" Type="Self.ClassTiming" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Classes">
+        <PropertyRef Name="ClassId" />
+      </Principal>
+      <Dependent Role="ClassTiming">
+        <PropertyRef Name="ClassId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__ClassTimi__GymId__7F80E8EA">
+    <End Role="GymList" Type="Self.GymList" Multiplicity="0..1" />
+    <End Role="ClassTiming" Type="Self.ClassTiming" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="GymList">
+        <PropertyRef Name="Gymid" />
+      </Principal>
+      <Dependent Role="ClassTiming">
+        <PropertyRef Name="GymId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__ClassTimi__Staff__0169315C">
+    <End Role="Staff" Type="Self.Staff" Multiplicity="0..1" />
+    <End Role="ClassTiming" Type="Self.ClassTiming" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Staff">
+        <PropertyRef Name="StaffId" />
+      </Principal>
+      <Dependent Role="ClassTiming">
+        <PropertyRef Name="StaffId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__DeletAppo__GymId__65C116E7">
+    <End Role="GymList" Type="Self.GymList" Multiplicity="0..1" />
+    <End Role="DeletAppointmentSlot" Type="Self.DeletAppointmentSlot" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="GymList">
+        <PropertyRef Name="Gymid" />
+      </Principal>
+      <Dependent Role="DeletAppointmentSlot">
+        <PropertyRef Name="GymId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Diet__DietPlanId__625A9A57">
+    <End Role="DietPlanName" Type="Self.DietPlanName" Multiplicity="0..1" />
+    <End Role="Diet" Type="Self.Diet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="DietPlanName">
+        <PropertyRef Name="DietPlanId" />
+      </Principal>
+      <Dependent Role="Diet">
+        <PropertyRef Name="DietPlanId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__DietPlanN__GymId__5F7E2DAC">
+    <End Role="GymList" Type="Self.GymList" Multiplicity="0..1" />
+    <End Role="DietPlanName" Type="Self.DietPlanName" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="GymList">
+        <PropertyRef Name="Gymid" />
+      </Principal>
+      <Dependent Role="DietPlanName">
+        <PropertyRef Name="GymId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__MemberDie__DietP__0880433F">
+    <End Role="DietPlanName" Type="Self.DietPlanName" Multiplicity="0..1" />
+    <End Role="MemberDietPlan" Type="Self.MemberDietPlan" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="DietPlanName">
+        <PropertyRef Name="DietPlanId" />
+      </Principal>
+      <Dependent Role="MemberDietPlan">
+        <PropertyRef Name="DietPlanId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Enquiry__GymId__756D6ECB">
+    <End Role="GymList" Type="Self.GymList" Multiplicity="0..1" />
+    <End Role="Enquiry" Type="Self.Enquiry" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="GymList">
+        <PropertyRef Name="Gymid" />
+      </Principal>
+      <Dependent Role="Enquiry">
+        <PropertyRef Name="GymId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Followup__Enquir__22AA2996">
+    <End Role="Enquiry" Type="Self.Enquiry" Multiplicity="0..1" />
+    <End Role="Followup" Type="Self.Followup" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Enquiry">
+        <PropertyRef Name="EnquiryId" />
+      </Principal>
+      <Dependent Role="Followup">
+        <PropertyRef Name="EnquiryId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Events__GymId__2A6B46EF">
+    <End Role="GymList" Type="Self.GymList" Multiplicity="0..1" />
+    <End Role="Events" Type="Self.Event" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="GymList">
+        <PropertyRef Name="Gymid" />
+      </Principal>
+      <Dependent Role="Events">
+        <PropertyRef Name="GymId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Expenses__Expens__2AD55B43">
+    <End Role="ExpensesType" Type="Self.ExpensesType" Multiplicity="0..1" />
+    <End Role="Expenses" Type="Self.Expens" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ExpensesType">
+        <PropertyRef Name="ExpenseTypeId" />
+      </Principal>
+      <Dependent Role="Expenses">
+        <PropertyRef Name="ExpenseTypeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Expenses__GymId__2BC97F7C">
+    <End Role="GymList" Type="Self.GymList" Multiplicity="0..1" />
+    <End Role="Expenses" Type="Self.Expens" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="GymList">
+        <PropertyRef Name="Gymid" />
+      </Principal>
+      <Dependent Role="Expenses">
+        <PropertyRef Name="GymId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__ExpensesT__GymId__27F8EE98">
+    <End Role="GymList" Type="Self.GymList" Multiplicity="0..1" />
+    <End Role="ExpensesType" Type="Self.ExpensesType" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="GymList">
+        <PropertyRef Name="Gymid" />
+      </Principal>
+      <Dependent Role="ExpensesType">
+        <PropertyRef Name="GymId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__SelectedP__Packa__2DE6D218">
+    <End Role="GymAllPackages" Type="Self.GymAllPackage" Multiplicity="0..1" />
+    <End Role="SelectedPackage" Type="Self.SelectedPackage" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="GymAllPackages">
+        <PropertyRef Name="Package" />
+      </Principal>
+      <Dependent Role="SelectedPackage">
+        <PropertyRef Name="Package" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__GymAmenit__GymId__6F7F8B4B">
+    <End Role="GymList" Type="Self.GymList" Multiplicity="0..1" />
+    <End Role="GymAmenities" Type="Self.GymAmenity" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="GymList">
+        <PropertyRef Name="Gymid" />
+      </Principal>
+      <Dependent Role="GymAmenities">
+        <PropertyRef Name="GymId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__GymEquipm__GymId__725BF7F6">
+    <End Role="GymList" Type="Self.GymList" Multiplicity="0..1" />
+    <End Role="GymEquipment" Type="Self.GymEquipment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="GymList">
+        <PropertyRef Name="Gymid" />
+      </Principal>
+      <Dependent Role="GymEquipment">
+        <PropertyRef Name="GymId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__GymImage__GymId__2116E6DF">
+    <End Role="GymList" Type="Self.GymList" Multiplicity="0..1" />
+    <End Role="GymImage" Type="Self.GymImage" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="GymList">
+        <PropertyRef Name="Gymid" />
+      </Principal>
+      <Dependent Role="GymImage">
+        <PropertyRef Name="GymId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__GymLogin__GymId__208CD6FA">
+    <End Role="GymList" Type="Self.GymList" Multiplicity="0..1" />
+    <End Role="GymLogin" Type="Self.GymLogin" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="GymList">
+        <PropertyRef Name="Gymid" />
+      </Principal>
+      <Dependent Role="GymLogin">
+        <PropertyRef Name="GymId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__GymPackag__GymId__32AB8735">
+    <End Role="GymList" Type="Self.GymList" Multiplicity="0..1" />
+    <End Role="GymPackage" Type="Self.GymPackage" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="GymList">
+        <PropertyRef Name="Gymid" />
+      </Principal>
+      <Dependent Role="GymPackage">
+        <PropertyRef Name="GymId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__GymPaymen__GymId__1DB06A4F">
+    <End Role="GymList" Type="Self.GymList" Multiplicity="0..1" />
+    <End Role="GymPayment" Type="Self.GymPayment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="GymList">
+        <PropertyRef Name="Gymid" />
+      </Principal>
+      <Dependent Role="GymPayment">
+        <PropertyRef Name="GymId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__GymServic__GymId__31B762FC">
+    <End Role="GymList" Type="Self.GymList" Multiplicity="0..1" />
+    <End Role="GymServiceList" Type="Self.GymServiceList" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="GymList">
+        <PropertyRef Name="Gymid" />
+      </Principal>
+      <Dependent Role="GymServiceList">
+        <PropertyRef Name="GymId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__MealTime__GymId__65370702">
+    <End Role="GymList" Type="Self.GymList" Multiplicity="0..1" />
+    <End Role="MealTime" Type="Self.MealTime" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="GymList">
+        <PropertyRef Name="Gymid" />
+      </Principal>
+      <Dependent Role="MealTime">
+        <PropertyRef Name="GymId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__MemberInf__GymId__339FAB6E">
+    <End Role="GymList" Type="Self.GymList" Multiplicity="0..1" />
+    <End Role="MemberInfo" Type="Self.MemberInfo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="GymList">
+        <PropertyRef Name="Gymid" />
+      </Principal>
+      <Dependent Role="MemberInfo">
+        <PropertyRef Name="GymId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Membershi__GymId__3A4CA8FD">
+    <End Role="GymList" Type="Self.GymList" Multiplicity="0..1" />
+    <End Role="MembershipOffers" Type="Self.MembershipOffer" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="GymList">
+        <PropertyRef Name="Gymid" />
+      </Principal>
+      <Dependent Role="MembershipOffers">
+        <PropertyRef Name="GymId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__MemberTim__GymId__24285DB4">
+    <End Role="GymList" Type="Self.GymList" Multiplicity="0..1" />
+    <End Role="MemberTimeSheet" Type="Self.MemberTimeSheet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="GymList">
+        <PropertyRef Name="Gymid" />
+      </Principal>
+      <Dependent Role="MemberTimeSheet">
+        <PropertyRef Name="GymId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Product__GymId__367C1819">
+    <End Role="GymList" Type="Self.GymList" Multiplicity="0..1" />
+    <End Role="Product" Type="Self.Product" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="GymList">
+        <PropertyRef Name="Gymid" />
+      </Principal>
+      <Dependent Role="Product">
+        <PropertyRef Name="GymId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__PurchaseO__GymId__793DFFAF">
+    <End Role="GymList" Type="Self.GymList" Multiplicity="0..1" />
+    <End Role="PurchaseOrder" Type="Self.PurchaseOrder" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="GymList">
+        <PropertyRef Name="Gymid" />
+      </Principal>
+      <Dependent Role="PurchaseOrder">
+        <PropertyRef Name="GymId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Scheduler__GymId__5A846E65">
+    <End Role="GymList" Type="Self.GymList" Multiplicity="0..1" />
+    <End Role="Scheduler" Type="Self.Scheduler" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="GymList">
+        <PropertyRef Name="Gymid" />
+      </Principal>
+      <Dependent Role="Scheduler">
+        <PropertyRef Name="GymId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__SelectedP__GymId__2EDAF651">
+    <End Role="GymList" Type="Self.GymList" Multiplicity="0..1" />
+    <End Role="SelectedPackage" Type="Self.SelectedPackage" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="GymList">
+        <PropertyRef Name="Gymid" />
+      </Principal>
+      <Dependent Role="SelectedPackage">
+        <PropertyRef Name="GymId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Staff__GymId__1209AD79">
+    <End Role="GymList" Type="Self.GymList" Multiplicity="0..1" />
+    <End Role="Staff" Type="Self.Staff" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="GymList">
+        <PropertyRef Name="Gymid" />
+      </Principal>
+      <Dependent Role="Staff">
+        <PropertyRef Name="GymId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Stock__GymId__5CA1C101">
+    <End Role="GymList" Type="Self.GymList" Multiplicity="0..1" />
+    <End Role="Stock" Type="Self.Stock" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="GymList">
+        <PropertyRef Name="Gymid" />
+      </Principal>
+      <Dependent Role="Stock">
+        <PropertyRef Name="GymId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Supplier__GymId__395884C4">
+    <End Role="GymList" Type="Self.GymList" Multiplicity="0..1" />
+    <End Role="Supplier" Type="Self.Supplier" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="GymList">
+        <PropertyRef Name="Gymid" />
+      </Principal>
+      <Dependent Role="Supplier">
+        <PropertyRef Name="GymId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Task__GymId__40058253">
+    <End Role="GymList" Type="Self.GymList" Multiplicity="0..1" />
+    <End Role="Task" Type="Self.Task" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="GymList">
+        <PropertyRef Name="Gymid" />
+      </Principal>
+      <Dependent Role="Task">
+        <PropertyRef Name="GymId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Workout__GymId__503BEA1C">
+    <End Role="GymList" Type="Self.GymList" Multiplicity="0..1" />
+    <End Role="Workout" Type="Self.Workout" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="GymList">
+        <PropertyRef Name="Gymid" />
+      </Principal>
+      <Dependent Role="Workout">
+        <PropertyRef Name="GymId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__WorkoutPl__GymId__540C7B00">
+    <End Role="GymList" Type="Self.GymList" Multiplicity="0..1" />
+    <End Role="WorkoutPlanName" Type="Self.WorkoutPlanName" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="GymList">
+        <PropertyRef Name="Gymid" />
+      </Principal>
+      <Dependent Role="WorkoutPlanName">
+        <PropertyRef Name="GymId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__GymPaymen__Packa__1CBC4616">
+    <End Role="GymPackage" Type="Self.GymPackage" Multiplicity="0..1" />
+    <End Role="GymPayment" Type="Self.GymPayment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="GymPackage">
+        <PropertyRef Name="PackageId" />
+      </Principal>
+      <Dependent Role="GymPayment">
+        <PropertyRef Name="PackageId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Measureme__Membe__4F47C5E3">
+    <End Role="MemberInfo" Type="Self.MemberInfo" Multiplicity="0..1" />
+    <End Role="Measurement" Type="Self.Measurement" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MemberInfo">
+        <PropertyRef Name="MemberID" />
+      </Principal>
+      <Dependent Role="Measurement">
+        <PropertyRef Name="MemberID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__MemberDie__Membe__09746778">
+    <End Role="MemberInfo" Type="Self.MemberInfo" Multiplicity="0..1" />
+    <End Role="MemberDietPlan" Type="Self.MemberDietPlan" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MemberInfo">
+        <PropertyRef Name="MemberID" />
+      </Principal>
+      <Dependent Role="MemberDietPlan">
+        <PropertyRef Name="MemberID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__MemberFre__Membe__414EAC47">
+    <End Role="MemberShip" Type="Self.MemberShip" Multiplicity="0..1" />
+    <End Role="MemberFreeze" Type="Self.MemberFreeze" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MemberShip">
+        <PropertyRef Name="MembershipId" />
+      </Principal>
+      <Dependent Role="MemberFreeze">
+        <PropertyRef Name="MemberShipId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__MemberIma__Membe__38996AB5">
+    <End Role="MemberInfo" Type="Self.MemberInfo" Multiplicity="0..1" />
+    <End Role="MemberImage" Type="Self.MemberImage" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MemberInfo">
+        <PropertyRef Name="MemberID" />
+      </Principal>
+      <Dependent Role="MemberImage">
+        <PropertyRef Name="MemberId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__MemberShi__Membe__1DE57479">
+    <End Role="MemberInfo" Type="Self.MemberInfo" Multiplicity="0..1" />
+    <End Role="MemberShip" Type="Self.MemberShip" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MemberInfo">
+        <PropertyRef Name="MemberID" />
+      </Principal>
+      <Dependent Role="MemberShip">
+        <PropertyRef Name="MemberID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__MemberTim__Membe__2334397B">
+    <End Role="MemberInfo" Type="Self.MemberInfo" Multiplicity="0..1" />
+    <End Role="MemberTimeSheet" Type="Self.MemberTimeSheet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MemberInfo">
+        <PropertyRef Name="MemberID" />
+      </Principal>
+      <Dependent Role="MemberTimeSheet">
+        <PropertyRef Name="MemberID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__MemberWor__Membe__5AB9788F">
+    <End Role="MemberInfo" Type="Self.MemberInfo" Multiplicity="0..1" />
+    <End Role="MemberWorkoutPlan" Type="Self.MemberWorkoutPlan" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MemberInfo">
+        <PropertyRef Name="MemberID" />
+      </Principal>
+      <Dependent Role="MemberWorkoutPlan">
+        <PropertyRef Name="MemberID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Payment__MemberI__1920BF5C">
+    <End Role="MemberInfo" Type="Self.MemberInfo" Multiplicity="0..1" />
+    <End Role="Payment" Type="Self.Payment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MemberInfo">
+        <PropertyRef Name="MemberID" />
+      </Principal>
+      <Dependent Role="Payment">
+        <PropertyRef Name="MemberID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Scheduler__Membe__589C25F3">
+    <End Role="MemberInfo" Type="Self.MemberInfo" Multiplicity="0..1" />
+    <End Role="Scheduler" Type="Self.Scheduler" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MemberInfo">
+        <PropertyRef Name="MemberID" />
+      </Principal>
+      <Dependent Role="Scheduler">
+        <PropertyRef Name="MemberId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Tranfer__Transfe__2D27B809">
+    <End Role="MemberInfo" Type="Self.MemberInfo" Multiplicity="0..1" />
+    <End Role="Tranfer" Type="Self.Tranfer" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MemberInfo">
+        <PropertyRef Name="MemberID" />
+      </Principal>
+      <Dependent Role="Tranfer">
+        <PropertyRef Name="TransferFrom" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Tranfer__Transfe__2E1BDC42">
+    <End Role="MemberInfo" Type="Self.MemberInfo" Multiplicity="0..1" />
+    <End Role="Tranfer" Type="Self.Tranfer" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MemberInfo">
+        <PropertyRef Name="MemberID" />
+      </Principal>
+      <Dependent Role="Tranfer">
+        <PropertyRef Name="TransferTo" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Payment__Members__3F466844">
+    <End Role="MemberShip" Type="Self.MemberShip" Multiplicity="0..1" />
+    <End Role="Payment" Type="Self.Payment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MemberShip">
+        <PropertyRef Name="MembershipId" />
+      </Principal>
+      <Dependent Role="Payment">
+        <PropertyRef Name="MembershipId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__MemberWor__Plane__59C55456">
+    <End Role="WorkoutPlanName" Type="Self.WorkoutPlanName" Multiplicity="0..1" />
+    <End Role="MemberWorkoutPlan" Type="Self.MemberWorkoutPlan" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="WorkoutPlanName">
+        <PropertyRef Name="PlaneNameId" />
+      </Principal>
+      <Dependent Role="MemberWorkoutPlan">
+        <PropertyRef Name="PlaneNameId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Orders__Purchase__7C1A6C5A">
+    <End Role="PurchaseOrder" Type="Self.PurchaseOrder" Multiplicity="0..1" />
+    <End Role="Orders" Type="Self.Order" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PurchaseOrder">
+        <PropertyRef Name="PurchaseOrderId" />
+      </Principal>
+      <Dependent Role="Orders">
+        <PropertyRef Name="PurchaseOrderId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__PurchaseO__Produ__251C81ED">
+    <End Role="Product" Type="Self.Product" Multiplicity="0..1" />
+    <End Role="PurchaseOrderDetail" Type="Self.PurchaseOrderDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Product">
+        <PropertyRef Name="ProductId" />
+      </Principal>
+      <Dependent Role="PurchaseOrderDetail">
+        <PropertyRef Name="ProductId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Stock__ProductId__5BAD9CC8">
+    <End Role="Product" Type="Self.Product" Multiplicity="0..1" />
+    <End Role="Stock" Type="Self.Stock" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Product">
+        <PropertyRef Name="ProductId" />
+      </Principal>
+      <Dependent Role="Stock">
+        <PropertyRef Name="ProductId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__PurchaseO__Purch__2057CCD0">
+    <End Role="PurchaseOrderHeader" Type="Self.PurchaseOrderHeader" Multiplicity="0..1" />
+    <End Role="PurchaseOrderDetail" Type="Self.PurchaseOrderDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PurchaseOrderHeader">
+        <PropertyRef Name="PurchaseId" />
+      </Principal>
+      <Dependent Role="PurchaseOrderDetail">
+        <PropertyRef Name="PurchaseId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__PurchaseO__Staff__3C89F72A">
+    <End Role="Staff" Type="Self.Staff" Multiplicity="0..1" />
+    <End Role="PurchaseOrderHeader" Type="Self.PurchaseOrderHeader" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Staff">
+        <PropertyRef Name="StaffId" />
+      </Principal>
+      <Dependent Role="PurchaseOrderHeader">
+        <PropertyRef Name="StaffId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Scheduler__Staff__59904A2C">
+    <End Role="Staff" Type="Self.Staff" Multiplicity="0..1" />
+    <End Role="Scheduler" Type="Self.Scheduler" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Staff">
+        <PropertyRef Name="StaffId" />
+      </Principal>
+      <Dependent Role="Scheduler">
+        <PropertyRef Name="StaffId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__StaffShif__Shift__5812160E">
+    <End Role="ShiftType" Type="Self.ShiftType" Multiplicity="0..1" />
+    <End Role="StaffShift" Type="Self.StaffShift" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ShiftType">
+        <PropertyRef Name="ShiftId" />
+      </Principal>
+      <Dependent Role="StaffShift">
+        <PropertyRef Name="ShiftId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__StaffBran__Staff__5AEE82B9">
+    <End Role="Staff" Type="Self.Staff" Multiplicity="0..1" />
+    <End Role="StaffBranch" Type="Self.StaffBranch" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Staff">
+        <PropertyRef Name="StaffId" />
+      </Principal>
+      <Dependent Role="StaffBranch">
+        <PropertyRef Name="StaffId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__StaffLogi__Staff__4CA06362">
+    <End Role="Staff" Type="Self.Staff" Multiplicity="0..1" />
+    <End Role="StaffLogin" Type="Self.StaffLogin" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Staff">
+        <PropertyRef Name="StaffId" />
+      </Principal>
+      <Dependent Role="StaffLogin">
+        <PropertyRef Name="StaffId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__StaffShif__Staff__571DF1D5">
+    <End Role="Staff" Type="Self.Staff" Multiplicity="0..1" />
+    <End Role="StaffShift" Type="Self.StaffShift" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Staff">
+        <PropertyRef Name="StaffId" />
+      </Principal>
+      <Dependent Role="StaffShift">
+        <PropertyRef Name="StaffId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__TrainerDe__Staff__3B95D2F1">
+    <End Role="Staff" Type="Self.Staff" Multiplicity="0..1" />
+    <End Role="TrainerDetails" Type="Self.TrainerDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Staff">
+        <PropertyRef Name="StaffId" />
+      </Principal>
+      <Dependent Role="TrainerDetails">
+        <PropertyRef Name="StaffId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__WorkoutPl__Plane__56E8E7AB">
+    <End Role="WorkoutPlanName" Type="Self.WorkoutPlanName" Multiplicity="0..1" />
+    <End Role="WorkoutPlan" Type="Self.WorkoutPlan" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="WorkoutPlanName">
+        <PropertyRef Name="PlaneNameId" />
+      </Principal>
+      <Dependent Role="WorkoutPlan">
+        <PropertyRef Name="PlaneNameId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="JustbokEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Amenities" EntityType="Self.Amenity" />
+    <EntitySet Name="Appointments" EntityType="Self.Appointment" />
+    <EntitySet Name="AppointmentBills" EntityType="Self.AppointmentBill" />
+    <EntitySet Name="AppointmentSlabs" EntityType="Self.AppointmentSlab" />
+    <EntitySet Name="AppointmentSlots" EntityType="Self.AppointmentSlot" />
+    <EntitySet Name="AppointmentSlotConfigs" EntityType="Self.AppointmentSlotConfig" />
+    <EntitySet Name="AppointmentSlotPatterns" EntityType="Self.AppointmentSlotPattern" />
+    <EntitySet Name="AppointmentStaffs" EntityType="Self.AppointmentStaff" />
+    <EntitySet Name="BookAppointments" EntityType="Self.BookAppointment" />
+    <EntitySet Name="Branches" EntityType="Self.Branch" />
+    <EntitySet Name="CalendarInstructors" EntityType="Self.CalendarInstructor" />
+    <EntitySet Name="CalendarMembers" EntityType="Self.CalendarMember" />
+    <EntitySet Name="Categories" EntityType="Self.Category" />
+    <EntitySet Name="Classes" EntityType="Self.Class" />
+    <EntitySet Name="ClassTimings" EntityType="Self.ClassTiming" />
+    <EntitySet Name="DeletAppointmentSlots" EntityType="Self.DeletAppointmentSlot" />
+    <EntitySet Name="Diets" EntityType="Self.Diet" />
+    <EntitySet Name="DietPlanNames" EntityType="Self.DietPlanName" />
+    <EntitySet Name="Enquiries" EntityType="Self.Enquiry" />
+    <EntitySet Name="Equipments" EntityType="Self.Equipment" />
+    <EntitySet Name="Events" EntityType="Self.Event" />
+    <EntitySet Name="ExpenseModes" EntityType="Self.ExpenseMode" />
+    <EntitySet Name="Expenses" EntityType="Self.Expens" />
+    <EntitySet Name="ExpensesTypes" EntityType="Self.ExpensesType" />
+    <EntitySet Name="Followups" EntityType="Self.Followup" />
+    <EntitySet Name="GymAdmins" EntityType="Self.GymAdmin" />
+    <EntitySet Name="GymAllPackages" EntityType="Self.GymAllPackage" />
+    <EntitySet Name="GymAmenities" EntityType="Self.GymAmenity" />
+    <EntitySet Name="GymEquipments" EntityType="Self.GymEquipment" />
+    <EntitySet Name="GymImages" EntityType="Self.GymImage" />
+    <EntitySet Name="GymLists" EntityType="Self.GymList" />
+    <EntitySet Name="GymLogins" EntityType="Self.GymLogin" />
+    <EntitySet Name="GymPackages" EntityType="Self.GymPackage" />
+    <EntitySet Name="GymPayments" EntityType="Self.GymPayment" />
+    <EntitySet Name="GymServiceLists" EntityType="Self.GymServiceList" />
+    <EntitySet Name="MealTimes" EntityType="Self.MealTime" />
+    <EntitySet Name="Measurements" EntityType="Self.Measurement" />
+    <EntitySet Name="MemberDietPlans" EntityType="Self.MemberDietPlan" />
+    <EntitySet Name="MemberFreezes" EntityType="Self.MemberFreeze" />
+    <EntitySet Name="MemberImages" EntityType="Self.MemberImage" />
+    <EntitySet Name="MemberInfoes" EntityType="Self.MemberInfo" />
+    <EntitySet Name="MemberShips" EntityType="Self.MemberShip" />
+    <EntitySet Name="MembershipOffers" EntityType="Self.MembershipOffer" />
+    <EntitySet Name="MemberTimeSheets" EntityType="Self.MemberTimeSheet" />
+    <EntitySet Name="MemberWorkoutPlans" EntityType="Self.MemberWorkoutPlan" />
+    <EntitySet Name="Orders" EntityType="Self.Order" />
+    <EntitySet Name="Payments" EntityType="Self.Payment" />
+    <EntitySet Name="Products" EntityType="Self.Product" />
+    <EntitySet Name="PurchaseOrders" EntityType="Self.PurchaseOrder" />
+    <EntitySet Name="PurchaseOrderDetails" EntityType="Self.PurchaseOrderDetail" />
+    <EntitySet Name="PurchaseOrderHeaders" EntityType="Self.PurchaseOrderHeader" />
+    <EntitySet Name="Schedulers" EntityType="Self.Scheduler" />
+    <EntitySet Name="SelectedPackages" EntityType="Self.SelectedPackage" />
+    <EntitySet Name="ShiftTypes" EntityType="Self.ShiftType" />
+    <EntitySet Name="Staffs" EntityType="Self.Staff" />
+    <EntitySet Name="StaffBranches" EntityType="Self.StaffBranch" />
+    <EntitySet Name="StaffLogins" EntityType="Self.StaffLogin" />
+    <EntitySet Name="StaffShifts" EntityType="Self.StaffShift" />
+    <EntitySet Name="Stocks" EntityType="Self.Stock" />
+    <EntitySet Name="Suppliers" EntityType="Self.Supplier" />
+    <EntitySet Name="Tasks" EntityType="Self.Task" />
+    <EntitySet Name="TaxTypes" EntityType="Self.TaxType" />
+    <EntitySet Name="TrainerDetails" EntityType="Self.TrainerDetail" />
+    <EntitySet Name="Tranfers" EntityType="Self.Tranfer" />
+    <EntitySet Name="Workouts" EntityType="Self.Workout" />
+    <EntitySet Name="WorkoutPlans" EntityType="Self.WorkoutPlan" />
+    <EntitySet Name="WorkoutPlanNames" EntityType="Self.WorkoutPlanName" />
+    <AssociationSet Name="FK__Appointme__Appoi__12C8C788" Association="Self.FK__Appointme__Appoi__12C8C788">
+      <End Role="Appointment" EntitySet="Appointments" />
+      <End Role="AppointmentSlotConfig" EntitySet="AppointmentSlotConfigs" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Appointme__Appoi__6319B466" Association="Self.FK__Appointme__Appoi__6319B466">
+      <End Role="Appointment" EntitySet="Appointments" />
+      <End Role="AppointmentStaff" EntitySet="AppointmentStaffs" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Appointme__Appoi__66EA454A" Association="Self.FK__Appointme__Appoi__66EA454A">
+      <End Role="Appointment" EntitySet="Appointments" />
+      <End Role="AppointmentSlab" EntitySet="AppointmentSlabs" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Appointme__Branc__090A5324" Association="Self.FK__Appointme__Branc__090A5324">
+      <End Role="Branch" EntitySet="Branches" />
+      <End Role="Appointment" EntitySet="Appointments" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Appointme__GymId__603D47BB" Association="Self.FK__Appointme__GymId__603D47BB">
+      <End Role="GymList" EntitySet="GymLists" />
+      <End Role="Appointment" EntitySet="Appointments" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Appointme__TaxTy__5F492382" Association="Self.FK__Appointme__TaxTy__5F492382">
+      <End Role="TaxType" EntitySet="TaxTypes" />
+      <End Role="Appointment" EntitySet="Appointments" />
+    </AssociationSet>
+    <AssociationSet Name="FK__BookAppoi__Confi__1A69E950" Association="Self.FK__BookAppoi__Confi__1A69E950">
+      <End Role="Appointment" EntitySet="Appointments" />
+      <End Role="BookAppointment" EntitySet="BookAppointments" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Appointme__Booki__1E3A7A34" Association="Self.FK__Appointme__Booki__1E3A7A34">
+      <End Role="BookAppointment" EntitySet="BookAppointments" />
+      <End Role="AppointmentBills" EntitySet="AppointmentBills" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Appointme__Branc__062DE679" Association="Self.FK__Appointme__Branc__062DE679">
+      <End Role="Branch" EntitySet="Branches" />
+      <End Role="AppointmentSlot" EntitySet="AppointmentSlots" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Appointme__GymId__0EF836A4" Association="Self.FK__Appointme__GymId__0EF836A4">
+      <End Role="GymList" EntitySet="GymLists" />
+      <End Role="AppointmentSlot" EntitySet="AppointmentSlots" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Appointme__SlotI__11D4A34F" Association="Self.FK__Appointme__SlotI__11D4A34F">
+      <End Role="AppointmentSlot" EntitySet="AppointmentSlots" />
+      <End Role="AppointmentSlotConfig" EntitySet="AppointmentSlotConfigs" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Appointme__SlotI__15A53433" Association="Self.FK__Appointme__SlotI__15A53433">
+      <End Role="AppointmentSlot" EntitySet="AppointmentSlots" />
+      <End Role="AppointmentSlotPattern" EntitySet="AppointmentSlotPatterns" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Appointme__Staff__0E04126B" Association="Self.FK__Appointme__Staff__0E04126B">
+      <End Role="Staff" EntitySet="Staffs" />
+      <End Role="AppointmentSlot" EntitySet="AppointmentSlots" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Appointme__Staff__640DD89F" Association="Self.FK__Appointme__Staff__640DD89F">
+      <End Role="Staff" EntitySet="Staffs" />
+      <End Role="AppointmentStaff" EntitySet="AppointmentStaffs" />
+    </AssociationSet>
+    <AssociationSet Name="FK__BookAppoi__Branc__0539C240" Association="Self.FK__BookAppoi__Branc__0539C240">
+      <End Role="Branch" EntitySet="Branches" />
+      <End Role="BookAppointment" EntitySet="BookAppointments" />
+    </AssociationSet>
+    <AssociationSet Name="FK__BookAppoi__GymId__1B5E0D89" Association="Self.FK__BookAppoi__GymId__1B5E0D89">
+      <End Role="GymList" EntitySet="GymLists" />
+      <End Role="BookAppointment" EntitySet="BookAppointments" />
+    </AssociationSet>
+    <AssociationSet Name="FK__BookAppoi__Membe__1881A0DE" Association="Self.FK__BookAppoi__Membe__1881A0DE">
+      <End Role="MemberInfo" EntitySet="MemberInfoes" />
+      <End Role="BookAppointment" EntitySet="BookAppointments" />
+    </AssociationSet>
+    <AssociationSet Name="FK__BookAppoi__Staff__1975C517" Association="Self.FK__BookAppoi__Staff__1975C517">
+      <End Role="Staff" EntitySet="Staffs" />
+      <End Role="BookAppointment" EntitySet="BookAppointments" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Branch__GymId__76619304" Association="Self.FK__Branch__GymId__76619304">
+      <End Role="GymList" EntitySet="GymLists" />
+      <End Role="Branch" EntitySet="Branches" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Category__Branch__15702A09" Association="Self.FK__Category__Branch__15702A09">
+      <End Role="Branch" EntitySet="Branches" />
+      <End Role="Category" EntitySet="Categories" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Classes__BranchI__035179CE" Association="Self.FK__Classes__BranchI__035179CE">
+      <End Role="Branch" EntitySet="Branches" />
+      <End Role="Classes" EntitySet="Classes" />
+    </AssociationSet>
+    <AssociationSet Name="FK__ClassTimi__Branc__00750D23" Association="Self.FK__ClassTimi__Branc__00750D23">
+      <End Role="Branch" EntitySet="Branches" />
+      <End Role="ClassTiming" EntitySet="ClassTimings" />
+    </AssociationSet>
+    <AssociationSet Name="FK__DeletAppo__Branc__04459E07" Association="Self.FK__DeletAppo__Branc__04459E07">
+      <End Role="Branch" EntitySet="Branches" />
+      <End Role="DeletAppointmentSlot" EntitySet="DeletAppointmentSlots" />
+    </AssociationSet>
+    <AssociationSet Name="FK__DietPlanN__Branc__1387E197" Association="Self.FK__DietPlanN__Branc__1387E197">
+      <End Role="Branch" EntitySet="Branches" />
+      <End Role="DietPlanName" EntitySet="DietPlanNames" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Enquiry__BranchI__0BE6BFCF" Association="Self.FK__Enquiry__BranchI__0BE6BFCF">
+      <End Role="Branch" EntitySet="Branches" />
+      <End Role="Enquiry" EntitySet="Enquiries" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Events__BranchId__2B5F6B28" Association="Self.FK__Events__BranchId__2B5F6B28">
+      <End Role="Branch" EntitySet="Branches" />
+      <End Role="Events" EntitySet="Events" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Expenses__Branch__0CDAE408" Association="Self.FK__Expenses__Branch__0CDAE408">
+      <End Role="Branch" EntitySet="Branches" />
+      <End Role="Expenses" EntitySet="Expenses" />
+    </AssociationSet>
+    <AssociationSet Name="FK__ExpensesT__Branc__0DCF0841" Association="Self.FK__ExpensesT__Branc__0DCF0841">
+      <End Role="Branch" EntitySet="Branches" />
+      <End Role="ExpensesType" EntitySet="ExpensesTypes" />
+    </AssociationSet>
+    <AssociationSet Name="FK__GymAmenit__Branc__08162EEB" Association="Self.FK__GymAmenit__Branc__08162EEB">
+      <End Role="Branch" EntitySet="Branches" />
+      <End Role="GymAmenities" EntitySet="GymAmenities" />
+    </AssociationSet>
+    <AssociationSet Name="FK__GymEquipm__Branc__07220AB2" Association="Self.FK__GymEquipm__Branc__07220AB2">
+      <End Role="Branch" EntitySet="Branches" />
+      <End Role="GymEquipment" EntitySet="GymEquipments" />
+    </AssociationSet>
+    <AssociationSet Name="FK__GymPackag__Branc__0AF29B96" Association="Self.FK__GymPackag__Branc__0AF29B96">
+      <End Role="Branch" EntitySet="Branches" />
+      <End Role="GymPackage" EntitySet="GymPackages" />
+    </AssociationSet>
+    <AssociationSet Name="FK__GymServic__Branc__1A34DF26" Association="Self.FK__GymServic__Branc__1A34DF26">
+      <End Role="Branch" EntitySet="Branches" />
+      <End Role="GymServiceList" EntitySet="GymServiceLists" />
+    </AssociationSet>
+    <AssociationSet Name="FK__MealTime__Branch__1293BD5E" Association="Self.FK__MealTime__Branch__1293BD5E">
+      <End Role="Branch" EntitySet="Branches" />
+      <End Role="MealTime" EntitySet="MealTimes" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Membershi__Branc__16644E42" Association="Self.FK__Membershi__Branc__16644E42">
+      <End Role="Branch" EntitySet="Branches" />
+      <End Role="MembershipOffers" EntitySet="MembershipOffers" />
+    </AssociationSet>
+    <AssociationSet Name="FK__MemberTim__Branc__0EC32C7A" Association="Self.FK__MemberTim__Branc__0EC32C7A">
+      <End Role="Branch" EntitySet="Branches" />
+      <End Role="MemberTimeSheet" EntitySet="MemberTimeSheets" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Product__BranchI__1758727B" Association="Self.FK__Product__BranchI__1758727B">
+      <End Role="Branch" EntitySet="Branches" />
+      <End Role="Product" EntitySet="Products" />
+    </AssociationSet>
+    <AssociationSet Name="FK__PurchaseO__Branc__0FB750B3" Association="Self.FK__PurchaseO__Branc__0FB750B3">
+      <End Role="Branch" EntitySet="Branches" />
+      <End Role="PurchaseOrderHeader" EntitySet="PurchaseOrderHeaders" />
+    </AssociationSet>
+    <AssociationSet Name="FK__PurchaseO__Branc__119F9925" Association="Self.FK__PurchaseO__Branc__119F9925">
+      <End Role="Branch" EntitySet="Branches" />
+      <End Role="PurchaseOrder" EntitySet="PurchaseOrders" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Scheduler__Branc__09FE775D" Association="Self.FK__Scheduler__Branc__09FE775D">
+      <End Role="Branch" EntitySet="Branches" />
+      <End Role="Scheduler" EntitySet="Schedulers" />
+    </AssociationSet>
+    <AssociationSet Name="FK__SelectedP__Branc__1B29035F" Association="Self.FK__SelectedP__Branc__1B29035F">
+      <End Role="Branch" EntitySet="Branches" />
+      <End Role="SelectedPackage" EntitySet="SelectedPackages" />
+    </AssociationSet>
+    <AssociationSet Name="FK__StaffBran__Branc__5BE2A6F2" Association="Self.FK__StaffBran__Branc__5BE2A6F2">
+      <End Role="Branch" EntitySet="Branches" />
+      <End Role="StaffBranch" EntitySet="StaffBranches" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Stock__BranchId__1D114BD1" Association="Self.FK__Stock__BranchId__1D114BD1">
+      <End Role="Branch" EntitySet="Branches" />
+      <End Role="Stock" EntitySet="Stocks" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Supplier__Branch__1940BAED" Association="Self.FK__Supplier__Branch__1940BAED">
+      <End Role="Branch" EntitySet="Branches" />
+      <End Role="Supplier" EntitySet="Suppliers" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Task__BranchId__184C96B4" Association="Self.FK__Task__BranchId__184C96B4">
+      <End Role="Branch" EntitySet="Branches" />
+      <End Role="Task" EntitySet="Tasks" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Workout__BranchI__1C1D2798" Association="Self.FK__Workout__BranchI__1C1D2798">
+      <End Role="Branch" EntitySet="Branches" />
+      <End Role="Workout" EntitySet="Workouts" />
+    </AssociationSet>
+    <AssociationSet Name="FK__WorkoutPl__Branc__147C05D0" Association="Self.FK__WorkoutPl__Branc__147C05D0">
+      <End Role="Branch" EntitySet="Branches" />
+      <End Role="WorkoutPlanName" EntitySet="WorkoutPlanNames" />
+    </AssociationSet>
+    <AssociationSet Name="FK__CalendarI__Staff__35DCF99B" Association="Self.FK__CalendarI__Staff__35DCF99B">
+      <End Role="Staff" EntitySet="Staffs" />
+      <End Role="CalendarInstructor" EntitySet="CalendarInstructors" />
+    </AssociationSet>
+    <AssociationSet Name="FK__CalendarM__Membe__38B96646" Association="Self.FK__CalendarM__Membe__38B96646">
+      <End Role="MemberInfo" EntitySet="MemberInfoes" />
+      <End Role="CalendarMember" EntitySet="CalendarMembers" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Category__GymId__42E1EEFE" Association="Self.FK__Category__GymId__42E1EEFE">
+      <End Role="GymList" EntitySet="GymLists" />
+      <End Role="Category" EntitySet="Categories" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Classes__GymId__6A85CC04" Association="Self.FK__Classes__GymId__6A85CC04">
+      <End Role="GymList" EntitySet="GymLists" />
+      <End Role="Classes" EntitySet="Classes" />
+    </AssociationSet>
+    <AssociationSet Name="FK__ClassTimi__Class__025D5595" Association="Self.FK__ClassTimi__Class__025D5595">
+      <End Role="Classes" EntitySet="Classes" />
+      <End Role="ClassTiming" EntitySet="ClassTimings" />
+    </AssociationSet>
+    <AssociationSet Name="FK__ClassTimi__GymId__7F80E8EA" Association="Self.FK__ClassTimi__GymId__7F80E8EA">
+      <End Role="GymList" EntitySet="GymLists" />
+      <End Role="ClassTiming" EntitySet="ClassTimings" />
+    </AssociationSet>
+    <AssociationSet Name="FK__ClassTimi__Staff__0169315C" Association="Self.FK__ClassTimi__Staff__0169315C">
+      <End Role="Staff" EntitySet="Staffs" />
+      <End Role="ClassTiming" EntitySet="ClassTimings" />
+    </AssociationSet>
+    <AssociationSet Name="FK__DeletAppo__GymId__65C116E7" Association="Self.FK__DeletAppo__GymId__65C116E7">
+      <End Role="GymList" EntitySet="GymLists" />
+      <End Role="DeletAppointmentSlot" EntitySet="DeletAppointmentSlots" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Diet__DietPlanId__625A9A57" Association="Self.FK__Diet__DietPlanId__625A9A57">
+      <End Role="DietPlanName" EntitySet="DietPlanNames" />
+      <End Role="Diet" EntitySet="Diets" />
+    </AssociationSet>
+    <AssociationSet Name="FK__DietPlanN__GymId__5F7E2DAC" Association="Self.FK__DietPlanN__GymId__5F7E2DAC">
+      <End Role="GymList" EntitySet="GymLists" />
+      <End Role="DietPlanName" EntitySet="DietPlanNames" />
+    </AssociationSet>
+    <AssociationSet Name="FK__MemberDie__DietP__0880433F" Association="Self.FK__MemberDie__DietP__0880433F">
+      <End Role="DietPlanName" EntitySet="DietPlanNames" />
+      <End Role="MemberDietPlan" EntitySet="MemberDietPlans" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Enquiry__GymId__756D6ECB" Association="Self.FK__Enquiry__GymId__756D6ECB">
+      <End Role="GymList" EntitySet="GymLists" />
+      <End Role="Enquiry" EntitySet="Enquiries" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Followup__Enquir__22AA2996" Association="Self.FK__Followup__Enquir__22AA2996">
+      <End Role="Enquiry" EntitySet="Enquiries" />
+      <End Role="Followup" EntitySet="Followups" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Events__GymId__2A6B46EF" Association="Self.FK__Events__GymId__2A6B46EF">
+      <End Role="GymList" EntitySet="GymLists" />
+      <End Role="Events" EntitySet="Events" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Expenses__Expens__2AD55B43" Association="Self.FK__Expenses__Expens__2AD55B43">
+      <End Role="ExpensesType" EntitySet="ExpensesTypes" />
+      <End Role="Expenses" EntitySet="Expenses" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Expenses__GymId__2BC97F7C" Association="Self.FK__Expenses__GymId__2BC97F7C">
+      <End Role="GymList" EntitySet="GymLists" />
+      <End Role="Expenses" EntitySet="Expenses" />
+    </AssociationSet>
+    <AssociationSet Name="FK__ExpensesT__GymId__27F8EE98" Association="Self.FK__ExpensesT__GymId__27F8EE98">
+      <End Role="GymList" EntitySet="GymLists" />
+      <End Role="ExpensesType" EntitySet="ExpensesTypes" />
+    </AssociationSet>
+    <AssociationSet Name="FK__SelectedP__Packa__2DE6D218" Association="Self.FK__SelectedP__Packa__2DE6D218">
+      <End Role="GymAllPackages" EntitySet="GymAllPackages" />
+      <End Role="SelectedPackage" EntitySet="SelectedPackages" />
+    </AssociationSet>
+    <AssociationSet Name="FK__GymAmenit__GymId__6F7F8B4B" Association="Self.FK__GymAmenit__GymId__6F7F8B4B">
+      <End Role="GymList" EntitySet="GymLists" />
+      <End Role="GymAmenities" EntitySet="GymAmenities" />
+    </AssociationSet>
+    <AssociationSet Name="FK__GymEquipm__GymId__725BF7F6" Association="Self.FK__GymEquipm__GymId__725BF7F6">
+      <End Role="GymList" EntitySet="GymLists" />
+      <End Role="GymEquipment" EntitySet="GymEquipments" />
+    </AssociationSet>
+    <AssociationSet Name="FK__GymImage__GymId__2116E6DF" Association="Self.FK__GymImage__GymId__2116E6DF">
+      <End Role="GymList" EntitySet="GymLists" />
+      <End Role="GymImage" EntitySet="GymImages" />
+    </AssociationSet>
+    <AssociationSet Name="FK__GymLogin__GymId__208CD6FA" Association="Self.FK__GymLogin__GymId__208CD6FA">
+      <End Role="GymList" EntitySet="GymLists" />
+      <End Role="GymLogin" EntitySet="GymLogins" />
+    </AssociationSet>
+    <AssociationSet Name="FK__GymPackag__GymId__32AB8735" Association="Self.FK__GymPackag__GymId__32AB8735">
+      <End Role="GymList" EntitySet="GymLists" />
+      <End Role="GymPackage" EntitySet="GymPackages" />
+    </AssociationSet>
+    <AssociationSet Name="FK__GymPaymen__GymId__1DB06A4F" Association="Self.FK__GymPaymen__GymId__1DB06A4F">
+      <End Role="GymList" EntitySet="GymLists" />
+      <End Role="GymPayment" EntitySet="GymPayments" />
+    </AssociationSet>
+    <AssociationSet Name="FK__GymServic__GymId__31B762FC" Association="Self.FK__GymServic__GymId__31B762FC">
+      <End Role="GymList" EntitySet="GymLists" />
+      <End Role="GymServiceList" EntitySet="GymServiceLists" />
+    </AssociationSet>
+    <AssociationSet Name="FK__MealTime__GymId__65370702" Association="Self.FK__MealTime__GymId__65370702">
+      <End Role="GymList" EntitySet="GymLists" />
+      <End Role="MealTime" EntitySet="MealTimes" />
+    </AssociationSet>
+    <AssociationSet Name="FK__MemberInf__GymId__339FAB6E" Association="Self.FK__MemberInf__GymId__339FAB6E">
+      <End Role="GymList" EntitySet="GymLists" />
+      <End Role="MemberInfo" EntitySet="MemberInfoes" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Membershi__GymId__3A4CA8FD" Association="Self.FK__Membershi__GymId__3A4CA8FD">
+      <End Role="GymList" EntitySet="GymLists" />
+      <End Role="MembershipOffers" EntitySet="MembershipOffers" />
+    </AssociationSet>
+    <AssociationSet Name="FK__MemberTim__GymId__24285DB4" Association="Self.FK__MemberTim__GymId__24285DB4">
+      <End Role="GymList" EntitySet="GymLists" />
+      <End Role="MemberTimeSheet" EntitySet="MemberTimeSheets" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Product__GymId__367C1819" Association="Self.FK__Product__GymId__367C1819">
+      <End Role="GymList" EntitySet="GymLists" />
+      <End Role="Product" EntitySet="Products" />
+    </AssociationSet>
+    <AssociationSet Name="FK__PurchaseO__GymId__793DFFAF" Association="Self.FK__PurchaseO__GymId__793DFFAF">
+      <End Role="GymList" EntitySet="GymLists" />
+      <End Role="PurchaseOrder" EntitySet="PurchaseOrders" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Scheduler__GymId__5A846E65" Association="Self.FK__Scheduler__GymId__5A846E65">
+      <End Role="GymList" EntitySet="GymLists" />
+      <End Role="Scheduler" EntitySet="Schedulers" />
+    </AssociationSet>
+    <AssociationSet Name="FK__SelectedP__GymId__2EDAF651" Association="Self.FK__SelectedP__GymId__2EDAF651">
+      <End Role="GymList" EntitySet="GymLists" />
+      <End Role="SelectedPackage" EntitySet="SelectedPackages" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Staff__GymId__1209AD79" Association="Self.FK__Staff__GymId__1209AD79">
+      <End Role="GymList" EntitySet="GymLists" />
+      <End Role="Staff" EntitySet="Staffs" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Stock__GymId__5CA1C101" Association="Self.FK__Stock__GymId__5CA1C101">
+      <End Role="GymList" EntitySet="GymLists" />
+      <End Role="Stock" EntitySet="Stocks" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Supplier__GymId__395884C4" Association="Self.FK__Supplier__GymId__395884C4">
+      <End Role="GymList" EntitySet="GymLists" />
+      <End Role="Supplier" EntitySet="Suppliers" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Task__GymId__40058253" Association="Self.FK__Task__GymId__40058253">
+      <End Role="GymList" EntitySet="GymLists" />
+      <End Role="Task" EntitySet="Tasks" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Workout__GymId__503BEA1C" Association="Self.FK__Workout__GymId__503BEA1C">
+      <End Role="GymList" EntitySet="GymLists" />
+      <End Role="Workout" EntitySet="Workouts" />
+    </AssociationSet>
+    <AssociationSet Name="FK__WorkoutPl__GymId__540C7B00" Association="Self.FK__WorkoutPl__GymId__540C7B00">
+      <End Role="GymList" EntitySet="GymLists" />
+      <End Role="WorkoutPlanName" EntitySet="WorkoutPlanNames" />
+    </AssociationSet>
+    <AssociationSet Name="FK__GymPaymen__Packa__1CBC4616" Association="Self.FK__GymPaymen__Packa__1CBC4616">
+      <End Role="GymPackage" EntitySet="GymPackages" />
+      <End Role="GymPayment" EntitySet="GymPayments" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Measureme__Membe__4F47C5E3" Association="Self.FK__Measureme__Membe__4F47C5E3">
+      <End Role="MemberInfo" EntitySet="MemberInfoes" />
+      <End Role="Measurement" EntitySet="Measurements" />
+    </AssociationSet>
+    <AssociationSet Name="FK__MemberDie__Membe__09746778" Association="Self.FK__MemberDie__Membe__09746778">
+      <End Role="MemberInfo" EntitySet="MemberInfoes" />
+      <End Role="MemberDietPlan" EntitySet="MemberDietPlans" />
+    </AssociationSet>
+    <AssociationSet Name="FK__MemberFre__Membe__414EAC47" Association="Self.FK__MemberFre__Membe__414EAC47">
+      <End Role="MemberShip" EntitySet="MemberShips" />
+      <End Role="MemberFreeze" EntitySet="MemberFreezes" />
+    </AssociationSet>
+    <AssociationSet Name="FK__MemberIma__Membe__38996AB5" Association="Self.FK__MemberIma__Membe__38996AB5">
+      <End Role="MemberInfo" EntitySet="MemberInfoes" />
+      <End Role="MemberImage" EntitySet="MemberImages" />
+    </AssociationSet>
+    <AssociationSet Name="FK__MemberShi__Membe__1DE57479" Association="Self.FK__MemberShi__Membe__1DE57479">
+      <End Role="MemberInfo" EntitySet="MemberInfoes" />
+      <End Role="MemberShip" EntitySet="MemberShips" />
+    </AssociationSet>
+    <AssociationSet Name="FK__MemberTim__Membe__2334397B" Association="Self.FK__MemberTim__Membe__2334397B">
+      <End Role="MemberInfo" EntitySet="MemberInfoes" />
+      <End Role="MemberTimeSheet" EntitySet="MemberTimeSheets" />
+    </AssociationSet>
+    <AssociationSet Name="FK__MemberWor__Membe__5AB9788F" Association="Self.FK__MemberWor__Membe__5AB9788F">
+      <End Role="MemberInfo" EntitySet="MemberInfoes" />
+      <End Role="MemberWorkoutPlan" EntitySet="MemberWorkoutPlans" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Payment__MemberI__1920BF5C" Association="Self.FK__Payment__MemberI__1920BF5C">
+      <End Role="MemberInfo" EntitySet="MemberInfoes" />
+      <End Role="Payment" EntitySet="Payments" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Scheduler__Membe__589C25F3" Association="Self.FK__Scheduler__Membe__589C25F3">
+      <End Role="MemberInfo" EntitySet="MemberInfoes" />
+      <End Role="Scheduler" EntitySet="Schedulers" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Tranfer__Transfe__2D27B809" Association="Self.FK__Tranfer__Transfe__2D27B809">
+      <End Role="MemberInfo" EntitySet="MemberInfoes" />
+      <End Role="Tranfer" EntitySet="Tranfers" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Tranfer__Transfe__2E1BDC42" Association="Self.FK__Tranfer__Transfe__2E1BDC42">
+      <End Role="MemberInfo" EntitySet="MemberInfoes" />
+      <End Role="Tranfer" EntitySet="Tranfers" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Payment__Members__3F466844" Association="Self.FK__Payment__Members__3F466844">
+      <End Role="MemberShip" EntitySet="MemberShips" />
+      <End Role="Payment" EntitySet="Payments" />
+    </AssociationSet>
+    <AssociationSet Name="FK__MemberWor__Plane__59C55456" Association="Self.FK__MemberWor__Plane__59C55456">
+      <End Role="WorkoutPlanName" EntitySet="WorkoutPlanNames" />
+      <End Role="MemberWorkoutPlan" EntitySet="MemberWorkoutPlans" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Orders__Purchase__7C1A6C5A" Association="Self.FK__Orders__Purchase__7C1A6C5A">
+      <End Role="PurchaseOrder" EntitySet="PurchaseOrders" />
+      <End Role="Orders" EntitySet="Orders" />
+    </AssociationSet>
+    <AssociationSet Name="FK__PurchaseO__Produ__251C81ED" Association="Self.FK__PurchaseO__Produ__251C81ED">
+      <End Role="Product" EntitySet="Products" />
+      <End Role="PurchaseOrderDetail" EntitySet="PurchaseOrderDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Stock__ProductId__5BAD9CC8" Association="Self.FK__Stock__ProductId__5BAD9CC8">
+      <End Role="Product" EntitySet="Products" />
+      <End Role="Stock" EntitySet="Stocks" />
+    </AssociationSet>
+    <AssociationSet Name="FK__PurchaseO__Purch__2057CCD0" Association="Self.FK__PurchaseO__Purch__2057CCD0">
+      <End Role="PurchaseOrderHeader" EntitySet="PurchaseOrderHeaders" />
+      <End Role="PurchaseOrderDetail" EntitySet="PurchaseOrderDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK__PurchaseO__Staff__3C89F72A" Association="Self.FK__PurchaseO__Staff__3C89F72A">
+      <End Role="Staff" EntitySet="Staffs" />
+      <End Role="PurchaseOrderHeader" EntitySet="PurchaseOrderHeaders" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Scheduler__Staff__59904A2C" Association="Self.FK__Scheduler__Staff__59904A2C">
+      <End Role="Staff" EntitySet="Staffs" />
+      <End Role="Scheduler" EntitySet="Schedulers" />
+    </AssociationSet>
+    <AssociationSet Name="FK__StaffShif__Shift__5812160E" Association="Self.FK__StaffShif__Shift__5812160E">
+      <End Role="ShiftType" EntitySet="ShiftTypes" />
+      <End Role="StaffShift" EntitySet="StaffShifts" />
+    </AssociationSet>
+    <AssociationSet Name="FK__StaffBran__Staff__5AEE82B9" Association="Self.FK__StaffBran__Staff__5AEE82B9">
+      <End Role="Staff" EntitySet="Staffs" />
+      <End Role="StaffBranch" EntitySet="StaffBranches" />
+    </AssociationSet>
+    <AssociationSet Name="FK__StaffLogi__Staff__4CA06362" Association="Self.FK__StaffLogi__Staff__4CA06362">
+      <End Role="Staff" EntitySet="Staffs" />
+      <End Role="StaffLogin" EntitySet="StaffLogins" />
+    </AssociationSet>
+    <AssociationSet Name="FK__StaffShif__Staff__571DF1D5" Association="Self.FK__StaffShif__Staff__571DF1D5">
+      <End Role="Staff" EntitySet="Staffs" />
+      <End Role="StaffShift" EntitySet="StaffShifts" />
+    </AssociationSet>
+    <AssociationSet Name="FK__TrainerDe__Staff__3B95D2F1" Association="Self.FK__TrainerDe__Staff__3B95D2F1">
+      <End Role="Staff" EntitySet="Staffs" />
+      <End Role="TrainerDetails" EntitySet="TrainerDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK__WorkoutPl__Plane__56E8E7AB" Association="Self.FK__WorkoutPl__Plane__56E8E7AB">
+      <End Role="WorkoutPlanName" EntitySet="WorkoutPlanNames" />
+      <End Role="WorkoutPlan" EntitySet="WorkoutPlans" />
+    </AssociationSet>
+    <EntitySet Name="DailyTaskLists" EntityType="JustbokModel.DailyTaskList" />
+    <AssociationSet Name="FK__DailyTask__TaskI__5090EFD7" Association="JustbokModel.FK__DailyTask__TaskI__5090EFD7">
+      <End Role="Task" EntitySet="Tasks" />
+      <End Role="DailyTaskList" EntitySet="DailyTaskLists" />
+    </AssociationSet>
+    <EntitySet Name="LeaveTypes" EntityType="JustbokModel.LeaveType" />
+    <EntitySet Name="StaffAbsentDetails" EntityType="JustbokModel.StaffAbsentDetail" />
+    <EntitySet Name="TimeSheets" EntityType="JustbokModel.TimeSheet" />
+    <EntitySet Name="StaffPresentDetails" EntityType="JustbokModel.StaffPresentDetail" />
+    <EntitySet Name="Salaries" EntityType="JustbokModel.Salary" />
+    <EntitySet Name="SMSHistories" EntityType="JustbokModel.SMSHistory" />
+  </EntityContainer>
+  <EntityType Name="DailyTaskList">
+    <Key>
+      <PropertyRef Name="DailyTaskId" />
+    </Key>
+    <Property Name="DailyTaskId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TaskDate" Type="DateTime" Precision="0" />
+    <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="TitleDescription" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="TaskStatus" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="TaskId" Type="Int32" />
+    <NavigationProperty Name="Task" Relationship="JustbokModel.FK__DailyTask__TaskI__5090EFD7" FromRole="DailyTaskList" ToRole="Task" />
+  </EntityType>
+  <Association Name="FK__DailyTask__TaskI__5090EFD7">
+    <End Type="JustbokModel.Task" Role="Task" Multiplicity="0..1" />
+    <End Type="JustbokModel.DailyTaskList" Role="DailyTaskList" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Task">
+        <PropertyRef Name="TaskId" />
+      </Principal>
+      <Dependent Role="DailyTaskList">
+        <PropertyRef Name="TaskId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="LeaveType">
+    <Key>
+      <PropertyRef Name="LeaveTypeId" />
+    </Key>
+    <Property Name="LeaveTypeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="LeaveName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="LeaveDay" Type="Double" />
+  </EntityType>
+  <EntityType Name="StaffAbsentDetail">
+    <Key>
+      <PropertyRef Name="AbsentId" />
+    </Key>
+    <Property Name="AbsentId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="LeaveType" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="LeaveId" Type="Int32" />
+    <Property Name="Reason" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="StaffId" Type="Int32" />
+  </EntityType>
+  <EntityType Name="TimeSheet">
+    <Key>
+      <PropertyRef Name="TimeSheetId" />
+    </Key>
+    <Property Name="TimeSheetId" Type="Int64" Nullable="false" />
+    <Property Name="AttendenceDate" Type="DateTime" Precision="0" />
+    <Property Name="Present" Type="Int64" />
+    <Property Name="Absent" Type="Int32" />
+    <Property Name="GymId" Type="Int32" />
+    <Property Name="StaffId" Type="Int32" />
+    <Property Name="BranchId" Type="Int32" />
+  </EntityType>
+  <EntityType Name="StaffPresentDetail">
+    <Key>
+      <PropertyRef Name="PresentId" />
+    </Key>
+    <Property Name="PresentId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="StaffInTime" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="StaffOutTime" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="ShiftId" Type="Int32" />
+    <Property Name="StaffId" Type="Int32" />
+  </EntityType>
+  <EntityType Name="Salary">
+    <Key>
+      <PropertyRef Name="SalaryId" />
+    </Key>
+    <Property Name="SalaryId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="SalaryAmount" Type="Int32" />
+    <Property Name="SalaryDate" Type="DateTime" Precision="0" />
+    <Property Name="SalaryMode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="ReferenceNumber" Type="Int64" />
+    <Property Name="Comments" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="StaffId" Type="Int32" />
+  </EntityType>
+  <EntityType Name="SMSHistory">
+    <Key>
+      <PropertyRef Name="SMSId" />
+    </Key>
+    <Property Name="SMSId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="SMSDate" Type="DateTime" Precision="0" />
+    <Property Name="SMSMessage" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="PhoneNumber" Type="Int64" />
+    <Property Name="GymId" Type="Int32" />
+    <Property Name="BranchId" Type="Int32" />
+    <Property Name="MemberId" Type="Int32" />
+  </EntityType>
+</Schema>

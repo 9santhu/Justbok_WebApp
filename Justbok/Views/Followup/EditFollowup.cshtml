@@ -1,0 +1,87 @@
+﻿@model Justbok.Models.Followup
+
+@{
+    ViewBag.Title = "EditFollowup";
+}
+
+<h2>EditFollowup</h2>
+
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>Followup</legend>
+
+        @Html.HiddenFor(model => model.FollowupId)
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.LastFollowUpDate)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.LastFollowUpDate)
+            @Html.ValidationMessageFor(model => model.LastFollowUpDate)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.NextFollowUpDate)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.NextFollowUpDate)
+            @Html.ValidationMessageFor(model => model.NextFollowUpDate)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.EnqStatus)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.EnqStatus)
+            @Html.ValidationMessageFor(model => model.EnqStatus)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.StartTime)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.StartTime)
+            @Html.ValidationMessageFor(model => model.StartTime)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.EndTime)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.EndTime)
+            @Html.ValidationMessageFor(model => model.EndTime)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Description)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Description)
+            @Html.ValidationMessageFor(model => model.Description)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.EnquiryId)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.EnquiryId)
+            @Html.ValidationMessageFor(model => model.EnquiryId)
+        </div>
+
+        <p>
+            <input type="submit" value="Save" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+<script src="~/Scripts/Navigation.js?v=1.2"></script>
+    @Scripts.Render("~/bundles/jqueryval")
+}

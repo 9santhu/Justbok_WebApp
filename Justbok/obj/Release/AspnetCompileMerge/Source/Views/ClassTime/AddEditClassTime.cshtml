@@ -1,0 +1,162 @@
+﻿<div class="modal-body">
+    <input id="ct_id" type="hidden" />
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label class="control-label" for="repeats">Repeats:</label>
+                <div>
+                    <label class="cb-wrapper">
+                        <input name="repeats" id="repeats" type="checkbox" checked="" value="1" class="flat-red" tabindex="0" onchange="return classRepeat();" />
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 repeats-option">
+            <div class="form-group">
+                <label class="control-label" for="divisor">Every:</label>
+                <select id="divisor" class="form-control" tabindex="1">
+                    <option value="1">week</option>
+                    <option value="2">every 2 weeks</option>
+                    <option value="3">every 3 weeks</option>
+                    <option value="4">every 4 weeks</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <div class="row repeats-option">
+        <div class="col-md-12">
+            <label class="control-label">Days:</label>
+        </div>
+    </div>
+    <div class="row repeats-option form-group">
+        <div class="col-md-1">
+            <div>
+                <label class="cb-wrapper">
+                    <input id="day_sunday" class="flat-red Repeats_On" type="checkbox" tabindex="3" value="0" day="Sun">
+                </label>
+                <label class="control-label" for="day_sunday">
+                    Sun
+                </label>
+            </div>
+        </div>
+        <div class="col-md-1">
+            <div>
+                <label class="cb-wrapper">
+                    <input id="day_monday" class="flat-red Repeats_On" type="checkbox" tabindex="4" value="1" day="Mon">
+                </label>
+                <label class="control-label" for="day_monday">
+                    Mon
+                </label>
+            </div>
+        </div>
+        <div class="col-md-1">
+            <div>
+                <label class="cb-wrapper">
+                    <input id="day_tuesday" class="flat-red Repeats_On" type="checkbox" tabindex="5" value="2" day="Tue">
+                </label>
+                <label class="control-label" for="day_tuesday">
+                    Tue
+                </label>
+            </div>
+        </div>
+        <div class="col-md-1">
+            <div>
+                <label class="cb-wrapper">
+                    <input id="day_wednesday" class="flat-red Repeats_On" type="checkbox" tabindex="6" value="3" day="Wed">
+                </label>
+                <label class="control-label" for="day_wednesday">
+                    Wed
+                </label>
+            </div>
+        </div>
+        <div class="col-md-1">
+            <div>
+                <label class="cb-wrapper">
+                    <input id="day_thursday" class="flat-red Repeats_On" type="checkbox" tabindex="7" value="4" day="Thu">
+                </label>
+                <label class="control-label" for="day_thursday">
+                    Thu
+                </label>
+            </div>
+        </div>
+        <div class="col-md-1">
+            <div>
+                <label class="cb-wrapper">
+                    <input id="day_friday" class="flat-red Repeats_On" type="checkbox" tabindex="8" value="5" day="Fri">
+                </label>
+                <label class="control-label" for="day_friday">
+                    Fri
+                </label>
+            </div>
+        </div>
+        <div class="col-md-1">
+            <div>
+                <label class="cb-wrapper">
+                    <input id="day_saturday" class="flat-red Repeats_On" type="checkbox" tabindex="9" value="6" day="Sat">
+                </label>
+                <label class="control-label" for="day_saturday">
+                    Sat
+                </label>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+                <label class="control-label" for="instructor">Instructor:</label>
+                <input id="instructor" class="form-control" tabindex="10" placeholder="Search Instructor" />
+                <input id="HFInstructorId" type="hidden" value="" />
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label class="control-label" for="class_start_date">Start Date:</label>
+                <input id="class_start_date" class="form-control" value="" tabindex="11" onkeypress="return false;" onpaste="return false;" />
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label class="control-label" for="class_end_date">End Date: <span class="repeats-option">(optional)</span></label>
+                <input id="class_end_date" class="form-control" value="" tabindex="12" onkeypress="return false;" onpaste="return false;">
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label class="control-label" for="class_start_time">Start Time:</label>
+                <input id="class_start_time" class="form-control" type="text" tabindex="13" onkeypress="return false;" onpaste="return false;">
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label class="control-label" for="class_end_time">End Time:</label>
+                <input id="class_end_time" class="form-control" type="text" tabindex="14" onkeypress="return false;" onpaste="return false;">
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-default btn-sm btn-flat" type="button" onclick="HideSubModel();" tabindex="15">
+        <i class="glyphicon glyphicon-remove"></i> Cancel
+    </button>
+    <button class="btn btn-primary btn-sm btn-flat" id="btnSaveClassTiming" type="button" tabindex="16">
+        <i class="glyphicon glyphicon-ok"></i> Save
+    </button>
+</div>
+
+<script src="~/Scripts/Navigation.js?v=1.2"></script>
+<script>
+    var GetStaffForAutoCompleteUrl = '@Url.Action("GetStaffForAutoComplete","Common")';
+    var SaveClassTimingUrl = '@Url.Action("SaveClassTiming", "ClassTime")';
+    var ClassTimingDetailsByIdUrl = '@Url.Action("ClassTimingDetailsById", "ClassTime")';
+    $(document).ready(function () {
+        AddEditClassTimeLoading();
+    });
+
+</script>

@@ -1,0 +1,76 @@
+﻿<div tabindex="-1" class="modal-dialog addpromo" style="width:600px;">
+    <input name="ct_id" class="form-control" type="hidden" value="">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button class="close" aria-hidden="true" type="button" onclick="return HideModel();">×</button>
+            <h4 class="modal-title"><strong></strong></h4>
+        </div>
+        <div class="modal-body">
+            <div class="row form-group">
+                <div class="col-md-6 cal-member-list">
+                    <div class="form-group">
+                        <label class="control-label" for="">Reserved</label>
+                        <ol id="e_reservelist"></ol>
+                    </div>
+                </div>
+                <div class="col-md-6 cal-member-list">
+                    <div class="form-group">
+                        <label class="control-label" for="">Attended</label>
+                        <ol id="e_signinlist"></ol>
+                    </div>
+                </div>
+            </div>
+            <div class="row form-group">
+                <div class="col-md-4">
+                </div>
+                <div class="col-md-4">
+                    <button class="btn bg-navy btn-sm btn-flat" onclick="return e_move_all_attended();">
+                        <i class="glyphicon glyphicon-arrow-right"></i> Move All to Attended
+                    </button>
+                </div>
+                <div class="col-md-4">
+                </div>
+            </div>
+            <div class="row form-group">
+                <div class="col-md-6">
+                    <label class="control-label" style="float:right;padding-right:15px;">Reserve for Member</label>
+                </div>
+                <div class="col-md-6">
+                    <input id="r_event_member" class="form-control" placeholder="Reserve Member" />
+                </div>
+            </div>
+            <div class="row form-group">
+                <div class="col-md-6">
+                    <button class="btn bg-navy btn-sm btn-flat" onclick="return DeleteEvents();">Delete Event</button>
+                </div>
+                <div class="col-md-6">
+                    <button class="editattdone btn bg-navy btn-sm btn-flat" onclick="return editatt(1)">Edit Reservations</button>
+                    <button class="editatt btn bg-navy btn-sm btn-flat" onclick="return editatt(0)" style="display:none;">Done</button>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary btn-sm btn-flat" type="button" onclick="return HideModel();">
+                <i class="glyphicon glyphicon-ok"></i>
+                Done
+            </button>
+        </div>
+    </div>
+</div>
+
+<script src="~/Scripts/Navigation.js?v=1.2"></script>
+<script>
+
+    var GetMembersForAutoCompleteUrl = '@Url.Action("GetMembersForAutoComplete","Common")';
+
+    var GettingCalendarInstructorUrl = '@Url.Action("GettingCalendarInstructor", "Calender")';
+    var GettingCalendarMembersUrl = '@Url.Action("GettingCalendarMembers", "Calender")';
+    var SvaingCalendarMemberUrl = '@Url.Action("SvaingCalendarMember", "Calender")';
+    var DeleteEventMemberUrl = '@Url.Action("DeleteEventMember", "Calender")';
+    var MarkAsAttendedUrl = '@Url.Action("MarkAsAttended", "Calender")';
+    var DeleteEventUrl = '@Url.Action("DeleteEvent", "Event")';
+
+    $(document).ready(function () {
+        AddEventPeopleLoading();
+    });
+</script>

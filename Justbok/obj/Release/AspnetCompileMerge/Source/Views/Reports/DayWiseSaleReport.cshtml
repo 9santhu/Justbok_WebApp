@@ -1,0 +1,142 @@
+﻿@{
+    ViewBag.Title = "DayWiseSaleReport";
+}
+
+<div class="" style="">
+    <style class="ng-scope">
+        #PaymentPendingList td:nth-child(6) {
+            text-align: right !important;
+        }
+
+        #PaymentPendingList td:nth-child(7) {
+            text-align: right !important;
+        }
+
+        #PaymentPendingList td:nth-child(8) {
+            text-align: right !important;
+        }
+    </style>
+
+    <section class="content-header ng-scope">
+        <h1>
+            Mode Wise Payment
+            <div class="pull-right">
+                <a onclick="return LoadPage('@Url.Action("Index", "Reports")','Justbok | Reports Membership');" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-arrow-left"></i> Reports</a><br><br>
+            </div>
+        </h1>
+    </section>
+    <section class="content ng-scope">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <i class="fa fa-search"></i>
+                        <h3 class="box-title">Search</h3>
+                        <div class="box-tools pull-right">
+                            <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                        </div>
+                    </div>
+                    <div class="box-body">
+                        <form role="form" class="ng-pristine ng-valid">
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label>From Month</label>
+                                    <div class="input-group date" id="txtFrom" title="From Date">
+                                        <input class="form-control input-sm" placeholder="From" type="datetime">
+                                        <div class="input-group-addon">
+                                            <span class="glyphicon glyphicon-th"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label>To Month</label>
+                                    <div class="input-group date" id="txtTo" title="To Date">
+
+                                        <input class="form-control input-sm" id="txtTodate" placeholder="To" type="datetime">
+                                        <div class="input-group-addon">
+                                            <span class="glyphicon glyphicon-th"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-2" style="margin-top:25px;">
+                                <div class="form-group">
+                                    <label></label>
+                                    <button type="button" class="btn btn-primary btn-sm btn-flat" id="btnSearch" title="Search"><i class="glyphicon glyphicon-search"></i> Search</button>
+                                    <button type="button" class="btn btn-default btn-sm btn-flat" ng-click="btnReset()" title="Reset"><i class="glyphicon glyphicon-refresh"></i> Reset</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Mode wise Payment Report</h3>
+                    </div><!-- /.box-header -->
+                    <div class="box-body">
+                        <div class="col-lg-12">
+                            <div class="table-responsive">
+                                <div id="tblModeWisePayment_wrapper" class="dataTables_wrapper form-inline dt-bootstrap no-footer">
+                                    <div class="DTTT_container"></div><div class="clear"></div>
+                                    <div class="dataTables_length" id="tblModeWisePayment_length"><label>Show <select name="tblModeWisePayment_length" aria-controls="tblModeWisePayment" class="form-control input-sm"><option value="10">10</option><option value="25">25</option><option value="50">50</option><option value="100">100</option><option value="200">200</option></select> entries</label>
+                                        <div class="pull-right">
+                                            <img src="~/Theme/img/excel.jpg" width="30" height="30" id="dwnldExcel" />
+                                            <img src="~/Theme/img/pdf.png" width="30" height="30" id="dwnldPdf" />
+                                        </div>
+                                    </div>
+                                    <table class="table table-bordered dataTable no-footer" id="tblModeWisePayment" role="grid" aria-describedby="tblModeWisePayment_info" style="width: 1094px;">
+                                        <thead>
+                                            <tr role="row">
+                                                <th class="sorting" tabindex="0" aria-controls="tblModeWisePayment" rowspan="1" colspan="1" style="width: 193px;" aria-label="Month-Year: activate to sort column ascending">Month-Year</th>
+                                                <th class="text-right sorting_desc" tabindex="0" aria-controls="tblModeWisePayment" rowspan="1" colspan="1" style="width: 107px;" aria-sort="descending" aria-label="Cash: activate to sort column ascending">Cash</th>
+                                                <th class="text-right sorting" tabindex="0" aria-controls="tblModeWisePayment" rowspan="1" colspan="1" style="width: 139px;" aria-label="Cheque: activate to sort column ascending">Cheque</th>
+                                                <th class="text-right sorting" tabindex="0" aria-controls="tblModeWisePayment" rowspan="1" colspan="1" style="width: 97px;" aria-label="Card: activate to sort column ascending">Card</th>
+                                                <th class="text-right sorting" tabindex="0" aria-controls="tblModeWisePayment" rowspan="1" colspan="1" style="width: 210px;" aria-label="BankTransfer: activate to sort column ascending">BankTransfer</th>
+                                                <th class="text-right sorting" tabindex="0" aria-controls="tblModeWisePayment" rowspan="1" colspan="1" style="width: 106px;" aria-label="Total: activate to sort column ascending">Total</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr role="row" class="odd"></tr>
+                                        </tbody>
+                                    </table>
+                                    <div class="dataTables_info" id="tblModeWisePayment_info" role="status" aria-live="polite">Showing 1 to 10 of 12 entries (filtered from 10 total entries)</div><div class="dataTables_paginate paging_simple_numbers" id="tblModeWisePayment_paginate"><ul class="pagination"><li class="paginate_button previous disabled" id="tblModeWisePayment_previous"><a href="#" aria-controls="tblModeWisePayment" data-dt-idx="0" tabindex="0">Previous</a></li><li class="paginate_button active"><a href="#" aria-controls="tblModeWisePayment" data-dt-idx="1" tabindex="0">1</a></li><li class="paginate_button "><a href="#" aria-controls="tblModeWisePayment" data-dt-idx="2" tabindex="0">2</a></li><li class="paginate_button next" id="tblModeWisePayment_next"><a href="#" aria-controls="tblModeWisePayment" data-dt-idx="3" tabindex="0">Next</a></li></ul></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+@section Scripts {
+<script src="~/Scripts/Navigation.js?v=1.2"></script>
+    <script>
+        var GetDayWiseListUrl = '@Url.Action("DayWiseReport", "Reports")';
+        var ExcelUrl = '@Url.Action("GenarateExcelReportsDayWisePayment", "Reports")';
+        var PDFUrl = '@Url.Action("GenaratePdfReportsDayWisePayment", "Reports")';
+        var DownloadExcelUrl = '@Url.Action("Download", "Reports")';
+        var DownloadPdfUrl = '@Url.Action("DownloadPDF", "Reports")';
+    </script>
+
+<script src="~/Content/Reports/Rpts_DayWiseSale.js"></script>
+   
+}
+
+<script src="~/Scripts/Navigation.js?v=1.2"></script>
+<script>
+    var GetDayWiseListUrl = '@Url.Action("DayWiseReport", "Reports")';
+    var ExcelUrl = '@Url.Action("GenarateExcelReportsDayWisePayment", "Reports")';
+    var PDFUrl = '@Url.Action("GenaratePdfReportsDayWisePayment", "Reports")';
+    var DownloadExcelUrl = '@Url.Action("Download", "Reports")';
+    var DownloadPdfUrl = '@Url.Action("DownloadPDF", "Reports")';
+
+</script>
+<script src="~/Content/Reports/Rpts_DayWiseSale.js"></script>s

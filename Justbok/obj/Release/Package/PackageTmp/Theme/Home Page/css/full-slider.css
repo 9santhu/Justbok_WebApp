@@ -1,0 +1,240 @@
+/*!
+ * Start Bootstrap - Full Slider (http://startbootstrap.com/template-overviews/full-slider)
+ * Copyright 2013-2017 Start Bootstrap
+ * Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap-full-slider/blob/master/LICENSE)
+ */
+body{
+    font-family: 'Roboto', sans-serif;
+}
+ul,li{padding: 0;margin: 0;}
+.carousel-item {
+    height: 100vh;
+    min-height: 300px;
+    background: no-repeat center center scroll;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+/* Slider Styles */
+.main-text
+{
+    position: absolute;
+    bottom: 10%;
+    width: 96.66666666666666%;
+    color: #FFF;font-size: 20px;font-weight: 100;
+}
+.main-text h1{color: #f16d0e;font-size: 48px;text-transform: uppercase;font-weight: 700;}
+.main-text ul{padding: 0;margin: 0;}
+.main-text ul li{display: inline-block;margin: 0 24px;}
+.no-gutter > [class*="col-"]    {
+    padding-left: 0;
+    padding-right: 0;
+}
+.img-fluid {
+    height: auto;
+    width: 100%;
+}
+.no-gutter  a {
+    display: block;
+    margin: 0 auto;
+    max-width: 650px;
+    position: relative;
+}
+/*Price module styles*/
+.price-sec{background: #fff;}
+.pricing-jumbotron {
+    background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
+    text-align: center;
+    font-family:  'Bitter', serif;
+    color: #fff;
+}
+.pricing-jumbotron  h1{font-size: 60px;}
+.pricing-jumbotron h2{font-size: 30px;}
+.plan {
+    background: #fff none repeat scroll 0 0;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+    margin: 20px 20px 100px 0;
+    padding: 20px;
+    text-align: center;
+}
+.plan > .plan-title > h3, .plan > .plan-price > h3, .plan > .plan-price > h4 {
+    font-family: "Bitter",serif;
+    font-size: 32px;
+    font-weight: bold;
+    margin: 0;
+    text-transform: uppercase;
+}
+.plan > .plan-title > span, .plan > .plan-price > h4 {
+    font-size: 16px;
+    font-style: italic;
+    font-weight: normal;
+    text-transform: none;
+}
+.plan > .plan-price {
+    padding: 20px 10px 40px;
+}
+.plan > .plan-price > h3 {
+    font-size: 72px;
+}
+.plan > .plan-price > h3 > span {
+    display: inline-block;
+    font-size: 32px;
+    margin: 12px 0 0 -7px;
+    position: relative;
+    vertical-align: top;
+}
+.plan > .plan-list {
+    background: #222 none repeat scroll 0 0;
+    color: #fff;
+    margin: 0 -20px -20px;
+    padding: 0 20px 20px;
+}
+.plan-list > .divide {
+    position: relative;
+}
+.plan-list > .divide > .icon {
+    background: #fff none repeat scroll 0 0;
+    border-radius: 0 0 6px 6px;
+    color: #222;
+    left: 50%;
+    margin-left: -34px;
+    padding: 5px 0;
+    position: absolute;
+    top: -1px;
+    width: 69px;
+}
+.plan-list > .item-list {
+    list-style: outside none none;
+    padding: 80px 0 20px;
+}
+.plan-list > .item-list > li {
+    font-size: 16px;
+    padding: 5px;
+}
+.plan-list > .btn {
+    font-family: "Bitter",serif;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 12px 8px;
+    text-transform: uppercase;
+    width: 100%;
+    background: #f16d0e;
+    border: none;
+}
+.bg-image {
+  background: url(../img/quick.png) no-repeat center top;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  max-height: 650px;
+  padding: 100px;
+}
+.cnt-module{background: #f16d0e;padding: 15px;text-align: center;}
+.cnt-text{border: solid 3px #fff;padding: 60px 30px;color: #fff;}
+.cnt-module h2{font-size: 60px;margin: 30px 0;}
+footer{padding-top: 50px;}
+.cnt-module h4{font-size: 36px;margin: 60px 0;}
+.foo-nav li{display: inline;}
+
+
+@media (max-width: 480px) {
+    .bg-image{padding: 6px;}
+    .cnt-module h4{font-size: 24px;}    
+}
+
+@media (max-width: 767px) {
+
+}
+
+/* Login Style css */
+.login-container{
+    position: relative; z-index: 0; background: rgba(0, 0, 0, 0) none repeat scroll 0% 0%;
+    padding: 120px 0 130px 0;
+}
+.login-container .text{padding-top:100px;text-align: center;color: white;}
+.login-bg{background-image: url("../img/login.jpg");height: 100%;}
+.login-container {
+    position: relative;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.learn-more{    background: #993eb7;color: white;border: none;}
+.price-btn{ background:#f16d0e;color: white;border: none;}
+.login-buttons .btn{border-radius: 0;padding: 0 20px;margin: 5px;height: 40px;font-weight: 300;display: inline-block;cursor: pointer;}
+.l-form-1 .heading{padding:45px 25px 15px 25px;background: rgba(0, 0, 0, 0.6);-moz-border-radius: 40px 0 0 0;-webkit-border-radius: 40px 0 0 0;border-radius: 40px 0 0 0;}
+.l-form-1 .heading h3{margin: 0;color: white;font-size: 32px;font-weight: 300;text-align: center;}
+.l-form-1-bottom {
+    padding: 25px;
+    background: #444;
+    background: rgba(0, 0, 0, 0.6);
+}
+.l-form-1-bottom input[type="text"], .l-form-1-bottom textarea, .l-form-1-bottom textarea.form-control{
+    border-radius: 0;
+}
+.login-btn {
+    width: 100%;
+    height: 46px;
+    margin: 0;
+    padding: 0 20px;
+    vertical-align: middle;
+    background: #f16d0e;
+    border: 0;
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 46px;
+    color: #fff;
+    text-transform: uppercase;
+    -moz-border-radius: 0;
+    -webkit-border-radius: 0;
+    border-radius: 0;
+    text-shadow: none;
+    -moz-box-shadow: none;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+.inner-container{
+ 
+    background-size: auto auto;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    min-height: 350px;
+}
+.inner-container h1{padding-top: 10%;color: white;text-transform: uppercase;}
+.inner-container p{color: #ff6600;}
+.inner_home{background:#ebebeb;overflow: hidden;}
+.services_home{background:#fff;overflow:hidden;margin-bottom:60px;}
+.aside_nav,.main_content{background: #fff;padding: 30px;margin:20px 10px;}
+.aside_nav ul{padding-left: 10px;margin: 0;list-style: none;}
+.aside_nav li{
+    border-bottom: 1px dotted #ebebeb;
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+    list-style: circle;
+}
+.aside_nav li a{text-decoration: none;color:#676767;}
+.aside_nav li.active a{font-weight: bold;color: #000;}
+.about-page{   background: #65758e url('../img/gym.jpg') no-repeat 50% top;}
+.salon-page{   background: #65758e url('../img/salon.jpg') no-repeat 50% top;}
+.yoga-page{   background: #65758e url('../img/yoga.jpg') no-repeat 50% top;}
+.spa-page{   background: #65758e url('../img/spa.jpg') no-repeat 50% top;}
+.services-page{   background: #65758e url('../img/services.jpg') no-repeat 50% top;}
+.services_ul li {
+    display: inline-table;
+    margin: 60px 15px 20px 0;
+    width: 31%;
+    overflow: hidden;
+}
+.services_ul h3{font-size: 20px;}
+.services_ul p{font-size: 14px;color: #777;}
+.disclaimer-container h3{padding-top: 8%;}
+.content-box{background: #f2f2f2;padding: 30px;}
+.content-box button{margin-bottom: 6px;}
+
+.dropdown-menu {padding:0;}
+.dropdown-menu li a{width:100%;text-decoration:none;display:block;padding:3px 6px;}
+.dropdown-menu li a:hover{background:#007bff;color:#fff;}

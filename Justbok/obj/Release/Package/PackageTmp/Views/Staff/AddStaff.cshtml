@@ -1,0 +1,458 @@
+﻿@model Justbok.Models.StaffViewModel
+
+@{
+    ViewBag.Title = "AddStaff";
+}
+
+@*@using (Html.BeginForm()) {*@
+
+    @*<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/css/bootstrap-select.min.css">*@
+
+<!-- Latest compiled and minified JavaScript -->
+@*<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/bootstrap-select.min.js"></script>*@
+
+@*<link rel="stylesheet" href="css/bootstrap-multiselect/bootstrap-multiselect.css" type="text/css">
+<script type="text/javascript" src="js/bootstrap-multiselect/bootstrap-multiselect.js"></script>*@
+
+
+<section class="content container-fluid" id="container">
+
+    <div class="pull-right">
+        <a onclick="return LoadPage('@Url.Action("StaffList", "Staff")','Justbok | Staff List');" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-arrow-left"></i> Staff List</a><br><br>
+    </div>
+
+@*@using (Ajax.BeginForm("AddStaff", "Staff",
+                   new AjaxOptions
+                   {
+                       OnSuccess = "OnSuccess",
+                       OnFailure = "OnFailure",
+                       LoadingElementId = "progress",
+                       OnBegin = "onBegin", OnComplete = "onComplete"
+                   }))
+{*@
+
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <div class="col-xs-12">
+        <div class="box">
+            <div class="box-header">
+                <h3 class="box-title">Add staff</h3>
+
+            </div>
+            <div id="loading" style="display:none;">
+
+                <img src="~/Theme/img/loading.gif" height="50" width="100" />
+            </div>
+         
+          
+                                <div class="col-md-12">
+                                   
+                                    @*<div class="alert alert-success" role="alert" id="isSucess" style="display:none; float:right;height:50px; width:200px;text-align:center">Data saved successfully!!</div>*@
+
+                                    <div id="messages" class="hide" role="alert" style="height:50px;width:250px;border-radius:5px;float:right;text-align:inherit;">
+                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                        <div id="messages_content" ></div>
+                                    </div>
+
+
+                                        <hr>
+
+                                    
+
+                                        <div class="form-group col-md-4">
+                                            <label for="exampleInputEmail1">Staff Id</label>
+                                            @Html.TextBoxFor(model => model.StaffId, new { @class = "form-control", placeholder = "Staff Id" })
+                                        </div>
+
+
+                                        <div class="form-group col-md-4">
+                                            <label for="exampleInputEmail1">First Name</label>
+                                            @Html.TextBoxFor(model => model.FirstName, new { @class = "form-control", id = "txtFirstName", placeholder = "First Name" })
+                                            @Html.ValidationMessageFor(model => model.FirstName)
+                                        </div>
+
+                                        <div class="form-group col-md-4">
+                                            <label for="exampleInputEmail1">Last Name</label>
+                                            @Html.TextBoxFor(model => model.LastName, new { @class = "form-control", id = "txtLastName", placeholder = "Last Name" })
+                                            @Html.ValidationMessageFor(model => model.LastName)
+                                        </div>
+                                   
+                                        <div class="form-group col-md-4">
+                                            <label>Date of Birth:</label>
+
+                                            <div class="input-group date">
+                                                <div class="input-group-addon">
+                                                    <i class="fa fa-calendar"></i>
+                                                </div>
+                                                @Html.TextBoxFor(model => model.DOB, new { @class = "form-control pull-right", @type = "datetime", id = "txtDOB" })
+                                            </div>
+                                            <!-- /.input group -->
+                                        </div>
+
+                                        <div class="form-group col-md-4">
+                                            <label for="exampleInputEmail1">Phone No.</label>
+                                            @Html.TextBoxFor(model => model.PhoneNumber, new { @class = "form-control", placeholder = "Phone Number", id = "txtPhoneNo" })
+                                        </div>
+                                   
+                                        <div class="form-group col-md-4">
+                                            <label for="exampleInputEmail1">Email</label>
+                                            @Html.TextBoxFor(model => model.Email, new { @class = "form-control", placeholder = "Email", id = "txtEmail" })
+                                        </div>
+
+                                        <div class="form-group col-md-4">
+                                            <label for="exampleInputEmail1">Address</label>
+                                            @Html.TextAreaFor(model => model.StaffAddress, new { @class = "form-control", rows = "3", placeholder = "Enter", id = "txtAddress" })
+                                        </div>
+
+
+
+
+                                        <div class="form-group col-md-4">
+                                            <label for="Branch">Role</label>
+                                            @Html.DropDownListFor(model => model.StaffRole, new SelectList(new List<string>() { "Admin", "Staff Member", "Trainer", "Manager" }), "- Please select -", new { @class = "form-control", id = "ddlRole" })
+                                            <!-- /.input group -->
+                                        </div>
+
+                                        <div class="form-group col-md-4">
+                                            <label for="Branch">Branch</label>
+                                            <select id="ddlStaffBranch" multiple="multiple"></select>
+                                            @*<label>Select State : @Html.ListBox("ddlStaffBranch", new SelectList(new string[] { }), "---Select---") </label>*@
+                                            @*@Html.DropDownListFor(model => model.BranchId, Enumerable.Empty<SelectListItem>(), "- Please select -", new { @class = "form-control", id = "ddlBranch" })*@
+
+                                            <!-- /.input group -->
+                                        </div>
+
+                                        <div class="form-group col-md-4">
+                                            <label for="Branch">Shift</label>
+                                            @Html.DropDownListFor(model => model.ShiftId, Enumerable.Empty<SelectListItem>(), new { @class = "form-control", id = "ddlShiftType", multiple = "multiple" })
+
+                                        </div>
+                                        <div class="form-group col-md-4">
+                                            <label for="Branch">Daily Salary</label>
+                                            @Html.TextBoxFor(model => model.DailySalary, new { @class = "form-control", placeholder = "Daily Salary", id = "txtDailySalary" })
+                                            <!-- /.input group -->
+                                        </div>
+                                        <div class="form-group col-md-2">
+                                            <label>Is Active @Html.CheckBoxFor(model => model.Isactive, new { id = "chkIsActive", @checked = "true" })</label>
+                                        </div>
+
+                                        <div class="form-group col-md-2">
+                                            <button type="button" class="btn btn-info pull-right" style="margin-right: 10px; display: none;" id="btnCreateMember">Create Login</button>
+                                        </div>
+                                        <div class="col-md-12" style="display: none;" id="userform">
+                                            <div class="form-group col-md-4">
+                                                <label for="Branch">User Name</label>
+                                                @Html.TextBoxFor(model => model.UserName, new { @class = "form-control", placeholder = "User Name", id = "txtUname" })
+                                                <!-- /.input group -->
+                                            </div>
+                                            <div class="form-group col-md-4">
+                                                <label for="Branch">Password</label>
+                                                @Html.PasswordFor(model => model.Password, new { @class = "form-control", placeholder = "Password", id = "txtpwd" })
+                                                <!-- /.input group -->
+                                            </div>
+                                            <div class="form-group col-md-2">
+                                                <label>Is Login Active @Html.CheckBoxFor(model => model.IsLoginactive, new { id = "chkIsLoginActive", @checked = "true" })</label>
+                                            </div>
+                                        </div>
+
+                                    <div class="col-md-12" style="display: none;" id="TrainerForm">
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label>Profile Photo</label>
+                                                    <img id="uploadedimage" class="form-control" alt="your image" style="height: 150px;" src="http://gym.appointmentbees.com/Img/fa-user.png">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label>Upload Photo</label>
+                                                    <input id="Imagefile" name="filedd" accept="image/*"   type="file">  
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label>Experience</label>
+                                                    <input class="form-control input-sm ng-pristine ng-untouched ng-valid" id="txtExperience" ng-model="User.Experience" autocomplete="off" tabindex="15" type="text">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row" >
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label>Qualification</label>
+                                                    <input class="form-control input-sm" id="txtQualification"  autocomplete="off" tabindex="15" type="text">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label>Description</label>
+                                                    <textarea class="form-control input-sm" id="txtDescription" rows="3"  tabindex="15"></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        </div>
+
+                                    </div>
+                               
+                                <div class="box-footer">
+                                    <button type="submit" class="btn btn-default pull-right">Reset</button>
+                                    <button type="submit" class="btn btn-info pull-right" style="margin-right: 10px;" id="btnSaveStaff">Save Staff</button>
+                                </div>
+                            
+                        </div>
+
+                        <!-- /.box-body -->
+                    </div>
+    @*}*@   
+
+</section>
+
+
+@section Scripts {
+<script src="~/Scripts/Navigation.js?v=1.2"></script>
+    <script>
+        var GetBranchListUrl = '@Url.Action("GetBranchList", "Staff")';
+        var AddStaffUrl = '@Url.Action("AddStaff", "Staff")';
+        var GetShiftListUrl = '@Url.Action("GetShiftList", "Staff")';
+        var UpdateUploadImage = '@Url.Action("UploadImage", "Staff")';
+   
+    </script>
+
+    <script src="~/Content/Staff/AddStaff.js"></script>
+}
+<script src="~/Scripts/Navigation.js?v=1.2"></script>
+<script>
+        var GetBranchListUrl = '@Url.Action("GetBranchList", "Staff")';
+        var AddStaffUrl = '@Url.Action("AddStaff", "Staff")';
+    var GetShiftListUrl = '@Url.Action("GetShiftList", "Staff")';
+    var UpdateUploadImage = '@Url.Action("UploadImage", "Staff")';
+
+</script>
+
+<script src="~/Content/Staff/AddStaff.js"></script>
+
+
+
+@*<script src="~/Theme/js/jquery.min.js"></script>
+<script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>*@
+
+
+@*@section Scripts {*@
+   @*@Scripts.Render("~/js")
+@Styles.Render("~/css")*@
+
+
+@*<script type="text/javascript">
+    $(document).ready(function () {
+        $('input[type=datetime]').datepicker({
+            dateFormat: "dd/m/yy",
+            changeMonth: true,
+            changeYear: true,
+            yearRange: "-60:+100"
+        });
+        
+        //$('#ddlStaffBranch').selectpicker({
+        //    style: 'btn-info',
+        //    size: 4
+        //});
+
+        $('#ddlStaffBranch').multiselect({
+        
+                enableFiltering: true,
+                includeSelectAllOption: true,
+                enableCaseInsensitiveFiltering: true,
+                maxHeight: 400,
+                buttonWidth: '310px',
+                dropUp: true
+              
+        });
+
+        $('#ddlShiftType').multiselect({
+
+            enableFiltering: true,
+            includeSelectAllOption: true,
+            enableCaseInsensitiveFiltering: true,
+            maxHeight: 400,
+            buttonWidth: '310px',
+            dropUp: true
+
+        });
+
+        
+
+    });
+</script>*@
+
+
+
+
+@*<script type="text/javascript">
+    function OnSuccess(response) {
+        $("#loading").hide();
+        $("#container").css("opacity",1);
+        $('#messages').removeClass('hide').addClass('alert alert-success alert-dismissible').slideDown().show();
+        $('#messages_content').html('<h5>Data Saved Successfully</h5>');
+        $('#modal').modal('show');
+        e.preventDefault();
+       
+    }
+    function OnFailure(response) {
+        alert("Error occured.");
+    }
+    function onBegin()
+    {
+        $("#loading").show();
+       
+        $("#container").css("opacity",0.5);
+    }
+    function onComplete()
+    {
+        $("#loading").hide();
+      
+    }
+</script>*@
+
+
+   @*<script>
+       $(document).ready(function () {
+           $.ajax({
+               cache: false,
+               type: "GET",
+               url: "@Url.Action("GetBranchList")",
+               dataType: "json",
+           contentType: "application/json; charset=utf-8",
+           data:"",
+           success: function (data) {
+               var options = [];
+               $.each(data, function (i, item) {
+                 
+                   //$("#ddlStaffBranch").append('<option value="' + item.BranchId + '">' +
+                   //            item.BranchName + '</option>');
+                   options.push({ label: item.BranchName, title: item.BranchName, value: item.BranchId });
+                         
+                   //$("#ddlStaffBranch").append($("<option></option>").val(item.BranchId).html(item.BranchName));
+               })
+
+              // alert(JSON.stringify(options));
+
+       //        var options = [
+       //{ label: 'Option 1', title: 'Option 1', value: '1', selected: true },
+       //{ label: 'Option 2', title: 'Option 2', value: '2' },
+       //{ label: 'Option 3', title: 'Option 3', value: '3', selected: true },
+       //{ label: 'Option 4', title: 'Option 4', value: '4' },
+       //{ label: 'Option 5', title: 'Option 5', value: '5' },
+       //{ label: 'Option 6', title: 'Option 6', value: '6', disabled: true }
+       //        ];
+               $('#ddlStaffBranch').multiselect('dataprovider', options);
+
+
+               //$('#ddlStaffBranch').multiselect({
+               //    includeSelectAllOption: true,
+               //    buttonWidth: 250,
+               //    enableFiltering: true
+               //});
+
+           },
+           error: function () {
+               alert("Failed! Please try again.");
+           }
+           });
+
+           //$('#ddlStaffBranch').fSelect({
+           //    placeholder: 'Select',
+           //    numDisplayed: 4,
+           //    overflowText: '{n} selected',
+           //    searchText: 'Search Branch',
+           //    showSearch: true
+
+           //});
+
+    });*@
+
+       @*//Dropdown change code
+       //$(function () {
+       //    $('#ddlRole').change(function () {
+       //        var opt = $(this).val();
+       //        if (opt == 'Admin') {
+       //            $('#btnCreateMember').show();
+       //        }
+       //        else if (opt == 'Manager')
+       //        {
+       //            $('#btnCreateMember').show();
+       //        }
+       //        else {
+                  
+       //            $('#btnCreateMember').hide();
+       //            $('#userform').hide();
+       //        }
+       //    });
+       //});
+
+       //Button change code*@
+       @*$(function () {
+           $('#btnCreateMember').click(function () {
+               $('#userform').show();
+               
+           });
+       });
+
+
+       $('#btnSaveStaff').click(function () {
+
+           var multipleBranch = $('#ddlStaffBranch').val();
+           var multipleShift = $('#ddlShiftType').val();
+          // alert(multi);
+           var jsonObject = {
+               FirstName: $('#txtFirstName').val(), LastName: $('#txtLastName').val(), DOB: $('#txtDOB').val(), PhoneNumber: $('#txtPhoneNo').val(),
+               Email: $('#txtEmail').val(), StaffAddress: $('#txtAddress').val(), StaffRole: $('#ddlRole').val(),
+               MultiselectBranch: multipleBranch.toString(), MultiselectShiftType: multipleShift.toString(), DailySalary: $('#txtDailySalary').val(),
+               Isactive: $('#chkIsActive').val(), Uname: $('#txtUname').val(), pwd: $('#txtpwd').val(), IsLoginactive: $('#chkIsLoginActive').val()
+               
+           }
+           $.ajax({
+               cache: false,
+               type: "POST",
+               url: "@Url.Action("AddStaff")",
+               dataType: "json",
+           contentType: "application/json; charset=utf-8",
+           data: JSON.stringify(jsonObject),
+           success: function (data) {
+               alert("Data Saved Successfully");
+
+           },
+           failure: function (errMsg) {
+               alert(errMsg.responseText);
+           }
+       });
+
+       });
+
+
+       
+
+</script>*@  
+
+@*<script>
+    $(document).ready(function () {    //call the CityList json result method
+        $.getJSON("@Url.Action("GetShiftList")", function (data) {
+            var options = [];
+            $.each(data, function (i, item) {
+                options.push({ label: item.ShiftName, title: item.ShiftName, value: item.ShiftId });
+            })
+            $('#ddlShiftType').multiselect('dataprovider', options);
+            //$.each(data, function (i, data) {      // bind the dropdown list using json result
+            //    $('<option>',
+            //       {
+            //           value: data.ShiftId,
+            //           text: data.ShiftName
+            //       }).html(data.ShiftName).appendTo("#ddlShiftType");
+            //});
+                    })
+    });
+</script>*@  
+
+
+@*}*@

@@ -1,0 +1,126 @@
+﻿<div class="modal-body">
+    <input type="hidden" id="HFSBookingId" />
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label>Client</label>
+                <input class="form-control" type="hidden" value="" id="HFMemberId">
+                <input id="txtMember" class="form-control" type="text" placeholder="Search Staff" tabindex="1">
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label class="control-label">With:</label>
+                <span id="spnWith"></span>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="" class="control-label">Appointment:</label>
+                <select class="form-control" id="ac_id" onchange="return selectionchange()">
+                    <option value="0" selected>Please select...</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="" class="control-label">When:</label>
+                <span id="spnWhen"></span>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label class="cb-wrapper">
+                    <input type="checkbox" name="as_repeats_slot" class="flat-red" id="as_repeats_slot" onchange="return OnRepeat_Slot();" />
+                </label>
+                <label class="control-label" for="as_repeats_slot">&nbsp;&nbsp;&nbsp;Repeats?</label>
+            </div>
+        </div>
+        <div id="repeatbox" class="col-md-6" style="display:none;">
+            <div class="form-group">
+                <label class="control-label">Repeats Until:</label>
+                <input id="repeatsuntil" class="form-control" type="text" value="" onkeypress="return false;" onpaste="return false;" onkeydown="return false;" >
+                <div id="repeatsuntil_notice" style="display: none">
+                    <div class="alert alert-danger" role="alert">
+                        <b>This date is after the user's membership's end date (<span id="repeatsuntil_enddate"></span>). Therefore, bills will generate for each appointment afterwards.</b>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label class="control-label">How Long:</label>
+                <select class="form-control" id="length" onchange="return selectionchange()">
+                    <option value="0" selected>Please select</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <!-- BILL PREVIEW -->
+    <div class="row">
+        <div class="col-md-12">
+            <label for="" class="control-label">
+                Billing Preview
+            </label>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="table-responsive">
+                <div id="previewapptbills_wrapper" class="dataTables_wrapper form-inline no-footer">
+                    <div class="row"><div class="col-sm-6"></div><div class="col-sm-6"></div></div><div class="row">
+                        <div class="col-sm-12">
+                            <table class="table table-bordered datatable dataTable no-footer" id="previewapptbills" role="grid">
+                                <thead>
+                                    <tr role="row">
+                                        <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 0px;">Date</th>
+                                        <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 0px;">Description</th>
+                                        <th class="r sorting_disabled" rowspan="1" colspan="1" style="width: 0px;">Amount</th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
+                    </div><div class="row">
+                        <div class="col-sm-5"></div><div class="col-sm-7"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12" id="billpreviewtext">
+
+        </div>
+    </div>
+</div><!-- modal body -->
+
+<div class="modal-footer">
+    <button type="button" class="btn btn-default btn-sm btn-flat" onclick="return CloseModel();" tabindex="5" title="Cancel">
+        <i class="glyphicon glyphicon-remove"></i> Cancel
+    </button>
+    <button type="button" class="btn btn-primary btn-sm btn-flat" tabindex="4" title="Book" id="Book">
+        <i class="glyphicon glyphicon-ok"></i> Book
+    </button>
+</div>
+
+
+<script src="~/Scripts/Navigation.js?v=1.2"></script>
+<script>
+    var AppointConfigBySlotIdUrl_1 = '@Url.Action("AppointConfigBySlotId", "BookAppointment")';
+    var GetMembersForAutoCompleteUrl = '@Url.Action("GetMembersForAutoComplete", "Common")';
+    var GenerateBillUrl='@Url.Action("GenerateBill", "BookAppointment")';
+    var BookAppointmentUrl='@Url.Action("BookAppointment", "BookAppointment")';
+
+    $(document).ready(function () { BookSlotAppLoading(); });
+    $("#Book").click(function () { BookClick(); });
+</script>
+

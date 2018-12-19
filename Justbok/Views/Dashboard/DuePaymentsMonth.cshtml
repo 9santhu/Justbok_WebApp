@@ -1,0 +1,150 @@
+﻿@{
+    ViewBag.Title = "DuePaymentsMonth";
+}
+
+
+
+
+<div class="" style="">
+    <section class="content-header ng-scope">
+        <h1>
+            Due Payments
+
+        </h1>
+    </section>
+    <section class="content ng-scope">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <i class="fa fa-search"></i>
+                        <h3 class="box-title"> Search  </h3>
+                        <div class="box-tools pull-right">
+                            <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                        </div><!-- /.box-tools -->
+                    </div><!-- /.box-header -->
+                    <div class="box-body">
+                        <div class="row">
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label>Search</label>
+                                    <input class="form-control input-sm" id="txtMember" type="text" placeholder="MemberName, MemberId">
+                                </div>
+                            </div>
+
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label>From Date</label>
+                                    <input class="form-control input-sm" id="txtFromDate" type="datetime">
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label>To Date</label>
+                                    <input class="form-control input-sm" id="txtToDate" type="datetime">
+                                </div>
+                            </div>
+                            <div class="col-md-2 ">
+                                <div class="form-group" style="margin-top:25px;">
+                                    <button type="button" id="btnSearch" class="btn btn-sm btn-primary btn-flat" title="Search">
+                                        <i class="glyphicon glyphicon-search"></i> Search
+                                    </button>
+                                    <button type="button" id="btnReset" class="btn btn-default btn-sm btn-flat" title="Reset">
+                                        <i class="glyphicon glyphicon-refresh"></i> Reset
+                                    </button>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-3">
+                        <h4>Total Paid Amount : <span class="label label-success ng-binding" id="paidAmount">0.00</span></h4>
+
+                    </div>
+                    <div class="col-lg-3">
+                        <h4>Total Pending Amount : <span class="label label-warning ng-binding" id="pendingAmount">0.00</span></h4>
+                    </div>
+                </div>
+
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Due Payment Report</h3>
+                    </div>
+                    <div class="box-body">
+                        <div id="example1_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
+                            <div class="dataTables_length">
+                                <label>
+                                    Show
+                                    <select id="tblDuePayment_length" name="tblDuePayment_length"
+                                            aria-controls="tblDuePayment_length" class="form-control input-sm"
+                                            onchange="return ShowChange();">
+                                        <option value="10">10</option>
+                                        <option value="25">25</option>
+                                        <option value="50">50</option>
+                                        <option value="100">100</option>
+                                    </select> entries
+                                </label>
+                            </div>
+
+                            <div class="col-sm-12 table-responsive">
+                                <table id="tblDuePayment" class="table table-bordered table-striped dataTable" role="grid" aria-describedby="example1_info">
+
+                                    <thead>
+                                        <tr role="row">
+
+                                            <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 282.583px;" aria-label="Browser: activate to sort column ascending">Member Id</th>
+                                            <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 282.583px;" aria-label="Browser: activate to sort column ascending">Name</th>
+                                            <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 282.583px;" aria-label="Browser: activate to sort column ascending">Mobile No.</th>
+                                            <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 282.583px;" aria-label="Browser: activate to sort column ascending">Membership Name</th>
+                                            <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 282.583px;" aria-label="Browser: activate to sort column ascending">Membership Date</th>
+                                            <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 282.583px;" aria-label="Browser: activate to sort column ascending">Payment Due Date</th>
+                                            <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 282.583px;" aria-label="Browser: activate to sort column ascending">Membership Amount</th>
+                                            <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 282.583px;" aria-label="Browser: activate to sort column ascending">Paid Amount</th>
+                                            <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 282.583px;" aria-label="Browser: activate to sort column ascending">Pending Amount</th>
+
+
+                                    </thead>
+                                    <tbody></tbody>
+                                </table>
+                                <div class="dataTables_paginate paging_simple_numbers" id="tblDuePayment_paginate">
+                                    <ul id="pagination" class="pagination"></ul>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </section>
+
+</div>
+
+@section Scripts {
+<script src="~/Scripts/Navigation.js?v=1.2"></script>
+    <script>
+
+        var DuePaymentDayUrl = '@Url.Action("DuePaymentMonthList", "Dashboard")';
+        var SearchDueListUrl = '@Url.Action("SearchDuePaymentsList", "Dashboard")';
+    </script>
+
+    
+<script src="~/Content/Dashboard/Rpts_DuePaymentMonth.js"></script>
+}
+<script src="~/Scripts/Navigation.js?v=1.2"></script>
+<script>
+
+
+    var DuePaymentDayUrl = '@Url.Action("DuePaymentMonthList", "Dashboard")';
+    var SearchDueListUrl = '@Url.Action("SearchDuePaymentsList", "Dashboard")';
+
+</script>
+
+<script src="~/Content/Dashboard/Rpts_DuePaymentMonth.js"></script>
+

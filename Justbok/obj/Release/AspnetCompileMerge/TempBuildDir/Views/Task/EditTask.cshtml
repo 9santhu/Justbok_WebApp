@@ -1,0 +1,141 @@
+﻿@model Justbok.Models.Task
+
+
+<style>
+    .required {
+        color: #e02222;
+        font-size: 16px;
+        padding-left: 2px;
+    }
+</style>
+
+
+<section class="content container-fluid" id="container">
+    <div class="pull-right">
+        <a onclick="return LoadPage('@Url.Action("TaskList", "Task")','Justbok | Task List');" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-arrow-left"></i> Task List</a><br><br>
+    </div>
+
+    @*@using (Ajax.BeginForm("EditTask", "Task",
+                   new AjaxOptions
+                   {
+                       OnSuccess = "OnSuccess",
+                       OnFailure = "OnFailure",
+                       LoadingElementId = "progress",
+                       OnBegin = "onBegin",
+                       OnComplete = "onComplete"
+                   }))
+    {*@
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true)
+        <div class="col-xs-12">
+            <div class="box">
+                <div class="box-header">
+                    <h3 class="box-title">Add Task</h3>
+
+                    <div class="col-md-12">
+
+
+                        <div id="messages" class="hide" role="alert" style="height:50px;width:250px;border-radius:5px;float:right;text-align:inherit;">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <div id="messages_content"></div>
+                        </div>
+
+                        <hr>
+
+                        <div class="form-group col-md-4" style="display:none;">
+                            <label for="exampleInputEmail1">Task Id</label>
+                            @Html.TextBoxFor(model => model.TaskId, new { @class = "form-control", id = "txtTaskid", placeholder = "Task Id" })
+                        </div>
+                        <div class="form-group col-md-4" style="display:none;">
+                            <label for="exampleInputEmail1">Gym Id</label>
+                            @Html.TextBoxFor(model => model.GymId, new { @class = "form-control", id = "txtGymid", placeholder = "Gym Id" })
+                            @Html.ValidationMessageFor(model => model.GymId)
+                        </div>
+
+                        <div class="form-group col-md-6">
+                            <label for="exampleInputEmail1">Title</label><span class="required" aria-required="true"> * </span>
+                            @Html.TextBoxFor(model => model.Title, new { @class = "form-control", id = "txtTitle", placeholder = "Title" })
+                            @Html.ValidationMessageFor(model => model.Title)
+                        </div>
+
+                        <div class="form-group col-md-6">
+                            <label for="exampleInputEmail1">Description</label>
+                            @Html.TextAreaFor(model => model.TaskDescription, new { @class = "form-control", rows = "3", placeholder = "Description", id = "txtdescription" })
+                        </div>
+
+
+                        <div class="form-group col-md-6">
+                            <label for="exampleInputEmail1">Interval</label><span class="required" aria-required="true"> * </span>
+                            @Html.TextBoxFor(model => model.Interval, new { @class = "form-control", placeholder = "Interval", id = "txtInterval" })
+                        </div>
+
+                        <div class="form-group col-md-6">
+                            <label for="Branch">Interval Type</label><span class="required" aria-required="true"> * </span>
+                            @Html.DropDownListFor(model => model.IntervalType, new SelectList(new List<string>
+         () { "--Select--", "Day", "Month" }), new { @class = "form-control", id = "ddlIntervalType" })
+
+                        </div>
+
+                        <div class="form-group col-md-6">
+                            <label>Start Date:</label>
+
+                            <div class="input-group date">
+                                <div class="input-group-addon">
+                                    <i class="fa fa-calendar"></i>
+                                </div>
+                                @Html.TextBoxFor(model => model.StartDate, new { @class = "form-control pull-right", @type = "datetime", id = "txtStartDate" })
+                            </div>
+                            <!-- /.input group -->
+                        </div>
+                    </div>
+
+                    <div class="box-footer">
+                        <button type="submit" class="btn btn-default pull-right">Reset</button>
+                        <button type="submit" class="btn btn-info pull-right" style="margin-right: 10px;" id="btnSaveTask">Save</button>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    @*}*@
+
+</section>
+
+@section Scripts {
+<script src="~/Scripts/Navigation.js?v=1.2"></script>
+    <script>
+        var AddTaskUrl = '@Url.Action("EditTask", "Task")';
+    </script>
+
+    <script src="~/Content/Task/EditTask.js"></script>
+}
+
+<script src="~/Scripts/Navigation.js?v=1.2"></script>
+<script>
+        var AddTaskUrl = '@Url.Action("EditTask", "Task")';
+</script>
+
+<script src="~/Content/Task/EditTask.js"></script>
+
+@*@section Scripts {*@
+
+    @*@Scripts.Render("~/js")
+    @Styles.Render("~/css")*@
+
+    @*<script type="text/javascript">
+        $(document).ready(function () {
+            $('input[type=datetime]').datepicker({
+                dateFormat: "dd/m/yy",
+                changeMonth: true,
+                changeYear: true,
+                yearRange: "-60:+100"
+            });
+
+            
+
+        });
+    </script>*@
+
+
+@*}*@

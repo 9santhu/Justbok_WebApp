@@ -1,0 +1,117 @@
+﻿<div class="modal-body">
+    <input type="hidden" id="HFSBookingId" />
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label>Client:</label>
+                <span id="spnWho"></span>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label class="control-label">With:</label>
+                <span id="spnWith"></span>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label class="control-label">Appointment:</label>
+                <span id="spnAppointment"></span>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label class="control-label">When:</label>
+                <span id="spnWhen"></span>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label>Slot Date:</label>
+                <span id="spnSlotDate"></span>
+            </div>
+        </div>
+        <div class="col-md-6" id="repeatbox" style="display:none;">
+            <div class="form-group">
+                <label class="control-label">Repeats Until:</label>
+                <span id="spnRepeatsUntil"></span>
+                <div id="repeatsuntil_notice" style="display: none">
+                    <div class="alert alert-danger" role="alert">
+                        <b>This date is after the user's membership's end date (<span id="repeatsuntil_enddate"></span>). Therefore, bills will generate for each appointment afterwards.</b>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label class="control-label">How Long:</label>
+                <span id="spnLength"></span>
+            </div>
+        </div>
+    </div>
+    <!-- BILL PREVIEW -->
+    <div class="row">
+        <div class="col-md-12">
+            <label for="" class="control-label">
+                Billing Preview
+            </label>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="table-responsive">
+                <div id="previewapptbills_wrapper" class="dataTables_wrapper form-inline no-footer">
+                    <div class="row"><div class="col-sm-6"></div><div class="col-sm-6"></div></div><div class="row">
+                        <div class="col-sm-12">
+                            <table class="table table-bordered datatable dataTable no-footer" id="previewapptbills" role="grid">
+                                <thead>
+                                    <tr role="row">
+                                        <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 0px;">Date</th>
+                                        <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 0px;">Description</th>
+                                        <th class="r sorting_disabled" rowspan="1" colspan="1" style="width: 0px;">Amount</th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
+                    </div><div class="row">
+                        <div class="col-sm-5"></div><div class="col-sm-7"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12" id="billpreviewtext">
+        </div>
+    </div>
+</div><!-- modal body -->
+
+<div class="modal-footer">
+    <button type="button" class="btn btn-danger btn-sm btn-flat" tabindex="9" title="Delete" id="btnBookDelete">
+        <i class="glyphicon glyphicon-trash"></i> Delete
+    </button>
+    <button type="button" class="btn btn-default btn-sm btn-flat" onclick="return CloseModel();" tabindex="5" title="Cancel">
+        <i class="glyphicon glyphicon-remove"></i> Cancel
+    </button>
+</div>
+
+
+<script src="~/Scripts/Navigation.js?v=1.2"></script>
+<script>
+    var GettingBookingDetailsByIdUrl = '@Url.Action("GettingBookingDetailsById", "BookAppointment")';
+    var DeleteBookUrl='@Url.Action("DeleteBooking", "BookAppointment")'
+
+    $(document).ready(function () { BindingAppointmentDetails(); });
+
+    $("#btnBookDelete").click(function () { btnBookDeleteClicked();})
+</script>
+

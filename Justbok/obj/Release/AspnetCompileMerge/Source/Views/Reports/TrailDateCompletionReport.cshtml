@@ -1,0 +1,203 @@
+﻿@{
+    ViewBag.Title = "TrailDateCompletionReport";
+}
+
+<div class="" style="">
+    <section class="content-header ng-scope">
+        <h1>
+            Trial Date Completion 
+            <div class="pull-right">
+                <a onclick="return LoadPage('@Url.Action("Index", "Reports")','Justbok | Reports Membership');" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-arrow-left"></i> Reports</a><br><br>
+            </div>
+        </h1>
+    </section>
+    <section class="content ng-scope">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <i class="fa fa-search"></i>
+                        <h3 class="box-title"> Search </h3>
+                        <div class="box-tools pull-right">
+                            <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                        </div><!-- /.box-tools -->
+                    </div><!-- /.box-header -->
+                    <div class="box-body">
+                        <div class="row">
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label>Trial Offered</label>
+                                    <select class="form-control input-sm ng-valid ng-touched ng-dirty ng-valid-parse" id="ddlTrialOffered" ng-model="TrialOffered" ng-options="t.id as t.value for t in TrialOfferList" style=""><option value="" class="" selected="selected">----Select----</option>
+                                    <option label="1" value="1">1</option><option label="2" value="2">2</option><option label="3" value="3">3</option><option label="4" value="4">4</option><option label="5" value="5">5</option><option label="6" value="6">6</option><option label="7" value="7">7</option></select>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label>Completion Days</label>
+                                    <input min="1" id="txtCompletionDays" class="form-control input-sm"  style="" type="number">
+                                </div>
+                            </div>
+
+                            <div class="col-md-2 ">
+                                <div class="form-group" style="margin-top:25px;">
+                                    <button type="button" id="btnSearch" class="btn btn-sm btn-primary btn-flat" title="Search">
+                                        <i class="glyphicon glyphicon-search"></i> Search
+                                    </button>
+                                    <button type="button" id="btnReset" class="btn btn-default btn-sm btn-flat" title="Reset">
+                                        <i class="glyphicon glyphicon-refresh"></i> Reset
+                                    </button>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Trial Date Completion Report</h3>
+                    </div>
+                    <div class="box-body">
+                        <div id="example1_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
+                            <div class="dataTables_length">
+                                <label>
+                                    Show
+                                    <select id="tblCompletion_length" name="tblCompletion_length"
+                                            aria-controls="tblCompletion_length" class="form-control input-sm"
+                                            onchange="return ShowChange();">
+                                        <option value="10">10</option>
+                                        <option value="25">25</option>
+                                        <option value="50">50</option>
+                                        <option value="100">100</option>
+                                    </select> entries
+                                </label>
+                                <div class="pull-right">
+                                    <img src="~/Theme/img/excel.jpg" width="30" height="30" id="dwnldExcel" />
+                                    <img src="~/Theme/img/pdf.png" width="30" height="30" id="dwnldPdf" />
+                                </div>
+                            </div>
+
+                            <div class="col-sm-12 table-responsive">
+                                <table id="tblCompletion" class="table table-bordered table-striped dataTable table-responsive col-sm-12" role="grid" aria-describedby="example1_info">
+
+                                    <thead>
+                                        <tr role="row">
+                                            <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 282.583px; display:none;" aria-label="Browser: activate to sort column ascending">EquiryId Id</th>
+                                            <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 282.583px;" aria-label="Browser: activate to sort column ascending">Member Name</th>
+                                            <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 282.583px;" aria-label="Browser: activate to sort column ascending">Mobile</th>
+                                            <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 282.583px;" aria-label="Browser: activate to sort column ascending">Enquiry Date</th>
+                                            <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 282.583px;" aria-label="Browser: activate to sort column ascending">Trial Days</th>
+                                            <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 282.583px;" aria-label="Browser: activate to sort column ascending">Trial Start Date</th>
+                                    </thead>
+                                    <tbody></tbody>
+                                </table>
+                                <div class="dataTables_paginate paging_simple_numbers" id="tblCompletion_paginate">
+                                    <ul id="pagination" class="pagination"></ul>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </section>
+
+</div>
+
+<div class="bootbox modal fade in" role="dialog" id="modal_Enquiry">
+    <div class="modal-dialog modal-md" style="width: auto;height:auto;">
+        <div class="modal-content" id="divEnquiry">
+            <div class="modal-header" style="padding-bottom:5px;">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <button type="button" class="close pull-right" data-dismiss="modal" aria-label="Close" ><span aria-hidden="true" >×</span></button>
+                        <h4 class="modal-title" id="myLargeModalLabel">Enquiry Details</h4>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-body" style="margin-top:5px;padding-top:5px;">
+                <div class="row">
+                    <div class="col-md-12" style="padding-top:10px;">
+                        <table class="table table-bordered tblEnquiry">
+                            <thead>
+                                <tr>
+                                    <th class="text-center">First Name :</th><td id="firstName"></td>
+                                    <th class="text-center">Last Name :</th><td id="lastName"></td>
+                                    <th class="text-center">Mobile Number :</th><td id="mobileNumber"></td>
+                                </tr>
+                                <tr>
+                                    <th class="text-center">Date Of Birth :</th><td id="dob"></td>
+                                    <th class="text-center">Enquiry Date :</th><td id="enqDate"></td>
+                                    <th class="text-center">Email :</th><td id="email"></td>
+                                    </tr>
+                                <tr>
+                                    <th class="text-center">Phone(Residence)</th><td id="phResidence"></td>
+                                    <th class="text-center">Phone(Office)</th><td id="phOfc"></td>
+                                    <th class="text-center">Gender</th><td id="gender"></td>
+                                </tr>
+                              
+                                <tr>
+                                    <th class="text-center">Age :</th><td id="age"></td>
+                                    <th class="text-center">Program Suggested :</th><td id="program"></td>
+                                    <th class="text-center">How did you know about us ? 	</th><td id="source"></td>
+                                </tr>
+                                <tr>
+                                    <th class="text-center">Address :</th><td id="address"></td>
+                                    <th class="text-center">Intention :</th><td id="intension"></td>
+                                    <th class="text-center">Received By :</th><td id="recievedby"></td>
+
+                                </tr>
+
+                                <tr>
+                                    <th class="text-center">Trial Offered (Days) :</th><td id="trailOfferd"></td>
+                                    <th class="text-center">Trial Date :</th><td id="trailDate"></td>
+                                    @*<th class="text-center">Followup Mode :</th><td id="followup"></td>*@
+                                </tr>
+
+                            </thead>
+                            <tbody style="font-size:12px;"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+           
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+<script src="~/Scripts/Navigation.js?v=1.2"></script>
+    <script>
+
+        var TrailDateCompletionReportUrl = '@Url.Action("TrailDateCompletionList", "Reports")';
+        var SearchTrailDateCompletionReport = '@Url.Action("SearchSourceWiseEnqReportList", "Reports")';
+        var EnquiryDetailsUrl = '@Url.Action("GetEnquiryDetails", "Reports")';
+        var ExcelUrl = '@Url.Action("GenarateExcelReportSourceWiseEnquiry", "Reports")';
+        var PDFUrl = '@Url.Action("GenaratePdfReportSourceWiseEnquiry", "Reports")';
+        var DownloadExcelUrl = '@Url.Action("Download", "Reports")';
+        var DownloadPdfUrl = '@Url.Action("DownloadPDF", "Reports")';
+
+    </script>
+
+<script src="~/Content/Reports/Rpts_TrailDateCompletion.js"></script>
+   
+}
+<script src="~/Scripts/Navigation.js?v=1.2"></script>
+<script>
+
+    var TrailDateCompletionReportUrl = '@Url.Action("TrailDateCompletionList", "Reports")';
+    var SearchSoruceWiseEnqReportUrl = '@Url.Action("SearchSourceWiseEnqReportList", "Reports")';
+    var EnquiryDetailsUrl = '@Url.Action("GetEnquiryDetails", "Reports")';
+    var ExcelUrl = '@Url.Action("GenarateExcelReportSourceWiseEnquiry", "Reports")';
+    var PDFUrl = '@Url.Action("GenaratePdfReportSourceWiseEnquiry", "Reports")';
+    var DownloadExcelUrl = '@Url.Action("Download", "Reports")';
+    var DownloadPdfUrl = '@Url.Action("DownloadPDF", "Reports")';
+</script>
+
+
+<script src="~/Content/Reports/Rpts_TrailDateCompletion.js"></script>

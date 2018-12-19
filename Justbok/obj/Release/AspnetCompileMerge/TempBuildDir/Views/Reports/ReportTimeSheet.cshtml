@@ -1,0 +1,255 @@
+﻿@{
+    ViewBag.Title = "Reports Time Sheet";
+}
+
+
+<div class="" style="">
+    <section class="content-header ng-scope">
+        <h1>
+            Time Sheet
+            <div class="pull-right">
+                <a onclick="return LoadPage('@Url.Action("Index", "Reports")','Justbok | Reports Membership');" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-arrow-left"></i> Reports</a><br><br>
+            </div>
+        </h1>
+    </section>
+    <section class="content ng-scope">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <i class="fa fa-search"></i>
+                        <h3 class="box-title"> Search</h3>
+                        <div class="box-tools pull-right">
+                            <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                        </div><!-- /.box-tools -->
+                    </div><!-- /.box-header -->
+                    <div class="box-body">
+                        <div class="row">
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label>From Date</label>
+                                    <input class="form-control input-sm" id="txtFromDate" type="datetime">
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label>To Date</label>
+                                    <input class="form-control input-sm" id="txtToDate" type="datetime">
+                                </div>
+                            </div>
+
+                            <div class="col-md-2 ">
+                                <div class="form-group" style="margin-top:25px;">
+                                    <button type="button" id="btnSearch" class="btn btn-sm btn-primary btn-flat" title="Search">
+                                        <i class="glyphicon glyphicon-search"></i> Search
+                                    </button>
+                                    <button type="button" id="btnReset" class="btn btn-default btn-sm btn-flat" title="Reset">
+                                        <i class="glyphicon glyphicon-refresh"></i> Reset
+                                    </button>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Timesheet Report </h3>
+                    </div>
+                    <div class="box-body">
+                        <div id="example1_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
+                            <div class="dataTables_length">
+                                <label>
+                                    Show
+                                    <select id="tblTimesheetReports_length" name="tblTimesheetReports_length"
+                                            aria-controls="tblTimesheetReports" class="form-control input-sm"
+                                            onchange="return ShowChange();">
+                                        <option value="10">10</option>
+                                        <option value="25">25</option>
+                                        <option value="50">50</option>
+                                        <option value="100">100</option>
+                                    </select> entries
+                                </label>
+                                <div class="pull-right">
+                                    <img src="~/Theme/img/excel.jpg" width="30" height="30" id="dwnldExcel" />
+                                    <img src="~/Theme/img/pdf.png" width="30" height="30" id="dwnldPdf" />
+                                </div>
+                            </div>
+
+                            <div class="col-sm-12 table-responsive">
+                                <table id="tblTimesheetReports" class="table table-bordered table-striped dataTable" role="grid" aria-describedby="example1_info">
+
+                                    <thead>
+                                        <tr role="row">
+
+                                            <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 282.583px;" aria-label="Browser: activate to sort column ascending">Name</th>
+                                            <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 282.583px;" aria-label="Browser: activate to sort column ascending">Working Days</th>
+                                            <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 143.717px;" aria-label="CSS grade: activate to sort column ascending">Present Days</th>
+                                            <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 143.717px;" aria-label="CSS grade: activate to sort column ascending">Leave Days</th>
+                                            <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 143.717px;" aria-label="CSS grade: activate to sort column ascending">Salary</th>
+                                            <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width: 143.717px;" aria-label="CSS grade: activate to sort column ascending">Action</th>
+                                    </thead>
+                                    <tbody></tbody>
+                                </table>
+                                <div class="dataTables_paginate paging_simple_numbers" id="tblTimesheetReports_paginate">
+                                    <ul id="pagination" class="pagination"></ul>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </section>
+
+</div>
+
+
+<div class="bootbox modal fade in" role="dialog" id="modal_Conformation">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="bootbox-close-button close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title">Confirmation !</h4>
+            </div>
+            <div class="modal-body">
+                <div class="bootbox-body">This month is not ended! Do you still want to add Salary?</div>
+                <input id="txtPaymentRecieptNo" class="" type="hidden">
+            </div>
+            <div class="modal-footer">
+                <button data-bb-handler="success" type="button" class="btn btn-success btn-flat" id="btnYes">Yes</button>
+                <button data-bb-handler="danger" type="button" class="btn btn-danger btn-flat" data-dismiss="modal">No</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modal-Salary">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="SalaryUserName"></h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <input type="text" id="txtSalaryStaffId" style="display:none;" />
+                        <input type="text" id="txtSalarySalaryId" style="display:none;" />
+                        <div class="form-group">
+                            <label>Salary Date <span class="required" aria-required="true"> * </span></label>
+                            <input id="txtSalaryDate" class="form-control input-sm " tabindex="1" style="" type="datetime">
+                        </div>
+                        <div class="form-group">
+                            <label>Salary Mode <span class="required" aria-required="true"> * </span></label>
+                            <select id="ddlSalaryMode" class="form-control input-sm " tabindex="3"><option value="" class="" selected="selected">----Select----</option><option label="Cash" value="number:1">Cash</option><option label="Cheque" value="number:2">Cheque</option><option label="Card" value="number:3">Card</option><option label="Bank Transfer" value="number:4">Bank Transfer</option></select>
+                        </div>
+                        <div class="form-group">
+                            <label>Comments</label>
+                            <textarea id="txtComments" rows="3" class="form-control input-sm ng-pristine ng-untouched ng-valid" ng-model="UserSalaryComments" tabindex="5"></textarea>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Salary Amount <span class="required" aria-required="true"> * </span></label>
+                            <div class="input-group">
+                                <input id="txtSalaryAmount" class="form-control input-sm ng-pristine ng-untouched ng-valid" ng-model="UserSalary" onkeypress="return isNumber(event);" tabindex="2" type="number">
+                                <span class="input-group-addon">  ₹ </span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Reference Number</label>
+                            <input class="form-control input-sm ng-pristine ng-untouched ng-valid" id="txtReferenceNumber" ng-model="ReferenceNumber" tabindex="4" type="text">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" id="btnAddSalary" class="btn btn-sm btn-primary btn-flat" onclick="SaveSalary()" tabindex="6" title="Add Salary"><span class="glyphicon glyphicon-ok"></span>  Add Salary</button>
+                <button type="button" id="btnSalaryReset" class="btn btn-sm btn-default btn-flat" data-dismiss="modal" ng-click="ResetSalary()" tabindex="7" title="Close"><span class="glyphicon glyphicon-remove"></span>  Close</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+
+<div class="bootbox modal fade in" role="dialog" id="modal_Calender">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true" ng-click="">×</span></button>
+                <h4 class="modal-title" id="CalUserName"></h4>
+                <span id="spStaffid" style="display:none;" />
+            </div>
+
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12" style="overflow-y:scroll;max-height:450px">
+                        <table class="table table-bordered" id="UserTimesheet">
+                        <thead>
+                            <tr>
+                            <th rowspan="2">Date</th>
+                            <th colspan="2"> Morning </th>
+                            <th rowspan="2">Working Hours</th>
+                            <th rowspan="2">Type</th>
+                            </tr>
+                            </thead>
+                        <tbody>
+                            @*<tr><th></th><th> In (9:30 AM) </th><th> Out (9:30 PM)</th><th></th><th></th></tr>
+                            <tr class="null"><td>01/10/2018 - Mon </td><td></td><td></td><td> </td> <td><span class="label label-danger">Absent</span></td> </tr><tr class="null"><td>02/10/2018 - Tue </td><td></td><td></td><td> </td> <td><span class="label label-danger">Absent</span></td> </tr><tr class="null"><td>03/10/2018 - Wed </td><td></td><td></td><td> </td> <td><span class="label label-danger">Absent</span></td> </tr><tr class="null"><td>04/10/2018 - Thu </td><td></td><td></td><td> </td> <td><span class="label label-danger">Absent</span></td> </tr><tr class="null"><td>05/10/2018 - Fri </td><td>8:45 PM</td><td> </td><td> 0 Hrs 44 Mins</td> <td><span class="label label-success">Present</span></td> </tr><tr class="saturday"><td>06/10/2018 - Sat </td><td></td><td></td><td> </td> <td><span class="label label-danger">Absent</span></td> </tr><tr class="sunday"><td>07/10/2018 - Sun </td><td>11:41 PM</td><td> 11:41 PM </td><td> 0 Hrs 0 Mins</td> <td><span class="label  label-primary">Leave</span></td> </tr><tr class="null"><td>08/10/2018 - Mon </td><td></td><td></td><td> </td> <td><span class="label label-danger">Absent</span></td> </tr><tr class="null"><td>09/10/2018 - Tue </td><td></td><td></td><td> </td> <td><span class="label label-danger">Absent</span></td> </tr><tr class="null"><td>10/10/2018 - Wed </td><td></td><td></td><td> </td> <td><span class="label label-danger">Absent</span></td> </tr><tr class="null"><td>11/10/2018 - Thu </td><td></td><td></td><td> </td> <td><span class="label label-danger">Absent</span></td> </tr><tr class="null"><td>12/10/2018 - Fri </td><td></td><td></td><td> </td> <td><span class="label label-danger">Absent</span></td> </tr><tr class="evenSaturday"><td>13/10/2018 - Sat </td><td></td><td></td><td> </td> <td><span class="label label-danger">Absent</span></td> </tr><tr class="sunday"><td>14/10/2018 - Sun </td><td></td><td></td><td> </td> <td><span class="label label-danger">Absent</span></td> </tr><tr class="null"><td>15/10/2018 - Mon </td><td></td><td></td><td> </td> <td><span class="label label-danger">Absent</span></td> </tr><tr class="null"><td>16/10/2018 - Tue </td><td></td><td></td><td> </td> <td><span class="label label-danger">Absent</span></td> </tr><tr class="null"><td>17/10/2018 - Wed </td><td></td><td></td><td> </td> <td><span class="label label-danger"></span></td> </tr><tr class="null"><td>18/10/2018 - Thu </td><td></td><td></td><td> </td> <td><span class="label label-danger"></span></td> </tr><tr class="null"><td>19/10/2018 - Fri </td><td></td><td></td><td> </td> <td><span class="label label-danger"></span></td> </tr><tr class="saturday"><td>20/10/2018 - Sat </td><td></td><td></td><td> </td> <td><span class="label label-danger"></span></td> </tr><tr class="sunday"><td>21/10/2018 - Sun </td><td></td><td></td><td> </td> <td><span class="label label-danger"></span></td> </tr><tr class="null"><td>22/10/2018 - Mon </td><td></td><td></td><td> </td> <td><span class="label label-danger"></span></td> </tr><tr class="null"><td>23/10/2018 - Tue </td><td></td><td></td><td> </td> <td><span class="label label-danger"></span></td> </tr><tr class="null"><td>24/10/2018 - Wed </td><td></td><td></td><td> </td> <td><span class="label label-danger"></span></td> </tr><tr class="null"><td>25/10/2018 - Thu </td><td></td><td></td><td> </td> <td><span class="label label-danger"></span></td> </tr><tr class="null"><td>26/10/2018 - Fri </td><td></td><td></td><td> </td> <td><span class="label label-danger"></span></td> </tr><tr class="evenSaturday"><td>27/10/2018 - Sat </td><td></td><td></td><td> </td> <td><span class="label label-danger"></span></td> </tr><tr class="sunday"><td>28/10/2018 - Sun </td><td></td><td></td><td> </td> <td><span class="label label-danger"></span></td> </tr><tr class="null"><td>29/10/2018 - Mon </td><td></td><td></td><td> </td> <td><span class="label label-danger"></span></td> </tr><tr class="null"><td>30/10/2018 - Tue </td><td></td><td></td><td> </td> <td><span class="label label-danger"></span></td> </tr><tr class="null"><td>31/10/2018 - Wed </td><td></td><td></td><td> </td> <td><span class="label label-danger"></span></td> </tr></tbody><tbody></tbody></table>
+                    </div>*@
+                            </tbody>
+                            </table>
+                            </div>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+            </div>
+
+
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    <script src="~/Scripts/Navigation.js?v=1.2"></script>
+    <script>
+
+        var TimesheetUrl = '@Url.Action("TimesheetReports", "Reports")';
+        var SaveSalaryUrl = '@Url.Action("SaveSalaryEmployee", "Reports")';
+        var CalenderUrl = '@Url.Action("FullMonthCalenderBindTimeSheet", "Reports")';
+
+        @*var ExcelUrl = '@Url.Action("GenarateExcelReportsMemberReference", "Reports")';
+        var PDFUrl = '@Url.Action("GenaratePdfReportsMemberReference", "Reports")';
+        var DownloadExcelUrl = '@Url.Action("Download", "Reports")';
+        var DownloadPdfUrl = '@Url.Action("DownloadPDF", "Reports")';*@
+
+    </script>
+<script src="~/Content/Reports/Rpt_TimeSheet.js"></script>
+
+}
+<script src="~/Scripts/Navigation.js?v=1.2"></script>
+<script>
+    var TimesheetUrl = '@Url.Action("TimesheetReports", "Reports")';
+    var SaveSalaryUrl = '@Url.Action("SaveSalaryEmployee", "Reports")';
+    var CalenderUrl = '@Url.Action("FullMonthCalenderBindTimeSheet", "Reports")';
+    @*var GetReportListUrl = '@Url.Action("ReportsMemberReference", "Reports")';
+    var ExcelUrl = '@Url.Action("GenarateExcelReportsMemberReference", "Reports")';
+    var PDFUrl = '@Url.Action("GenaratePdfReportsMemberReference", "Reports")';
+    var DownloadExcelUrl = '@Url.Action("Download", "Reports")';
+    var DownloadPdfUrl = '@Url.Action("DownloadPDF", "Reports")';*@
+</script>
+
+
+<script src="~/Content/Reports/Rpt_TimeSheet.js"></script>
